@@ -13,10 +13,16 @@ texture = ExtResource("1_fv803")
 script = ExtResource("2_a10bj")
 
 [node name="Snap" parent="." instance=ExtResource("2_0v3ay")]
-position = Vector2(274, 398)
+position = Vector2(557, 182)
 
 [node name="Platform" parent="." instance=ExtResource("4_13p0j")]
-position = Vector2(691, 394)
+position = Vector2(136, 509)
 
 [node name="Platform2" parent="." instance=ExtResource("4_13p0j")]
-position = Vector2(663, 115)
+position = Vector2(384, 509)
+
+[node name="Platform3" parent="." instance=ExtResource("4_13p0j")]
+position = Vector2(632, 509)
+
+[node name="Platform4" parent="." instance=ExtResource("4_13p0j")]
+position = Vector2(886, 509)
