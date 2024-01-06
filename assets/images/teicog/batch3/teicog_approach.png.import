@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3dalojrkiop4"
-path="res://.godot/imported/teicog_approach.png-335e68f27490525e3cca81c2e248ded0.ctex"
+path="res://.godot/imported/teicog_approach.png-862497c415ec806d42afe8c1273da301.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/teicog/batch3/teicog_approach.png"
-dest_files=["res://.godot/imported/teicog_approach.png-335e68f27490525e3cca81c2e248ded0.ctex"]
+source_file="res://assets/images/teicog/batch3/teicog_approach.png"
+dest_files=["res://.godot/imported/teicog_approach.png-862497c415ec806d42afe8c1273da301.ctex"]
 
 [params]
 
