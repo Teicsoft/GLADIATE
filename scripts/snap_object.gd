@@ -1,9 +1,6 @@
 extends Node2D
 
-# todo Currently only snaps objects to the last object entered. 
-# If overlapping two objects, and backing off from the last entered into the second last, it will still go to most recently entered
-# This might be fixed by a stack pointer, clearning
-# probably better to base off cursor pos
+# todo: set number of node positions based on hand size
 
 var draggable = false
 var is_inside_dropable = 0 

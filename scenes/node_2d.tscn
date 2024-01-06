@@ -12,9 +12,6 @@ position = Vector2(170, 155)
 texture = ExtResource("1_fv803")
 script = ExtResource("2_a10bj")
 
-[node name="Snap" parent="." instance=ExtResource("2_0v3ay")]
-position = Vector2(557, 182)
-
 [node name="Platform" parent="." instance=ExtResource("4_13p0j")]
 position = Vector2(136, 509)
 
@@ -26,3 +23,6 @@ position = Vector2(632, 509)
 
 [node name="Platform4" parent="." instance=ExtResource("4_13p0j")]
 position = Vector2(886, 509)
+
+[node name="Snap" parent="." instance=ExtResource("2_0v3ay")]
+position = Vector2(557, 182)
