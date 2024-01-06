@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqao12oo3nh0o"
-path="res://.godot/imported/teicog8.png-01582b0ee10c9ab0a033f3d7b41d2c80.ctex"
+path="res://.godot/imported/teicog8.png-363d90f5520857b6a954810ee68e0e2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/teicog/batch2/teicog8.png"
-dest_files=["res://.godot/imported/teicog8.png-01582b0ee10c9ab0a033f3d7b41d2c80.ctex"]
+source_file="res://assets/images/teicog/batch2/teicog8.png"
+dest_files=["res://.godot/imported/teicog8.png-363d90f5520857b6a954810ee68e0e2b.ctex"]
 
 [params]
 
