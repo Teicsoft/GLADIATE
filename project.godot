@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="TeicsoftSpectacleCards"
-run/main_scene="res://node_2d.tscn"
+run/main_scene="res://scenes/node_2d.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/images/icon.svg"
 
 [dotnet]
 
