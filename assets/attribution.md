@@ -11,4 +11,4 @@ Credit the original author and provide a link to the original source.
 
 ### Fonts
 
-### Other
+### Otherá
