@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu4n20uiuunfs"]
+[gd_scene load_steps=5 format=3 uid="uid://b8gve2pic6gxv"]
 
 [ext_resource type="Texture2D" uid="uid://dykp4t8ydid2u" path="res://assets/images/icon.svg" id="1_fv803"]
+[ext_resource type="PackedScene" uid="uid://p5ciagm88o2r" path="res://scenes/snap_object.tscn" id="2_0v3ay"]
 [ext_resource type="Script" path="res://scripts/Icon.cs" id="2_a10bj"]
+[ext_resource type="PackedScene" uid="uid://04dn8iyrtwj5" path="res://scenes/snap_platform.tscn" id="4_13p0j"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -9,3 +11,18 @@
 position = Vector2(170, 155)
 texture = ExtResource("1_fv803")
 script = ExtResource("2_a10bj")
+
+[node name="Platform" parent="." instance=ExtResource("4_13p0j")]
+position = Vector2(136, 509)
+
+[node name="Platform2" parent="." instance=ExtResource("4_13p0j")]
+position = Vector2(384, 509)
+
+[node name="Platform3" parent="." instance=ExtResource("4_13p0j")]
+position = Vector2(632, 509)
+
+[node name="Platform4" parent="." instance=ExtResource("4_13p0j")]
+position = Vector2(886, 509)
+
+[node name="Snap" parent="." instance=ExtResource("2_0v3ay")]
+position = Vector2(557, 182)
