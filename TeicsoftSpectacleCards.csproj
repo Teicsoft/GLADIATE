@@ -29,5 +29,6 @@
     <Content Include="images\teicsoft\blue.png" />
     <Content Include="images\teicsoft\Teicsoft logo concept 3alt t.png" />
     <Content Include="images\teicsoft\Teicsoft logo concept 3alt tw.png" />
+    <Content Include="scripts\autoloads\SceneLoader.gd" />
   </ItemGroup>
 </Project>

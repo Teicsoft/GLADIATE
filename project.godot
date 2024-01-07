@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="TeicsoftSpectacleCards"
-run/main_scene="res://scenes/Playmat.tscn"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://assets/images/Cyber-Denarius.png"
 
 [autoload]
 
-snap_global="*res://scripts/snap_global.gd"
+snap_global="*res://scripts/autoloads/snap_global.gd"
+scene_loader="*res://scripts/autoloads/SceneLoader.gd"
 
 [dotnet]
 
