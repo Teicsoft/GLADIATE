@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scene_locations>
+	<location id=""> <!-- Every character should have a unique ID following this pattern, loc_name -->
+		<name> </name> <!-- location name to be displayed in game -->
+		<image> </image> <!-- Background image, an asset name -->
+		<animations>
+			<animation id=""> <!-- A reference to the animation that should be played over this scene -->
+		</animations>
+	</location>
+</scene_locations>

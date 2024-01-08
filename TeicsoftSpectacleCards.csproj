@@ -30,5 +30,9 @@
     <Content Include="images\teicsoft\Teicsoft logo concept 3alt t.png" />
     <Content Include="images\teicsoft\Teicsoft logo concept 3alt tw.png" />
     <Content Include="scripts\autoloads\SceneLoader.gd" />
+    <Content Include="scripts\customresource\Character_Model.gd" />
+    <Content Include="scripts\customresource\Dialogue_Model.gd" />
+    <Content Include="scripts\customresource\Location_Model.gd" />
+    <Content Include="scripts\customresource\Dialogue_Script_Model.gd" />
   </ItemGroup>
 </Project>

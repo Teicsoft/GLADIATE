@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbqe6jd76hjqf"]
+
+[ext_resource type="Script" path="res://scripts/autoloads/dialogue_display.gd" id="1_js6sq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6vv8"]
+
+[node name="DialogueDisplay" type="PanelContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_t6vv8")
+script = ExtResource("1_js6sq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+text = "Test"
+horizontal_alignment = 1
+vertical_alignment = 1
