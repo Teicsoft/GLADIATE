@@ -1,27 +1,21 @@
 extends PanelContainer
 
+var Dialogue_Model
+
+func _init():
+	print("dialogue_display: _init")
+
+	Dialogue_Model = load("res://scripts/customresource/Dialogue_Model.gd")
+	var model_node = Node.new()
+	model_node.set_script(Dialogue_Model)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("_ready")
-	read_dialogue_XMl("dialogue_example")
-
-
+	print("dialogue_display: _ready")
+	pass
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func read_dialogue_XMl(file: String):
-	print("read_dialogue_XMl")
-	var parser = XMLParser.new()
-	var dialogue_path = "res://assets/writing/dialogue/"
-	parser.open(dialogue_path + file + ".xml")
 	
-	while parser.read() != ERR_FILE_EOF:
-		if parser.get_node_type() == XMLParser.NODE_ELEMENT:
-			var node_name = parser.get_node_name()
-			var attributes_dict = {}
-			for idx in range(parser.get_attribute_count()):
-				attributes_dict[parser.get_attribute_name(idx)] = parser.get_attribute_value(idx)
-			print("The ", node_name, " element has the following attributes: ", attributes_dict)
