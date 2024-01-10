@@ -15,7 +15,7 @@
 
 <!-- _______________________________________________________________________________________________________________ -->
 	
-	<dialogue_script>
+	<shots>
 		<shot id="shot_1" location_id="loc_underground"> 
 			<lines> 			
 				<line character_id="char_main" animation_id="animation_sample"> 
@@ -60,7 +60,7 @@
 			</options>
 		</shot>
 		
-	</dialogue_script>
+	</shots>
 	
 </dialogue>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- ------------------------------------------------------------------------------------------------------------- -->
+<!-- _______________________________________________________________________________________________________________ -->
 
 <!-- this is a comment, it does nothing when read by the game -->
 
@@ -35,24 +35,21 @@ options are a list of responses, or a dialogue_end tag. They may contain text, b
 	or a dialogue_end tag (which exits the dialogue)
 -->
 
-<!-- ------------------------------------------------------------------------------------------------------------- -->
+<!-- _______________________________________________________________________________________________________________ -->
 
 
 <dialogue>
 	<characters_present>
-		<character id=""> <!-- The id from characters.xml -->
-			<default_pos> left </default_pos> <!-- Where the character appears on screen: left / mid / right -->
-		</character>
+		<character id="" default_pos=""/> <!-- The id from characters.xml -->
 	</characters_present>
 	
-	<locations_present> <!-- The id from locations.xml -->
-		<location id="">
-		<location id="">
+	<locations_present>
+		<location id=""/> <!-- The id from locations.xml -->
 	</locations_present>
+
+<!-- _______________________________________________________________________________________________________________ -->
 	
-<!-- ------------------------------------------------------------------------------------------------------------- -->
-	
-	<script>
+	<dialogue_script>
 	
 		<shot id="" location_id=""> 
 			<lines> <!-- you can have any number of lines in a shot, they will be played sequentially -->
@@ -73,7 +70,7 @@ options are a list of responses, or a dialogue_end tag. They may contain text, b
 				
 				<option>
 					<text> </text>
-					<dialogue_end end_var=""> <!-- a flag to end the current dialogue. Includes an attribtue variable to pass data forward into gameplay, for example to decide next battle -->
+					<dialogue_end end_var=""/> <!-- a flag to end the current dialogue. Includes an attribtue variable to pass data forward into gameplay, for example to decide next battle -->
 				</option>
 			</options>
 		</shot>
@@ -86,12 +83,12 @@ options are a list of responses, or a dialogue_end tag. They may contain text, b
 			</line>
 			
 			<options>			
-				<dialogue_end>
+				<dialogue_end end_var=""/>
 			</options>
 		</shot>
 		
-	</script>
+	</dialogue_script>
 	
 </dialogue>
 
-<!-- ------------------------------------------------------------------------------------------------------------- -->
+<!-- _______________________________________________________________________________________________________________ -->

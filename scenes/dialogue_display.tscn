@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbqe6jd76hjqf"]
 
-[ext_resource type="Script" path="res://scripts/autoloads/dialogue_display.gd" id="1_js6sq"]
+[ext_resource type="Script" path="res://scripts/dialogue/DialogueDisplay.cs" id="1_pykwa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6vv8"]
 
@@ -13,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_t6vv8")
-script = ExtResource("1_js6sq")
+script = ExtResource("1_pykwa")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
