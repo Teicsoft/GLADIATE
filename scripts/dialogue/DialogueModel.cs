@@ -14,4 +14,9 @@ public class DialogueModel
         this.locations_present = locationsPresent;
         this.shotlist = shotlist;
     }
+    
+    public override string ToString()
+    {
+        return $"{nameof(characters_present)}: {characters_present}, {nameof(locations_present)}: {locations_present}, {nameof(shotlist)}: {shotlist}";
+    }
 }

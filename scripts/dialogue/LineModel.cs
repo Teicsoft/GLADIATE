@@ -33,4 +33,9 @@ public class LineModel
         this.override_position = overridePosition;
     }
     
+    public override string ToString()
+    {
+        return $"{nameof(text)}: {text}, {nameof(character_id)}: {character_id}, {nameof(animation_id)}: {animation_id}, {nameof(override_position)}: {override_position}";
+    }
+    
 }

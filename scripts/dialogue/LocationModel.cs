@@ -19,5 +19,5 @@ public class LocationModel
     {
         return $"{nameof(id)}: {id}, {nameof(loc_name)}: {loc_name}, {nameof(image)}: {image}"; //, {nameof(animations)}: {animations}"; 
     }
-
+    
 }

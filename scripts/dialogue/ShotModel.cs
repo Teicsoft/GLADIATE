@@ -17,4 +17,8 @@ public class ShotModel
         this.options = options;
     }
     
+    public override string ToString()
+    {
+        return $"{nameof(id)}: {id}, {nameof(location_id)}: {location_id}, {nameof(lines)}: {lines}, {nameof(options)}: {options}";
+    }
 }
