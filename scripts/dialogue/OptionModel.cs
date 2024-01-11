@@ -1,61 +1,59 @@
-using System;
-
 namespace TeicsoftSpectacleCards.scripts.dialogue;
 
 public class OptionModel
 {
-    public string text { get; set;}
-    public string next_shot { get; set;}
-    public bool end_dialogue { get; set;}
-    public string end_var { get; set;}
-    
-    
+    public string Text { get; set; }
+    public string NextShot { get; set; }
+    public bool EndDialogue { get; set; }
+    public string EndVar { get; set; }
+
+
     public OptionModel(string nextShot)
     {
-        this.next_shot = nextShot;
+        this.NextShot = nextShot;
     }
-   
+
     public OptionModel(string text, string nextShot)
     {
-        this.text = text;
-        this.next_shot = nextShot; 
+        this.Text = text;
+        this.NextShot = nextShot;
     }
-    
+
     public OptionModel(bool endDialogue, string endVar)
     {
-        this.end_dialogue = endDialogue;
-        this.end_var = endVar;
+        this.EndDialogue = endDialogue;
+        this.EndVar = endVar;
     }
-    
+
     public OptionModel(string text, bool endDialogue, string endVar)
     {
-        this.text = text;
-        this.end_dialogue = endDialogue;
-        this.end_var = endVar;
+        this.Text = text;
+        this.EndDialogue = endDialogue;
+        this.EndVar = endVar;
     }
 
     public override string ToString()
     {
-        if (end_dialogue)
+        if (EndDialogue)
         {
-            if (this.text != null)
+            if (this.Text != null)
             {
-                return $"{nameof(text)}: {text}, {nameof(end_dialogue)}: {end_dialogue}, {nameof(end_var)}: {end_var}";
+                return $"{nameof(Text)}: {Text}, {nameof(EndDialogue)}: {EndDialogue}, {nameof(EndVar)}: {EndVar}";
             }
             else
             {
-                return $"{nameof(end_dialogue)}: {end_dialogue}, {nameof(end_var)}: {end_var}";
+                return $"{nameof(EndDialogue)}: {EndDialogue}, {nameof(EndVar)}: {EndVar}";
             }
         }
         else
         {
-            if (this.text != null)
+            if (this.Text != null)
             {
-                return $"{nameof(text)}: {text}, {nameof(next_shot)}: {next_shot}";
+                return $"{nameof(Text)}: {Text}, {nameof(NextShot)}: {NextShot}";
             }
             else
             {
-                return $"{nameof(next_shot)}: {next_shot}";
+                return $"{nameof(NextShot)}: {NextShot}";
             }
         }
     }

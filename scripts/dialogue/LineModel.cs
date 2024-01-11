@@ -2,40 +2,40 @@ namespace TeicsoftSpectacleCards.scripts.dialogue;
 
 public class LineModel
 {
-    public string text { get; set;}
-    public string character_id { get; set;}
-    public string animation_id { get; set;}
-    public string override_position { get; set;}
+    public string Text { get; set;}
+    public string CharacterId { get; set;}
+    public string AnimationId { get; set;}
+    public string OverridePosition { get; set;}
     
     public LineModel(string text)
     {
-        this.text = text;
+        this.Text = text;
     }
 
     public LineModel(string text, string characterId)
     {
-        this.text = text;
-        this.character_id = characterId;
+        this.Text = text;
+        this.CharacterId = characterId;
     }
     
     public LineModel(string text, string characterId, string animationId)
     {
-        this.text = text;
-        this.character_id = characterId;
-        this.animation_id = animationId;
+        this.Text = text;
+        this.CharacterId = characterId;
+        this.AnimationId = animationId;
     }
 
     public LineModel(string text, string characterId, string animationId, string overridePosition)
     {
-        this.text = text;
-        this.character_id = characterId;
-        this.animation_id = animationId;
-        this.override_position = overridePosition;
+        this.Text = text;
+        this.CharacterId = characterId;
+        this.AnimationId = animationId;
+        this.OverridePosition = overridePosition;
     }
     
     public override string ToString()
     {
-        return $"{nameof(text)}: {text}, {nameof(character_id)}: {character_id}, {nameof(animation_id)}: {animation_id}, {nameof(override_position)}: {override_position}";
+        return $"{nameof(Text)}: {Text}, {nameof(CharacterId)}: {CharacterId}, {nameof(AnimationId)}: {AnimationId}, {nameof(OverridePosition)}: {OverridePosition}";
     }
     
 }

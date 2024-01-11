@@ -1,13 +1,12 @@
 using System;
-using System.Linq;
 using System.Xml;
 using Godot;
 
 namespace TeicsoftSpectacleCards.scripts.dialogue;
 
-public static class DialogueXMLParser
+public static class DialogueXmlParser
 {
-	public static CharacterModel[] ParseCharactersFromXML(String filePath)
+	public static CharacterModel[] ParseCharactersFromXml(String filePath)
 	{
 		GD.Print("\nParseCharactersFromXML: " + filePath + "\n");
 		using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
@@ -20,25 +19,44 @@ public static class DialogueXMLParser
 		CharacterModel[] characterList = new CharacterModel[characterNodes.Count];
 		
 		int i = 0;
-		
 		foreach (XmlNode characterNode in characterNodes)
 		{
+			string charId = characterNode.Attributes["id"].Value;
+			string charName = characterNode.SelectSingleNode("name").InnerText;
+			string fontRef = characterNode.SelectSingleNode("font").InnerText;
+			string colorHex = characterNode.SelectSingleNode("color").InnerText;
+			string spriteRef = characterNode.SelectSingleNode("sprite").InnerText;
+			string defaultAnimation = characterNode.SelectSingleNode("default_animation").InnerText;
+			
+			
+			XmlNodeList animationNodes = characterNode.SelectNodes("animations/animation");
+			string[] animationList = new string[animationNodes.Count];
+
+			int j = 0;
+			foreach (XmlNode animationNode in animationNodes)
+			{
+				String animationId = animationNode.Attributes["id"].Value;
+				animationList[j] = animationId;
+				j+=1;
+			}
+			
 			CharacterModel character = new CharacterModel(
-				characterNode.Attributes["id"].Value,
-				characterNode.SelectSingleNode("name").InnerText,
-				characterNode.SelectSingleNode("font").InnerText,
-				characterNode.SelectSingleNode("color").InnerText,
-				characterNode.SelectSingleNode("sprite").InnerText,
-				characterNode.SelectSingleNode("default_animation").InnerText);
+				charId, 
+				charName, 
+				fontRef, 
+				colorHex, 
+				spriteRef, 
+				defaultAnimation,
+				animationList
+				);
 
 			characterList[i] = character;
-			// GD.Print(characterList[i].ToString());
+			i += 1;
 		}
-
 		return characterList;
 	}
 		
-	public static LocationModel[] ParseLocationsFromXML(String filePath)
+	public static LocationModel[] ParseLocationsFromXml(String filePath)
 	{
 		GD.Print("\nParseLocationsFromXML: " + filePath + "\n");
 		
@@ -55,12 +73,31 @@ public static class DialogueXMLParser
 		
 		foreach (XmlNode locationNode in locationNodes)
 		{
+			string locationId = locationNode.Attributes["id"].Value;
+			string locationName = locationNode.SelectSingleNode("name").InnerText;
+			string locationImage = locationNode.SelectSingleNode("image").InnerText;
+
+			XmlNodeList animationNodes = locationNode.SelectNodes("animations/animation");
+			string[] animationList = new string[animationNodes.Count];
+			
+			int j = 0;
+			foreach (XmlNode animationNode in animationNodes)
+			{
+				String animationId = animationNode.Attributes["id"].Value;
+				animationList[j] = animationId;
+				j+=1;
+			}
+
+
 			LocationModel location = new LocationModel(
-				locationNode.Attributes["id"].Value,
-				locationNode.SelectSingleNode("name").InnerText,
-				locationNode.SelectSingleNode("image").InnerText);
+				locationId,
+				locationName,
+				locationImage,
+				animationList
+				);
 
 			locationList[i] = location;
+			i+=1;
 			// GD.Print(locationList[i].ToString());
 		}
 
@@ -68,7 +105,7 @@ public static class DialogueXMLParser
 	}
 	
 	
-	public static ShotModel[] ParseShotsFromXML(String filePath)
+	public static ShotModel[] ParseShotsFromXml(String filePath)
 	{
 		GD.Print("\nParseShotsFromXML: " + filePath + "\n");
 		
@@ -98,27 +135,39 @@ public static class DialogueXMLParser
 			int j = 0;
 			foreach (XmlNode lineNode in lineNodes)
 			{
-				try {
-					string overridePosition = lineNode.SelectSingleNode("override_pos").InnerText;
-					LineModel line = new LineModel(
+				String overridePosition;
+				LineModel line;
+				
+				try
+				{
+					overridePosition = lineNode.SelectSingleNode("override_pos").InnerText;
+					// GD.Print("override_pos: " );
+				}
+				catch (Exception e)
+				{
+					overridePosition = null;
+				}
+				
+				
+				if (overridePosition != null) {
+					line = new LineModel(
 						lineNode.SelectSingleNode("text").InnerText,
 						lineNode.Attributes["character_id"].Value,
 						lineNode.Attributes["animation_id"].Value,
 						overridePosition);
-					lineList.Append(line);
-					j+=1;
 					// GD.Print(line.ToString());
-				} catch (NullReferenceException e) {
-					LineModel line = new LineModel(
+				} else{
+					line = new LineModel(
 						lineNode.SelectSingleNode("text").InnerText,
 						lineNode.Attributes["character_id"].Value,
 						lineNode.Attributes["animation_id"].Value
 						);
-					lineList[j] = line;
-					j+=1;
 					// GD.Print(line.text);
 					// GD.Print(e);
 				}
+				lineList[j] = line;
+
+				j+=1;
 			}
 
 			// get list of OptionModel objects
@@ -126,22 +175,22 @@ public static class DialogueXMLParser
 			foreach (XmlNode optionNode in optionNodes)
 			{
 
-				XmlNode end_dialogue;
-				string end_var;
+				XmlNode endDialogue;
+				string endVar;
 				string text;
-				string next_shot;
+				string nextShot;
 				OptionModel option;
 				
 				try
 				{
-					end_dialogue = (optionNode.SelectSingleNode("dialogue_end"));
-					end_var = end_dialogue.Attributes["end_var"].Value;
+					endDialogue = (optionNode.SelectSingleNode("dialogue_end"));
+					endVar = endDialogue.Attributes["end_var"].Value;
 					// GD.Print("end_var: " + end_var);
 				}
 				catch (NullReferenceException e)
 				{
-					end_dialogue = null;
-					end_var = null;
+					endDialogue = null;
+					endVar = null;
 				}
 				
 				try
@@ -153,37 +202,37 @@ public static class DialogueXMLParser
 					text = null;
 				}
 				
-				if (end_dialogue == null)
+				if (endDialogue == null)
 				{
 					try
 					{
-						next_shot = optionNode.SelectSingleNode("next_shot_id").InnerText;
+						nextShot = optionNode.SelectSingleNode("next_shot_id").InnerText;
 						// GD.Print("next_shot: " + next_shot);
 					}
 					catch (NullReferenceException e)
 					{
-						next_shot = null;
+						nextShot = null;
 						GD.Print("\nOption has no next_shot attribute" + e);
 					}
 					
 					if (text != null)
 					{
-						option = new OptionModel(text, next_shot);
+						option = new OptionModel(text, nextShot);
 					}
 					else
 					{
-						option = new OptionModel(next_shot);
+						option = new OptionModel(nextShot);
 					}
 				}
 				else
 				{
 					if (text != null)
 					{
-						option = new OptionModel(text, true, end_var);
+						option = new OptionModel(text, true, endVar);
 					}
 					else
 					{
-						option = new OptionModel(true, end_var);
+						option = new OptionModel(true, endVar);
 					}
 				}
 				optionList[k] = option;
@@ -205,7 +254,7 @@ public static class DialogueXMLParser
 			shotList[i] = shot;
 			i += 1;
 		}
-		GD.Print(shotList);
+		// GD.Print(shotList);
 		return shotList;
 	}
 }

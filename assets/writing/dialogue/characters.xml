@@ -13,7 +13,7 @@ There should only be one copy of this file, which contains the definitions of al
 		<sprite>test.png</sprite> <!-- a reference to the sprite asset for this character -->
 		<default_animation>anim_test1</default_animation>
 		<animations>
-			<animation id="1"/> <!-- reference to in game animations -->
+			<animation id="anim_1"/> <!-- reference to in game animations -->
 		</animations>
 	</character>
 	<character id="char_2"> <!-- Every character should have a unique ID following this pattern, char_name -->
@@ -23,7 +23,7 @@ There should only be one copy of this file, which contains the definitions of al
 		<sprite>test.png</sprite> <!-- a reference to the sprite asset for this character -->
 		<default_animation>anim_test2</default_animation>
 		<animations>
-			<animation id="1"/> <!-- reference to in game animations -->
+			<animation id="anim_2"/> <!-- reference to in game animations -->
 		</animations>
 	</character>
 </characters>
