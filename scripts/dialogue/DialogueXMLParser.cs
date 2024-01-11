@@ -9,7 +9,7 @@ public static class DialogueXMLParser
 {
 	public static CharacterModel[] ParseCharactersFromXML(String filePath)
 	{
-		GD.Print("\nParseCharactersFromXML: " + filePath);
+		GD.Print("\nParseCharactersFromXML: " + filePath + "\n");
 		using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
 		string content = file.GetAsText();
 		
@@ -32,7 +32,7 @@ public static class DialogueXMLParser
 				characterNode.SelectSingleNode("default_animation").InnerText);
 
 			characterList[i] = character;
-			GD.Print(characterList[i].ToString());
+			// GD.Print(characterList[i].ToString());
 		}
 
 		return characterList;
@@ -40,7 +40,7 @@ public static class DialogueXMLParser
 		
 	public static LocationModel[] ParseLocationsFromXML(String filePath)
 	{
-		GD.Print("\nParseLocationsFromXML: " + filePath);
+		GD.Print("\nParseLocationsFromXML: " + filePath + "\n");
 		
 		using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
 		string content = file.GetAsText();
@@ -61,7 +61,7 @@ public static class DialogueXMLParser
 				locationNode.SelectSingleNode("image").InnerText);
 
 			locationList[i] = location;
-			GD.Print(locationList[i].ToString());
+			// GD.Print(locationList[i].ToString());
 		}
 
 		return locationList;
@@ -70,7 +70,7 @@ public static class DialogueXMLParser
 	
 	public static ShotModel[] ParseShotsFromXML(String filePath)
 	{
-		GD.Print("\nParseShotsFromXML: " + filePath);
+		GD.Print("\nParseShotsFromXML: " + filePath + "\n");
 		
 		using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
 		string content = file.GetAsText();
@@ -82,7 +82,6 @@ public static class DialogueXMLParser
 		ShotModel[] shotList = new ShotModel[shotNodes.Count];
 		
 		int i = 0;
-		
 		foreach (XmlNode shotNode in shotNodes)
 		{
 			// GD.Print(shotNode.Attributes["id"].Value);
@@ -94,6 +93,8 @@ public static class DialogueXMLParser
 			LineModel[] lineList = new LineModel[lineNodes.Count];
 			OptionModel[] optionList = new OptionModel[optionNodes.Count];
 			
+			
+			// get list of LineModel objects
 			int j = 0;
 			foreach (XmlNode lineNode in lineNodes)
 			{
@@ -120,37 +121,91 @@ public static class DialogueXMLParser
 				}
 			}
 
-
+			// get list of OptionModel objects
 			int k = 0;
 			foreach (XmlNode optionNode in optionNodes)
 			{
+
+				XmlNode end_dialogue;
+				string end_var;
+				string text;
+				string next_shot;
+				OptionModel option;
+				
 				try
 				{
-					XmlNode end_dialogue = (optionNode.SelectSingleNode("end_dialogue"));
-					string end_var = optionNode.SelectSingleNode("end_var").InnerText;
-					try
-					{
-					}
-					catch (NullReferenceException e)
-					{
-						GD.Print(e);
-					}
+					end_dialogue = (optionNode.SelectSingleNode("dialogue_end"));
+					end_var = end_dialogue.Attributes["end_var"].Value;
+					// GD.Print("end_var: " + end_var);
 				}
 				catch (NullReferenceException e)
 				{
-					GD.Print("test2");
-					OptionModel option = new OptionModel(
-						optionNode.SelectSingleNode("text").InnerText,
-						optionNode.Attributes["next_shot"].Value
-					);
-
-					optionList[k] = option;
-					k += 1;
-					GD.Print(option.text);
-					GD.Print(e);
+					end_dialogue = null;
+					end_var = null;
 				}
+				
+				try
+				{
+					text = optionNode.SelectSingleNode("text").InnerText;
+				}
+				catch (Exception e)
+				{
+					text = null;
+				}
+				
+				if (end_dialogue == null)
+				{
+					try
+					{
+						next_shot = optionNode.SelectSingleNode("next_shot_id").InnerText;
+						// GD.Print("next_shot: " + next_shot);
+					}
+					catch (NullReferenceException e)
+					{
+						next_shot = null;
+						GD.Print("\nOption has no next_shot attribute" + e);
+					}
+					
+					if (text != null)
+					{
+						option = new OptionModel(text, next_shot);
+					}
+					else
+					{
+						option = new OptionModel(next_shot);
+					}
+				}
+				else
+				{
+					if (text != null)
+					{
+						option = new OptionModel(text, true, end_var);
+					}
+					else
+					{
+						option = new OptionModel(true, end_var);
+					}
+				}
+				optionList[k] = option;
+				k += 1;
 			}
+			// GD.Print(optionList);
+
+			
+			//make shot object and add to shotList
+			
+			ShotModel shot = new ShotModel(
+				shotNode.Attributes["id"].Value,
+				shotNode.Attributes["location_id"].Value,
+				lineList,
+				optionList);
+			
+			// GD.Print(shot.ToString());
+			
+			shotList[i] = shot;
+			i += 1;
 		}
+		GD.Print(shotList);
 		return shotList;
 	}
 }
