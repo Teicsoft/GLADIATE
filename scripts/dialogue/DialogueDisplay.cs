@@ -19,7 +19,7 @@ public partial class DialogueDisplay : Control
 		GD.Print(shotList[0].Lines);
 
 
-		Label label = GetNode<Label>("TextContainer/TextLabel");
+		RichTextLabel label = GetNode<RichTextLabel>("TextVBoxContainer/TextureRect/TextLabel");
 		if (label != null)
 		{
 			label.Text = shotList[0].Lines[0].Text;
@@ -29,7 +29,6 @@ public partial class DialogueDisplay : Control
 		{
 			GD.Print("No label found!");
 		}
-
 	}
 
 

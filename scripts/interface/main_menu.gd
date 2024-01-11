@@ -18,7 +18,8 @@ func _on_start_game_button_pressed():
 
 
 func _on_dialogue_button_pressed():
-	pass # Replace with function body.
+	scene_loader.scene_folder = "scenes"
+	scene_loader.change_to_scene("dialogue_display")
 
 
 func _on_settings_button_pressed():

@@ -8,7 +8,7 @@ We will also use this repo to handle the Project organization.
 * [Wiki](https://github.com/Teicsoft/SpectacleCardGame/wiki)
 * [Project](https://github.com/orgs/Teicsoft/projects/2)
 * [Issues](https://github.com/Teicsoft/SpectacleCardGame/issues)
-* [Closed source repo](https://github.com/Teicsoft/SpectacleCardGame-ClosedAssets
+* [Closed source repo](https://github.com/Teicsoft/SpectacleCardGame-ClosedAssets)
 
 ## Engine
 ![Our game is build in Godot](https://godotengine.org/assets/press/logo_large_color_dark.png)

@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl3jj3dgnwh17"]
+[gd_scene load_steps=7 format=3 uid="uid://cl3jj3dgnwh17"]
 
 [ext_resource type="Script" path="res://scripts/dialogue/DialogueDisplay.cs" id="1_pykwa"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_n26b7"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_jx0lh"]
-specular_color = Color(0.340339, 0.340339, 0.340339, 1)
+[ext_resource type="Texture2D" uid="uid://b571bpfa0yr3x" path="res://assets/images/teicog/batch1/Artboard 8.png" id="2_vnr0u"]
+[ext_resource type="Texture2D" uid="uid://3hcx3se37lha" path="res://assets/images/teicog/batch1/Teicóg header blank.png" id="3_uox5m"]
+[ext_resource type="Texture2D" uid="uid://ctfskx65n0otp" path="res://assets/images/teicog/batch2/teicog10.png" id="4_m5ll2"]
+[ext_resource type="Texture2D" uid="uid://b0646u8r6av8d" path="res://assets/images/teicog/batch1/teicog5.png" id="5_14sfc"]
+[ext_resource type="Texture2D" uid="uid://rp876jimvdy4" path="res://assets/images/teicog/batch1/teicog1.png" id="6_qw2ui"]
 
 [node name="DialogueDisplayControl" type="Control"]
 layout_mode = 3
@@ -23,37 +23,51 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CanvasTexture_n26b7")
+texture = ExtResource("2_vnr0u")
+expand_mode = 1
 
-[node name="LeftContainer" type="Container" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 300.0
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="LeftContainer"]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 4
-texture = SubResource("CanvasTexture_jx0lh")
+size_flags_vertical = 4
+texture = ExtResource("3_uox5m")
+expand_mode = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="LeftContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_m5ll2")
+centered = false
 
-[node name="RightContainer" type="Container" parent="."]
+[node name="RightVBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -300.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="RightContainer"]
+[node name="TextureRect" type="TextureRect" parent="RightVBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
+texture = ExtResource("3_uox5m")
+expand_mode = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="RightContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="RightVBoxContainer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_14sfc")
+centered = false
 
-[node name="MidContainer" type="Container" parent="."]
+[node name="MidVBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -62,40 +76,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="MidContainer"]
+[node name="TextureRect" type="TextureRect" parent="MidVBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_uox5m")
+expand_mode = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="MidContainer"]
+[node name="Sprite2D" type="Sprite2D" parent="MidVBoxContainer"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_qw2ui")
+centered = false
 
-[node name="TextContainer" type="Container" parent="."]
+[node name="TextVBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -40.0
-offset_right = 250.0
+offset_left = -278.0
+offset_top = -556.0
+offset_right = 278.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="NinePatchRect" type="NinePatchRect" parent="TextContainer"]
+[node name="TextureRect" type="TextureRect" parent="TextVBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+texture = ExtResource("3_uox5m")
+expand_mode = 4
 
-[node name="ScrollContainer" type="ScrollContainer" parent="TextContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="Button Container" type="Container" parent="TextContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="TextContainer/Button Container"]
-layout_mode = 2
-
-[node name="TextLabel" type="Label" parent="TextContainer"]
-layout_mode = 2
+[node name="TextLabel" type="RichTextLabel" parent="TextVBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+size_flags_vertical = 4
+text = "Sample Text"
