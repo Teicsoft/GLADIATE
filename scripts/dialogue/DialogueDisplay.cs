@@ -19,7 +19,7 @@ public partial class DialogueDisplay : Control
 		GD.Print(shotList[0].Lines);
 
 
-		RichTextLabel label = GetNode<RichTextLabel>("TextVBoxContainer/TextureRect/TextLabel");
+		RichTextLabel label = GetNode<RichTextLabel>("TextVBoxContainer/TextureRect/MarginContainer/TextLabel");
 		if (label != null)
 		{
 			label.Text = shotList[0].Lines[0].Text;
@@ -36,7 +36,4 @@ public partial class DialogueDisplay : Control
 	public override void _Process(double delta)
 	{
 	}
-	
-	
-	
 }

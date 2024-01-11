@@ -20,6 +20,11 @@ config/icon="res://assets/images/Cyber-Denarius.png"
 snap_global="*res://scripts/autoloads/snap_global.gd"
 scene_loader="*res://scripts/autoloads/SceneLoader.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [dotnet]
 
 project/assembly_name="TeicsoftSpectacleCards"

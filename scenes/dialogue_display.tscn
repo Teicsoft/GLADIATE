@@ -26,68 +26,6 @@ grow_vertical = 2
 texture = ExtResource("2_vnr0u")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 300.0
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("3_uox5m")
-expand_mode = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_m5ll2")
-centered = false
-
-[node name="RightVBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -300.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="RightVBoxContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-texture = ExtResource("3_uox5m")
-expand_mode = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="RightVBoxContainer"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_14sfc")
-centered = false
-
-[node name="MidVBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="MidVBoxContainer"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("3_uox5m")
-expand_mode = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="MidVBoxContainer"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_qw2ui")
-centered = false
-
 [node name="TextVBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -106,13 +44,68 @@ layout_mode = 2
 texture = ExtResource("3_uox5m")
 expand_mode = 4
 
-[node name="TextLabel" type="RichTextLabel" parent="TextVBoxContainer/TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="TextVBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextLabel" type="RichTextLabel" parent="TextVBoxContainer/TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 38
 text = "Sample Text"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainerL" type="VBoxContainer" parent="Control"]
+layout_mode = 2
+offset_top = 568.0
+offset_right = 512.0
+offset_bottom = 1080.0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainerL"]
+layout_mode = 2
+texture = ExtResource("4_m5ll2")
+
+[node name="VBoxContainerM" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -256.0
+offset_right = 256.0
+offset_bottom = 512.0
+grow_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainerM"]
+layout_mode = 2
+texture = ExtResource("6_qw2ui")
+
+[node name="VBoxContainerR" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -512.0
+offset_top = -512.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainerR"]
+layout_mode = 2
+texture = ExtResource("5_14sfc")
