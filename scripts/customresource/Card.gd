@@ -1,13 +1,25 @@
 class_name Card
 extends Resource
 
-enum Type {ATTACK, SKILL, POWER}
-enum Rarity {COMMON, UNCOMMON, RARE}
 enum Target {SELF, SINGLE_ENEMY, ALL_ENEMIES, EVERYONE}
 
 @export_group("Card Attributes")
+
+#internal ids
 @export var id: String
-@export var type: Type
-@export var rarity: Rarity
 @export var target: Target
-@export var cost: int
+
+#stat block
+@export var attack: int
+@export var defense: int
+@export var heal: int
+@export var status: int
+@export var special: int
+@export var active: int
+
+
+@export_group("Card Visuals")
+
+@export var cardimage: Texture
+@export_multiline var tooltip_text: String
+@export var sound: AudioStream

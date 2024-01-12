@@ -5,7 +5,7 @@ extends Resource
 signal card_stack_size_change(card_number: int)
 
 #Ideally filled with Card objects when finished
-@export var cards : Array[int] = [1,2,3,4,5,6]
+@export var cards : Array[Card] = []
 
 #Check if stack is empty yes/no
 func empty():
