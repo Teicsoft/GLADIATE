@@ -37,11 +37,12 @@ public partial class DialogueDisplay : Control
 		int i = 0;
 		foreach (ShotModel shot in shotList)
 		{
-			var instance = scene.Instantiate();
 
 			int j = 0;
 			foreach (LineModel line in shot.Lines)
 			{
+				var instance = scene.Instantiate();
+
 				Label label = instance.GetNode<Label>("Label");
 				label.Text = shot.Lines[j].CharacterId;
 			
