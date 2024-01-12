@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dykp4t8ydid2u" path="res://assets/images/icon.svg" id="1_phlfv"]
 [ext_resource type="Script" path="res://scripts/Icon.cs" id="2_1f2dr"]
-[ext_resource type="PackedScene" uid="uid://04dn8iyrtwj5" path="res://scenes/snap_platform.tscn" id="3_7aljd"]
-[ext_resource type="PackedScene" uid="uid://p5ciagm88o2r" path="res://scenes/snap_object.tscn" id="4_arwh0"]
+[ext_resource type="PackedScene" uid="uid://04dn8iyrtwj5" path="res://scenes/sub/snap_platform.tscn" id="3_7aljd"]
+[ext_resource type="PackedScene" uid="uid://p5ciagm88o2r" path="res://scenes/sub/snap_object.tscn" id="4_arwh0"]
 
 [node name="Node2D" type="Node2D"]
 
