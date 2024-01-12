@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+This file is used to define all character attributes as they will be used in dialogues. 
+There should only be one copy of this file, which contains the definitions of all characters in the game. 
+-->
+
+<characters> 
+	<character id="char_1"> <!-- Every character should have a unique ID following this pattern, char_name -->
+		<name>testName</name> <!-- character name to be displayed in game -->
+		<font>testFont</font> <!-- a reference to the font asset for this character -->
+		<color>#FFFFFF</color> <!-- a hex value for the colour representing this character -->
+		<sprite>test.png</sprite> <!-- a reference to the sprite asset for this character -->
+		<default_animation>anim_test1</default_animation>
+		<animations>
+			<animation id="anim_1"/> <!-- reference to in game animations -->
+		</animations>
+	</character>
+	<character id="char_2"> <!-- Every character should have a unique ID following this pattern, char_name -->
+		<name>testName</name> <!-- character name to be displayed in game -->
+		<font>testFont</font> <!-- a reference to the font asset for this character -->
+		<color>#FFFFFF</color> <!-- a hex value for the colour representing this character -->
+		<sprite>test.png</sprite> <!-- a reference to the sprite asset for this character -->
+		<default_animation>anim_test2</default_animation>
+		<animations>
+			<animation id="anim_2"/> <!-- reference to in game animations -->
+		</animations>
+	</character>
+</characters>
+	

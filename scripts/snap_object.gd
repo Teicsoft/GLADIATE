@@ -16,7 +16,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if draggable:
 		if Input.is_action_just_pressed("left_mouse"):
 			initialPos = global_position
@@ -34,10 +34,7 @@ func _process(delta):
 				var overlapping_bodies = $Area2D.get_overlapping_bodies()
 				var lowestDistance
 				var pos_snap =  $Area2D.global_transform.origin
-				var i = 0
-				
 				for body in overlapping_bodies:
-					i += 1
 					if body.is_in_group('droppable'):
 						var pos_overlap = body.global_position
 						if lowestDistance == null:

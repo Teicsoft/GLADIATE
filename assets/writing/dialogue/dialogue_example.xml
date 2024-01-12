@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- _______________________________________________________________________________________________________________ -->
+
+<dialogue>
+	<characters_present>
+		<character id="char_main" default_pos="left"/>
+		<character id="char_antagonist" default_pos="right"/>
+	</characters_present>
+	
+	<locations_present>
+		<location id="loc_colluseum"/>
+		<location id="loc_underground"/>
+	</locations_present>
+
+<!-- _______________________________________________________________________________________________________________ -->
+	
+	<shots>
+		<shot id="shot_1" location_id="loc_underground"> 
+			<lines> 			
+				<line character_id="char_main" animation_id="animation_sample"> 
+					<override_pos>mid</override_pos> 
+					<text>How're ye bai</text>
+				</line>
+				
+				<line character_id="char_antagonist" animation_id="animation_sample"> 
+					<text>Who are you now!</text>
+				</line>
+				
+				
+				<line character_id="char_main" animation_id="animation_sample"> 
+					<text>Good drying today!</text>
+				</line>
+			</lines>
+			
+			<options> 
+				<option>
+					<text>Here now!</text>
+					<next_shot_id>shot_2</next_shot_id>
+				</option>
+				
+				<option>
+					<text>Era Ya shur</text>
+					<dialogue_end end_var="home"/>
+				</option>
+			</options>
+		</shot>
+		
+		<shot id="shot_2" location_id="loc_colluseum"> 
+			<lines> 				
+				<line character_id="char_antagonist" animation_id="animation_sample"> 
+					<text>Shpiders!</text>
+				</line>
+			</lines>
+			
+			<options> 		
+				<option>
+					<dialogue_end end_var="dead"/>
+				</option>
+			</options>
+		</shot>
+		
+	</shots>
+	
+</dialogue>
+
+<!-- _______________________________________________________________________________________________________________ -->

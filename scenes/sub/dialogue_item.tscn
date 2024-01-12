@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dmctnw2y33pt8"]
+
+[node name="GridContainer" type="GridContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Character Name"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 38
+text = "Sample Text"
+fit_content = true
