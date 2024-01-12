@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://cl3jj3dgnwh17"]
 
-[ext_resource type="Script" path="res://scripts/dialogue/DialogueDisplay.cs" id="1_pykwa"]
-[ext_resource type="Texture2D" uid="uid://b571bpfa0yr3x" path="res://assets/images/teicog/batch1/Artboard 8.png" id="2_vnr0u"]
-[ext_resource type="Texture2D" uid="uid://3hcx3se37lha" path="res://assets/images/teicog/batch1/Teicóg header blank.png" id="3_uox5m"]
-[ext_resource type="Texture2D" uid="uid://ctfskx65n0otp" path="res://assets/images/teicog/batch2/teicog10.png" id="4_m5ll2"]
-[ext_resource type="Texture2D" uid="uid://b0646u8r6av8d" path="res://assets/images/teicog/batch1/teicog5.png" id="5_14sfc"]
-[ext_resource type="Texture2D" uid="uid://rp876jimvdy4" path="res://assets/images/teicog/batch1/teicog1.png" id="6_qw2ui"]
+[ext_resource type="Script" path="res://scripts/dialogue/DialogueDisplay.cs" id="1_gomix"]
+[ext_resource type="Texture2D" uid="uid://b571bpfa0yr3x" path="res://assets/images/teicog/batch1/Artboard 8.png" id="2_8xrii"]
+[ext_resource type="Texture2D" uid="uid://3hcx3se37lha" path="res://assets/images/teicog/batch1/Teicóg header blank.png" id="3_hq86g"]
+[ext_resource type="Texture2D" uid="uid://ctfskx65n0otp" path="res://assets/images/teicog/batch2/teicog10.png" id="5_ryg3q"]
+[ext_resource type="Texture2D" uid="uid://rp876jimvdy4" path="res://assets/images/teicog/batch1/teicog1.png" id="6_bdmgg"]
+[ext_resource type="Texture2D" uid="uid://b0646u8r6av8d" path="res://assets/images/teicog/batch1/teicog5.png" id="7_i6mh0"]
 
 [node name="DialogueDisplayControl" type="Control"]
 layout_mode = 3
@@ -14,7 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_pykwa")
+script = ExtResource("1_gomix")
 
 [node name="BGTextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -23,10 +23,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_vnr0u")
+texture = ExtResource("2_8xrii")
 expand_mode = 1
 
-[node name="TextVBoxContainer" type="VBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -38,13 +38,10 @@ offset_top = -556.0
 offset_right = 278.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="TextVBoxContainer"]
-layout_mode = 2
-texture = ExtResource("3_uox5m")
+texture = ExtResource("3_hq86g")
 expand_mode = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="TextVBoxContainer/TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -56,10 +53,13 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="TextLabel" type="RichTextLabel" parent="TextVBoxContainer/TextureRect/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TextureRect/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 38
-text = "Sample Text"
+
+[node name="DialogueTarget_VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -78,7 +78,7 @@ grow_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="Control/VBoxContainerL"]
 layout_mode = 2
-texture = ExtResource("4_m5ll2")
+texture = ExtResource("5_ryg3q")
 
 [node name="VBoxContainerM" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -92,7 +92,7 @@ grow_horizontal = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control/VBoxContainerM"]
 layout_mode = 2
-texture = ExtResource("6_qw2ui")
+texture = ExtResource("6_bdmgg")
 
 [node name="VBoxContainerR" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -108,4 +108,4 @@ grow_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="Control/VBoxContainerR"]
 layout_mode = 2
-texture = ExtResource("5_14sfc")
+texture = ExtResource("7_i6mh0")
