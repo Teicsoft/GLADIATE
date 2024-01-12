@@ -9,29 +9,6 @@ public partial class DialogueDisplay : Control
 	public override void _Ready()
 	{
 		RunDialogue("dialogue_example.xml");
-		
-		// RichTextLabel RTlabel = GetNode<RichTextLabel>("TextureRect/MarginContainer/ScrollContainer/VBoxContainer/GridContainer/RichTextLabel");
-		// if (RTlabel != null)
-		// {
-		// 	RTlabel.Text = shotList[0].Lines[0].Text;
-		// 	GD.Print(RTlabel.Text);
-		// }
-		// else
-		// {
-		// 	GD.Print("No label found!");
-		// }
-		//
-		// Label label = GetNode<Label>("TextureRect/MarginContainer/ScrollContainer/VBoxContainer/GridContainer/Label");
-		// if (label != null)
-		// {
-		// 	label.Text = shotList[0].Lines[0].CharacterId;
-		// 	GD.Print(label.Text);
-		// }
-		// else
-		// {
-		// 	GD.Print("No label found!");
-		// }
-
 	}
 
 
@@ -45,7 +22,7 @@ public partial class DialogueDisplay : Control
 		
 		String charactersXmlPath = "res://assets/writing/dialogue/characters.xml";
 		String locationsXmlPath = "res://assets/writing/dialogue/locations.xml";
-		String dialogueXmlPath = "res://assets/writing/dialogue/" + dialogueName;
+		String dialogueXmlPath = "res://assets/writing/dialogue/dialogue_example.xml";
 		
 		CharacterModel[] characterList = DialogueXmlParser.ParseCharactersFromXml(charactersXmlPath);
 		LocationModel[] locList = DialogueXmlParser.ParseLocationsFromXml(locationsXmlPath);
@@ -75,8 +52,6 @@ public partial class DialogueDisplay : Control
 
 				j++;
 			}
-			
-
 			i++;
 		}
 	}
