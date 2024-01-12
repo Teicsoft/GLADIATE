@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- _______________________________________________________________________________________________________________ -->
+
+<!-- this is a comment, it does nothing when read by the game -->
+
+<!-- 
+I'll use them to explain the template. 
+You can use them to suggest things to devs, or just as notes. 
+You can remove all of these when writing your own if you like, just copy this template, and give it a new name.
+-->
+ 
+<!-- How this template works -->
+
+<!-- 
+A dialogue is a collections of characters, locations and a script
+Think of it as a cutscene which interrupts gameplay, and does not go back to gameplay until it finishes.
+-->
+
+<!-- 
+First you declare which characters will be used in this dialogue, then what locations will be used. 
+Characters are defined in characters.xml, a separate file. You can set their color, sprite, and animations there.
+Same deal for locations in locations.xml 
+-->
+
+<!--
+A script is a collection of shots which will be included in this script.
+
+A shot is a collection of lines, followed by a set of responses.
+
+lines will be played sequentially, and the player will the be presented with options.
+
+options are a list of responses, or a dialogue_end tag. They may contain text, but they must always either contain either:
+	an id for the next shot (whichs allows for decision trees) 
+	or a dialogue_end tag (which exits the dialogue)
+-->
+
+<!-- _______________________________________________________________________________________________________________ -->
+
+
+<dialogue>
+	<characters_present>
+		<character id="" default_pos=""/> <!-- The id from characters.xml -->
+	</characters_present>
+	
+	<locations_present>
+		<location id=""/> <!-- The id from locations.xml -->
+	</locations_present>
+
+<!-- _______________________________________________________________________________________________________________ -->
+	
+	<dialogue_script>
+	
+		<shot id="" location_id=""> 
+			<lines> <!-- you can have any number of lines in a shot, they will be played sequentially -->
+			
+				<line character_id="" animation_id=""> <!-- Set which character is speaking, -->
+					<override_pos> mid </override_pos> <!-- Where the character appears on screen: left / mid / right -->
+					<text> </text> <!-- The text that appears on screen for this line -->
+				</line>
+			</lines>
+			
+			<options> <!-- these might be dialogue responses, or choices in how to proceed in the dungeon -->
+			<!-- you can have any number of options in a shot, but keep it to a reasonable number for presentations sake and for your own sanity in keeping track of shot trees. 1-4 is ideal -->
+			
+				<option>
+					<text> </text>
+					<next_shot_id> </next_shot_id> <!-- The next shot to be played after this -->
+				</option>
+				
+				<option>
+					<text> </text>
+					<dialogue_end end_var=""/> <!-- a flag to end the current dialogue. Includes an attribtue variable to pass data forward into gameplay, for example to decide next battle -->
+				</option>
+			</options>
+		</shot>
+		
+		
+		<shot id="" location_id="">
+			<line character_id="">
+				<override_pos> left </override_pos>
+				<text> </text>
+			</line>
+			
+			<options>			
+				<dialogue_end end_var=""/>
+			</options>
+		</shot>
+		
+	</dialogue_script>
+	
+</dialogue>
+
+<!-- _______________________________________________________________________________________________________________ -->
