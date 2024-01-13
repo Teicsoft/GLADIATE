@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<card id="card_id"> <!--id: string-->
+    <type>
+        <attack></attack> <!--true/false-->
+        <modifier></modifier> <!--true/false-->
+        <block></block> <!--true/false-->
+        <draw></draw>  <!--true/false-->
+    </type>
+
+    <target>
+        <self></self> <!--true/false-->
+        <single_enemy></single_enemy> <!--true/false-->
+        <all_enemies></all_enemies> <!--true/false-->
+        <everyone></everyone> <!--true/false-->
+    </target>
+    
+    <stats>
+        <attack></attack> <!--int-->
+        <defense></defense> <!--int-->
+        <heal></heal> <!--int-->
+        <status></status> <!--int-->
+        <special></special> <!--int-->
+        <active></active>  <!--int-->
+    </stats>
+    
+    <modifier>
+        <ground></ground> <!--true/false-->
+        <juggle></juggle> <!--true/false-->
+        <grapple></grapple> <!--true/false-->
+        <unique_method id="method_id"/> <!--id: string-->
+    </modifier>
+    
+    <design>
+        <image></image> <!--path string-->
+        <border></border> <!--path string-->
+        <texture></texture> <!--path string-->
+        <sound></sound> <!--path string-->
+    </design>
+
+    <text>
+        <name></name> <!--path string-->
+        <description></description> <!--path string-->
+        <lore></lore> <!--path string-->
+        <tooltip_text></tooltip_text> <!--path string-->
+    </text>
+</card>
