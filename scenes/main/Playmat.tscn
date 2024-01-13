@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8gve2pic6gxv"]
+
+[ext_resource type="Texture2D" uid="uid://dykp4t8ydid2u" path="res://assets/images/icon.svg" id="1_phlfv"]
+[ext_resource type="Script" path="res://scripts/Icon.cs" id="2_1f2dr"]
+[ext_resource type="PackedScene" uid="uid://04dn8iyrtwj5" path="res://scenes/sub/snap_platform.tscn" id="3_7aljd"]
+[ext_resource type="PackedScene" uid="uid://p5ciagm88o2r" path="res://scenes/sub/snap_object.tscn" id="4_arwh0"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(170, 155)
+texture = ExtResource("1_phlfv")
+script = ExtResource("2_1f2dr")
+
+[node name="Platform" parent="." instance=ExtResource("3_7aljd")]
+position = Vector2(136, 509)
+
+[node name="Platform2" parent="." instance=ExtResource("3_7aljd")]
+position = Vector2(384, 509)
+
+[node name="Platform3" parent="." instance=ExtResource("3_7aljd")]
+position = Vector2(632, 509)
+
+[node name="Platform4" parent="." instance=ExtResource("3_7aljd")]
+position = Vector2(886, 509)
+
+[node name="Snap" parent="." instance=ExtResource("4_arwh0")]
+position = Vector2(557, 182)
