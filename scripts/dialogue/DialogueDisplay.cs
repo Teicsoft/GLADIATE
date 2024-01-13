@@ -20,8 +20,8 @@ public partial class DialogueDisplay : Control
 	public void RunDialogue(String dialogueName)
 	{
 		
-		String charactersXmlPath = "res://assets/writing/dialogue/characters.xml";
-		String locationsXmlPath = "res://assets/writing/dialogue/locations.xml";
+		String charactersXmlPath = "res://assets/writing/characters.xml";
+		String locationsXmlPath = "res://assets/writing/locations.xml";
 		String dialogueXmlPath = "res://assets/writing/dialogue/dialogue_example.xml";
 		
 		CharacterModel[] characterList = DialogueXmlParser.ParseCharactersFromXml(charactersXmlPath);
