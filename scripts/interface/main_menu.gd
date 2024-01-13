@@ -16,5 +16,5 @@ func _on_settings_button_pressed():
 
 
 func _on_exit_button_pressed():
-	get_tree().quit() 
+	get_tree().quit()
 
