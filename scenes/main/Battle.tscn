@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://eol8q708g6s1"]
+
+[ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_6pgrr"]
+[ext_resource type="PackedScene" uid="uid://7q8qanamfdls" path="res://scenes/sub/HUD.tscn" id="2_0dawv"]
+[ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/sub/Enemy.tscn" id="3_25d28"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_6pgrr")
+
+[node name="HUD" parent="." instance=ExtResource("2_0dawv")]
+
+[node name="Enemy1" parent="." instance=ExtResource("3_25d28")]
+position = Vector2(728, 424)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_25d28")]
+position = Vector2(1390, 436)

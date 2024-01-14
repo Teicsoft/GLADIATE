@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://7q8qanamfdls"]
+
+[ext_resource type="Script" path="res://scripts/battle/HUD/HUD.cs" id="1_j31ea"]
+[ext_resource type="PackedScene" uid="uid://4lar8gsflwru" path="res://scenes/sub/Card.tscn" id="2_but7r"]
+[ext_resource type="Script" path="res://scripts/battle/HUD/Hand.cs" id="4_ceqoe"]
+
+[sub_resource type="Curve2D" id="Curve2D_xvv15"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 800, 0, 0, 0, 0, 1560, 800)
+}
+point_count = 2
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("hand")]
+script = ExtResource("1_j31ea")
+CardScene = ExtResource("2_but7r")
+hand = NodePath("Hand")
+
+[node name="Deck" type="Button" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -280.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Deck"
+
+[node name="Hand" type="Path2D" parent="."]
+curve = SubResource("Curve2D_xvv15")
+script = ExtResource("4_ceqoe")
+
+[node name="HandCardLocation" type="PathFollow2D" parent="Hand"]
+position = Vector2(0, 800)
+
+[connection signal="pressed" from="Deck" to="." method="OnDeckPressed"]
