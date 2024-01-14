@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<combo id="combo_id" modifier="grounded">
+    <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
+        <card card_id="card_id"/>
+        <card card_id="card_id"/>
+        <card card_id="card_id"/>
+        <card card_id="card_id"/>
+    </cards>
+    
+    <stats>
+        <attack>0</attack> <!--int-->
+        <defense>0</defense> <!--int-->
+        <heal>0</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
+        <multiplier>1</multiplier> <!--int-->
+    </stats>
+    
+    <design>
+        <image>example.png</image>
+        <animation>example_anim</animation>
+        <sound>example.mp3</sound>
+    </design>
+
+    <text>
+        <name>Combo Name</name>
+        <description>Combo Description</description>
+        <lore>Deep Lore</lore>
+        <onscreen_text>Hover Text</onscreen_text>
+    </text>
+</combo>
