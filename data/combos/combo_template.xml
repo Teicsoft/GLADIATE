@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Combo Template -->
+<!-- used to save a combo including card order, stats and design -->
+<!-- To use, copy this file and rename it to combo_name.xml -->
+
+<combo id="combo_id" modifier="grounded"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)-->
+    <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
+        <card card_id="card_id"/> <!--card_id: string-->
+        <card card_id="card_id"/>
+        <card card_id="card_id"/>
+        <card card_id="card_id"/>
+    </cards>
+    
+    <stats>
+        <attack>0</attack> <!--int-->
+        <defense>0</defense> <!--int-->
+        <heal>0</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
+        <multiplier>1</multiplier> <!--int-->
+    </stats>
+    
+    <design>
+        <image>example.png</image> <!--path string-->
+        <char_animation>example_anim</char_animation> <!--string-->
+        <stage_animation>example_anim</stage_animation> <!--string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Combo Name</name> <!--string-->
+        <description>Combo Description</description> <!--string-->
+        <lore>Deep Lore</lore> <!--string-->
+        <onscreen_text>Hover Text</onscreen_text> <!--string-->
+    </text>
+</combo>
