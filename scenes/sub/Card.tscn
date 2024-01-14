@@ -17,4 +17,4 @@ grow_vertical = 2
 text = "Card"
 script = ExtResource("1_bqmvl")
 
-[connection signal="toggled" from="." to="." method="OnToggle"]
+[connection signal="pressed" from="." to="." method="OnPress"]

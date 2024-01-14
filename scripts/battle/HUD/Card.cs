@@ -18,14 +18,11 @@ public partial class Card : Button {
         new(0.0f, 0.0f, 0.0f),
     };
 
-    public Color Color;
+    public Color Color { get; set; }
 
     public bool Selected = false;
 
     public override void _Ready() {
-        this.ToggleMode = true;
-        Color = Colors[GD.Randi() % Colors.Length];
-        AddThemeColorOverride("font_color", Color);
     }
 
     public override void _Process(double delta) { }
@@ -34,8 +31,7 @@ public partial class Card : Button {
         enemy.ChangeColour(Color);
     }
 
-    private void OnToggle(bool toggled_on) {
-        Selected = toggled_on;
+    private void OnPress() {
+        Selected = !Selected;
     }
-
 }

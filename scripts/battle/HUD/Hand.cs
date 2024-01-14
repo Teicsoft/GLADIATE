@@ -7,19 +7,22 @@ public partial class Hand : Path2D {
 
     private List<Card> _hand = new();
 
-    private PathFollow2D handCardLocation;
+    private PathFollow2D _handCardLocation;
+    [Export] private Discard _discard;
 
     public override void _Ready() {
-        handCardLocation = GetNode<PathFollow2D>("HandCardLocation");
+        _handCardLocation = GetNode<PathFollow2D>("HandCardLocation");
     }
 
     public override void _Process(double delta) { }
 
-    public void AddCard(Card card) {
-        _hand.Add(card);
-        AddChild(card);
-        card.Pressed += UpdateCardPositions;
-        UpdateCardPositions();
+    public void AddCards(List<Card> cards) {
+        foreach (Card card in cards) {
+            _hand.Add(card);
+            AddChild(card);
+            card.Pressed += UpdateCardPositions;
+            UpdateCardPositions();
+        }
     }
 
     public void PlaySelectedCards(Enemy enemy) {
@@ -31,9 +34,13 @@ public partial class Hand : Path2D {
 
     private void DiscardSelectedCards() {
         List<Card> selectedCards = _hand.Where(card => card.Selected).ToList();
-        _hand.RemoveAll(card => card.Selected);
-        foreach (Card card in selectedCards) { card.QueueFree(); }
-
+        _discard.AddCards(selectedCards);
+        foreach (Card card in selectedCards) {
+            card.Selected = false;
+            card.Pressed -= UpdateCardPositions;
+            RemoveChild(card);
+        }
+        _hand.RemoveAll(selectedCards.Contains);
         UpdateCardPositions();
     }
 
@@ -41,8 +48,8 @@ public partial class Hand : Path2D {
         float locationRatio = 1f / (_hand.Count + 1);
         for (int i = 0; i < _hand.Count; i++) {
             Card card = _hand[i];
-            handCardLocation.ProgressRatio = (i + 1) * locationRatio;
-            Vector2 cardPosition = handCardLocation.Position;
+            _handCardLocation.ProgressRatio = (i + 1) * locationRatio;
+            Vector2 cardPosition = _handCardLocation.Position;
             if (card.Selected) { cardPosition.Y -= 100; }
 
             card.Position = cardPosition;
