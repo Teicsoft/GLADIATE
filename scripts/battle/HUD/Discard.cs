@@ -18,13 +18,7 @@ public partial class Discard : ColorRect {
 
     public List<Card> GetCards(bool clear = true) {
         List<Card> output = new(_discardPile);
-        GD.Print("A");
-        GD.Print(output.Count);
-        GD.Print("B");
         if (clear) { _discardPile.Clear(); }
-        GD.Print("C");
-        GD.Print(output.Count);
-        GD.Print("D");
         return output;
     }
 }

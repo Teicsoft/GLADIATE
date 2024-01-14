@@ -24,21 +24,16 @@ public partial class Deck : Button {
 
     public static List<Card> Shuffle(List<Card> input) {
         List<Card> deck = new(input);
-        GD.Print(" deck.Count: "+deck.Count);
         for (int i = deck.Count-1; i > 1; i--) {
             int j = (int)(GD.Randi() % i + 1);
             (deck[i], deck[j]) = (deck[j], deck[i]);
-            GD.Print(" i: "+i);
-            GD.Print(" j: "+j);
         }
 
         return deck;
     }
 
     public void AddCards(List<Card> cards) { // Adds cards to TOP of deck, highest index on top.
-        GD.Print("ADDING "+cards.Count+" CARDS");
         _deck.AddRange(cards);
-        GD.Print(" _deck.Count: "+_deck.Count);
     }
 
     public List<Card> DrawCard(int amount = 1) {

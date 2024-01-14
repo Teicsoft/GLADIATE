@@ -42,7 +42,6 @@ public partial class HUD : CanvasLayer {
             card.Color = color;
             card.AddThemeColorOverride("font_color", card.Color);
             initialDeck.Add(card);
-            GD.Print(card.Position);
         }
 
         Card lastCard = _cardScene.Instantiate<Card>();
@@ -61,9 +60,7 @@ public partial class HUD : CanvasLayer {
     }
 
     private void OnDeckEmptied(int drawAmount) {
-        GD.Print("RECEIVED");
         if (!_discard.IsEmpty()) {
-            GD.Print("SHUFFLING");
             _deck.AddCards(_discard.GetCards());
             _deck.Shuffle();
             if (drawAmount > 0 && !_deck.IsEmpty()) { _hand.AddCards(_deck.DrawCard(drawAmount)); }
