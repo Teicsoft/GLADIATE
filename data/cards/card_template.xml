@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<card id="card_id" type="attack" modifier="grounded"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggle/grapple)-->
+       
+    <stats>
+        <attack>0</attack> <!--int-->
+        <defense>0</defense> <!--int-->
+        <heal>0</heal> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
+    </stats>
+    
+    <design>
+        <image>example.png</image> <!--path string-->
+        <animation>example_anim</animation> <!--path string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Card Name</name> <!--string-->
+        <description>Card Description</description> <!--string-->
+        <lore>Deep Lore</lore> <!--string-->
+        <tooltip_text>Hover Text</tooltip_text> <!--string-->
+    </text>
+</card>
