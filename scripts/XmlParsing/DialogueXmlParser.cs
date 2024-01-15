@@ -6,7 +6,7 @@ namespace TeicsoftSpectacleCards.scripts.dialogue;
 
 public static class DialogueXmlParser
 {
-	public static CharacterModel[] ParseCharactersFromXml(String filePath)
+	public static CharacterModel[] ParseCharactersFromXml(string filePath)
 	{
 		GD.Print("\nParseCharactersFromXML: " + filePath + "\n");
 		using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
