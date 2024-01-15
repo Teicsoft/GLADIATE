@@ -8,7 +8,8 @@
        
     <stats>
         <attack>0</attack> <!--int-->
-        <defense>0</defense> <!--int-->
+        <defense_lower>0</defense_lower> <!--int-->
+        <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
         <draw>0</draw> <!--int-->
         <spectacle_points>0</spectacle_points> <!--int-->
