@@ -24,9 +24,7 @@ public static class CardXmlParser
 		
 		
 		if (Enum.TryParse(modifier, out CardModel.ModifierEnum parsedModifier))
-		{
-			GD.Print("Parsed modifier: " + parsedModifier);
-		}
+		{}
 		else
 		{
 			GD.Print("Failed to parse modifier: " + modifier);
