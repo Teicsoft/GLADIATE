@@ -4,7 +4,7 @@
 <!-- used to save a card, including stats and design -->
 <!-- To use, copy this file and rename it to card_name.xml -->
 
-<card id="card_id" type="attack" modifier="grounded"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)-->
+<card id="card_id" type="Attack" modifier="Grappled"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)-->
        
     <stats>
         <attack>0</attack> <!--int-->
