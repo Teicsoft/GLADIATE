@@ -32,23 +32,23 @@ public static class CardXmlParser
 		
 		
 		XmlNode statsNode = cardNode.SelectSingleNode("stats");
-		int attack = statsNode.SelectSingleNode("attack") != null ? Int32.Parse(statsNode.SelectSingleNode("attack").InnerText) : 0;
-		int defenseLower = statsNode.SelectSingleNode("defense_lower") != null ? Int32.Parse(statsNode.SelectSingleNode("defense_lower").InnerText) : 0;
-		int defenseUpper = statsNode.SelectSingleNode("defense_upper") != null ? Int32.Parse(statsNode.SelectSingleNode("defense_upper").InnerText) : 0;
-		int health = statsNode.SelectSingleNode("health") != null ? Int32.Parse(statsNode.SelectSingleNode("health").InnerText) : 0;
-		int draw = statsNode.SelectSingleNode("draw") != null ? Int32.Parse(statsNode.SelectSingleNode("draw").InnerText) : 0;
-		int spectaclePoints = statsNode.SelectSingleNode("spectacle_points") != null ? Int32.Parse(statsNode.SelectSingleNode("spectacle_points").InnerText) : 0;
+		int attack = ParseIntNode(statsNode, "attack");
+		int defenseLower = ParseIntNode(statsNode, "defense_lower");
+		int defenseUpper = ParseIntNode(statsNode, "defense_upper");
+		int health = ParseIntNode(statsNode, "health");
+		int draw = ParseIntNode(statsNode, "draw");
+		int spectaclePoints = ParseIntNode(statsNode, "spectacle_points");
 		
 		XmlNode designNode = cardNode.SelectSingleNode("design");
-		string imagePath = designNode.SelectSingleNode("image") != null ? designNode.SelectSingleNode("image").InnerText : "";
-		string animationPath = designNode.SelectSingleNode("animation") != null ? designNode.SelectSingleNode("animation").InnerText : "";
-		string soundPath = designNode.SelectSingleNode("sound") != null ? designNode.SelectSingleNode("sound").InnerText : "";
+		string imagePath = ParseTextNode(designNode, "image");
+		string animationPath = ParseTextNode(designNode, "animation");
+		string soundPath = ParseTextNode(designNode, "sound");
 		
 		XmlNode textNode = cardNode.SelectSingleNode("text");
-		string name = textNode.SelectSingleNode("name") != null ? textNode.SelectSingleNode("name").InnerText : "";
-		string description = textNode.SelectSingleNode("description") != null ? textNode.SelectSingleNode("description").InnerText : "";
-		string lore = textNode.SelectSingleNode("lore") != null ? textNode.SelectSingleNode("lore").InnerText : "";
-		string tooltip = textNode.SelectSingleNode("tooltip_text") != null ? textNode.SelectSingleNode("tooltip_text").InnerText : "";
+		string name = ParseTextNode(textNode, "name");
+		string description = ParseTextNode(textNode, "description");
+		string lore = ParseTextNode(textNode, "lore");
+		string tooltip = ParseTextNode(textNode, "tooltip_text");
 		
 		CardModel card = CardFactory.MakeCard(
 			
@@ -59,5 +59,13 @@ public static class CardXmlParser
 		);
 
 		return card;
+
+		int ParseIntNode(XmlNode parent, string s) {
+			return parent.SelectSingleNode(s) != null ? Int32.Parse(parent.SelectSingleNode(s).InnerText) : 0;
+		}
+
+		string ParseTextNode(XmlNode parent, string s) {
+			return parent.SelectSingleNode(s) != null ? parent.SelectSingleNode(s).InnerText : "";
+		}
 	}
 }
