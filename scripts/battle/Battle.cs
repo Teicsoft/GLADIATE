@@ -33,6 +33,7 @@ public partial class Battle : Node2D {
 		
 		//testing if closed source assets exist
 		GD.Print(ResourceGrabber.GetAssetPath("README.md", ""));
+		GD.Print(ResourceGrabber.GetAssetPath("README.md"));
 	}
 
 	public override void _Process(double delta) { }

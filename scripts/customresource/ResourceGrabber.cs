@@ -8,22 +8,29 @@ public static class ResourceGrabber
     // If this folder is not present, it will fall back to open source assets. 
 
 
-    public const string ClosedSourceAssetsPath = "res://assets/_closed_source_assets/";
-    public const string OpenSourceAssetsPath = "res://assets/";
+    public const string ClosedSourceAssetsFolder = "res://assets/_closed_source_assets/";
+    public const string OpenSourceAssetsFolder = "res://assets/";
     
     
     // Check if folder exists
     public static bool ClosedSourceFolderExist()
     {
-        bool dirExists = DirAccess.DirExistsAbsolute(ClosedSourceAssetsPath);
+        bool dirExists = DirAccess.DirExistsAbsolute(ClosedSourceAssetsFolder);
         return dirExists;
     }
 
     
     public static bool ClosedSourceAssetExist(string assetName, string folderName)
     {
-        string path = ClosedSourceAssetsPath + folderName + "/" + assetName;
+        string path = ClosedSourceAssetsFolder + folderName + "/" + assetName;
         bool fileExists = FileAccess.FileExists(path);
+        return fileExists;
+    }
+    
+    public static bool ClosedSourceAssetExist(string path)
+    {
+        string assetPath = ClosedSourceAssetsFolder + path;
+        bool fileExists = FileAccess.FileExists(assetPath);
         return fileExists;
     }
     
@@ -36,19 +43,41 @@ public static class ResourceGrabber
         
         if (folderName == "")
         {
-            closedPath = ClosedSourceAssetsPath + assetName;
-            openPath = OpenSourceAssetsPath + assetName;
+            closedPath = ClosedSourceAssetsFolder + assetName;
+            openPath = OpenSourceAssetsFolder + assetName;
         }
         else
         {
-            closedPath = ClosedSourceAssetsPath + folderName + "/" + assetName;
-            openPath = OpenSourceAssetsPath + folderName + "/" + assetName;
+            closedPath = ClosedSourceAssetsFolder + folderName + "/" + assetName;
+            openPath = OpenSourceAssetsFolder + folderName + "/" + assetName;
         }
         
         
         if (ClosedSourceFolderExist())
         {
             if (ClosedSourceAssetExist(assetName, folderName))
+            {
+                return closedPath; 
+            }
+            else
+            {
+                return openPath;
+            }
+        } else { 
+            return openPath;
+        }
+    }
+    
+    
+    public static string GetAssetPath(string path)
+    {
+        var closedPath = ClosedSourceAssetsFolder + path;
+        var openPath = OpenSourceAssetsFolder + path;
+        
+        
+        if (ClosedSourceFolderExist())
+        {
+            if (ClosedSourceAssetExist(path))
             {
                 return closedPath; 
             }
