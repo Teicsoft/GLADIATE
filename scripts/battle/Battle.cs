@@ -13,6 +13,9 @@ public partial class Battle : Node2D {
 		enemy1.EnemyAttacked += hand.PlaySelectedCards;
 		enemy2.EnemyAttacked += hand.PlaySelectedCards;
 		
+		
+		
+		//This is a test to see if the card factory works, feel free to remove it
 		CardModel card = CardXmlParser.ParseCardsFromXml("res://data/cards/card_template.xml");
 		GD.Print(card.ToString());
 	}

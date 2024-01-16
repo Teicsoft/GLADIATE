@@ -36,6 +36,12 @@ public class CardModel
     
     
     //constructor
+
+    public CardModel(string id)
+    {
+        this.Id = id;
+    }
+    
     
     public CardModel(
         string id, Modifier modifier,
@@ -47,6 +53,7 @@ public class CardModel
         this.Id = id;
         this.ModifierType = modifier;
         this.Attack = attack;
+        
         this.DefenseLower = defenseLower;
         this.DefenseUpper = defenseUpper;
         this.Health = health;
@@ -104,6 +111,7 @@ public class CardModel
     {
         Grappled,
         Grounded,
-        Juggled
+        Juggled,
+        None
     }
 }
