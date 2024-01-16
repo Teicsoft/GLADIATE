@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using Godot;
 using TeicsoftSpectacleCards.scripts.customresource.Cards;
@@ -21,7 +22,7 @@ public static class ComboXmlParser
         string comboId = comboNode.Attributes["id"].Value;
         string modifier = comboNode.Attributes["modifier"].Value;
         
-        if (Enum.TryParse(modifier, out ComboModel.Modifier parsedModifier))
+        if (Enum.TryParse(modifier, out ComboModel.ModifierEnum parsedModifier))
         {
             GD.Print("Parsed modifier: " + parsedModifier);
         }
@@ -33,7 +34,7 @@ public static class ComboXmlParser
         
         XmlNode cardListNode = comboNode.SelectSingleNode("cards");
         XmlNodeList cardNodes = cardListNode.SelectNodes("card");
-        CardModel[] CardList = new CardModel[cardNodes.Count];
+        List<CardModel> CardList = new List<CardModel>();
 
         int i = 0;
         foreach (XmlNode cardNode in cardNodes)
@@ -41,7 +42,7 @@ public static class ComboXmlParser
             string cardId = cardNode.Attributes["id"].Value;
             CardModel card = new CardModel(cardId);
             
-            CardList[i] = card;
+            CardList.Add(card);
             i++;
         }
         

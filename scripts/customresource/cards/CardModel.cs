@@ -6,8 +6,8 @@ public class CardModel
 {
     public string Id { get; set;} // card_id
 
-    public Target TargetType { get; set;}
-    public Modifier ModifierType { get; set;}
+    public TargetEnum Target { get; set;}
+    public ModifierEnum Modifier { get; set;}
     
     // main stats
     public int Attack { get; set;}
@@ -44,14 +44,14 @@ public class CardModel
     
     
     public CardModel(
-        string id, Modifier modifier,
+        string id, ModifierEnum modifier,
         int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints, 
         string name, string description, string lore, string tooltip,
         string imagePath, string animationPath, string soundPath
         )
     {
         this.Id = id;
-        this.ModifierType = modifier;
+        this.Modifier = modifier;
         this.Attack = attack;
         
         this.DefenseLower = defenseLower;
@@ -72,7 +72,7 @@ public class CardModel
     
     public override string ToString()
     {
-        return $"{nameof(Id)}: {Id}, {nameof(TargetType)}: {TargetType}, {nameof(ModifierType)}: {ModifierType.ToString()}, {nameof(Attack)}: {Attack}, {nameof(DefenseLower)}: {DefenseLower}, {nameof(DefenseUpper)}: {DefenseUpper}, {nameof(Health)}: {Health}, {nameof(Draw)}: {Draw}, {nameof(SpectaclePoints)}: {SpectaclePoints}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(Lore)}: {Lore}, {nameof(ToolTip)}: {ToolTip}, {nameof(ImagePath)}: {ImagePath}, {nameof(AnimationPath)}: {AnimationPath}, {nameof(SoundPath)}: {SoundPath}, {nameof(Image)}: {Image}, {nameof(Animation)}: {Animation}, {nameof(Sound)}: {Sound}";
+        return $"{nameof(Id)}: {Id}, {nameof(Target)}: {Target}, {nameof(Modifier)}: {Modifier.ToString()}, {nameof(Attack)}: {Attack}, {nameof(DefenseLower)}: {DefenseLower}, {nameof(DefenseUpper)}: {DefenseUpper}, {nameof(Health)}: {Health}, {nameof(Draw)}: {Draw}, {nameof(SpectaclePoints)}: {SpectaclePoints}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(Lore)}: {Lore}, {nameof(ToolTip)}: {ToolTip}, {nameof(ImagePath)}: {ImagePath}, {nameof(AnimationPath)}: {AnimationPath}, {nameof(SoundPath)}: {SoundPath}, {nameof(Image)}: {Image}, {nameof(Animation)}: {Animation}, {nameof(Sound)}: {Sound}";
     }
 
 
@@ -99,7 +99,7 @@ public class CardModel
     }
     
 
-    public enum Target
+    public enum TargetEnum
     {
         Self, 
         SingleEnemy, 
@@ -107,7 +107,7 @@ public class CardModel
         Everyone
     }
     
-    public enum Modifier
+    public enum ModifierEnum
     {
         Grappled,
         Grounded,

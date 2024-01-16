@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using TeicsoftSpectacleCards.scripts.customresource.Cards;
 
@@ -7,10 +8,10 @@ public class ComboModel
 {
     public string Id { get; set;}
     
-    public CardModel[] CardList { get; set;}
+    public List<CardModel> CardList;
     
-    public Target TargetType { get; set;}
-    public Modifier ModifierType { get; set;}
+    public TargetEnum Target { get; set;}
+    public ModifierEnum Modifier { get; set;}
     
     // main stats
     public int Attack { get; set;}
@@ -39,7 +40,7 @@ public class ComboModel
     public AudioStream Sound { get; set;}
 
     public ComboModel(
-        string id, CardModel[] cardList, Modifier modifier,
+        string id, List<CardModel> cardList, ModifierEnum modifier,
         int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints,
         string name, string description, string lore, string onscreenText,
         string imagePath, string charAnimationPath, string stageAnimationPath, string soundPath
@@ -47,7 +48,7 @@ public class ComboModel
     {
         this.Id = id;
         this.CardList = cardList;
-        this.ModifierType = modifier;
+        this.Modifier = modifier;
         
         this.Attack = attack;
         this.DefenseLower = defenseLower;
@@ -95,7 +96,7 @@ public class ComboModel
         Sound = (AudioStream) GD.Load(SoundPath);
     }
     
-    public enum Target
+    public enum TargetEnum
     {
         Self, 
         SingleEnemy, 
@@ -103,7 +104,7 @@ public class ComboModel
         Everyone
     }
     
-    public enum Modifier
+    public enum ModifierEnum
     {
         Grappled,
         Grounded,

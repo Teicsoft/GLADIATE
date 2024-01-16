@@ -3,7 +3,7 @@ namespace TeicsoftSpectacleCards.scripts.customresource.Cards;
 public class DrawCardModel: CardModel
 {
     public DrawCardModel(
-        string id, Modifier modifier,
+        string id, ModifierEnum modifier,
         int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints, 
         string name, string description, string lore, string tooltip, string 
             imagePath, string animationPath, string soundPath

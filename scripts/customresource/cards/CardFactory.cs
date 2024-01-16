@@ -5,7 +5,7 @@ namespace TeicsoftSpectacleCards.scripts.customresource.Cards;
 public static class CardFactory
 {
     public static CardModel MakeCard(
-        string type, string cardId, CardModel.Modifier modifier,
+        string type, string cardId, CardModel.ModifierEnum modifier,
         int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints, 
         string name, string description, string lore, string tooltip, string 
             imagePath, string animationPath, string soundPath)

@@ -23,7 +23,7 @@ public static class CardXmlParser
 		string modifier = cardNode.Attributes["modifier"].Value;
 		
 		
-		if (Enum.TryParse(modifier, out CardModel.Modifier parsedModifier))
+		if (Enum.TryParse(modifier, out CardModel.ModifierEnum parsedModifier))
 		{
 			GD.Print("Parsed modifier: " + parsedModifier);
 		}
