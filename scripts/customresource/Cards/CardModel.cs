@@ -1,14 +1,13 @@
 using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.customresource;
+namespace TeicsoftSpectacleCards.scripts.customresource.Cards;
 
 public class CardModel
 {
     public string Id { get; set;} // card_id
 
     public Target TargetType { get; set;}
-    public Type CardType { get; set;}
-    public Modifier[] Modifiers { get; set;}
+    public Modifier ModifierType { get; set;}
     
     // main stats
     public int Attack { get; set;}
@@ -37,19 +36,16 @@ public class CardModel
     
     
     //constructor
-    public CardModel(string id)
-    {
-        this.Id = id;
-    }
     
     public CardModel(
-        string id, 
+        string id, Modifier modifier,
         int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints, 
         string name, string description, string lore, string tooltip,
         string imagePath, string animationPath, string soundPath
         )
     {
         this.Id = id;
+        this.ModifierType = modifier;
         this.Attack = attack;
         this.DefenseLower = defenseLower;
         this.DefenseUpper = defenseUpper;
@@ -67,9 +63,9 @@ public class CardModel
         this.SoundPath = soundPath;
     }
     
-    public string ToString()
+    public override string ToString()
     {
-        return $"{nameof(Id)}: {Id}, {nameof(TargetType)}: {TargetType}, {nameof(CardType)}: {CardType}, {nameof(Modifiers)}: {Modifiers}, {nameof(Attack)}: {Attack}, {nameof(DefenseLower)}: {DefenseLower}, {nameof(DefenseUpper)}: {DefenseUpper}, {nameof(Health)}: {Health}, {nameof(Draw)}: {Draw}, {nameof(SpectaclePoints)}: {SpectaclePoints}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(Lore)}: {Lore}, {nameof(ToolTip)}: {ToolTip}, {nameof(ImagePath)}: {ImagePath}, {nameof(AnimationPath)}: {AnimationPath}, {nameof(SoundPath)}: {SoundPath}, {nameof(Image)}: {Image}, {nameof(Animation)}: {Animation}, {nameof(Sound)}: {Sound}";
+        return $"{nameof(Id)}: {Id}, {nameof(TargetType)}: {TargetType}, {nameof(ModifierType)}: {ModifierType.ToString()}, {nameof(Attack)}: {Attack}, {nameof(DefenseLower)}: {DefenseLower}, {nameof(DefenseUpper)}: {DefenseUpper}, {nameof(Health)}: {Health}, {nameof(Draw)}: {Draw}, {nameof(SpectaclePoints)}: {SpectaclePoints}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(Lore)}: {Lore}, {nameof(ToolTip)}: {ToolTip}, {nameof(ImagePath)}: {ImagePath}, {nameof(AnimationPath)}: {AnimationPath}, {nameof(SoundPath)}: {SoundPath}, {nameof(Image)}: {Image}, {nameof(Animation)}: {Animation}, {nameof(Sound)}: {Sound}";
     }
 
 
@@ -95,15 +91,7 @@ public class CardModel
         Sound = (AudioStream) GD.Load(SoundPath);
     }
     
-    //enums
-    public enum Type
-    {
-        Attack, 
-        Modifier, 
-        Block, 
-        Draw
-    }
-    
+
     public enum Target
     {
         Self, 

@@ -1,6 +1,7 @@
 using System;
 using System.Xml;
 using Godot;
+using TeicsoftSpectacleCards.scripts.customresource.Cards;
 
 namespace TeicsoftSpectacleCards.scripts.customresource;
 
@@ -21,6 +22,17 @@ public static class CardXmlParser
 		string cardType = cardNode.Attributes["type"].Value;
 		string modifier = cardNode.Attributes["modifier"].Value;
 		
+		
+		if (Enum.TryParse(modifier, out CardModel.Modifier parsedModifier))
+		{
+			GD.Print("Parsed modifier: " + parsedModifier);
+		}
+		else
+		{
+			GD.Print("Failed to parse modifier: " + modifier);
+		}
+		
+		
 		XmlNode statsNode = cardNode.SelectSingleNode("stats");
 		int attack = statsNode.SelectSingleNode("attack") != null ? Int32.Parse(statsNode.SelectSingleNode("attack").InnerText) : 0;
 		int defenseLower = statsNode.SelectSingleNode("defense_lower") != null ? Int32.Parse(statsNode.SelectSingleNode("defense_lower").InnerText) : 0;
@@ -40,8 +52,9 @@ public static class CardXmlParser
 		string lore = textNode.SelectSingleNode("lore") != null ? textNode.SelectSingleNode("lore").InnerText : "";
 		string tooltip = textNode.SelectSingleNode("tooltip_text") != null ? textNode.SelectSingleNode("tooltip_text").InnerText : "";
 		
-		CardModel card = new CardModel(
-			cardId,
+		CardModel card = CardFactory.MakeCard(
+			
+			cardType, cardId, parsedModifier,
 			attack, defenseLower, defenseUpper, health, draw, spectaclePoints,
 			name, description, lore, tooltip,
 			imagePath, animationPath, soundPath

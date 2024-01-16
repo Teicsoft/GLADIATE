@@ -1,5 +1,6 @@
 using Godot;
 using TeicsoftSpectacleCards.scripts.customresource;
+using TeicsoftSpectacleCards.scripts.customresource.Cards;
 
 namespace Battle;
 
