@@ -92,29 +92,14 @@ public partial class Battle : Node2D {
 
     public void PlaySelectedCard() {
         Card card = _hand.GetSelectedCard();
-        if (card != null) {
-            card.RaiseSingleEnemyAffectedEvent += OnSingleEnemyAffectedEvent;
-            card.RaiseMultiEnemyAffectedEvent += OnMultiEnemyAffectedEvent;
-            card.Play();
-            card.RaiseSingleEnemyAffectedEvent -= OnSingleEnemyAffectedEvent;
-            card.RaiseMultiEnemyAffectedEvent -= OnMultiEnemyAffectedEvent;
-        }
-    }
-
-    private void OnMultiEnemyAffectedEvent(object sender, MultiEnemyAffectedEventArgs args) {
-        args.Action(_enemies);
-    }
-
-    private void OnSingleEnemyAffectedEvent(object sender, SingleEnemyAffectedEventArgs args) {
-        Action<Enemy> action = args.Action;
-        if (EnemySelected()) {
-            action(GetSelectedEnemy());
+        if (card != null && !(card.RequiresTarget() && GetSelectedEnemy() == null)) {
+            card.Play(GetSelectedEnemy(), _enemies);
             _hand.DiscardSelectedCard();
         }
     }
 
     private Enemy GetSelectedEnemy() {
-        return _enemies[selectedEnemyIndex];
+        return selectedEnemyIndex != -1 ? _enemies[selectedEnemyIndex] : null;
     }
 
     private void SelectEnemy(Enemy enemy) {
@@ -122,7 +107,7 @@ public partial class Battle : Node2D {
     }
 
     private void OnPlayButtonPressed() {
-        if (EnemySelected()) { PlaySelectedCard(); }
+        PlaySelectedCard();
     }
 
     private bool EnemySelected() {
