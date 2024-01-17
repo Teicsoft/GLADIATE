@@ -19,8 +19,8 @@ point_count = 2
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_bmdek")
-_cardScene = ExtResource("3_citfa")
-_enemyScene = ExtResource("3_25d28")
+cardScene = ExtResource("3_citfa")
+enemyScene = ExtResource("3_25d28")
 
 [node name="Hand" type="Path2D" parent="."]
 curve = SubResource("Curve2D_xvv15")
