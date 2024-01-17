@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class Deck : Node2D {
+public class Deck  {
 
     public Discard discard;
     public List<Card> cards = new();
