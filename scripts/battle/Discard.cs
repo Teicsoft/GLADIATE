@@ -2,14 +2,14 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Discard {
+public class Discard {
     public List<Card> Cards = new();
 
-    public void AddCard(Card card) { // Adds cards to TOP of deck, highest index on top.
+    public void AddCard(Card card) {
         Cards.Add(card);
     }
 
-    public void AddCards(List<Card> cards) { // Adds cards to TOP of deck, highest index on top.
+    public void AddCards(List<Card> cards) {
         Cards.AddRange(cards);
     }
 

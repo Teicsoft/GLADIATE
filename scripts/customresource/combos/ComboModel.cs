@@ -11,7 +11,10 @@ public class ComboModel
     public List<CardModel> CardList;
     
     public TargetEnum Target { get; set;}
+
     public ModifierEnum Modifier { get; set;}
+
+    public PositionEnum Position {get; set;}
     
     // main stats
     public int Attack { get; set;}
@@ -19,6 +22,7 @@ public class ComboModel
     public int DefenseUpper { get; set;}
     public int Health { get; set;}
     public int Draw { get; set;}
+    public int Discard {get; set;}
     public int SpectaclePoints { get; set;}
     
     //text
@@ -40,8 +44,8 @@ public class ComboModel
     public AudioStream Sound { get; set;}
 
     public ComboModel(
-        string id, List<CardModel> cardList, ModifierEnum modifier,
-        int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints,
+        string id, List<CardModel> cardList, ModifierEnum modifier, PositionEnum position,
+        int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints,
         string name, string description, string lore, string onscreenText,
         string imagePath, string charAnimationPath, string stageAnimationPath, string soundPath
         )
@@ -49,12 +53,14 @@ public class ComboModel
         this.Id = id;
         this.CardList = cardList;
         this.Modifier = modifier;
+        this.Position = position;
         
         this.Attack = attack;
         this.DefenseLower = defenseLower;
         this.DefenseUpper = defenseUpper;
         this.Health = health;
         this.Draw = draw;
+        this.Discard = discard;
         this.SpectaclePoints = spectaclePoints;
         
         this.Name = name;
@@ -109,6 +115,14 @@ public class ComboModel
         Grappled,
         Grounded,
         Juggled,
+        None
+    }
+
+    public enum PositionEnum
+    {
+        Upper,
+        Lower,
+        Both,
         None
     }
 }

@@ -3,13 +3,13 @@ namespace TeicsoftSpectacleCards.scripts.customresource.Cards;
 public class AttackCardModel: CardModel
 {
     public AttackCardModel(
-        string id, ModifierEnum modifier,
-        int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints, 
+        string id, ModifierEnum modifier, PositionEnum position,
+        int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, 
         string name, string description, string lore, string tooltip, string 
             imagePath, string animationPath, string soundPath
         ) : base(
-        id, modifier,
-        attack, defenseLower, defenseUpper, health, draw, spectaclePoints, 
+        id, modifier, position,
+        attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints, 
         name, description, lore, tooltip, 
         imagePath, animationPath, soundPath
         )
@@ -20,6 +20,7 @@ public class AttackCardModel: CardModel
         this.DefenseUpper = defenseUpper;
         this.Health = health;
         this.Draw = draw;
+        this.Discard = discard;
         this.SpectaclePoints = spectaclePoints;
         
         this.Name = name;

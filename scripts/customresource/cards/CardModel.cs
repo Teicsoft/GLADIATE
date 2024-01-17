@@ -8,6 +8,8 @@ public class CardModel
 
     public TargetEnum Target { get; set;}
     public ModifierEnum Modifier { get; set;}
+
+    public PositionEnum Position {get;set;}
     
     // main stats
     public int Attack { get; set;}
@@ -15,6 +17,7 @@ public class CardModel
     public int DefenseUpper { get; set;}
     public int Health { get; set;}
     public int Draw { get; set;}
+    public int Discard { get; set;}
     public int SpectaclePoints { get; set;}
     
     //text
@@ -44,20 +47,22 @@ public class CardModel
     
     
     public CardModel(
-        string id, ModifierEnum modifier,
-        int attack, int defenseLower, int defenseUpper, int health, int draw, int spectaclePoints, 
+        string id, ModifierEnum modifier, PositionEnum position,
+        int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, 
         string name, string description, string lore, string tooltip,
         string imagePath, string animationPath, string soundPath
         )
     {
         this.Id = id;
         this.Modifier = modifier;
+        this.Position = position;
         this.Attack = attack;
         
         this.DefenseLower = defenseLower;
         this.DefenseUpper = defenseUpper;
         this.Health = health;
         this.Draw = draw;
+        this.Discard = discard;
         this.SpectaclePoints = spectaclePoints;
         
         this.Name = name;
@@ -72,7 +77,7 @@ public class CardModel
     
     public override string ToString()
     {
-        return $"{nameof(Id)}: {Id}, {nameof(Target)}: {Target}, {nameof(Modifier)}: {Modifier.ToString()}, {nameof(Attack)}: {Attack}, {nameof(DefenseLower)}: {DefenseLower}, {nameof(DefenseUpper)}: {DefenseUpper}, {nameof(Health)}: {Health}, {nameof(Draw)}: {Draw}, {nameof(SpectaclePoints)}: {SpectaclePoints}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(Lore)}: {Lore}, {nameof(ToolTip)}: {ToolTip}, {nameof(ImagePath)}: {ImagePath}, {nameof(AnimationPath)}: {AnimationPath}, {nameof(SoundPath)}: {SoundPath}, {nameof(Image)}: {Image}, {nameof(Animation)}: {Animation}, {nameof(Sound)}: {Sound}";
+        return $"{nameof(Id)}: {Id}, {nameof(Target)}: {Target}, {nameof(Modifier)}: {Modifier.ToString()}, {nameof(Position)}: {Position.ToString()}, {nameof(Attack)}: {Attack}, {nameof(DefenseLower)}: {DefenseLower}, {nameof(DefenseUpper)}: {DefenseUpper}, {nameof(Health)}: {Health}, {nameof(Draw)}: {Draw}, {nameof(Discard)}: {Discard}, {nameof(SpectaclePoints)}: {SpectaclePoints}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(Lore)}: {Lore}, {nameof(ToolTip)}: {ToolTip}, {nameof(ImagePath)}: {ImagePath}, {nameof(AnimationPath)}: {AnimationPath}, {nameof(SoundPath)}: {SoundPath}, {nameof(Image)}: {Image}, {nameof(Animation)}: {Animation}, {nameof(Sound)}: {Sound}";
     }
 
 
@@ -112,6 +117,14 @@ public class CardModel
         Grappled,
         Grounded,
         Juggled,
+        None
+    }
+
+    public enum PositionEnum
+    {
+        Upper,
+        Lower,
+        Both,
         None
     }
 }
