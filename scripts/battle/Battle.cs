@@ -45,11 +45,11 @@ public partial class Battle : Node2D {
     public override void _Ready() {
         //This is a test to see if the card factory works, feel free to remove it
         CardModel modelCard = CardXmlParser.ParseCardsFromXml("res://data/cards/card_template.xml");
-        GD.Print(modelCard.ToString());
+        GD.Print(modelCard.ToString() + "\n");
 
         //This is a test to see if the combo parsing works, feel free to remove it
         ComboModel combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
-        GD.Print(combo.ToString());
+        GD.Print(combo.ToString() + "\n");
 
         // //This is a test to see if the Deck parsing works, feel free to remove it
         DeckModel deckModel = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
