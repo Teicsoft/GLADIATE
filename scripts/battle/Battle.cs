@@ -103,15 +103,12 @@ public partial class Battle : Node2D {
     }
 
     private void SelectEnemy(Enemy enemy) {
-        selectedEnemyIndex = _enemies.IndexOf(enemy);
+        int enemyIndex = _enemies.IndexOf(enemy);
+        selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
 
     private void OnPlayButtonPressed() {
         PlaySelectedCard();
-    }
-
-    private bool EnemySelected() {
-        return selectedEnemyIndex != -1;
     }
 
     private void OnDeckPressed() {
