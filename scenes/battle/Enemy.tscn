@@ -12,11 +12,11 @@ offset_top = -150.0
 offset_right = 150.0
 offset_bottom = 150.0
 
-[node name="AttackButton" type="Button" parent="."]
+[node name="SelectButton" type="Button" parent="."]
 offset_left = -100.0
 offset_top = 175.0
 offset_right = 100.0
 offset_bottom = 225.0
-text = "Attack"
+text = "Select"
 
-[connection signal="pressed" from="AttackButton" to="." method="OnAttackButtonPressed"]
+[connection signal="pressed" from="SelectButton" to="." method="OnPress"]
