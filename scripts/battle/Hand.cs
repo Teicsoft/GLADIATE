@@ -35,9 +35,9 @@ public partial class Hand : Path2D {
         Card card = cards[selectedCardIndex];
         card.CardSelected -= SelectCard;
         discard.AddCard(card);
-        RemoveChild(card);
         cards.RemoveAt(selectedCardIndex);
         selectedCardIndex = -1;
+        RemoveChild(card);
         UpdateCardPositions();
     }
 

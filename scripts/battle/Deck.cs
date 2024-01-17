@@ -54,12 +54,10 @@ public partial class Deck : Node2D {
     }
 
     private List<Card> OnDeckEmptied(int amount) {
-        if (!discard.IsEmpty()) {
-            AddCards(discard.GetCards());
-            Shuffle();
-            return DrawCards(amount);
-        }
+        if (discard.IsEmpty()) { return new(); }
 
-        return new();
+        AddCards(discard.GetCards());
+        Shuffle();
+        return DrawCards(amount);
     }
 }
