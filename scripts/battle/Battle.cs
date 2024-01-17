@@ -92,24 +92,8 @@ public partial class Battle : Node2D {
 
     public void PlaySelectedCard() {
         Card card = _hand.GetSelectedCard();
-        if (card != null) {
-            card.RaiseSingleEnemyAffectedEvent += OnSingleEnemyAffectedEvent;
-            card.RaiseMultiEnemyAffectedEvent += OnMultiEnemyAffectedEvent;
-            card.Play();
-            card.RaiseSingleEnemyAffectedEvent -= OnSingleEnemyAffectedEvent;
-            card.RaiseMultiEnemyAffectedEvent -= OnMultiEnemyAffectedEvent;
-        }
-    }
-
-    private void OnMultiEnemyAffectedEvent(object sender, MultiEnemyAffectedEventArgs args) {
-        args.Action(_enemies);
-    }
-
-    private void OnSingleEnemyAffectedEvent(object sender, SingleEnemyAffectedEventArgs args) {
-        Action<Enemy> action = args.Action;
-        if (EnemySelected()) {
-            action(GetSelectedEnemy());
-            _hand.DiscardSelectedCard();
+        if (card != null && !(card.RequiresTarget() && GetSelectedEnemy() == null)) {
+            card.Play(GetSelectedEnemy(), _enemies);
         }
     }
 
