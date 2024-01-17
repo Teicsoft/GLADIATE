@@ -63,14 +63,12 @@ public partial class Battle : Node2D {
         List<Card> initialDeck = new();
         foreach (Color color in COLORS) {
             Card card = cardScene.Instantiate<Card>();
-            card.color = color;
-            card.AddThemeColorOverride("font_color", card.color);
+            card.ChangeColor(color);
             initialDeck.Add(card);
         }
 
         Card lastCard = cardScene.Instantiate<Card>();
-        lastCard.color = PALETTE[GD.Randi() % PALETTE.Length];
-        lastCard.AddThemeColorOverride("font_color", lastCard.color);
+        lastCard.ChangeColor(PALETTE[GD.Randi() % PALETTE.Length]);
         initialDeck.Add(lastCard);
 
         deck.AddCards(initialDeck);

@@ -7,13 +7,13 @@
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 180, 800, 0, 0, 0, 0, 1560, 800)
+"points": PackedVector2Array(0, 0, 100, -100, 270, 975, -100, -100, 0, 0, 1650, 975)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_r0y7a"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 300, 400, 0, 0, 0, 0, 1520, 400)
+"points": PackedVector2Array(0, 0, 0, 0, 300, 300, 0, 0, 0, 0, 1620, 300)
 }
 point_count = 2
 
@@ -27,13 +27,14 @@ curve = SubResource("Curve2D_xvv15")
 script = ExtResource("4_swwjy")
 
 [node name="HandCardLocation" type="PathFollow2D" parent="Hand"]
-position = Vector2(180, 800)
+position = Vector2(270, 975)
+rotation = -0.785398
 
 [node name="Enemies" type="Path2D" parent="."]
 curve = SubResource("Curve2D_r0y7a")
 
 [node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
-position = Vector2(300, 400)
+position = Vector2(300, 300)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -65,9 +66,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -150.0
-offset_top = -430.0
+offset_top = -480.0
 offset_right = 150.0
-offset_bottom = -330.0
+offset_bottom = -380.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Play"

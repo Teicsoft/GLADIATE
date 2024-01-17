@@ -50,11 +50,13 @@ public partial class Hand : Path2D {
             if (i == selectedCardIndex) { cardPosition.Y -= 100; }
 
             card.Position = cardPosition;
+            card.Rotation = handCardLocation.Rotation;
         }
     }
 
     private void SelectCard(Card card) {
-        selectedCardIndex = cards.IndexOf(card);
+        int cardIndex = cards.IndexOf(card);
+        selectedCardIndex = selectedCardIndex != cardIndex ? cardIndex : -1;
         UpdateCardPositions();
     }
 }
