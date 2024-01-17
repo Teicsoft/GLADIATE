@@ -20,12 +20,18 @@ public static class ComboXmlParser
 		XmlNode comboNode = doc.SelectSingleNode("combo");
 		string comboId = comboNode.Attributes["id"].Value;
 		string modifier = comboNode.Attributes["modifier"].Value;
+		string position = comboNode.Attributes["position"].Value;
+
 		
 		if (Enum.TryParse(modifier, out ComboModel.ModifierEnum parsedModifier))
 		{}
 		else
 		{
 			GD.Print("Failed to parse modifier: " + modifier);
+		}
+		
+		if (Enum.TryParse(position, out ComboModel.PositionEnum parsedPosition)) { } else {
+			GD.Print("Failed to parse position: " + position);
 		}
 		
 		
@@ -48,6 +54,7 @@ public static class ComboXmlParser
 		int defenseUpper = statsNode.SelectSingleNode("defense_upper") != null ? Int32.Parse(statsNode.SelectSingleNode("defense_upper").InnerText) : 0;
 		int health = statsNode.SelectSingleNode("health") != null ? Int32.Parse(statsNode.SelectSingleNode("health").InnerText) : 0;
 		int draw = statsNode.SelectSingleNode("draw") != null ? Int32.Parse(statsNode.SelectSingleNode("draw").InnerText) : 0;
+		int discard = ParseIntNode(statsNode, "discard");
 		int spectaclePoints = statsNode.SelectSingleNode("spectacle_points") != null ? Int32.Parse(statsNode.SelectSingleNode("spectacle_points").InnerText) : 0;
 
 		XmlNode designNode = comboNode.SelectSingleNode("design");
@@ -63,12 +70,20 @@ public static class ComboXmlParser
 		string onscreenText = textNode.SelectSingleNode("onscreen_text") != null ? textNode.SelectSingleNode("onscreen_text").InnerText : "";
 		
 		ComboModel combo = new ComboModel(
-			comboId, CardList, parsedModifier,
-			attack, defenseLower, defenseUpper, health, draw, spectaclePoints,
+			comboId, CardList, parsedModifier, parsedPosition,
+			attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
 			name, description, lore, onscreenText,
 			imagePath, charAnimationPath, stageAnimationPath, soundPath
 			);
 
 		return combo;
+		
+		int ParseIntNode(XmlNode parent, string s) {
+			return parent.SelectSingleNode(s) != null ? Int32.Parse(parent.SelectSingleNode(s).InnerText) : 0;
+		}
+
+		string ParseTextNode(XmlNode parent, string s) {
+			return parent.SelectSingleNode(s) != null ? parent.SelectSingleNode(s).InnerText : "";
+		}
 	}
 }
