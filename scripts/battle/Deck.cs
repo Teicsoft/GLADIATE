@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class Deck : Node2D {
+public class Deck  {
 
-    public Discard Discard;
-    public List<Card> Cards = new();
+    public Discard discard;
+    public List<Card> cards = new();
 
     public static List<Card> Shuffle(List<Card> input) {
         List<Card> deck = new(input);
@@ -19,19 +19,19 @@ public partial class Deck : Node2D {
     }
 
     public void AddCard(Card card) { // Adds cards to TOP of deck, highest index on top.
-        Cards.Add(card);
+        cards.Add(card);
     }
 
     public void AddCards(List<Card> cards) { // Adds cards to TOP of deck, highest index on top.
-        Cards.AddRange(cards);
+        this.cards.AddRange(cards);
     }
 
     public bool IsEmpty() {
-        return Cards.Count == 0;
+        return cards.Count == 0;
     }
 
     public void Shuffle() {
-        Cards = Shuffle(Cards);
+        cards = Shuffle(cards);
     }
 
     public List<Card> DrawCard() {
@@ -41,11 +41,11 @@ public partial class Deck : Node2D {
     public List<Card> DrawCards(int amount) {
         List<Card> draw = new();
         if (amount > 0) {
-            if (Cards.Count == 0) { return OnDeckEmptied(amount); }
+            if (cards.Count == 0) { return OnDeckEmptied(amount); }
 
-            if (Cards.Count > 0) {
-                draw.Add(Cards[^1]);
-                Cards.RemoveAt(Cards.Count - 1);
+            if (cards.Count > 0) {
+                draw.Add(cards[^1]);
+                cards.RemoveAt(cards.Count - 1);
                 draw.AddRange(DrawCards(amount - 1));
             }
         }
@@ -54,12 +54,10 @@ public partial class Deck : Node2D {
     }
 
     private List<Card> OnDeckEmptied(int amount) {
-        if (!Discard.IsEmpty()) {
-            AddCards(Discard.GetCards());
-            Shuffle();
-            return DrawCards(amount);
-        }
+        if (discard.IsEmpty()) { return new(); }
 
-        return new();
+        AddCards(discard.GetCards());
+        Shuffle();
+        return DrawCards(amount);
     }
 }
