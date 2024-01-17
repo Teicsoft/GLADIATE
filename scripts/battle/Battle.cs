@@ -11,7 +11,7 @@ using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public partial class Battle : Node2D {
 
-    private static readonly List<Color> Colors = new() {
+    private static readonly List<Color> COLORS = new() {
         new(1.0f, 0.0f, 0.0f),
         new(1.0f, 0.0f, 0.0f),
         new(1.0f, 0.0f, 0.0f),
@@ -22,7 +22,7 @@ public partial class Battle : Node2D {
         new(0.0f, 0.0f, 1.0f),
     };
 
-    private static readonly Color[] Palette = {
+    private static readonly Color[] PALETTE = {
         new(1.0f, 0.0f, 0.0f),
         new(1.0f, 1.0f, 0.0f),
         new(0.0f, 1.0f, 0.0f),
@@ -33,13 +33,13 @@ public partial class Battle : Node2D {
         new(0.0f, 0.0f, 0.0f),
     };
 
-    [Export] private PackedScene _cardScene;
-    [Export] private PackedScene _enemyScene;
-    private Hand _hand;
-    private Deck _deck;
-    private Discard _discard;
-    private PathFollow2D _enemiesLocation;
-    private List<Enemy> _enemies = new();
+    [Export] private PackedScene cardScene;
+    [Export] private PackedScene enemyScene;
+    private Hand hand;
+    private Deck deck;
+    private Discard discard;
+    private PathFollow2D enemiesLocation;
+    private List<Enemy> enemies = new();
     private int selectedEnemyIndex = -1;
 
     public override void _Ready() {
@@ -51,39 +51,39 @@ public partial class Battle : Node2D {
         ComboModel combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
         GD.Print(combo.ToString());
 
-        //
         // //This is a test to see if the Deck parsing works, feel free to remove it
-        DeckModel deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
-        _hand = GetNode<Hand>("Hand");
-        _deck = new Deck();
-        _discard = new Discard();
-        _enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
-        _hand.Discard = _discard;
-        _deck.Discard = _discard;
+        DeckModel deckModel = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
+        GD.Print(deckModel.ToString());
+        hand = GetNode<Hand>("Hand");
+        deck = new Deck();
+        discard = new Discard();
+        enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
+        hand.discard = discard;
+        deck.discard = discard;
         List<Card> initialDeck = new();
-        foreach (Color color in Colors) {
-            Card card = _cardScene.Instantiate<Card>();
-            card.Color = color;
-            card.AddThemeColorOverride("font_color", card.Color);
+        foreach (Color color in COLORS) {
+            Card card = cardScene.Instantiate<Card>();
+            card.color = color;
+            card.AddThemeColorOverride("font_color", card.color);
             initialDeck.Add(card);
         }
 
-        Card lastCard = _cardScene.Instantiate<Card>();
-        lastCard.Color = Palette[GD.Randi() % Palette.Length];
-        lastCard.AddThemeColorOverride("font_color", lastCard.Color);
+        Card lastCard = cardScene.Instantiate<Card>();
+        lastCard.color = PALETTE[GD.Randi() % PALETTE.Length];
+        lastCard.AddThemeColorOverride("font_color", lastCard.color);
         initialDeck.Add(lastCard);
 
-        _deck.AddCards(initialDeck);
-        _deck.Shuffle();
+        deck.AddCards(initialDeck);
+        deck.Shuffle();
 
 
         float locationRatio = 1f / 2;
         foreach (int i in Enumerable.Range(0, 3)) {
-            Enemy enemy = _enemyScene.Instantiate<Enemy>();
+            Enemy enemy = enemyScene.Instantiate<Enemy>();
             enemy.EnemySelected += SelectEnemy;
-            _enemies.Add(enemy);
-            _enemiesLocation.ProgressRatio = i * locationRatio;
-            enemy.Position = _enemiesLocation.Position;
+            enemies.Add(enemy);
+            enemiesLocation.ProgressRatio = i * locationRatio;
+            enemy.Position = enemiesLocation.Position;
             AddChild(enemy);
         }
     }
@@ -91,19 +91,19 @@ public partial class Battle : Node2D {
     public override void _Process(double delta) { }
 
     public void PlaySelectedCard() {
-        Card card = _hand.GetSelectedCard();
+        Card card = hand.GetSelectedCard();
         if (card != null && !(card.RequiresTarget() && GetSelectedEnemy() == null)) {
-            card.Play(GetSelectedEnemy(), _enemies);
-            _hand.DiscardSelectedCard();
+            card.Play(GetSelectedEnemy(), enemies);
+            hand.DiscardSelectedCard();
         }
     }
 
     private Enemy GetSelectedEnemy() {
-        return selectedEnemyIndex != -1 ? _enemies[selectedEnemyIndex] : null;
+        return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
     }
 
     private void SelectEnemy(Enemy enemy) {
-        int enemyIndex = _enemies.IndexOf(enemy);
+        int enemyIndex = enemies.IndexOf(enemy);
         selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
 
@@ -112,6 +112,6 @@ public partial class Battle : Node2D {
     }
 
     private void OnDeckPressed() {
-        _hand.AddCards(_deck.DrawCard());
+        hand.AddCards(deck.DrawCard());
     }
 }
