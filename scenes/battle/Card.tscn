@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://4lar8gsflwru"]
 
-[ext_resource type="Script" path="res://scripts/battle/HUD/Card.cs" id="1_bqmvl"]
+[ext_resource type="Script" path="res://scripts/battle/Card.cs" id="1_bqmvl"]
 
 [node name="Card" type="Button"]
 anchors_preset = 8

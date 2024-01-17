@@ -1,15 +1,15 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 
 public partial class Enemy : Node2D {
 
     [Signal]
-    public delegate void EnemyAttackedEventHandler(Enemy enemy);
+    public delegate void EnemySelectedEventHandler(Enemy enemy);
 
     private ColorRect rect;
+    private Button selectButton;
 
     public override void _Ready() {
+        selectButton = GetNode<Button>("SelectButton");
         rect = GetNode<ColorRect>("ColorRect");
     }
 
@@ -19,8 +19,8 @@ public partial class Enemy : Node2D {
         rect.Color = color;
     }
 
-    private void OnAttackButtonPressed() {
-        EmitSignal(SignalName.EnemyAttacked, this);
+    private void OnPress() {
+        EmitSignal(SignalName.EnemySelected, this);
     }
 
 }
