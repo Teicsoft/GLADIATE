@@ -51,21 +51,7 @@ public static class ResourceGrabber
             closedPath = ClosedSourceAssetsFolder + folderName + "/" + assetName;
             openPath = OpenSourceAssetsFolder + folderName + "/" + assetName;
         }
-        
-        
-        if (ClosedSourceFolderExist())
-        {
-            if (ClosedSourceAssetExist(assetName, folderName))
-            {
-                return closedPath; 
-            }
-            else
-            {
-                return openPath;
-            }
-        } else { 
-            return openPath;
-        }
+        return ClosedSourceAssetExist(assetName, folderName) ? closedPath : openPath;
     }
     
     
