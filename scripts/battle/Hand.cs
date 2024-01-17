@@ -1,3 +1,4 @@
+#nullable enable
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ public partial class Hand : Path2D {
         UpdateCardPositions();
     }
 
-    public Card GetSelectedCard() {
+    public Card? GetSelectedCard() {
         return Cards[selectedCardIndex];
     }
 

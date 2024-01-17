@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using TeicsoftSpectacleCards.scripts.customresource;
 using TeicsoftSpectacleCards.scripts.customresource.Cards;
@@ -91,13 +92,25 @@ public partial class Battle : Node2D {
 
     public void PlaySelectedCard() {
         Card card = _hand.GetSelectedCard();
-        card.RaiseSingleEnemyAffectedEvent += OnSingleEnemyAffectedEvent;
-        card.Play();
+        if (card != null) {
+            card.RaiseSingleEnemyAffectedEvent += OnSingleEnemyAffectedEvent;
+            card.RaiseMultiEnemyAffectedEvent += OnMultiEnemyAffectedEvent;
+            card.Play();
+            card.RaiseSingleEnemyAffectedEvent -= OnSingleEnemyAffectedEvent;
+            card.RaiseMultiEnemyAffectedEvent -= OnMultiEnemyAffectedEvent;
+        }
+    }
+
+    private void OnMultiEnemyAffectedEvent(object sender, MultiEnemyAffectedEventArgs args) {
+        args.Action(_enemies);
     }
 
     private void OnSingleEnemyAffectedEvent(object sender, SingleEnemyAffectedEventArgs args) {
         Action<Enemy> action = args.Action;
-        if (selectedEnemyIndex != -1) { action(GetSelectedEnemy()); }
+        if (EnemySelected()) {
+            action(GetSelectedEnemy());
+            _hand.DiscardSelectedCard();
+        }
     }
 
     private Enemy GetSelectedEnemy() {
@@ -109,8 +122,11 @@ public partial class Battle : Node2D {
     }
 
     private void OnPlayButtonPressed() {
-        PlaySelectedCard();
-        _hand.DiscardSelectedCard();
+        if (EnemySelected()) { PlaySelectedCard(); }
+    }
+
+    private bool EnemySelected() {
+        return selectedEnemyIndex != -1;
     }
 
     private void OnDeckPressed() {
