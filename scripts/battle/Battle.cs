@@ -94,11 +94,12 @@ public partial class Battle : Node2D {
         Card card = _hand.GetSelectedCard();
         if (card != null && !(card.RequiresTarget() && GetSelectedEnemy() == null)) {
             card.Play(GetSelectedEnemy(), _enemies);
+            _hand.DiscardSelectedCard();
         }
     }
 
     private Enemy GetSelectedEnemy() {
-        return _enemies[selectedEnemyIndex];
+        return selectedEnemyIndex != -1 ? _enemies[selectedEnemyIndex] : null;
     }
 
     private void SelectEnemy(Enemy enemy) {
@@ -106,7 +107,7 @@ public partial class Battle : Node2D {
     }
 
     private void OnPlayButtonPressed() {
-        if (EnemySelected()) { PlaySelectedCard(); }
+        PlaySelectedCard();
     }
 
     private bool EnemySelected() {

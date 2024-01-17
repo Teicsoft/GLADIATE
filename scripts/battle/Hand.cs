@@ -28,7 +28,7 @@ public partial class Hand : Path2D {
     }
 
     public Card? GetSelectedCard() {
-        return Cards[selectedCardIndex];
+        return selectedCardIndex != -1 ? Cards[selectedCardIndex] : null;
     }
 
     public void DiscardSelectedCard() {

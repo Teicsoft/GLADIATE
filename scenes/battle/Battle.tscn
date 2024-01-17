@@ -58,7 +58,7 @@ offset_right = 180.0
 grow_vertical = 0
 color = Color(0, 0, 0, 1)
 
-[node name="Button" type="Button" parent="HUD"]
+[node name="PlayButton" type="Button" parent="HUD"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -73,4 +73,4 @@ grow_vertical = 0
 text = "Play"
 
 [connection signal="pressed" from="HUD/Deck" to="." method="OnDeckPressed"]
-[connection signal="pressed" from="HUD/Button" to="." method="OnPlayButtonPressed"]
+[connection signal="pressed" from="HUD/PlayButton" to="." method="OnPlayButtonPressed"]
