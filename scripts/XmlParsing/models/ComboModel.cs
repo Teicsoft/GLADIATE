@@ -9,7 +9,7 @@ public class ComboModel
     
     public List<Card> CardList;
     
-    public TargetEnum Target { get; set;}
+    public bool TargetRequired { get; set;}
 
     public ModifierEnum Modifier { get; set;}
 
@@ -99,14 +99,6 @@ public class ComboModel
     private void LoadSound()
     {
         Sound = (AudioStream) GD.Load(SoundPath);
-    }
-    
-    public enum TargetEnum
-    {
-        Self, 
-        SingleEnemy, 
-        AllEnemies, 
-        Everyone
     }
     
     public enum ModifierEnum
