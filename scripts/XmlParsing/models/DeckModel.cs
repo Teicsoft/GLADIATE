@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using TeicsoftSpectacleCards.scripts.customresource.Cards;
 
-namespace TeicsoftSpectacleCards.scripts.customresource.deck;
+namespace TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 public class DeckModel
 {
@@ -9,10 +8,10 @@ public class DeckModel
     public string Name { get; set;}
     public UsedByEnum UsedBy { get; set;}
     // public CardModel[] Cards { get; set;}
-    public List<CardModel> CardList;
+    public List<Card> CardList;
     
     
-    public DeckModel(string id, string name, UsedByEnum usedBy, List<CardModel> cardList)
+    public DeckModel(string id, string name, UsedByEnum usedBy, List<Card> cardList)
     {
         this.Id = id;
         this.Name = name;

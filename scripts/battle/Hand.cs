@@ -27,7 +27,7 @@ public partial class Hand : Path2D {
         UpdateCardPositions();
     }
 
-    public Card? GetSelectedCard() {
+    public Card GetSelectedCard() {
         return selectedCardIndex != -1 ? cards[selectedCardIndex] : null;
     }
 

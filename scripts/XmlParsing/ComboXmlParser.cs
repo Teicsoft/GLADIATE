@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Godot;
-using TeicsoftSpectacleCards.scripts.customresource.Cards;
-using TeicsoftSpectacleCards.scripts.customresource.combos;
+using TeicsoftSpectacleCards.scripts.battle.card;
+using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
@@ -29,10 +29,10 @@ public static class ComboXmlParser {
             GD.Print("Failed to parse position: " + position);
         }
         
-        List<CardModel> cardList = new();
+        List<Card> cardList = new();
         foreach (XmlNode cardNode in comboNode.SelectNodes("cards/card")) {
             string cardId = cardNode.Attributes["card_id"].Value;
-            cardList.Add(new(cardId));
+            cardList.Add(CardFactory.MakeBlankCard(cardId));
         }
 
         XmlNode statsNode = comboNode.SelectSingleNode("stats");

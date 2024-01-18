@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Godot;
-using TeicsoftSpectacleCards.scripts.customresource.Cards;
-using TeicsoftSpectacleCards.scripts.customresource.deck;
+using TeicsoftSpectacleCards.scripts.battle.card;
+using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 using FileAccess = Godot.FileAccess;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
@@ -25,10 +25,10 @@ public class DeckXmlParser {
             GD.Print("Failed to parse usedBy: " + usedBy);
         }
 
-        List<CardModel> cardList = new();
+        List<Card> cardList = new();
         foreach (XmlNode cardNode in deckNode.SelectNodes("cards/card")) {
             string cardId = cardNode.Attributes["card_id"].Value;
-            cardList.Add(new (cardId));
+            cardList.Add(CardFactory.MakeBlankCard(cardId));
         }
 
         return new(deckId, deckName, parsedUsedBy, cardList);

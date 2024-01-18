@@ -1,15 +1,19 @@
+using System.Collections.Generic;
 using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.customresource.Cards;
+namespace TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
-public class CardModel
+public class ComboModel
 {
-    public string Id { get; set;} // card_id
-
+    public string Id { get; set;}
+    
+    public List<Card> CardList;
+    
     public TargetEnum Target { get; set;}
+
     public ModifierEnum Modifier { get; set;}
 
-    public PositionEnum Position {get;set;}
+    public PositionEnum Position {get; set;}
     
     // main stats
     public int Attack { get; set;}
@@ -17,47 +21,40 @@ public class CardModel
     public int DefenseUpper { get; set;}
     public int Health { get; set;}
     public int Draw { get; set;}
-    public int Discard { get; set;}
+    public int Discard {get; set;}
     public int SpectaclePoints { get; set;}
     
     //text
     public string Name { get; set;}
     public string Description { get; set;}
     public string Lore { get; set;}
-    public string ToolTip { get; set;}
+    public string OnscreenText { get; set;}
     
-        
     //design
     public string ImagePath { get; set;} //path to image
-    public string AnimationPath { get; set;} //path to animation
+    public string CharAnimationPath { get; set;} //path to animation
+    public string StageAnimationPath { get; set;} //path to animation
     public string SoundPath { get; set;} //path to sound
     
     //cache
     public Texture Image { get; set;}
-    public Animation Animation { get; set;}
+    public Animation CharAnimation { get; set;}
+    public Animation StageAnimation { get; set;}
     public AudioStream Sound { get; set;}
-    
-    
-    //constructor
 
-    public CardModel(string id)
-    {
-        this.Id = id;
-    }
-    
-    
-    public CardModel(
-        string id, ModifierEnum modifier, PositionEnum position,
-        int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, 
-        string name, string description, string lore, string tooltip,
-        string imagePath, string animationPath, string soundPath
+    public ComboModel(
+        string id, List<Card> cardList, ModifierEnum modifier, PositionEnum position,
+        int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints,
+        string name, string description, string lore, string onscreenText,
+        string imagePath, string charAnimationPath, string stageAnimationPath, string soundPath
         )
     {
         this.Id = id;
+        this.CardList = cardList;
         this.Modifier = modifier;
         this.Position = position;
-        this.Attack = attack;
         
+        this.Attack = attack;
         this.DefenseLower = defenseLower;
         this.DefenseUpper = defenseUpper;
         this.Health = health;
@@ -68,23 +65,19 @@ public class CardModel
         this.Name = name;
         this.Description = description;
         this.Lore = lore;
-        this.ToolTip = tooltip;
+        this.OnscreenText = onscreenText;
         
         this.ImagePath = imagePath;
-        this.AnimationPath = animationPath;
+        this.CharAnimationPath = charAnimationPath;
+        this.StageAnimationPath = stageAnimationPath;
         this.SoundPath = soundPath;
     }
     
-    public override string ToString()
-    {
-        return $"{nameof(Id)}: {Id}, {nameof(Target)}: {Target}, {nameof(Modifier)}: {Modifier.ToString()}, {nameof(Position)}: {Position.ToString()}, {nameof(Attack)}: {Attack}, {nameof(DefenseLower)}: {DefenseLower}, {nameof(DefenseUpper)}: {DefenseUpper}, {nameof(Health)}: {Health}, {nameof(Draw)}: {Draw}, {nameof(Discard)}: {Discard}, {nameof(SpectaclePoints)}: {SpectaclePoints}, {nameof(Name)}: {Name}, {nameof(Description)}: {Description}, {nameof(Lore)}: {Lore}, {nameof(ToolTip)}: {ToolTip}, {nameof(ImagePath)}: {ImagePath}, {nameof(AnimationPath)}: {AnimationPath}, {nameof(SoundPath)}: {SoundPath}, {nameof(Image)}: {Image}, {nameof(Animation)}: {Animation}, {nameof(Sound)}: {Sound}";
-    }
-
-
     public void LoadAssets()
     {
         LoadTexture();
-        LoadAnimation();
+        LoadCharAnimation();
+        LoadStageAnimation();
         LoadSound();
     }
     
@@ -93,9 +86,14 @@ public class CardModel
         Image = (Texture) GD.Load(ImagePath);
     }
     
-    private void LoadAnimation()
+    private void LoadCharAnimation()
     {
-        Animation = (Animation) GD.Load(AnimationPath);
+        CharAnimation = (Animation) GD.Load(CharAnimationPath);
+    }
+    
+    private void LoadStageAnimation()
+    {
+        StageAnimation = (Animation) GD.Load(StageAnimationPath);
     }
     
     private void LoadSound()
@@ -103,7 +101,6 @@ public class CardModel
         Sound = (AudioStream) GD.Load(SoundPath);
     }
     
-
     public enum TargetEnum
     {
         Self, 
