@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using TeicsoftSpectacleCards.scripts.battle;
 using TeicsoftSpectacleCards.scripts.customresource;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
@@ -55,6 +56,11 @@ public partial class Battle : Node2D
         // //This is a test to see if the Deck parsing works, feel free to remove it
         DeckModel deckModel = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print(deckModel + "\n");
+
+        GameState gameState = new GameState();
+
+        
+        
         hand = GetNode<Hand>("Hand");
         deck = new Deck();
         discard = new Discard();
