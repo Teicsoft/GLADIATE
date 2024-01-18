@@ -13,18 +13,63 @@ public class GameState
     public int MaxPlayerHealth { get; set; }
     public int PlayerHealth { get; set; }
 
-    public static List<string> CardStack { get; set; } 
+    public List<string> CardStack { get; set; } 
     
     
     private List<ComboModel> Combos { get; set; }
 
-
+    //Constructor
     public GameState()
     {
         this.Combos = ParseAllCombos();
-        GD.Print(Combos);
+
+        CardStack = new List<string>();
+
+        ComboCompare();
     }
 
+    
+    //Add card ID to "Stack"
+    public void PushCardStack(string id)
+    {
+        this.CardStack.Add(id);
+    }
+
+    public void CleanCardStack()
+    {
+        this.CardStack = new List<string>();
+    }
+
+
+    public bool ComboCompare()
+    {
+
+        foreach (ComboModel Combo in Combos)
+        {
+            int i = Combo.CardList.Count -1;
+
+            bool match = true;
+            while (i>=0)
+            {
+                if (CardStack[-i] != Combo.CardList[-i].Id)
+                {
+                    match = false;
+                    break;
+                }
+                i--;
+            }
+            
+            if (match)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    
+    //Retrieve a list of all combos as model objects
     public List<ComboModel> ParseAllCombos()
     {
         string comboFilePath = "res://data/combos/";
