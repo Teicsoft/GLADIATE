@@ -37,6 +37,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\interface\" />
-    <Folder Include="scripts\XmlParsing\deck\" />
   </ItemGroup>
 </Project>
