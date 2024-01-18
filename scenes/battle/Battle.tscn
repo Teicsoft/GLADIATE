@@ -22,19 +22,17 @@ script = ExtResource("1_bmdek")
 cardScene = ExtResource("3_citfa")
 enemyScene = ExtResource("3_25d28")
 
-[node name="Hand" type="Path2D" parent="."]
-curve = SubResource("Curve2D_xvv15")
-script = ExtResource("4_swwjy")
-
-[node name="HandCardLocation" type="PathFollow2D" parent="Hand"]
-position = Vector2(270, 975)
-rotation = -0.785398
-
-[node name="Enemies" type="Path2D" parent="."]
-curve = SubResource("Curve2D_r0y7a")
-
-[node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
-position = Vector2(300, 300)
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.376471, 0.752941, 1)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -72,6 +70,20 @@ offset_bottom = -380.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Play"
+
+[node name="Hand" type="Path2D" parent="."]
+curve = SubResource("Curve2D_xvv15")
+script = ExtResource("4_swwjy")
+
+[node name="HandCardLocation" type="PathFollow2D" parent="Hand"]
+position = Vector2(270, 975)
+rotation = -0.785398
+
+[node name="Enemies" type="Path2D" parent="."]
+curve = SubResource("Curve2D_r0y7a")
+
+[node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
+position = Vector2(300, 300)
 
 [connection signal="pressed" from="HUD/Deck" to="." method="OnDeckPressed"]
 [connection signal="pressed" from="HUD/PlayButton" to="." method="OnPlayButtonPressed"]

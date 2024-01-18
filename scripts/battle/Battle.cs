@@ -7,31 +7,7 @@ using TeicsoftSpectacleCards.scripts.customresource;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
-public partial class Battle : Node2D
-{
-    private static readonly List<Color> COLORS = new()
-    {
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 0.0f, 0.0f),
-        new(0.0f, 1.0f, 0.0f),
-        new(0.0f, 1.0f, 0.0f),
-        new(0.0f, 0.0f, 1.0f),
-        new(0.0f, 0.0f, 1.0f),
-    };
-
-    private static readonly Color[] PALETTE =
-    {
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 1.0f, 0.0f),
-        new(0.0f, 1.0f, 0.0f),
-        new(0.0f, 1.0f, 1.0f),
-        new(0.0f, 0.0f, 1.0f),
-        new(1.0f, 0.0f, 1.0f),
-        new(1.0f, 1.0f, 1.0f),
-        new(0.0f, 0.0f, 0.0f),
-    };
+public partial class Battle : Node2D {
 
     [Export] private PackedScene cardScene;
     [Export] private PackedScene enemyScene;
@@ -42,8 +18,7 @@ public partial class Battle : Node2D
     private List<Enemy> enemies = new();
     private int selectedEnemyIndex = -1;
 
-    public override void _Ready()
-    {
+    public override void _Ready() {
         //This is a test to see if the card factory works, feel free to remove it
         Card modelCard = CardXmlParser.ParseCardsFromXml("res://data/cards/card_template.xml");
         GD.Print(modelCard + "\n");
@@ -62,15 +37,20 @@ public partial class Battle : Node2D
         hand.discard = discard;
         deck.discard = discard;
         List<Card> initialDeck = new();
-        foreach (Color color in COLORS)
-        {
+        foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();
-            card.ChangeColor(color);
+            card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
+            initialDeck.Add(card);
+        }
+
+        foreach (int i in Enumerable.Range(0, 3)) {
+            Card card = cardScene.Instantiate<Card>();
+            card.TestSetup((int)(1 + GD.Randi() % 4), false, new Color(1, 0.5f, 0.5f));
             initialDeck.Add(card);
         }
 
         Card lastCard = cardScene.Instantiate<Card>();
-        lastCard.ChangeColor(PALETTE[GD.Randi() % PALETTE.Length]);
+        lastCard.TestSetup(15, true, new Color(0, 0, 0));
         initialDeck.Add(lastCard);
 
         deck.AddCards(initialDeck);
@@ -78,8 +58,7 @@ public partial class Battle : Node2D
 
 
         float locationRatio = 1f / 2;
-        foreach (int i in Enumerable.Range(0, 3))
-        {
+        foreach (int i in Enumerable.Range(0, 3)) {
             Enemy enemy = enemyScene.Instantiate<Enemy>();
             enemy.EnemySelected += SelectEnemy;
             enemies.Add(enemy);
@@ -89,38 +68,30 @@ public partial class Battle : Node2D
         }
     }
 
-    public override void _Process(double delta)
-    {
-    }
+    public override void _Process(double delta) { }
 
-    public void PlaySelectedCard()
-    {
+    public void PlaySelectedCard() {
         Card card = hand.GetSelectedCard();
-        if (card != null && !(card.RequiresTarget() && GetSelectedEnemy() == null))
-        {
+        if (card != null && !(card.targetRequired && GetSelectedEnemy() == null)) {
             card.Play(GetSelectedEnemy(), enemies);
             hand.DiscardSelectedCard();
         }
     }
 
-    private Enemy GetSelectedEnemy()
-    {
+    private Enemy GetSelectedEnemy() {
         return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
     }
 
-    private void SelectEnemy(Enemy enemy)
-    {
+    private void SelectEnemy(Enemy enemy) {
         int enemyIndex = enemies.IndexOf(enemy);
         selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
 
-    private void OnPlayButtonPressed()
-    {
+    private void OnPlayButtonPressed() {
         PlaySelectedCard();
     }
 
-    private void OnDeckPressed()
-    {
+    private void OnDeckPressed() {
         hand.AddCards(deck.DrawCard());
     }
 }
