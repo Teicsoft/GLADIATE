@@ -5,8 +5,10 @@ using TeicsoftSpectacleCards.scripts.battle.card;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
-public static class CardXmlParser {
-    public static Card ParseCardsFromXml(string filePath) {
+public static class CardXmlParser
+{
+    public static Card ParseCardsFromXml(string filePath)
+    {
         using FileAccess file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
 
@@ -22,11 +24,13 @@ public static class CardXmlParser {
         string position = cardNode.Attributes["position"].Value;
 
 
-        if (!Enum.TryParse(modifier, out Card.ModifierEnum parsedModifier)) {
+        if (!Enum.TryParse(modifier, out Card.ModifierEnum parsedModifier))
+        {
             GD.Print("Failed to parse modifier: " + modifier);
         }
 
-        if (!Enum.TryParse(position, out Card.PositionEnum parsedPosition)) {
+        if (!Enum.TryParse(position, out Card.PositionEnum parsedPosition))
+        {
             GD.Print("Failed to parse position: " + position);
         }
 

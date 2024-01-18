@@ -1,9 +1,9 @@
 namespace TeicsoftSpectacleCards.scripts.battle.card;
 
-public partial class DrawCard: Card
+public partial class DrawCard : Card
 {
     public override string ToString()
     {
-        return  this.GetType().Name + base.ToString();
+        return this.GetType().Name + base.ToString();
     }
 }
