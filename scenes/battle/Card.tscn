@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/battle/Card.cs" id="1_bqmvl"]
 
-[node name="Card" type="Button"]
+[node name="Card" type="Node2D"]
+script = ExtResource("1_bqmvl")
+metadata/_edit_group_ = true
+
+[node name="SelectButton" type="Button" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -15,6 +19,5 @@ offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Card"
-script = ExtResource("1_bqmvl")
 
-[connection signal="pressed" from="." to="." method="OnPress"]
+[connection signal="pressed" from="SelectButton" to="." method="OnPress"]

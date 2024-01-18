@@ -7,83 +7,59 @@ using TeicsoftSpectacleCards.scripts.customresource.combos;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
-public static class ComboXmlParser
-{
-	public static ComboModel ParseComboFromXml(string filepath)
-	{
-		using var file = FileAccess.Open(filepath, FileAccess.ModeFlags.Read);
-		string content = file.GetAsText();
-		
-		XmlDocument doc = new XmlDocument();
-		doc.LoadXml(content);
-		
-		XmlNode comboNode = doc.SelectSingleNode("combo");
-		string comboId = comboNode.Attributes["id"].Value;
-		string modifier = comboNode.Attributes["modifier"].Value;
-		string position = comboNode.Attributes["position"].Value;
+public static class ComboXmlParser {
+    public static ComboModel ParseComboFromXml(string filepath) {
+        using FileAccess file = FileAccess.Open(filepath, FileAccess.ModeFlags.Read);
+        string content = file.GetAsText();
 
-		
-		if (Enum.TryParse(modifier, out ComboModel.ModifierEnum parsedModifier))
-		{}
-		else
-		{
-			GD.Print("Failed to parse modifier: " + modifier);
-		}
-		
-		if (Enum.TryParse(position, out ComboModel.PositionEnum parsedPosition)) { } else {
-			GD.Print("Failed to parse position: " + position);
-		}
-		
-		
-		XmlNodeList cardNodes = comboNode.SelectNodes("cards/card");
-		List<CardModel> CardList = new List<CardModel>();
+        XmlDocument doc = new();
+        doc.LoadXml(content);
 
-		int i = 0;
-		foreach (XmlNode cardNode in cardNodes)
-		{
-			string cardId = cardNode.Attributes["card_id"].Value;
-			CardModel card = new CardModel(cardId);
-			
-			CardList.Add(card);
-			i++;
-		}
-		
-		XmlNode statsNode = comboNode.SelectSingleNode("stats");
-		int attack = statsNode.SelectSingleNode("attack") != null ? Int32.Parse(statsNode.SelectSingleNode("attack").InnerText) : 0;
-		int defenseLower = statsNode.SelectSingleNode("defense_lower") != null ? Int32.Parse(statsNode.SelectSingleNode("defense_lower").InnerText) : 0;
-		int defenseUpper = statsNode.SelectSingleNode("defense_upper") != null ? Int32.Parse(statsNode.SelectSingleNode("defense_upper").InnerText) : 0;
-		int health = statsNode.SelectSingleNode("health") != null ? Int32.Parse(statsNode.SelectSingleNode("health").InnerText) : 0;
-		int draw = statsNode.SelectSingleNode("draw") != null ? Int32.Parse(statsNode.SelectSingleNode("draw").InnerText) : 0;
-		int discard = ParseIntNode(statsNode, "discard");
-		int spectaclePoints = statsNode.SelectSingleNode("spectacle_points") != null ? Int32.Parse(statsNode.SelectSingleNode("spectacle_points").InnerText) : 0;
+        XmlNode comboNode = doc.SelectSingleNode("combo");
+        string comboId = comboNode.Attributes["id"].Value;
+        string modifier = comboNode.Attributes["modifier"].Value;
+        string position = comboNode.Attributes["position"].Value;
 
-		XmlNode designNode = comboNode.SelectSingleNode("design");
-		string imagePath = designNode.SelectSingleNode("image") != null ? designNode.SelectSingleNode("image").InnerText : "";
-		string charAnimationPath = designNode.SelectSingleNode("char_animation") != null ? designNode.SelectSingleNode("char_animation").InnerText : "";
-		string stageAnimationPath = designNode.SelectSingleNode("stage_animation") != null ? designNode.SelectSingleNode("stage_animation").InnerText : "";
-		string soundPath = designNode.SelectSingleNode("sound") != null ? designNode.SelectSingleNode("sound").InnerText : "";
 
-		XmlNode textNode = comboNode.SelectSingleNode("text");
-		string name = textNode.SelectSingleNode("name") != null ? textNode.SelectSingleNode("name").InnerText : "";
-		string description = textNode.SelectSingleNode("description") != null ? textNode.SelectSingleNode("description").InnerText : "";
-		string lore = textNode.SelectSingleNode("lore") != null ? textNode.SelectSingleNode("lore").InnerText : "";
-		string onscreenText = textNode.SelectSingleNode("onscreen_text") != null ? textNode.SelectSingleNode("onscreen_text").InnerText : "";
-		
-		ComboModel combo = new ComboModel(
-			comboId, CardList, parsedModifier, parsedPosition,
-			attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
-			name, description, lore, onscreenText,
-			imagePath, charAnimationPath, stageAnimationPath, soundPath
-			);
+        if (!Enum.TryParse(modifier, out ComboModel.ModifierEnum parsedModifier)) {
+            GD.Print("Failed to parse modifier: " + modifier);
+        }
 
-		return combo;
-		
-		int ParseIntNode(XmlNode parent, string s) {
-			return parent.SelectSingleNode(s) != null ? Int32.Parse(parent.SelectSingleNode(s).InnerText) : 0;
-		}
+        if (!Enum.TryParse(position, out ComboModel.PositionEnum parsedPosition)) {
+            GD.Print("Failed to parse position: " + position);
+        }
+        
+        List<CardModel> cardList = new();
+        foreach (XmlNode cardNode in comboNode.SelectNodes("cards/card")) {
+            string cardId = cardNode.Attributes["card_id"].Value;
+            cardList.Add(new(cardId));
+        }
 
-		string ParseTextNode(XmlNode parent, string s) {
-			return parent.SelectSingleNode(s) != null ? parent.SelectSingleNode(s).InnerText : "";
-		}
-	}
+        XmlNode statsNode = comboNode.SelectSingleNode("stats");
+        int attack = Utils.ParseIntNode(statsNode, "attack");
+        int defenseLower = Utils.ParseIntNode(statsNode, "defense_lower");
+        int defenseUpper = Utils.ParseIntNode(statsNode, "defense_upper");
+        int health = Utils.ParseIntNode(statsNode, "health");
+        int draw = Utils.ParseIntNode(statsNode, "draw");
+        int discard = Utils.ParseIntNode(statsNode, "discard");
+        int spectaclePoints = Utils.ParseIntNode(statsNode, "spectacle_points");
+
+        XmlNode designNode = comboNode.SelectSingleNode("design");
+        string imagePath = Utils.ParseTextNode(designNode, "image");
+        string charAnimationPath = Utils.ParseTextNode(designNode, "char_animation");
+        string stageAnimationPath = Utils.ParseTextNode(designNode, "stage_animation");
+        string soundPath = Utils.ParseTextNode(designNode, "sound");
+
+        XmlNode textNode = comboNode.SelectSingleNode("text");
+        string name = Utils.ParseTextNode(textNode, "name");
+        string description = Utils.ParseTextNode(textNode, "description");
+        string lore = Utils.ParseTextNode(textNode, "lore");
+        string onscreenText = Utils.ParseTextNode(textNode, "onscreen_text");
+
+        ComboModel combo = new (comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower,
+            defenseUpper, health, draw, discard, spectaclePoints, name, description, lore, onscreenText, imagePath,
+            charAnimationPath, stageAnimationPath, soundPath);
+
+        return combo;
+    }
 }
