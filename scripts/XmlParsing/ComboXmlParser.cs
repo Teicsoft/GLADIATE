@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Godot;
-using TeicsoftSpectacleCards.scripts.customresource.Cards;
-using TeicsoftSpectacleCards.scripts.customresource.combos;
+using TeicsoftSpectacleCards.scripts.battle.card;
+using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
-public static class ComboXmlParser {
-    public static ComboModel ParseComboFromXml(string filepath) {
+public static class ComboXmlParser
+{
+    public static ComboModel ParseComboFromXml(string filepath)
+    {
         using FileAccess file = FileAccess.Open(filepath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
 
@@ -21,18 +23,21 @@ public static class ComboXmlParser {
         string position = comboNode.Attributes["position"].Value;
 
 
-        if (!Enum.TryParse(modifier, out ComboModel.ModifierEnum parsedModifier)) {
+        if (!Enum.TryParse(modifier, out ComboModel.ModifierEnum parsedModifier))
+        {
             GD.Print("Failed to parse modifier: " + modifier);
         }
 
-        if (!Enum.TryParse(position, out ComboModel.PositionEnum parsedPosition)) {
+        if (!Enum.TryParse(position, out ComboModel.PositionEnum parsedPosition))
+        {
             GD.Print("Failed to parse position: " + position);
         }
-        
-        List<CardModel> cardList = new();
-        foreach (XmlNode cardNode in comboNode.SelectNodes("cards/card")) {
+
+        List<Card> cardList = new();
+        foreach (XmlNode cardNode in comboNode.SelectNodes("cards/card"))
+        {
             string cardId = cardNode.Attributes["card_id"].Value;
-            cardList.Add(new(cardId));
+            cardList.Add(CardFactory.MakeBlankCard(cardId));
         }
 
         XmlNode statsNode = comboNode.SelectSingleNode("stats");
@@ -56,7 +61,7 @@ public static class ComboXmlParser {
         string lore = Utils.ParseTextNode(textNode, "lore");
         string onscreenText = Utils.ParseTextNode(textNode, "onscreen_text");
 
-        ComboModel combo = new (comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower,
+        ComboModel combo = new(comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower,
             defenseUpper, health, draw, discard, spectaclePoints, name, description, lore, onscreenText, imagePath,
             charAnimationPath, stageAnimationPath, soundPath);
 

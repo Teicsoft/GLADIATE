@@ -2,10 +2,10 @@ namespace TeicsoftSpectacleCards.scripts.dialogue;
 
 public class LocationModel
 {
-    public string Id { get; set;}
-    public string LocName { get; set;}
-    public string BgImage { get; set;}
-    public string[] Animations { get; set;}
+    public string Id { get; set; }
+    public string LocName { get; set; }
+    public string BgImage { get; set; }
+    public string[] Animations { get; set; }
 
     public LocationModel(string id, string locName, string bgImage, string[] animations)
     {
@@ -14,10 +14,10 @@ public class LocationModel
         this.BgImage = bgImage;
         this.Animations = animations;
     }
-    
+
     public override string ToString()
     {
-        return $"{nameof(Id)}: {Id}, {nameof(LocName)}: {LocName}, {nameof(BgImage)}: {BgImage}, {nameof(Animations)}: {Animations}"; 
+        return
+            $"{nameof(Id)}: {Id}, {nameof(LocName)}: {LocName}, {nameof(BgImage)}: {BgImage}, {nameof(Animations)}: {Animations}";
     }
-    
 }
