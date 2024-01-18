@@ -37,9 +37,7 @@ public partial class Enemy : Node2D {
                 break;
         }
 
-        if (!blocked) {
-            DirectDamage(damage);
-        }
+        if (!blocked) { DirectDamage(damage); }
     }
 
     private void DirectDamage(int damage) {

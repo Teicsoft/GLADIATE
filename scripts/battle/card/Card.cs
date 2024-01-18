@@ -80,7 +80,7 @@ public partial class Card : Node2D {
 
     public override void _Process(double delta) { }
 
-    public void TestSetup(int newAttack,bool targetRequired,Color color) {
+    public void TestSetup(int newAttack, bool targetRequired, Color color) {
         attack = newAttack;
         this.targetRequired = targetRequired;
         this.color = color;
@@ -88,12 +88,8 @@ public partial class Card : Node2D {
 
     public void Play( /*GameState gameState,*/ Enemy targetedEnemy, List<Enemy> allEnemies) {
         if (attack != 0) {
-            if (targetRequired) {
-                targetedEnemy.Damage(attack);
-            } else {
-                foreach (Enemy enemy in allEnemies) {
-                    enemy.Damage(attack);
-                }
+            if (targetRequired) { targetedEnemy.Damage(attack); } else {
+                foreach (Enemy enemy in allEnemies) { enemy.Damage(attack); }
             }
         }
 
@@ -125,7 +121,6 @@ public partial class Card : Node2D {
         }
 
         // gameState.AddToCombo(id);
-
     }
 
     private void OnPress() {

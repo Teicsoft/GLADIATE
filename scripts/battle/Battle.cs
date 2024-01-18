@@ -8,27 +8,6 @@ using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 public partial class Battle : Node2D {
-    private static readonly List<Color> COLORS = new() {
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 0.0f, 0.0f),
-        new(0.0f, 1.0f, 0.0f),
-        new(0.0f, 1.0f, 0.0f),
-        new(0.0f, 0.0f, 1.0f),
-        new(0.0f, 0.0f, 1.0f),
-    };
-
-    private static readonly Color[] PALETTE = {
-        new(1.0f, 0.0f, 0.0f),
-        new(1.0f, 1.0f, 0.0f),
-        new(0.0f, 1.0f, 0.0f),
-        new(0.0f, 1.0f, 1.0f),
-        new(0.0f, 0.0f, 1.0f),
-        new(1.0f, 0.0f, 1.0f),
-        new(1.0f, 1.0f, 1.0f),
-        new(0.0f, 0.0f, 0.0f),
-    };
 
     [Export] private PackedScene cardScene;
     [Export] private PackedScene enemyScene;
@@ -60,19 +39,18 @@ public partial class Battle : Node2D {
         List<Card> initialDeck = new();
         foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();
-            card.TestSetup((int)(1+GD.Randi() % 4),true,new Color(1,1,1));
+            card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
             initialDeck.Add(card);
         }
 
         foreach (int i in Enumerable.Range(0, 3)) {
             Card card = cardScene.Instantiate<Card>();
-            card.TestSetup((int)(1+GD.Randi() % 4),false,new Color(1,0.5f,0.5f));
+            card.TestSetup((int)(1 + GD.Randi() % 4), false, new Color(1, 0.5f, 0.5f));
             initialDeck.Add(card);
-
         }
 
         Card lastCard = cardScene.Instantiate<Card>();
-        lastCard.TestSetup(15,true,new Color(0,0,0));
+        lastCard.TestSetup(15, true, new Color(0, 0, 0));
         initialDeck.Add(lastCard);
 
         deck.AddCards(initialDeck);
