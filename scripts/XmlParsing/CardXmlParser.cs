@@ -24,12 +24,12 @@ public static class CardXmlParser
         string position = cardNode.Attributes["position"].Value;
 
 
-        if (!Enum.TryParse(modifier, out Card.ModifierEnum parsedModifier))
+        if (!Enum.TryParse(modifier, out Enemy.ModifierEnum parsedModifier))
         {
             GD.Print("Failed to parse modifier: " + modifier);
         }
 
-        if (!Enum.TryParse(position, out Card.PositionEnum parsedPosition))
+        if (!Enum.TryParse(position, out Enemy.PositionEnum parsedPosition))
         {
             GD.Print("Failed to parse position: " + position);
         }

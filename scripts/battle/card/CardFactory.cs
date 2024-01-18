@@ -7,12 +7,12 @@ public static class CardFactory
     public static Card MakeBlankCard(string cardId)
     {
         Card card = new Card();
-        card.Id = cardId;
+        card.id = cardId;
         return card;
     }
 
     public static Card MakeCard(
-        string type, string cardId, Card.ModifierEnum modifier, Card.PositionEnum position,
+        string type, string cardId, Enemy.ModifierEnum modifier, Enemy.PositionEnum position,
         int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints,
         string name, string description, string lore, string tooltip, string
             imagePath, string animationPath, string soundPath)
@@ -23,7 +23,7 @@ public static class CardFactory
             case "Attack":
                 card = new AttackCard();
                 return card.Initialize(
-                    cardId, modifier, position,
+                    cardId, true,
                     attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
                     name, description, lore, tooltip,
                     imagePath, animationPath, soundPath);
@@ -31,7 +31,7 @@ public static class CardFactory
             case "Draw":
                 card = new DrawCard();
                 return card.Initialize(
-                    cardId, modifier, position,
+                    cardId, true,
                     attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
                     name, description, lore, tooltip,
                     imagePath, animationPath, soundPath
@@ -39,7 +39,7 @@ public static class CardFactory
             case "Block":
                 card = new BlockCard();
                 return card.Initialize(
-                    cardId, modifier, position,
+                    cardId, true,
                     attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
                     name, description, lore, tooltip,
                     imagePath, animationPath, soundPath
@@ -47,7 +47,7 @@ public static class CardFactory
             case "Modifier":
                 card = new ModifierCard();
                 return card.Initialize(
-                    cardId, modifier, position,
+                    cardId, true,
                     attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
                     name, description, lore, tooltip,
                     imagePath, animationPath, soundPath
