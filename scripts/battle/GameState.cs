@@ -17,14 +17,11 @@ public class GameState
     // Constructor
     public GameState()
     {
-        this.AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
+        AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
 
         CardStack = new List<Card>();
-
-        ComboMultiplier = 1;
-        ComboCompare();
+        ComboMultiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
-
         MaxPlayerHealth = 100; // adjust this as needed, or base on some other check
         PlayerHealth = MaxPlayerHealth;
     }
@@ -32,12 +29,12 @@ public class GameState
     // Stack Methods
     public void PushCardStack(Card card)
     {
-        this.CardStack.Add(card);
+        CardStack.Add(card);
     }
 
     public void CleanCardStack()
     {
-        this.CardStack = new List<Card>();
+        CardStack = new List<Card>();
 
     }
     
@@ -64,75 +61,77 @@ public class GameState
 
     // Combo Methods
 
-    public void ProcessCombo() //largely based on Cath's python code
+    public void ProcessCardPlayed(Card card) //largely based on Cath's python code
     {
-        int roundSpectaclePoint = 0;
+        PushCardStack(card);
         
         // find a matching combo if it exists, returns null if no match
         ComboModel matchingCombo = ComboCompare();
+        ProcessCombo(matchingCombo);
         
-        //calculate round spectacle points
-        foreach (Card card in CardStack)
-        {
-            roundSpectaclePoint += card.spectaclePoints;
-        }
-
-        //calculate combo multiplier adjustment
-        int comboCount = 0;
         if (matchingCombo != null)
         {
-            roundSpectaclePoint += matchingCombo.SpectaclePoints;
-
-            comboCount = matchingCombo.CardList.Count;
+            SpectaclePointsGain(matchingCombo);
+            CleanCardStack();
         }
-        int comboValue = (int)Math.Floor(Math.Pow(2, comboCount-1));
-        int blunderCount = CardStack.Count - comboCount;
-        int blunderValue = (int)Math.Floor(Math.Pow(2, blunderCount-1));
-        int multiplierAdjustment = comboValue - blunderValue;
-        
-        //adjust combo multiplier
-        ComboMultiplier += multiplierAdjustment;
-        if (ComboMultiplier < 1) { ComboMultiplier = 1; }
-
-        if (matchingCombo != null)
-        {
-            SpectaclePointsGain(roundSpectaclePoint);
-        }
-        
-        CleanCardStack();
-        
-        //resolve other combo effects
     }
-    
-
-    public int SpectaclePointsGain(int turnSpectaclePoints) 
-    {
-        // should be redundant based on design of multiplier,
-        // but just in case uses absolute value of turnSpectaclePoints to prevent negative values
-        return SpectaclePoints += Math.Abs(turnSpectaclePoints * ComboMultiplier);
-    }
-
     
     // Check for combo matches
     public ComboModel ComboCompare()
     {
         foreach (ComboModel combo in AllCombos)
         {
-            int i = combo.CardList.Count -1;
-
+            int count = combo.CardList.Count;
+            if (CardStack.Count < count) { continue; }
+            
             bool match = true;
-            while (i>=0)
+            for (int i = 0; i < count; i++)
             {
-                if (CardStack[-i].id != combo.CardList[-i].id)
+                if (CardStack[CardStack.Count -1 -i].id != combo.CardList[count-1-i].id)
                 {
                     match = false;
                     break;
                 }
-                i--;
             }
+            
             if (match) { return combo; }
         }
-
+        
         return null;
+    }
+    
+    public void ProcessCombo(ComboModel matchingCombo) 
+    {
+        //calculate combo multiplier adjustment
+        
+        int comboCount = (matchingCombo != null) ? matchingCombo.CardList.Count : 0;
+        int comboValue = (int)Math.Floor(Math.Pow(2, comboCount-1));
+        int blunderCount = CardStack.Count - comboCount;
+        int blunderValue = (int)Math.Floor(Math.Pow(2, blunderCount-1));
+        
+        int multiplierAdjustment = comboValue - blunderValue;
+        
+        //adjust combo multiplier
+        ComboMultiplier += multiplierAdjustment;
+        if (ComboMultiplier < 1) { ComboMultiplier = 1; }
+        
+        //resolve other combo effects
+    }
+
+    public int SpectaclePointsGain(ComboModel matchingCombo)
+    {
+        int roundSpectaclePoint = 0;
+        
+        //calculate round spectacle points
+        foreach (Card card in CardStack)
+        {
+            roundSpectaclePoint += card.spectaclePoints;
+        }
+        
+        roundSpectaclePoint += matchingCombo.SpectaclePoints;
+        
+        // should be redundant based on design of multiplier,
+        // but just in case uses absolute value of turnSpectaclePoints to prevent negative values
+        return SpectaclePoints += Math.Abs(roundSpectaclePoint * ComboMultiplier);
     }
 }
