@@ -67,4 +67,21 @@ public static class ComboXmlParser
 
         return combo;
     }
+    
+    public static List<ComboModel> ParseAllCombos()
+    {
+        string comboFilePath = "res://data/combos/";
+        
+        // using DirAccess dir = DirAccess.Open("res://data/combos/");
+        string[] dir = DirAccess.GetFilesAt(comboFilePath);
+
+        List<ComboModel> comboModels = new List<ComboModel>();
+        foreach (string file in dir)
+        {
+            ComboModel combo =  ParseComboFromXml(comboFilePath + file);
+            comboModels.Add(combo);
+        }
+
+        return comboModels;
+    }
 }
