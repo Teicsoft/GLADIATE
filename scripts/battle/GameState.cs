@@ -1,6 +1,5 @@
+using System;
 using System.Collections.Generic;
-using Godot;
-using Godot.NativeInterop;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
@@ -12,16 +11,15 @@ public class GameState
     public int SpectaclePoints { get; set; }
     public int MaxPlayerHealth { get; set; }
     public int PlayerHealth { get; set; }
-
-    public List<string> CardStack { get; set; } 
-    private List<ComboModel> Combos { get; set; }
+    public List<Card> CardStack { get; set; } // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
+    private List<ComboModel> AllCombos { get; set; }
 
     // Constructor
     public GameState()
     {
-        this.Combos = ParseAllCombos();
+        this.AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
 
-        CardStack = new List<string>();
+        CardStack = new List<Card>();
 
         ComboMultiplier = 1;
         ComboCompare();
@@ -32,23 +30,24 @@ public class GameState
     }
     
     // Stack Methods
-    public void PushCardStack(string id)
+    public void PushCardStack(Card card)
     {
-        this.CardStack.Add(id);
+        this.CardStack.Add(card);
     }
 
     public void CleanCardStack()
     {
-        this.CardStack = new List<string>();
+        this.CardStack = new List<Card>();
 
     }
     
+    // Player Health Methods
     public bool IsPlayerAlive()
     {
         return PlayerHealth > 0;
     }
 
-    public void AdjustPlayerHealth(int amount)
+    public void AdjustHealth(int amount)
     {
         PlayerHealth += amount;
 
@@ -62,39 +61,69 @@ public class GameState
             //end round on loss
         }
     }
-    
-    
 
-    public void ComboCalulation(int comboAdjustmentAmount)
+    // Combo Methods
+
+    public void ProcessCombo() //largely based on Cath's python code
     {
-        // Placeholder for combo math
+        int roundSpectaclePoint = 0;
         
-        if (comboAdjustmentAmount <= 1)
+        // find a matching combo if it exists, returns null if no match
+        ComboModel matchingCombo = ComboCompare();
+        
+        //calculate round spectacle points
+        foreach (Card card in CardStack)
         {
-            comboAdjustmentAmount = 1;
+            roundSpectaclePoint += card.SpectaclePoints;
+        }
+
+        //calculate combo multiplier adjustment
+        int comboCount = 0;
+        if (matchingCombo != null)
+        {
+            roundSpectaclePoint += matchingCombo.SpectaclePoints;
+
+            comboCount = matchingCombo.CardList.Count;
+        }
+        int comboValue = (int)Math.Floor(Math.Pow(2, comboCount-1));
+        int blunderCount = CardStack.Count - comboCount;
+        int blunderValue = (int)Math.Floor(Math.Pow(2, blunderCount-1));
+        int multiplierAdjustment = comboValue - blunderValue;
+        
+        //adjust combo multiplier
+        ComboMultiplier += multiplierAdjustment;
+        if (ComboMultiplier < 1) { ComboMultiplier = 1; }
+
+        if (matchingCombo != null)
+        {
+            SpectaclePointsGain(roundSpectaclePoint);
         }
         
-        this.ComboMultiplier += comboAdjustmentAmount;
+        CleanCardStack();
+        
+        //resolve other combo effects
     }
+    
 
-    public int BlunderCount(ComboModel comboModel, List<string> CardStack)
+    public int SpectaclePointsGain(int turnSpectaclePoints) 
     {
-        return CardStack.Count - comboModel.CardList.Count;
+        // should be redundant based on design of multiplier,
+        // but just in case uses absolute value of turnSpectaclePoints to prevent negative values
+        return SpectaclePoints += Math.Abs(turnSpectaclePoints * ComboMultiplier);
     }
 
     
     // Check for combo matches
     public ComboModel ComboCompare()
     {
-
-        foreach (ComboModel combo in Combos)
+        foreach (ComboModel combo in AllCombos)
         {
             int i = combo.CardList.Count -1;
 
             bool match = true;
             while (i>=0)
             {
-                if (CardStack[-i] != combo.CardList[-i].Id)
+                if (CardStack[-i].Id != combo.CardList[-i].Id)
                 {
                     match = false;
                     break;
@@ -105,24 +134,5 @@ public class GameState
         }
 
         return null;
-    }
-    
-    
-    // Retrieve a list of all combos as model objects
-    public List<ComboModel> ParseAllCombos()
-    {
-        string comboFilePath = "res://data/combos/";
-        
-        // using DirAccess dir = DirAccess.Open("res://data/combos/");
-        string[] dir = DirAccess.GetFilesAt(comboFilePath);
-
-        List<ComboModel> comboModels = new List<ComboModel>();
-        foreach (string file in dir)
-        {
-            ComboModel combo =  ComboXmlParser.ParseComboFromXml(comboFilePath + file);
-            comboModels.Add(combo);
-        }
-
-        return comboModels;
     }
 }
