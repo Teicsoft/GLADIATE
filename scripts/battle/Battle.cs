@@ -32,9 +32,13 @@ public partial class Battle : Node2D {
         DeckModel deckModel = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print(deckModel + "\n");
 
-        // GameState gameState = new GameState();
-
         
+        GameState gameState = new GameState();
+        for (int i = 0; i < 5; i++)
+        {
+            gameState.ProcessCardPlayed(modelCard);
+            GD.Print(gameState);
+        }
         
         hand = GetNode<Hand>("Hand");
         deck = new Deck();

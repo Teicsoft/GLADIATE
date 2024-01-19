@@ -67,13 +67,20 @@ public class GameState
         
         // find a matching combo if it exists, returns null if no match
         ComboModel matchingCombo = ComboCompare();
-        ProcessCombo(matchingCombo);
+        
         
         if (matchingCombo != null)
         {
+            ProcessCombo(matchingCombo);
             SpectaclePointsGain(matchingCombo);
             CleanCardStack();
         }
+    }
+    
+    public void EndRound()
+    {
+        ProcessCombo(0);
+        CleanCardStack();
     }
     
     // Check for combo matches
@@ -117,6 +124,24 @@ public class GameState
         
         //resolve other combo effects
     }
+    
+    public void ProcessCombo(int number) // overloaded to allow int input for end round
+    {
+        //calculate combo multiplier adjustment
+        
+        int comboCount = number;
+        int comboValue = (int)Math.Floor(Math.Pow(2, comboCount-1));
+        int blunderCount = CardStack.Count - comboCount;
+        int blunderValue = (int)Math.Floor(Math.Pow(2, blunderCount-1));
+        
+        int multiplierAdjustment = comboValue - blunderValue;
+        
+        //adjust combo multiplier
+        ComboMultiplier += multiplierAdjustment;
+        if (ComboMultiplier < 1) { ComboMultiplier = 1; }
+        
+        //resolve other combo effects
+    }
 
     public int SpectaclePointsGain(ComboModel matchingCombo)
     {
@@ -133,5 +158,10 @@ public class GameState
         // should be redundant based on design of multiplier,
         // but just in case uses absolute value of turnSpectaclePoints to prevent negative values
         return SpectaclePoints += Math.Abs(roundSpectaclePoint * ComboMultiplier);
+    }
+
+    public override string ToString()
+    {
+        return $"ComboMultiplier: {ComboMultiplier}, SpectaclePoints: {SpectaclePoints}, MaxPlayerHealth: {MaxPlayerHealth}, PlayerHealth: {PlayerHealth}, CardStack: {CardStack}, AllCombos: {AllCombos}";
     }
 }
