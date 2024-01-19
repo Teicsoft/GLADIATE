@@ -11,6 +11,8 @@ public class GameState
     public int SpectaclePoints { get; set; }
     public int MaxPlayerHealth { get; set; }
     public int PlayerHealth { get; set; }
+    private int DefenseLower { get; set; }
+    private int DefenseUpper { get; set; }
     public List<Card> CardStack { get; set; } // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
     private List<ComboModel> AllCombos { get; set; }
 
@@ -23,7 +25,10 @@ public class GameState
         ComboMultiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
         MaxPlayerHealth = 100; // adjust this as needed, or base on some other check
+        DefenseLower = 0;
+        DefenseUpper = 0;
         PlayerHealth = MaxPlayerHealth;
+        
     }
     
     // Stack Methods
@@ -43,10 +48,38 @@ public class GameState
     {
         return PlayerHealth > 0;
     }
+    
+    public void Damage(int damage, PositionEnum position = PositionEnum.Upper) {
+        bool blocked = false;
+        switch (position) {
+            case PositionEnum.Upper:
+                if (DefenseUpper > 0) {
+                    blocked = true;
+                    DefenseUpper--;
+                }
 
-    public void AdjustHealth(int amount)
+                break;
+            case PositionEnum.Lower:
+                if (DefenseLower > 0) {
+                    blocked = true;
+                    DefenseLower--;
+                }
+                break;
+        }
+
+        if (!blocked) { DirectDamage(damage); }
+    }
+    
+    private void DirectDamage(int damage) {
+        PlayerHealth = Math.Max(0, PlayerHealth - damage);
+        if (PlayerHealth == 0) { EndRound(); } else {
+            float healthRatio = (float)PlayerHealth / MaxPlayerHealth;
+        }
+    }
+    
+    public void HealPlayer(int amount)
     {
-        PlayerHealth += amount;
+        PlayerHealth += Math.Abs(amount);
 
         if (PlayerHealth > MaxPlayerHealth)
         {
@@ -61,7 +94,7 @@ public class GameState
 
     // Combo Methods
 
-    public void ProcessCardPlayed(Card card) //largely based on Cath's python code
+    public void GamestateCardPlayed(Card card) //largely based on Cath's python code
     {
         PushCardStack(card);
         
@@ -71,7 +104,7 @@ public class GameState
         
         if (matchingCombo != null)
         {
-            ProcessCombo(matchingCombo);
+            ProcessCombo(matchingCombo.CardList.Count);
             SpectaclePointsGain(matchingCombo);
             CleanCardStack();
         }
@@ -105,24 +138,6 @@ public class GameState
         }
         
         return null;
-    }
-    
-    public void ProcessCombo(ComboModel matchingCombo) 
-    {
-        //calculate combo multiplier adjustment
-        
-        int comboCount = (matchingCombo != null) ? matchingCombo.CardList.Count : 0;
-        int comboValue = (int)Math.Floor(Math.Pow(2, comboCount-1));
-        int blunderCount = CardStack.Count - comboCount;
-        int blunderValue = (int)Math.Floor(Math.Pow(2, blunderCount-1));
-        
-        int multiplierAdjustment = comboValue - blunderValue;
-        
-        //adjust combo multiplier
-        ComboMultiplier += multiplierAdjustment;
-        if (ComboMultiplier < 1) { ComboMultiplier = 1; }
-        
-        //resolve other combo effects
     }
     
     public void ProcessCombo(int number) // overloaded to allow int input for end round
@@ -159,9 +174,16 @@ public class GameState
         // but just in case uses absolute value of turnSpectaclePoints to prevent negative values
         return SpectaclePoints += Math.Abs(roundSpectaclePoint * ComboMultiplier);
     }
-
+    
     public override string ToString()
     {
         return $"ComboMultiplier: {ComboMultiplier}, SpectaclePoints: {SpectaclePoints}, MaxPlayerHealth: {MaxPlayerHealth}, PlayerHealth: {PlayerHealth}, CardStack: {CardStack}, AllCombos: {AllCombos}";
+    }
+    
+    
+    public enum PositionEnum {
+        Upper,
+        Lower,
+        None
     }
 }

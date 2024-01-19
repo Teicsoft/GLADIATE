@@ -36,7 +36,7 @@ public partial class Battle : Node2D {
         GameState gameState = new GameState();
         for (int i = 0; i < 5; i++)
         {
-            gameState.ProcessCardPlayed(modelCard);
+            gameState.GamestateCardPlayed(modelCard);
             GD.Print(gameState);
         }
         
