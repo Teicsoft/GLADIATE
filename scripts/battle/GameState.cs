@@ -74,7 +74,7 @@ public class GameState
         //calculate round spectacle points
         foreach (Card card in CardStack)
         {
-            roundSpectaclePoint += card.SpectaclePoints;
+            roundSpectaclePoint += card.spectaclePoints;
         }
 
         //calculate combo multiplier adjustment
@@ -123,7 +123,7 @@ public class GameState
             bool match = true;
             while (i>=0)
             {
-                if (CardStack[-i].Id != combo.CardList[-i].Id)
+                if (CardStack[-i].id != combo.CardList[-i].id)
                 {
                     match = false;
                     break;
