@@ -19,6 +19,11 @@ public class GameState {
 
     private List<ComboModel> AllCombos { get; set; }
 
+    public List<Enemy> enemies = new();
+    private int selectedEnemyIndex = -1;
+    public Hand hand;
+    public Deck deck;
+
     // Constructor
     public GameState() {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
@@ -31,14 +36,8 @@ public class GameState {
         DefenseUpper = 0;
         PlayerHealth = PlayerMaxHealth;
     }
-
-    // Stack Methods
-    public void PushCardStack(Card card) {
-        ComboStack.Add(card);
-    }
-
     // Player Health Methods
-
+// ****
     public void DamagePlayer(int damage, PositionEnum position = PositionEnum.Upper) {
         bool blocked = false;
         switch (position) {
@@ -65,6 +64,7 @@ public class GameState {
         PlayerHealth = Math.Max(0, PlayerHealth - damage);
         if (PlayerHealth == 0) { EndRound(); }
     }
+    // ****
 
     public void HealPlayer(int amount) {
         PlayerHealth = Math.Min(PlayerMaxHealth, PlayerHealth + Math.Abs(amount));
@@ -72,7 +72,10 @@ public class GameState {
     }
 
     // Combo Methods
-
+    // ****
+    public void PushCardStack(Card card) {
+        ComboStack.Add(card);
+    }
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
 
@@ -101,7 +104,7 @@ public class GameState {
 
             bool match = true;
             for (int i = 1; i <= count; i++) {
-                if (ComboStack[^i].id != combo.CardList[^i].id) {
+                if (ComboStack[^i].Id != combo.CardList[^i].Id) {
                     match = false;
                     break;
                 }
@@ -123,11 +126,41 @@ public class GameState {
     }
 
     public void ProcessSpectaclePoints(int spectaclePoints) {
-        foreach (Card card in ComboStack) { spectaclePoints += card.spectaclePoints; }
+        foreach (Card card in ComboStack) { spectaclePoints += card.SpectaclePoints; }
 
         SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
     }
+    // ****
 
+    // Hand methods
+
+
+    public void PlaySelectedCard() {
+        Card card = hand.GetSelectedCard();
+        if (card != null && !(card.TargetRequired && GetSelectedEnemy() == null)) {
+            card.Play(this);
+        }
+    }
+
+    public void Draw(int n = 1) {
+        hand.AddCards(deck.DrawCards(n));
+    }
+    // ****
+
+
+    // Enemy methods
+    // ****
+    
+    public Enemy GetSelectedEnemy() {
+        return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
+    }
+
+    public void SelectEnemy(Enemy enemy) {
+        int enemyIndex = enemies.IndexOf(enemy);
+        selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+    }
+    // ****
+    
     public override string ToString() {
         return
             $"ComboMultiplier: {Multiplier}," +

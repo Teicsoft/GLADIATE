@@ -16,21 +16,25 @@ public partial class Battle : Node2D {
     private Deck deck;
     private Discard discard;
     private PathFollow2D enemiesLocation;
-    private List<Enemy> enemies = new();
-    private int selectedEnemyIndex = -1;
+    private GameState gameState;
 
 
     public override void _Ready()
     {
         ModelTesting();
         
+        gameState = new GameState();
         hand = GetNode<Hand>("Hand");
         discard = new Discard();
         deck = new Deck(discard);
         hand = GetNode<Hand>("Hand");
         hand.discard = discard;
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
+        gameState.hand = hand;
+        gameState.deck = deck;
+        
         List<Card> initialDeck = new();
+        
         foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();
             
@@ -56,8 +60,8 @@ public partial class Battle : Node2D {
         float locationRatio = 1f / 2;
         foreach (int i in Enumerable.Range(0, 3)) {
             Enemy enemy = enemyScene.Instantiate<Enemy>();
-            enemy.EnemySelected += SelectEnemy;
-            enemies.Add(enemy);
+            enemy.EnemySelected += gameState.SelectEnemy;
+            gameState.enemies.Add(enemy);
             enemiesLocation.ProgressRatio = i * locationRatio;
             enemy.Position = enemiesLocation.Position;
             AddChild(enemy);
@@ -66,29 +70,12 @@ public partial class Battle : Node2D {
 
     public override void _Process(double delta) { }
 
-    public void PlaySelectedCard() {
-        Card card = hand.GetSelectedCard();
-        if (card != null && !(card.targetRequired && GetSelectedEnemy() == null)) {
-            card.Play(GetSelectedEnemy(), enemies);
-            hand.DiscardSelectedCard();
-        }
-    }
-
-    private Enemy GetSelectedEnemy() {
-        return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
-    }
-
-    private void SelectEnemy(Enemy enemy) {
-        int enemyIndex = enemies.IndexOf(enemy);
-        selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
-    }
-
     private void OnPlayButtonPressed() {
-        PlaySelectedCard();
+        gameState.PlaySelectedCard();
     }
 
     private void OnDeckPressed() {
-        hand.AddCards(deck.DrawCard());
+        gameState.Draw();
     }
 
     

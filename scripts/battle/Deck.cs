@@ -8,7 +8,7 @@ public class Deck {
     public string Name { get; set; }
     public UsedBy Owner { get; set; }
     
-    public Discard discard;
+    private Discard discard;
     public List<Card> cards;
 
     public Deck() {
@@ -55,10 +55,6 @@ public class Deck {
 
     public void Shuffle() {
         cards = Shuffle(cards);
-    }
-
-    public List<Card> DrawCard() {
-        return DrawCards(1);
     }
 
     public List<Card> DrawCards(int amount) {

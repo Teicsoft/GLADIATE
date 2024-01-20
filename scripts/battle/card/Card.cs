@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using TeicsoftSpectacleCards.scripts.battle;
 
 public partial class Card : Node2D {
     [Signal]
@@ -8,41 +9,41 @@ public partial class Card : Node2D {
     public Color color { get; set; }
     public Button selectButton;
 
-    public string id { get; set; } // card_id
+    public string Id { get; set; } // card_id
 
-    public bool targetRequired { get; set; }
-    public Enemy.ModifierEnum modifier { get; set; }
-    public Enemy.PositionEnum targetPosition { get; set; }
+    public bool TargetRequired { get; set; }
+    public Enemy.ModifierEnum Modifier { get; set; }
+    public Enemy.PositionEnum TargetPosition { get; set; }
 
     // main stats
-    public int attack { get; set; }
-    public int defenseLower { get; set; }
-    public int defenseUpper { get; set; }
-    public int health { get; set; }
-    public int draw { get; set; }
-    public int discard { get; set; }
-    public int spectaclePoints { get; set; }
+    public int Attack { get; set; }
+    public int DefenseLower { get; set; }
+    public int DefenseUpper { get; set; }
+    public int Health { get; set; }
+    public int CardDraw { get; set; }
+    public int Discard { get; set; }
+    public int SpectaclePoints { get; set; }
 
     //text
-    public string name { get; set; }
-    public string description { get; set; }
-    public string lore { get; set; }
-    public string tooltip { get; set; }
+    public string CardName { get; set; }
+    public string Description { get; set; }
+    public string Lore { get; set; }
+    public string Tooltip { get; set; }
 
     //design
-    public string imagePath { get; set; } //path to image
-    public string animationPath { get; set; } //path to animation
-    public string soundPath { get; set; } //path to sound
+    public string ImagePath { get; set; } //path to image
+    public string AnimationPath { get; set; } //path to animation
+    public string SoundPath { get; set; } //path to sound
 
     //cache
-    public Texture image { get; set; }
-    public Animation animation { get; set; }
-    public AudioStream sound { get; set; }
+    public Texture Image { get; set; }
+    public Animation Animation { get; set; }
+    public AudioStream Sound { get; set; }
 
     // I'm using this to initialize the card in place of a constructor,
     // which I can't use because Godot doesn't like them with nodes supposedly
     public virtual Card Initialize(string id) {
-        this.id = id;
+        this.Id = id;
         return this;
     }
 
@@ -50,78 +51,73 @@ public partial class Card : Node2D {
         int defenseUpper = 0, int health = 0, int draw = 0, int discard = 0, int spectaclePoints = 0, string name = "",
         string description = "", string lore = "", string tooltip = "", string imagePath = "",
         string animationPath = "", string soundPath = "") {
-        this.id = id;
-        this.targetRequired = targetRequired;
+        this.Id = id;
+        this.TargetRequired = targetRequired;
 
-        this.attack = attack;
-        this.defenseLower = defenseLower;
-        this.defenseUpper = defenseUpper;
-        this.health = health;
-        this.draw = draw;
-        this.discard = discard;
-        this.spectaclePoints = spectaclePoints;
+        this.Attack = attack;
+        this.DefenseLower = defenseLower;
+        this.DefenseUpper = defenseUpper;
+        this.Health = health;
+        this.CardDraw = draw;
+        this.Discard = discard;
+        this.SpectaclePoints = spectaclePoints;
 
-        this.name = name;
-        this.description = description;
-        this.lore = lore;
-        this.tooltip = tooltip;
+        this.CardName = name;
+        this.Description = description;
+        this.Lore = lore;
+        this.Tooltip = tooltip;
 
-        this.imagePath = imagePath;
-        this.animationPath = animationPath;
-        this.soundPath = soundPath;
+        this.ImagePath = imagePath;
+        this.AnimationPath = animationPath;
+        this.SoundPath = soundPath;
         return this;
         
     }
 
     public override void _Ready() {
         selectButton = GetNode<Button>("SelectButton");
-        selectButton.Text = attack.ToString();
+        selectButton.Text = Attack.ToString();
         selectButton.AddThemeColorOverride("font_color", this.color);
     }
 
     public override void _Process(double delta) { }
 
     public void TestSetup(int newAttack, bool targetRequired, Color color) {
-        attack = newAttack;
-        this.targetRequired = targetRequired;
+        Attack = newAttack;
+        this.TargetRequired = targetRequired;
         this.color = color;
     }
 
-    public void Play( /*GameState gameState,*/ Enemy targetedEnemy, List<Enemy> allEnemies) {
-        if (attack != 0) {
-            if (targetRequired) { targetedEnemy.Damage(attack); } else {
-                foreach (Enemy enemy in allEnemies) { enemy.Damage(attack); }
+    public void Play( GameState gameState) {
+        if (Attack != 0) {
+            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); } else {
+                foreach (Enemy enemy in gameState.enemies) { enemy.Damage(Attack); }
             }
         }
 
-        if (defenseLower != 0) {
+        if (DefenseLower != 0) {
             // gameState.ModifyPlayerDefenseLower(DefenseLower);
         }
 
-        if (defenseUpper != 0) {
+        if (DefenseUpper != 0) {
             // gameState.ModifyPlayerDefenseUpper(DefenseUpper);
         }
 
-        if (health != 0) {
-            // gameState.ModifyPlayerHealth(Health);
+        if (Health != 0) {
+            gameState.HealPlayer(Health);
         }
 
-        if (draw > 0) {
-            // swalsh TODO: Emit Event?
-            // gameState.DrawCards(Health);
+        if (CardDraw > 0) {
+            gameState.Draw(CardDraw);
         }
 
-        if (discard > 0) {
+        if (Discard > 0) {
             // swalsh TODO: Emit Event?
             // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
             // gameState.DiscardCards(Health);
         }
 
-        if (spectaclePoints > 0) {
-            // gameState.AddSpectaclePoints(SpectaclePoints);
-        }
-
-        // gameState.AddToCombo(id);
+        gameState.ComboCheck(this);
     }
 
     private void OnPress() {
@@ -135,29 +131,29 @@ public partial class Card : Node2D {
     }
 
     private void LoadTexture() {
-        image = (Texture)GD.Load(imagePath);
+        Image = (Texture)GD.Load(ImagePath);
     }
 
     private void LoadAnimation() {
-        animation = (Animation)GD.Load(animationPath);
+        Animation = (Animation)GD.Load(AnimationPath);
     }
 
     private void LoadSound() {
-        sound = (AudioStream)GD.Load(soundPath);
+        Sound = (AudioStream)GD.Load(SoundPath);
     }
 
     public Card Clone()
     {
         Card card = new Card();
 
-        card.Initialize(id, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
-            name, description, lore, tooltip, imagePath, animationPath, soundPath);
+        card.Initialize(Id, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard, SpectaclePoints,
+            CardName, Description, Lore, Tooltip, ImagePath, AnimationPath, SoundPath);
         card.color = new Color(this.color.R, this.color.G, this.color.B);
         return card;
     }
     
     public override string ToString()
     {
-        return $"Card: {name} ({id}), {attack} attack, {defenseLower}-{defenseUpper} defense, {health} health, {draw} draw, {discard} discard, {spectaclePoints} spectacle points";
+        return $"Card: {CardName} ({Id}), {Attack} attack, {DefenseLower}-{DefenseUpper} defense, {Health} health, {CardDraw} draw, {Discard} discard, {SpectaclePoints} spectacle points";
     }
 }
