@@ -9,7 +9,12 @@ public class Deck {
     public UsedBy Owner { get; set; }
     
     public Discard discard;
-    public List<Card> cards = new();
+    public List<Card> cards;
+
+    public Deck(Discard discard) {
+        this.discard = discard;
+        cards = new();
+    }
     
     public Deck Initialize(string id, string name, UsedBy usedBy, List<Card> cardList)
     {
