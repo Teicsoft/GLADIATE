@@ -32,20 +32,17 @@ public partial class Battle : Node2D {
         DeckModel deckModel = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print(deckModel + "\n");
 
-        
-        GameState gameState = new GameState();
-        for (int i = 0; i < 5; i++)
-        {
-            gameState.GamestateCardPlayed(modelCard);
+        GameState gameState = new ();
+        for (int i = 0; i < 5; i++) {
+            gameState.ComboCheck(modelCard);
             GD.Print(gameState);
         }
-        
-        hand = GetNode<Hand>("Hand");
-        deck = new Deck();
+
         discard = new Discard();
-        enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
+        deck = new Deck(discard);
+        hand = GetNode<Hand>("Hand");
         hand.discard = discard;
-        deck.discard = discard;
+        enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         List<Card> initialDeck = new();
         foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();

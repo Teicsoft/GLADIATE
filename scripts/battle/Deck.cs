@@ -5,7 +5,12 @@ using System.Linq;
 
 public class Deck {
     public Discard discard;
-    public List<Card> cards = new();
+    public List<Card> cards;
+
+    public Deck(Discard discard) {
+        this.discard = discard;
+        cards = new();
+    }
 
     public static List<Card> Shuffle(List<Card> input) {
         List<Card> deck = new(input);
