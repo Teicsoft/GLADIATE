@@ -30,8 +30,9 @@ public partial class Hand : Path2D {
         return selectedCardIndex != -1 ? cards[selectedCardIndex] : null;
     }
 
-    public void DiscardSelectedCard() {
-        Card card = cards[selectedCardIndex];
+    public void Discard() { Discard(cards[selectedCardIndex]); }
+
+    public void Discard(Card card) { 
         card.CardSelected -= SelectCard;
         discard.AddCard(card);
         cards.RemoveAt(selectedCardIndex);

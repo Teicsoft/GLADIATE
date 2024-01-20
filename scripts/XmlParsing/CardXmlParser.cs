@@ -69,7 +69,7 @@ public static class CardXmlParser {
         {
             if (!fileName.EndsWith(".xml") || (fileName == "card_template.xml")) continue;
             Card card = ParseCardsFromXml(cardFilePath + fileName);
-            cardList.Add(card.id, card);
+            cardList.Add(card.Id, card);
         }
 
         return cardList;

@@ -8,7 +8,7 @@ public class Deck {
     public string Name { get; set; }
     public UsedBy Owner { get; set; }
     
-    public Discard discard {get; set; }
+    public Discard Discard {get; set; }
     public List<Card> cards;
 
     public Deck() {
@@ -16,7 +16,7 @@ public class Deck {
     }
     
     public Deck(Discard discard) {
-        this.discard = discard;
+        this.Discard = discard;
         cards = new();
     }
     
@@ -57,10 +57,6 @@ public class Deck {
         cards = Shuffle(cards);
     }
 
-    public List<Card> DrawCard() {
-        return DrawCards(1);
-    }
-
     public List<Card> DrawCards(int amount) {
         List<Card> draw = new();
         if (amount > 0) {
@@ -77,9 +73,9 @@ public class Deck {
     }
 
     private List<Card> OnDeckEmptied(int amount) {
-        if (discard.IsEmpty()) { return new(); }
+        if (Discard.IsEmpty()) { return new(); }
 
-        AddCards(discard.GetCards());
+        AddCards(Discard.GetCards());
         Shuffle();
         return DrawCards(amount);
     }

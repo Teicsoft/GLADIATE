@@ -9,7 +9,7 @@ public static class CardFactory
     
     public static Card MakeBlankCard(string cardId) {
         Card card = new Card();
-        card.id = cardId;
+        card.Id = cardId;
         return card;
     }
 
