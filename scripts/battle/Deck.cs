@@ -11,6 +11,10 @@ public class Deck {
     public Discard discard;
     public List<Card> cards;
 
+    public Deck() {
+        cards = new();
+    }
+    
     public Deck(Discard discard) {
         this.discard = discard;
         cards = new();
