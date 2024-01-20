@@ -26,14 +26,16 @@ public partial class Battle : Node2D {
         
         hand = GetNode<Hand>("Hand");
         discard = new Discard();
-        deck = new Deck(discard);
+        deck = new Deck();
+        deck.discard = discard;
+        
         hand = GetNode<Hand>("Hand");
         hand.discard = discard;
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
+        
         List<Card> initialDeck = new();
         foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();
-            
             
             card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
             initialDeck.Add(card);

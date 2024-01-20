@@ -8,7 +8,7 @@ public class Deck {
     public string Name { get; set; }
     public UsedBy Owner { get; set; }
     
-    public Discard discard;
+    public Discard discard {get; set; }
     public List<Card> cards;
 
     public Deck() {

@@ -1,9 +1,12 @@
 using System;
+using Godot;
 
 namespace TeicsoftSpectacleCards.scripts.battle.card;
 
 public static class CardFactory
 {
+    private static PackedScene scene = (PackedScene)ResourceLoader.Load("res://scenes/battle/Card.tscn");
+    
     public static Card MakeBlankCard(string cardId) {
         Card card = new Card();
         card.id = cardId;

@@ -68,9 +68,7 @@ public partial class Card : Node2D {
 
         this.imagePath = imagePath;
         this.animationPath = animationPath;
-        this.soundPath = soundPath;
-        return this;
-        
+        this.soundPath = soundPath; return this;
     }
 
     public override void _Ready() {
