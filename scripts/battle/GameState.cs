@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
@@ -76,8 +77,8 @@ public class GameState {
     public void PushCardStack(Card card) {
         ComboStack.Add(card);
     }
-    public void ComboCheck(Card card) { // largely based on Cath's python code
-        PushCardStack(card);
+    public void ComboCheck(Card cardSleeve) { // largely based on Cath's python code
+        PushCardStack(cardSleeve);
 
         // find a matching combo if it exists, returns null if no match
         ComboModel matchingCombo = ComboCompare();
@@ -136,9 +137,9 @@ public class GameState {
 
 
     public void PlaySelectedCard() {
-        Card card = hand.GetSelectedCard();
-        if (card != null && !(card.TargetRequired && GetSelectedEnemy() == null)) {
-            card.Play(this);
+        CardSleeve cardSleeve = hand.GetSelectedCard();
+        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
+            cardSleeve.Play(this);
             hand.Discard();
         }
     }

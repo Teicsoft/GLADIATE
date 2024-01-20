@@ -17,24 +17,24 @@ public static class CardFactory
         int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints,
         string name, string description, string lore, string tooltip, string imagePath, string animationPath,
         string soundPath) {
-        Card card;
+        Card Card;
         switch (type) {
             case "Attack":
-                card = new AttackCard();
-                return card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
+                Card = new AttackCard();
+                return Card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
                     spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath);
 
             case "Draw":
-                card = new DrawCard();
-                return card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
+                Card = new DrawCard();
+                return Card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
                     spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath);
             case "Block":
-                card = new BlockCard();
-                return card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
+                Card = new BlockCard();
+                return Card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
                     spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath);
             case "Modifier":
-                card = new ModifierCard();
-                return card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
+                Card = new ModifierCard();
+                return Card.Initialize(cardId, true, attack, defenseLower, defenseUpper, health, draw, discard,
                     spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath);
 
             default:

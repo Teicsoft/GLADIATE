@@ -2,6 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 using TeicsoftSpectacleCards.scripts.battle;
+using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
@@ -27,28 +28,31 @@ public partial class Battle : Node2D {
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         gameState.hand = hand;
         gameState.deck = deck;
+        
+        deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
 
-        List<Card> initialDeck = new();
+        // List<CardSleeve> initialDeck = new();
+        //
+        //
+        // foreach (int i in Enumerable.Range(0, 6)) {
+        //     CardSleeve cardSleeve = cardScene.Instantiate<CardSleeve>();
+        //
+        //
+        //     cardSleeve.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
+        //     initialDeck.Add(cardSleeve);
+        // }
+        //
+        // foreach (int i in Enumerable.Range(0, 3)) {
+        //     CardSleeve cardSleeve = cardScene.Instantiate<CardSleeve>();
+        //     cardSleeve.TestSetup((int)(1 + GD.Randi() % 4), false, new Color(1, 0.5f, 0.5f));
+        //     initialDeck.Add(cardSleeve);
+        // }
+        //
+        // CardSleeve lastCardSleeve = cardScene.Instantiate<CardSleeve>();
+        // lastCardSleeve.TestSetup(15, true, new Color(0, 0, 0));
+        // initialDeck.Add(lastCardSleeve);
 
-        foreach (int i in Enumerable.Range(0, 6)) {
-            Card card = cardScene.Instantiate<Card>();
-
-
-            card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
-            initialDeck.Add(card);
-        }
-
-        foreach (int i in Enumerable.Range(0, 3)) {
-            Card card = cardScene.Instantiate<Card>();
-            card.TestSetup((int)(1 + GD.Randi() % 4), false, new Color(1, 0.5f, 0.5f));
-            initialDeck.Add(card);
-        }
-
-        Card lastCard = cardScene.Instantiate<Card>();
-        lastCard.TestSetup(15, true, new Color(0, 0, 0));
-        initialDeck.Add(lastCard);
-
-        deck.AddCards(initialDeck);
+        // deck.AddCards(initialDeck);
         deck.Shuffle();
 
 
@@ -88,7 +92,10 @@ public partial class Battle : Node2D {
         // //This is a test to see if the Deck parsing works, feel free to remove it
         Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print("\n DeckModelTest" + deck + ": ");
-        foreach (Card card in deck.cards) { GD.Print(card + "\n"); }
+        foreach (CardSleeve cardSleeve in deck.CardSleeves)
+        {
+            GD.Print(cardSleeve.Card + "\n");
+        }
 
         GD.Print("\n");
 
