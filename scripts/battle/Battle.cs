@@ -32,6 +32,8 @@ public partial class Battle : Node2D {
         List<Card> initialDeck = new();
         foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();
+            
+            
             card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
             initialDeck.Add(card);
         }
@@ -98,19 +100,13 @@ public partial class Battle : Node2D {
         //This is a test to see if the combo parsing works, feel free to remove it
         ComboModel combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
         GD.Print("\n ComboModelTest: " + combo + ": ");
-        foreach (Card card in combo.CardList)
-        {
-            GD.Print(card + "\n");
-        }
+        foreach (Card card in combo.CardList) { GD.Print(card + "\n"); }
         GD.Print("\n");
 
         // //This is a test to see if the Deck parsing works, feel free to remove it
         Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print("\n DeckModelTest" + deck + ": ");
-        foreach (Card card in deck.cards)
-        {
-            GD.Print(card + "\n");
-        }
+        foreach (Card card in deck.cards) { GD.Print(card + "\n"); }
         GD.Print("\n");
 
         // //This is a test to see if the GameState works, feel free to remove it

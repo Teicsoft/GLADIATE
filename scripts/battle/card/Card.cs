@@ -70,6 +70,7 @@ public partial class Card : Node2D {
         this.animationPath = animationPath;
         this.soundPath = soundPath;
         return this;
+        
     }
 
     public override void _Ready() {
