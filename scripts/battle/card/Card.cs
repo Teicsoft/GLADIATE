@@ -154,4 +154,9 @@ public partial class Card : Node2D {
         card.color = new Color(this.color.R, this.color.G, this.color.B);
         return card;
     }
+    
+    public override string ToString()
+    {
+        return $"Card: {name} ({id}), {attack} attack, {defenseLower}-{defenseUpper} defense, {health} health, {draw} draw, {discard} discard, {spectaclePoints} spectacle points";
+    }
 }

@@ -105,9 +105,9 @@ public partial class Battle : Node2D {
         GD.Print("\n");
 
         // //This is a test to see if the Deck parsing works, feel free to remove it
-        DeckModel deckModel = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
-        GD.Print("\n DeckModelTest" + deckModel + ": ");
-        foreach (Card card in deckModel.CardList)
+        Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
+        GD.Print("\n DeckModelTest" + deck + ": ");
+        foreach (Card card in deck.cards)
         {
             GD.Print(card + "\n");
         }
