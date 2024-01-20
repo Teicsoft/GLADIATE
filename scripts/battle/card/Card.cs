@@ -70,7 +70,7 @@ public partial class Card : Node2D {
         this.AnimationPath = animationPath;
         this.SoundPath = soundPath;
         return this;
-        
+
     }
 
     public override void _Ready() {
@@ -150,7 +150,7 @@ public partial class Card : Node2D {
         card.color = new Color(this.color.R, this.color.G, this.color.B);
         return card;
     }
-    
+
     public override string ToString()
     {
         return $"Card: {CardName} ({Id}), {Attack} attack, {DefenseLower}-{DefenseUpper} defense, {Health} health, {CardDraw} draw, {Discard} discard, {SpectaclePoints} spectacle points";

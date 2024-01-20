@@ -18,11 +18,9 @@ public partial class Battle : Node2D {
     private PathFollow2D enemiesLocation;
     private GameState gameState;
 
-
-    public override void _Ready()
-    {
+    public override void _Ready() {
         ModelTesting();
-        
+
         gameState = new GameState();
         hand = GetNode<Hand>("Hand");
         deck = new Deck();
@@ -33,13 +31,13 @@ public partial class Battle : Node2D {
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         gameState.hand = hand;
         gameState.deck = deck;
-        
+
         List<Card> initialDeck = new();
-        
+
         foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();
-            
-            
+
+
             card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
             initialDeck.Add(card);
         }
@@ -79,9 +77,7 @@ public partial class Battle : Node2D {
         gameState.Draw();
     }
 
-    
-    private void ModelTesting()
-    {
+    private void ModelTesting() {
         //This is a test to see if the card factory works, feel free to remove it
         Card modelCard = CardXmlParser.ParseCardsFromXml("res://data/cards/card_template.xml");
         GD.Print("\n CardModelTest: " + modelCard + "\n");
@@ -90,23 +86,25 @@ public partial class Battle : Node2D {
         ComboModel combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
         GD.Print("\n ComboModelTest: " + combo + ": ");
         foreach (Card card in combo.CardList) { GD.Print(card + "\n"); }
+
         GD.Print("\n");
 
         // //This is a test to see if the Deck parsing works, feel free to remove it
         Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print("\n DeckModelTest" + deck + ": ");
         foreach (Card card in deck.cards) { GD.Print(card + "\n"); }
+
         GD.Print("\n");
 
         // //This is a test to see if the GameState works, feel free to remove it
         GameState gameState = new GameState();
         GD.Print("\n GameStateTest: ");
 
-        for (int i = 0; i < 5; i++)
-        {
+        for (int i = 0; i < 5; i++) {
             gameState.ComboCheck(modelCard);
             GD.Print(gameState);
         }
+
         GD.Print("\n");
     }
 }
