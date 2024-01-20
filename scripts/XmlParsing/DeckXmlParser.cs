@@ -32,7 +32,8 @@ public class DeckXmlParser
         foreach (XmlNode cardNode in deckNode.SelectNodes("cards/card"))
         {
             string cardId = cardNode.Attributes["card_id"].Value;
-            cardList.Add(CardFactory.MakeBlankCard(cardId));
+            // cardList.Add(CardFactory.MakeBlankCard(cardId));
+            cardList.Add(CardPrototypes.CloneCard(cardId));
         }
 
         return new(deckId, deckName, parsedUsedBy, cardList);
