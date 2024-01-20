@@ -19,25 +19,13 @@ public partial class Battle : Node2D {
     private List<Enemy> enemies = new();
     private int selectedEnemyIndex = -1;
 
-    public override void _Ready() {
-        //This is a test to see if the card factory works, feel free to remove it
-        Card modelCard = CardXmlParser.ParseCardsFromXml("res://data/cards/card_template.xml");
-        GD.Print(modelCard + "\n");
 
-        //This is a test to see if the combo parsing works, feel free to remove it
-        ComboModel combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
-        GD.Print(combo + "\n");
-
-        // //This is a test to see if the Deck parsing works, feel free to remove it
-        DeckModel deckModel = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
-        GD.Print(deckModel + "\n");
-
-        GameState gameState = new ();
-        for (int i = 0; i < 5; i++) {
-            gameState.ComboCheck(modelCard);
-            GD.Print(gameState);
-        }
-
+    public override void _Ready()
+    {
+        ModelTesting();
+        
+        hand = GetNode<Hand>("Hand");
+        deck = new Deck();
         discard = new Discard();
         deck = new Deck(discard);
         hand = GetNode<Hand>("Hand");
@@ -46,6 +34,8 @@ public partial class Battle : Node2D {
         List<Card> initialDeck = new();
         foreach (int i in Enumerable.Range(0, 6)) {
             Card card = cardScene.Instantiate<Card>();
+            
+            
             card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
             initialDeck.Add(card);
         }
@@ -100,5 +90,36 @@ public partial class Battle : Node2D {
 
     private void OnDeckPressed() {
         hand.AddCards(deck.DrawCard());
+    }
+
+    
+    private void ModelTesting()
+    {
+        //This is a test to see if the card factory works, feel free to remove it
+        Card modelCard = CardXmlParser.ParseCardsFromXml("res://data/cards/card_template.xml");
+        GD.Print("\n CardModelTest: " + modelCard + "\n");
+
+        //This is a test to see if the combo parsing works, feel free to remove it
+        ComboModel combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
+        GD.Print("\n ComboModelTest: " + combo + ": ");
+        foreach (Card card in combo.CardList) { GD.Print(card + "\n"); }
+        GD.Print("\n");
+
+        // //This is a test to see if the Deck parsing works, feel free to remove it
+        Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
+        GD.Print("\n DeckModelTest" + deck + ": ");
+        foreach (Card card in deck.cards) { GD.Print(card + "\n"); }
+        GD.Print("\n");
+
+        // //This is a test to see if the GameState works, feel free to remove it
+        GameState gameState = new GameState();
+        GD.Print("\n GameStateTest: ");
+
+        for (int i = 0; i < 5; i++)
+        {
+            gameState.GamestateCardPlayed(modelCard);
+            GD.Print(gameState);
+        }
+        GD.Print("\n");
     }
 }

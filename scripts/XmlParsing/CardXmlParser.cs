@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
@@ -54,5 +55,23 @@ public static class CardXmlParser {
         return CardFactory.MakeCard(cardType, cardId, parsedModifier, parsedPosition, attack, defenseLower,
             defenseUpper, health, draw, discard, spectaclePoints, name, description, lore, tooltip, imagePath,
             animationPath, soundPath);
+    }
+
+    public static Dictionary<string, Card> ParseAllCards()
+    {
+        string cardFilePath = "res://data/cards/";
+        
+        string[] filesAtPath = DirAccess.GetFilesAt(cardFilePath);
+        
+        
+        Dictionary<string, Card> cardList = new Dictionary<string, Card>();
+        foreach (string fileName in filesAtPath)
+        {
+            if (!fileName.EndsWith(".xml") || (fileName == "card_template.xml")) continue;
+            Card card = ParseCardsFromXml(cardFilePath + fileName);
+            cardList.Add(card.id, card);
+        }
+
+        return cardList;
     }
 }

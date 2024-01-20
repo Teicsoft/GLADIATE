@@ -5,7 +5,7 @@ public partial class Card : Node2D {
     [Signal]
     public delegate void CardSelectedEventHandler(Card card);
 
-    public Color color;
+    public Color color { get; set; }
     public Button selectButton;
 
     public string id { get; set; } // card_id
@@ -70,6 +70,7 @@ public partial class Card : Node2D {
         this.animationPath = animationPath;
         this.soundPath = soundPath;
         return this;
+        
     }
 
     public override void _Ready() {
@@ -143,5 +144,20 @@ public partial class Card : Node2D {
 
     private void LoadSound() {
         sound = (AudioStream)GD.Load(soundPath);
+    }
+
+    public Card Clone()
+    {
+        Card card = new Card();
+
+        card.Initialize(id, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard, spectaclePoints,
+            name, description, lore, tooltip, imagePath, animationPath, soundPath);
+        card.color = new Color(this.color.R, this.color.G, this.color.B);
+        return card;
+    }
+    
+    public override string ToString()
+    {
+        return $"Card: {name} ({id}), {attack} attack, {defenseLower}-{defenseUpper} defense, {health} health, {draw} draw, {discard} discard, {spectaclePoints} spectacle points";
     }
 }

@@ -10,7 +10,7 @@ namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public class DeckXmlParser
 {
-    public static DeckModel ParseDeckFromXml(string filePath)
+    public static Deck ParseDeckFromXml(string filePath)
     {
         using FileAccess file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
@@ -23,7 +23,7 @@ public class DeckXmlParser
         string deckName = deckNode.Attributes["name"].Value;
         string usedBy = deckNode.Attributes["used_by"].Value;
 
-        if (!Enum.TryParse(usedBy, out DeckModel.UsedByEnum parsedUsedBy))
+        if (!Enum.TryParse(usedBy, out Deck.UsedBy parsedUsedBy))
         {
             GD.Print("Failed to parse usedBy: " + usedBy);
         }
@@ -32,9 +32,11 @@ public class DeckXmlParser
         foreach (XmlNode cardNode in deckNode.SelectNodes("cards/card"))
         {
             string cardId = cardNode.Attributes["card_id"].Value;
-            cardList.Add(CardFactory.MakeBlankCard(cardId));
+            // cardList.Add(CardFactory.MakeBlankCard(cardId));
+            cardList.Add(CardPrototypes.CloneCard(cardId));
         }
 
-        return new(deckId, deckName, parsedUsedBy, cardList);
+        Deck deck = new Deck();
+        return deck.Initialize(deckId, deckName, parsedUsedBy, cardList);
     }
 }
