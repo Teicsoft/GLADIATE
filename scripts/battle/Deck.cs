@@ -4,8 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Deck {
-    public Discard discard;
-    public List<Card> cards = new();
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public UsedBy Owner { get; set; }
+    
+    private Discard discard;
+    public List<Card> cards;
+
+    public Deck() {
+        cards = new();
+    }
+    
+    public Deck(Discard discard) {
+        this.discard = discard;
+        cards = new();
+    }
+    
+    public Deck Initialize(string id, string name, UsedBy usedBy, List<Card> cardList)
+    {
+        this.Id = id;
+        this.Name = name;
+        this.Owner = usedBy;
+        this.cards = cardList;
+        return this;
+    }
 
     public static List<Card> Shuffle(List<Card> input) {
         List<Card> deck = new(input);
@@ -35,10 +57,6 @@ public class Deck {
         cards = Shuffle(cards);
     }
 
-    public List<Card> DrawCard() {
-        return DrawCards(1);
-    }
-
     public List<Card> DrawCards(int amount) {
         List<Card> draw = new();
         if (amount > 0) {
@@ -60,5 +78,17 @@ public class Deck {
         AddCards(discard.GetCards());
         Shuffle();
         return DrawCards(amount);
+    }
+    
+    public override string ToString()
+    {
+        return
+            $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(cards)}: {cards}";
+    }
+    
+    public enum UsedBy
+    {
+        Player,
+        Enemy
     }
 }

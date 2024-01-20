@@ -73,12 +73,13 @@ public static class ComboXmlParser
         string comboFilePath = "res://data/combos/";
         
         // using DirAccess dir = DirAccess.Open("res://data/combos/");
-        string[] dir = DirAccess.GetFilesAt(comboFilePath);
+        string[] filesAtPath = DirAccess.GetFilesAt(comboFilePath);
 
         List<ComboModel> comboModels = new List<ComboModel>();
-        foreach (string file in dir)
+        foreach (string fileName in filesAtPath)
         {
-            ComboModel combo =  ParseComboFromXml(comboFilePath + file);
+            if (!fileName.EndsWith(".xml") || (fileName == "combo_template.xml")) continue;
+            ComboModel combo =  ParseComboFromXml(comboFilePath + fileName);
             comboModels.Add(combo);
         }
 
