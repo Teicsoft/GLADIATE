@@ -139,6 +139,7 @@ public class GameState {
         Card card = hand.GetSelectedCard();
         if (card != null && !(card.TargetRequired && GetSelectedEnemy() == null)) {
             card.Play(this);
+            hand.Discard();
         }
     }
 
@@ -150,7 +151,7 @@ public class GameState {
 
     // Enemy methods
     // ****
-    
+
     public Enemy GetSelectedEnemy() {
         return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
     }
@@ -160,7 +161,7 @@ public class GameState {
         selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
     // ****
-    
+
     public override string ToString() {
         return
             $"ComboMultiplier: {Multiplier}," +
