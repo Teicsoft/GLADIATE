@@ -25,7 +25,6 @@ public partial class Battle : Node2D {
         ModelTesting();
         
         hand = GetNode<Hand>("Hand");
-        deck = new Deck();
         discard = new Discard();
         deck = new Deck(discard);
         hand = GetNode<Hand>("Hand");
@@ -117,7 +116,7 @@ public partial class Battle : Node2D {
 
         for (int i = 0; i < 5; i++)
         {
-            gameState.GamestateCardPlayed(modelCard);
+            gameState.ComboCheck(modelCard);
             GD.Print(gameState);
         }
         GD.Print("\n");
