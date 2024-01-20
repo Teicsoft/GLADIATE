@@ -7,19 +7,19 @@ public class Deck {
     public string Id { get; set; }
     public string Name { get; set; }
     public UsedBy Owner { get; set; }
-
-    private Discard discard;
+    
+    public Discard Discard {get; set; }
     public List<Card> cards;
 
     public Deck() {
         cards = new();
     }
-
+    
     public Deck(Discard discard) {
-        this.discard = discard;
+        this.Discard = discard;
         cards = new();
     }
-
+    
     public Deck Initialize(string id, string name, UsedBy usedBy, List<Card> cardList)
     {
         this.Id = id;
@@ -73,19 +73,19 @@ public class Deck {
     }
 
     private List<Card> OnDeckEmptied(int amount) {
-        if (discard.IsEmpty()) { return new(); }
+        if (Discard.IsEmpty()) { return new(); }
 
-        AddCards(discard.GetCards());
+        AddCards(Discard.GetCards());
         Shuffle();
         return DrawCards(amount);
     }
-
+    
     public override string ToString()
     {
         return
             $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(cards)}: {cards}";
     }
-
+    
     public enum UsedBy
     {
         Player,

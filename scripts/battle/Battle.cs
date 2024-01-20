@@ -1,10 +1,7 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using TeicsoftSpectacleCards.scripts.battle;
-using TeicsoftSpectacleCards.scripts.customresource;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
@@ -24,8 +21,8 @@ public partial class Battle : Node2D {
         gameState = new GameState();
         hand = GetNode<Hand>("Hand");
         discard = new Discard();
-        deck = new Deck(discard);
-        hand = GetNode<Hand>("Hand");
+        deck = new Deck();
+        deck.Discard = discard;
         hand.discard = discard;
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         gameState.hand = hand;
