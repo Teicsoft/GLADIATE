@@ -1,5 +1,5 @@
 using Godot;
-using System.Collections.Generic;
+using TeicsoftSpectacleCards.scripts.battle;
 
 public partial class Card : Node2D {
     [Signal]
@@ -87,7 +87,7 @@ public partial class Card : Node2D {
         this.color = color;
     }
 
-    public void Play( GameState gameState) {
+    public void Play(GameState gameState) {
         if (Attack != 0) {
             if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); } else {
                 foreach (Enemy enemy in gameState.enemies) { enemy.Damage(Attack); }

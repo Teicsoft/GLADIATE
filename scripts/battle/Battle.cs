@@ -26,7 +26,7 @@ public partial class Battle : Node2D {
         gameState = new GameState();
         hand = GetNode<Hand>("Hand");
         deck = new Deck();
-        deck.discard = discard;
+        deck.Discard = discard;
         
         hand = GetNode<Hand>("Hand");
         hand.discard = discard;
