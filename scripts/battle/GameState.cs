@@ -100,7 +100,7 @@ public class GameState {
             if (ComboStack.Count < count) { continue; }
 
             bool match = true;
-            for (int i = 0; i <= count; i++) {
+            for (int i = 1; i <= count; i++) {
                 if (ComboStack[^i].id != combo.CardList[^i].id) {
                     match = false;
                     break;
