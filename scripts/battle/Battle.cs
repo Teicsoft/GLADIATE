@@ -18,18 +18,17 @@ public partial class Battle : Node2D {
 
     public override void _Ready() {
         ModelTesting();
-
+        
+        deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         gameState = new GameState();
         hand = GetNode<Hand>("Hand");
         discard = new Discard();
-        deck = new Deck();
         deck.Discard = discard;
         hand.discard = discard;
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         gameState.hand = hand;
         gameState.deck = deck;
         
-        deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
 
         // List<CardSleeve> initialDeck = new();
         //

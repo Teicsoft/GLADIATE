@@ -15,8 +15,12 @@ public partial class Hand : Path2D {
         handCardLocation = GetNode<PathFollow2D>("HandCardLocation");
     }
 
-    public new void AddCards(List<CardSleeve> cards) {
-        foreach (CardSleeve card in cards) { AddCard(card); }
+    public new void AddCards(List<CardSleeve> cardSleeves) {
+        foreach (CardSleeve cardSleeve in cardSleeves)
+        {
+            AddCard(cardSleeve);
+        }
+        
     }
 
     private new void AddCard(CardSleeve cardSleeve) {

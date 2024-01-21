@@ -33,12 +33,15 @@ public partial class Card
         {
             case 0:
                 color = new Color(1, 1, 1);
+                targetRequired = true;
                 break;
             case 1:
                 color = new Color(1, 0.5f, 0.5f);
+                targetRequired = false;
                 break;
             case 2:
                 color = new Color(0, 0, 0);
+                targetRequired = true;
                 break;
         }
         return this;

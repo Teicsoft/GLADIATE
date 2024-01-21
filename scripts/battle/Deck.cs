@@ -61,7 +61,11 @@ public class Deck {
     public List<CardSleeve> DrawCards(int amount) {
         List<CardSleeve> draw = new();
         if (amount > 0) {
-            if (CardSleeves.Count == 0) { return OnDeckEmptied(amount); }
+            if (CardSleeves.Count == 0)
+            {
+                GD.Print("Deck is empty!");
+                return OnDeckEmptied(amount);
+            }
 
             if (CardSleeves.Count > 0) {
                 draw.Add(CardSleeves[^1]);
