@@ -1,7 +1,7 @@
-# Spectacle Card Game
+# GLADIATE!
 
 ## About
-This repo contains the source code for the, as of yet untitled, first project of the Teicsoft group. 
+This repo contains the source code for GLADIATE, A Spectacle Card Fighter, the first project of the Teicsoft group. 
 We will also use this repo to handle the Project organization.
 
 ***
