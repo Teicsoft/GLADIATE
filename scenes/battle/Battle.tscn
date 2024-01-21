@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=8 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
 [ext_resource type="PackedScene" uid="uid://4lar8gsflwru" path="res://scenes/battle/Card.tscn" id="3_citfa"]
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
+[ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/card-back-blood-spatter.png" id="4_u6rcd"]
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
@@ -23,6 +24,7 @@ cardScene = ExtResource("3_citfa")
 enemyScene = ExtResource("3_25d28")
 
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -36,17 +38,20 @@ color = Color(0, 0.376471, 0.752941, 1)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Deck" type="Button" parent="HUD"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -180.0
-offset_top = -280.0
-grow_horizontal = 0
+[node name="Deck" type="TextureButton" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.657812
+anchor_top = 0.169444
+anchor_right = 0.828906
+anchor_bottom = 0.584722
+offset_left = 456.0
+offset_top = 625.0
+offset_right = 784.5
+offset_bottom = 1073.5
 grow_vertical = 0
-text = "Deck"
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("4_u6rcd")
+stretch_mode = 0
 
 [node name="Discard" type="ColorRect" parent="HUD"]
 anchors_preset = 2
