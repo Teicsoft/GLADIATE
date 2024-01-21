@@ -37,6 +37,9 @@ public class DeckXmlParser
         }
 
         Deck deck = new Deck();
-        return deck.Initialize(deckId, deckName, parsedUsedBy, cardList);
+
+        List<CardSleeve> cardSleeves = Deck.SleeveCards(cardList);
+        
+        return deck.Initialize(deckId, deckName, parsedUsedBy, cardSleeves);
     }
 }

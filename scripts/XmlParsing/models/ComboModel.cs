@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using TeicsoftSpectacleCards.scripts.battle.card;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing.models;
 

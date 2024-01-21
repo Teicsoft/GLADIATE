@@ -3,23 +3,23 @@ using System;
 using System.Collections.Generic;
 
 public class Discard {
-    public List<Card> Cards = new();
+    public List<CardSleeve> cards = new();
 
-    public void AddCard(Card card) {
-        Cards.Add(card);
+    public void AddCard(CardSleeve cardSleeve) {
+        cards.Add(cardSleeve);
     }
 
-    public void AddCards(List<Card> cards) {
-        this.Cards.AddRange(cards);
+    public void AddCards(List<CardSleeve> cards) {
+        this.cards.AddRange(cards);
     }
 
     public bool IsEmpty() {
-        return Cards.Count == 0;
+        return cards.Count == 0;
     }
 
-    public List<Card> GetCards(bool clear = true) {
-        List<Card> output = new(Cards);
-        if (clear) { Cards.Clear(); }
+    public List<CardSleeve> GetCards(bool clear = true) {
+        List<CardSleeve> output = new(cards);
+        if (clear) { cards.Clear(); }
 
         return output;
     }

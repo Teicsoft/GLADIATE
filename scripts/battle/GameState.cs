@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Godot;
+using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
@@ -10,17 +12,19 @@ public class GameState {
     public int SpectaclePoints { get; set; }
     public int PlayerMaxHealth { get; set; }
     public int PlayerHealth { get; set; }
-    private int PlayerDefenseLower { get; set; }
-    private int PlayerDefenseUpper { get; set; }
+    private int DefenseLower { get; set; }
+    private int DefenseUpper { get; set; }
 
     public List<Card> ComboStack { get; set; }
 
+    // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
+
     private List<ComboModel> AllCombos { get; set; }
 
-    public List<Enemy> Enemies = new();
-    private int SelectedEnemyIndex = -1;
-    public Hand Hand;
-    public Deck Deck;
+    public List<Enemy> enemies = new();
+    private int selectedEnemyIndex = -1;
+    public Hand hand;
+    public Deck deck;
 
     // Constructor
     public GameState() {
@@ -30,27 +34,26 @@ public class GameState {
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
         PlayerMaxHealth = 100; // adjust this as needed, or base on some other check
-        PlayerDefenseLower = 0;
-        PlayerDefenseUpper = 0;
+        DefenseLower = 0;
+        DefenseUpper = 0;
         PlayerHealth = PlayerMaxHealth;
     }
-
     // Player Health Methods
-    // ****
+// ****
     public void DamagePlayer(int damage, PositionEnum position = PositionEnum.Upper) {
         bool blocked = false;
         switch (position) {
             case PositionEnum.Upper:
-                if (PlayerDefenseUpper > 0) {
+                if (DefenseUpper > 0) {
                     blocked = true;
-                    PlayerDefenseUpper--;
+                    DefenseUpper--;
                 }
 
                 break;
             case PositionEnum.Lower:
-                if (PlayerDefenseLower > 0) {
+                if (DefenseLower > 0) {
                     blocked = true;
-                    PlayerDefenseLower--;
+                    DefenseLower--;
                 }
 
                 break;
@@ -62,18 +65,6 @@ public class GameState {
     private void DirectDamagePlayer(int damage) {
         PlayerHealth = Math.Max(0, PlayerHealth - damage);
         if (PlayerHealth == 0) { EndRound(); }
-    }
-
-    public void ModifyPlayerBlock(int amount, PositionEnum position = PositionEnum.Upper) {
-
-        switch (position) {
-            case PositionEnum.Upper:
-                PlayerDefenseUpper += amount;
-                break;
-            case PositionEnum.Lower:
-                PlayerDefenseLower += amount;
-                break;
-        }
     }
     // ****
 
@@ -87,7 +78,6 @@ public class GameState {
     public void PushCardStack(Card card) {
         ComboStack.Add(card);
     }
-
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
 
@@ -142,43 +132,46 @@ public class GameState {
 
         SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
     }
-
     // ****
 
     // Hand methods
 
+
     public void PlaySelectedCard() {
-        Card card = Hand.GetSelectedCard();
-        if (card != null && !(card.TargetRequired && GetSelectedEnemy() == null)) {
-            card.Play(this);
-            Hand.DiscardSelectedCard();
+        CardSleeve cardSleeve = hand.GetSelectedCard();
+        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
+            cardSleeve.Card.Play(this);
+            hand.Discard();
         }
     }
 
     public void Draw(int n = 1) {
-        Hand.AddCards(Deck.DrawCards(n));
+        hand.AddCards(deck.DrawCards(n));
     }
-
     // ****
+
 
     // Enemy methods
     // ****
 
     public Enemy GetSelectedEnemy() {
-        return SelectedEnemyIndex != -1 ? Enemies[SelectedEnemyIndex] : null;
+        return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
     }
 
     public void SelectEnemy(Enemy enemy) {
-        int enemyIndex = Enemies.IndexOf(enemy);
-        SelectedEnemyIndex = SelectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        int enemyIndex = enemies.IndexOf(enemy);
+        selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
-
     // ****
 
     public override string ToString() {
-        return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
-               $"MaxPlayerHealth: {PlayerMaxHealth}," + $"PlayerHealth: {PlayerHealth}," +
-               $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
+        return
+            $"ComboMultiplier: {Multiplier}," +
+            $"SpectaclePoints: {SpectaclePoints}," +
+            $"MaxPlayerHealth: {PlayerMaxHealth}," +
+            $"PlayerHealth: {PlayerHealth}," +
+            $"ComboStack: {ComboStack}," +
+            $"AllCombos: {AllCombos}";
     }
 
     public enum PositionEnum {
