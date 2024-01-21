@@ -2,6 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 using TeicsoftSpectacleCards.scripts.battle;
+using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
@@ -17,38 +18,17 @@ public partial class Battle : Node2D {
 
     public override void _Ready() {
         ModelTesting();
-
+        
+        deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         gameState = new GameState();
         hand = GetNode<Hand>("Hand");
         discard = new Discard();
-        deck = new Deck();
         deck.Discard = discard;
         hand.discard = discard;
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         gameState.hand = hand;
         gameState.deck = deck;
-
-        List<Card> initialDeck = new();
-
-        foreach (int i in Enumerable.Range(0, 6)) {
-            Card card = cardScene.Instantiate<Card>();
-
-
-            card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
-            initialDeck.Add(card);
-        }
-
-        foreach (int i in Enumerable.Range(0, 3)) {
-            Card card = cardScene.Instantiate<Card>();
-            card.TestSetup((int)(1 + GD.Randi() % 4), false, new Color(1, 0.5f, 0.5f));
-            initialDeck.Add(card);
-        }
-
-        Card lastCard = cardScene.Instantiate<Card>();
-        lastCard.TestSetup(15, true, new Color(0, 0, 0));
-        initialDeck.Add(lastCard);
-
-        deck.AddCards(initialDeck);
+        
         deck.Shuffle();
 
 
@@ -88,7 +68,10 @@ public partial class Battle : Node2D {
         // //This is a test to see if the Deck parsing works, feel free to remove it
         Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print("\n DeckModelTest" + deck + ": ");
-        foreach (Card card in deck.cards) { GD.Print(card + "\n"); }
+        foreach (CardSleeve cardSleeve in deck.CardSleeves)
+        {
+            GD.Print(cardSleeve.Card + "\n");
+        }
 
         GD.Print("\n");
 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Godot;
+using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
@@ -136,9 +138,9 @@ public class GameState {
 
 
     public void PlaySelectedCard() {
-        Card card = hand.GetSelectedCard();
-        if (card != null && !(card.TargetRequired && GetSelectedEnemy() == null)) {
-            card.Play(this);
+        CardSleeve cardSleeve = hand.GetSelectedCard();
+        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
+            cardSleeve.Card.Play(this);
             hand.Discard();
         }
     }

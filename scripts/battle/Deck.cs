@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TeicsoftSpectacleCards.scripts.battle.card;
 
 public class Deck {
     public string Id { get; set; }
@@ -9,28 +10,28 @@ public class Deck {
     public UsedBy Owner { get; set; }
     
     public Discard Discard {get; set; }
-    public List<Card> cards;
+    public List<CardSleeve> CardSleeves;
 
     public Deck() {
-        cards = new();
+        CardSleeves = new();
     }
     
     public Deck(Discard discard) {
         this.Discard = discard;
-        cards = new();
+        CardSleeves = new();
     }
     
-    public Deck Initialize(string id, string name, UsedBy usedBy, List<Card> cardList)
+    public Deck Initialize(string id, string name, UsedBy usedBy, List<CardSleeve> cardList)
     {
         this.Id = id;
         this.Name = name;
         this.Owner = usedBy;
-        this.cards = cardList;
+        this.CardSleeves = cardList;
         return this;
     }
 
-    public static List<Card> Shuffle(List<Card> input) {
-        List<Card> deck = new(input);
+    public static List<CardSleeve> Shuffle(List<CardSleeve> input) {
+        List<CardSleeve> deck = new(input);
         for (int i = deck.Count - 1; i > 1; i--) {
             int j = (int)(GD.Randi() % i + 1);
             (deck[i], deck[j]) = (deck[j], deck[i]);
@@ -39,32 +40,36 @@ public class Deck {
         return deck;
     }
 
-    public void AddCard(Card card) {
+    public void AddCard(CardSleeve cardSleeve) {
         // Adds cards to TOP of deck, highest index on top.
-        cards.Add(card);
+        CardSleeves.Add(cardSleeve);
     }
 
-    public void AddCards(List<Card> cards) {
+    public void AddCards(List<CardSleeve> cardSleeves) {
         // Adds cards to TOP of deck, highest index on top.
-        this.cards.AddRange(cards);
+        this.CardSleeves.AddRange(cardSleeves);
     }
 
     public bool IsEmpty() {
-        return cards.Count == 0;
+        return CardSleeves.Count == 0;
     }
 
     public void Shuffle() {
-        cards = Shuffle(cards);
+        CardSleeves = Shuffle(CardSleeves);
     }
 
-    public List<Card> DrawCards(int amount) {
-        List<Card> draw = new();
+    public List<CardSleeve> DrawCards(int amount) {
+        List<CardSleeve> draw = new();
         if (amount > 0) {
-            if (cards.Count == 0) { return OnDeckEmptied(amount); }
+            if (CardSleeves.Count == 0)
+            {
+                GD.Print("Deck is empty!");
+                return OnDeckEmptied(amount);
+            }
 
-            if (cards.Count > 0) {
-                draw.Add(cards[^1]);
-                cards.RemoveAt(cards.Count - 1);
+            if (CardSleeves.Count > 0) {
+                draw.Add(CardSleeves[^1]);
+                CardSleeves.RemoveAt(CardSleeves.Count - 1);
                 draw.AddRange(DrawCards(amount - 1));
             }
         }
@@ -72,7 +77,7 @@ public class Deck {
         return draw;
     }
 
-    private List<Card> OnDeckEmptied(int amount) {
+    private List<CardSleeve> OnDeckEmptied(int amount) {
         if (Discard.IsEmpty()) { return new(); }
 
         AddCards(Discard.GetCards());
@@ -83,12 +88,28 @@ public class Deck {
     public override string ToString()
     {
         return
-            $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(cards)}: {cards}";
+            $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(CardSleeves)}: {CardSleeves}";
     }
     
     public enum UsedBy
     {
         Player,
         Enemy
+    }
+
+    public static List<CardSleeve> SleeveCards(List <Card> cards)
+    {
+        PackedScene cardScene = GD.Load<PackedScene>("res://scenes/battle/Card.tscn");
+        
+        List<CardSleeve> sleevedCards = new();
+
+        foreach (Card card in cards)
+        {
+            CardSleeve cardSleeve = cardScene.Instantiate<CardSleeve>();
+            cardSleeve.Card = card;
+            sleevedCards.Add(cardSleeve);
+        }
+        
+        return sleevedCards;
     }
 }

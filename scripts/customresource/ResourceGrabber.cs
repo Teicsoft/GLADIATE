@@ -8,7 +8,7 @@ public static class ResourceGrabber
     // If this folder is not present, it will fall back to open source assets. 
 
 
-    public const string ClosedSourceAssetsFolder = "res://assets/_closed_source_assets/";
+    public const string ClosedSourceAssetsFolder = "res://assets/_closed_source_assets/GLADIATE-ClosedAssets/";
     public const string OpenSourceAssetsFolder = "res://assets/";
 
 
