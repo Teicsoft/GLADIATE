@@ -28,7 +28,11 @@ public partial class Card
         this.AnimationPath = animationPath;
         this.SoundPath = soundPath;
 
-        uint randint = GD.Randi() % 3;
+        // todo this section is just for testing, remove later
+        // Colour is a test feature, to help with debugging
+        // setting targetRequired here is temporary, as datafiles do not track this information,
+        // and there is not yet another means of setting this flag
+        uint randint = GD.Randi() % 3;   
         switch (randint)
         {
             case 0:

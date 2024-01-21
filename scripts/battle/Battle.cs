@@ -29,29 +29,6 @@ public partial class Battle : Node2D {
         gameState.hand = hand;
         gameState.deck = deck;
         
-
-        // List<CardSleeve> initialDeck = new();
-        //
-        //
-        // foreach (int i in Enumerable.Range(0, 6)) {
-        //     CardSleeve cardSleeve = cardScene.Instantiate<CardSleeve>();
-        //
-        //
-        //     cardSleeve.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
-        //     initialDeck.Add(cardSleeve);
-        // }
-        //
-        // foreach (int i in Enumerable.Range(0, 3)) {
-        //     CardSleeve cardSleeve = cardScene.Instantiate<CardSleeve>();
-        //     cardSleeve.TestSetup((int)(1 + GD.Randi() % 4), false, new Color(1, 0.5f, 0.5f));
-        //     initialDeck.Add(cardSleeve);
-        // }
-        //
-        // CardSleeve lastCardSleeve = cardScene.Instantiate<CardSleeve>();
-        // lastCardSleeve.TestSetup(15, true, new Color(0, 0, 0));
-        // initialDeck.Add(lastCardSleeve);
-
-        // deck.AddCards(initialDeck);
         deck.Shuffle();
 
 
