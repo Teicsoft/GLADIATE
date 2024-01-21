@@ -7,31 +7,31 @@ using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 public partial class Battle : Node2D {
 
-    [Export] private PackedScene cardScene;
-    [Export] private PackedScene enemyScene;
-    private Hand hand;
-    private Deck deck;
-    private Discard discard;
-    private PathFollow2D enemiesLocation;
-    private GameState gameState;
+    [Export] private PackedScene CardScene;
+    [Export] private PackedScene EnemyScene;
+    private Hand Hand;
+    private Deck Deck;
+    private Discard Discard;
+    private PathFollow2D EnemiesLocation;
+    private GameState GameState;
 
     public override void _Ready() {
         ModelTesting();
 
-        gameState = new GameState();
-        hand = GetNode<Hand>("Hand");
-        discard = new Discard();
-        deck = new Deck();
-        deck.Discard = discard;
-        hand.discard = discard;
-        enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
-        gameState.hand = hand;
-        gameState.deck = deck;
+        GameState = new GameState();
+        Hand = GetNode<Hand>("Hand");
+        Discard = new Discard();
+        Deck = new Deck(Discard);
+        Hand = GetNode<Hand>("Hand");
+        Hand.Discard = Discard;
+        EnemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
+        GameState.Hand = Hand;
+        GameState.Deck = Deck;
 
         List<Card> initialDeck = new();
 
         foreach (int i in Enumerable.Range(0, 6)) {
-            Card card = cardScene.Instantiate<Card>();
+            Card card = CardScene.Instantiate<Card>();
 
 
             card.TestSetup((int)(1 + GD.Randi() % 4), true, new Color(1, 1, 1));
@@ -39,26 +39,26 @@ public partial class Battle : Node2D {
         }
 
         foreach (int i in Enumerable.Range(0, 3)) {
-            Card card = cardScene.Instantiate<Card>();
+            Card card = CardScene.Instantiate<Card>();
             card.TestSetup((int)(1 + GD.Randi() % 4), false, new Color(1, 0.5f, 0.5f));
             initialDeck.Add(card);
         }
 
-        Card lastCard = cardScene.Instantiate<Card>();
+        Card lastCard = CardScene.Instantiate<Card>();
         lastCard.TestSetup(15, true, new Color(0, 0, 0));
         initialDeck.Add(lastCard);
 
-        deck.AddCards(initialDeck);
-        deck.Shuffle();
+        Deck.AddCards(initialDeck);
+        Deck.Shuffle();
 
 
         float locationRatio = 1f / 2;
         foreach (int i in Enumerable.Range(0, 3)) {
-            Enemy enemy = enemyScene.Instantiate<Enemy>();
-            enemy.EnemySelected += gameState.SelectEnemy;
-            gameState.enemies.Add(enemy);
-            enemiesLocation.ProgressRatio = i * locationRatio;
-            enemy.Position = enemiesLocation.Position;
+            Enemy enemy = EnemyScene.Instantiate<Enemy>();
+            enemy.EnemySelected += GameState.SelectEnemy;
+            GameState.Enemies.Add(enemy);
+            EnemiesLocation.ProgressRatio = i * locationRatio;
+            enemy.Position = EnemiesLocation.Position;
             AddChild(enemy);
         }
     }
@@ -66,11 +66,11 @@ public partial class Battle : Node2D {
     public override void _Process(double delta) { }
 
     private void OnPlayButtonPressed() {
-        gameState.PlaySelectedCard();
+        GameState.PlaySelectedCard();
     }
 
     private void OnDeckPressed() {
-        gameState.Draw();
+        GameState.Draw();
     }
 
     private void ModelTesting() {
@@ -88,7 +88,7 @@ public partial class Battle : Node2D {
         // //This is a test to see if the Deck parsing works, feel free to remove it
         Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         GD.Print("\n DeckModelTest" + deck + ": ");
-        foreach (Card card in deck.cards) { GD.Print(card + "\n"); }
+        foreach (Card card in deck.Cards) { GD.Print(card + "\n"); }
 
         GD.Print("\n");
 

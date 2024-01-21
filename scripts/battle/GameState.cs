@@ -10,19 +10,17 @@ public class GameState {
     public int SpectaclePoints { get; set; }
     public int PlayerMaxHealth { get; set; }
     public int PlayerHealth { get; set; }
-    private int DefenseLower { get; set; }
-    private int DefenseUpper { get; set; }
+    private int PlayerDefenseLower { get; set; }
+    private int PlayerDefenseUpper { get; set; }
 
     public List<Card> ComboStack { get; set; }
 
-    // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
-
     private List<ComboModel> AllCombos { get; set; }
 
-    public List<Enemy> enemies = new();
-    private int selectedEnemyIndex = -1;
-    public Hand hand;
-    public Deck deck;
+    public List<Enemy> Enemies = new();
+    private int SelectedEnemyIndex = -1;
+    public Hand Hand;
+    public Deck Deck;
 
     // Constructor
     public GameState() {
@@ -32,26 +30,27 @@ public class GameState {
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
         PlayerMaxHealth = 100; // adjust this as needed, or base on some other check
-        DefenseLower = 0;
-        DefenseUpper = 0;
+        PlayerDefenseLower = 0;
+        PlayerDefenseUpper = 0;
         PlayerHealth = PlayerMaxHealth;
     }
+
     // Player Health Methods
-// ****
+    // ****
     public void DamagePlayer(int damage, PositionEnum position = PositionEnum.Upper) {
         bool blocked = false;
         switch (position) {
             case PositionEnum.Upper:
-                if (DefenseUpper > 0) {
+                if (PlayerDefenseUpper > 0) {
                     blocked = true;
-                    DefenseUpper--;
+                    PlayerDefenseUpper--;
                 }
 
                 break;
             case PositionEnum.Lower:
-                if (DefenseLower > 0) {
+                if (PlayerDefenseLower > 0) {
                     blocked = true;
-                    DefenseLower--;
+                    PlayerDefenseLower--;
                 }
 
                 break;
@@ -63,6 +62,18 @@ public class GameState {
     private void DirectDamagePlayer(int damage) {
         PlayerHealth = Math.Max(0, PlayerHealth - damage);
         if (PlayerHealth == 0) { EndRound(); }
+    }
+
+    public void ModifyPlayerBlock(int amount, PositionEnum position = PositionEnum.Upper) {
+
+        switch (position) {
+            case PositionEnum.Upper:
+                PlayerDefenseUpper += amount;
+                break;
+            case PositionEnum.Lower:
+                PlayerDefenseLower += amount;
+                break;
+        }
     }
     // ****
 
@@ -76,6 +87,7 @@ public class GameState {
     public void PushCardStack(Card card) {
         ComboStack.Add(card);
     }
+
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
 
@@ -130,46 +142,43 @@ public class GameState {
 
         SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
     }
+
     // ****
 
     // Hand methods
 
-
     public void PlaySelectedCard() {
-        Card card = hand.GetSelectedCard();
+        Card card = Hand.GetSelectedCard();
         if (card != null && !(card.TargetRequired && GetSelectedEnemy() == null)) {
             card.Play(this);
-            hand.Discard();
+            Hand.DiscardSelectedCard();
         }
     }
 
     public void Draw(int n = 1) {
-        hand.AddCards(deck.DrawCards(n));
+        Hand.AddCards(Deck.DrawCards(n));
     }
-    // ****
 
+    // ****
 
     // Enemy methods
     // ****
 
     public Enemy GetSelectedEnemy() {
-        return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
+        return SelectedEnemyIndex != -1 ? Enemies[SelectedEnemyIndex] : null;
     }
 
     public void SelectEnemy(Enemy enemy) {
-        int enemyIndex = enemies.IndexOf(enemy);
-        selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        int enemyIndex = Enemies.IndexOf(enemy);
+        SelectedEnemyIndex = SelectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
+
     // ****
 
     public override string ToString() {
-        return
-            $"ComboMultiplier: {Multiplier}," +
-            $"SpectaclePoints: {SpectaclePoints}," +
-            $"MaxPlayerHealth: {PlayerMaxHealth}," +
-            $"PlayerHealth: {PlayerHealth}," +
-            $"ComboStack: {ComboStack}," +
-            $"AllCombos: {AllCombos}";
+        return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
+               $"MaxPlayerHealth: {PlayerMaxHealth}," + $"PlayerHealth: {PlayerHealth}," +
+               $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
     }
 
     public enum PositionEnum {

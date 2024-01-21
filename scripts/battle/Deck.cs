@@ -7,25 +7,25 @@ public class Deck {
     public string Id { get; set; }
     public string Name { get; set; }
     public UsedBy Owner { get; set; }
-    
+
     public Discard Discard {get; set; }
-    public List<Card> cards;
+    public List<Card> Cards;
 
     public Deck() {
-        cards = new();
+        Cards = new();
     }
-    
+
     public Deck(Discard discard) {
         this.Discard = discard;
-        cards = new();
+        Cards = new();
     }
-    
+
     public Deck Initialize(string id, string name, UsedBy usedBy, List<Card> cardList)
     {
         this.Id = id;
         this.Name = name;
         this.Owner = usedBy;
-        this.cards = cardList;
+        this.Cards = cardList;
         return this;
     }
 
@@ -41,30 +41,30 @@ public class Deck {
 
     public void AddCard(Card card) {
         // Adds cards to TOP of deck, highest index on top.
-        cards.Add(card);
+        Cards.Add(card);
     }
 
     public void AddCards(List<Card> cards) {
         // Adds cards to TOP of deck, highest index on top.
-        this.cards.AddRange(cards);
+        this.Cards.AddRange(cards);
     }
 
     public bool IsEmpty() {
-        return cards.Count == 0;
+        return Cards.Count == 0;
     }
 
     public void Shuffle() {
-        cards = Shuffle(cards);
+        Cards = Shuffle(Cards);
     }
 
     public List<Card> DrawCards(int amount) {
         List<Card> draw = new();
         if (amount > 0) {
-            if (cards.Count == 0) { return OnDeckEmptied(amount); }
+            if (Cards.Count == 0) { return OnDeckEmptied(amount); }
 
-            if (cards.Count > 0) {
-                draw.Add(cards[^1]);
-                cards.RemoveAt(cards.Count - 1);
+            if (Cards.Count > 0) {
+                draw.Add(Cards[^1]);
+                Cards.RemoveAt(Cards.Count - 1);
                 draw.AddRange(DrawCards(amount - 1));
             }
         }
@@ -79,13 +79,13 @@ public class Deck {
         Shuffle();
         return DrawCards(amount);
     }
-    
+
     public override string ToString()
     {
         return
-            $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(cards)}: {cards}";
+            $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(Cards)}: {Cards}";
     }
-    
+
     public enum UsedBy
     {
         Player,

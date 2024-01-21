@@ -90,16 +90,16 @@ public partial class Card : Node2D {
     public void Play(GameState gameState) {
         if (Attack != 0) {
             if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); } else {
-                foreach (Enemy enemy in gameState.enemies) { enemy.Damage(Attack); }
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
             }
         }
 
         if (DefenseLower != 0) {
-            // gameState.ModifyPlayerDefenseLower(DefenseLower);
+            gameState.ModifyPlayerBlock(DefenseLower, GameState.PositionEnum.Lower);
         }
 
         if (DefenseUpper != 0) {
-            // gameState.ModifyPlayerDefenseUpper(DefenseUpper);
+            gameState.ModifyPlayerBlock(DefenseUpper, GameState.PositionEnum.Upper);
         }
 
         if (Health != 0) {
