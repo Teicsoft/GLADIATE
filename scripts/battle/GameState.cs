@@ -78,8 +78,8 @@ public class GameState {
     public void PushCardStack(Card card) {
         ComboStack.Add(card);
     }
-    public void ComboCheck(Card cardSleeve) { // largely based on Cath's python code
-        PushCardStack(cardSleeve);
+    public void ComboCheck(Card card) { // largely based on Cath's python code
+        PushCardStack(card);
 
         // find a matching combo if it exists, returns null if no match
         ComboModel matchingCombo = ComboCompare();
@@ -140,7 +140,7 @@ public class GameState {
     public void PlaySelectedCard() {
         CardSleeve cardSleeve = hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
-            cardSleeve.Play(this);
+            cardSleeve.Card.Play(this);
             hand.Discard();
         }
     }

@@ -51,6 +51,38 @@ public partial class Card
         return this;
     }
     
+    public void Play(GameState gameState) {
+        if (Attack != 0) {
+            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); } else {
+                foreach (Enemy enemy in gameState.enemies) { enemy.Damage(Attack); }
+            }
+        }
+
+        if (DefenseLower != 0) {
+            // gameState.ModifyPlayerDefenseLower(DefenseLower);
+        }
+
+        if (DefenseUpper != 0) {
+            // gameState.ModifyPlayerDefenseUpper(DefenseUpper);
+        }
+
+        if (Health != 0) {
+            gameState.HealPlayer(Health);
+        }
+
+        if (CardDraw > 0) {
+            gameState.Draw(CardDraw);
+        }
+
+        if (Discard > 0) {
+            // swalsh TODO: Emit Event?
+            // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
+            // gameState.DiscardCards(Health);
+        }
+
+        gameState.ComboCheck(this);
+    }
+    
     public Color color { get; set; }
 
     public string Id { get; set; } // card_id
