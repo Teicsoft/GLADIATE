@@ -96,6 +96,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Exit"
 
+[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="pressed" from="Grid Margin/Menu Grid/Start Game Margin/Start Game Button" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="Grid Margin/Menu Grid/Dialogue Margin/Dialogue Button" to="." method="_on_dialogue_button_pressed"]
 [connection signal="pressed" from="Grid Margin/Menu Grid/Settings Margin/Settings Button" to="." method="_on_settings_button_pressed"]

@@ -5,6 +5,11 @@ using TeicsoftSpectacleCards.scripts.autoloads;
 public partial class MainMenu : Control
 {
 
+    private void _on_ready()
+    {
+    StartMusic();
+    }
+    
     private void _on_start_game_button_pressed()
     {
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
@@ -28,10 +33,12 @@ public partial class MainMenu : Control
     {
         GetTree().Quit();
     }
+    
+    private void StartMusic()
+    {
+        AudioEngine audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        
+        audioEngine.PlayMusic();
+
+    }
 }
-
-
-
-
-
-

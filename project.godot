@@ -19,6 +19,7 @@ config/icon="res://assets/images/Cyber-Denarius.png"
 
 snap_global="*res://scripts/autoloads/snap_global.gd"
 scene_loader="*res://scripts/autoloads/SceneLoader.cs"
+audio_engine="*res://scenes/main/audio_engine.tscn"
 
 [display]
 
