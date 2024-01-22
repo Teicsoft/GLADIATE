@@ -7,11 +7,6 @@ public partial class AudioEngine : Node
     AudioStreamPlayer MusicPlayer;
     AudioStreamPlayer SoundPlayer;
     
-    public AudioStream CurrentMusicStream { get; set; }
-    public AudioStream QueuedMusicStream { get; set; }
-    
-    public AudioStream CurrentSoundEffectStream { get; set; }
-    public AudioStream QueuedSoundEffectStream { get; set; }
     
     string musicFolderName = "audio/music/";
 
@@ -30,6 +25,11 @@ public partial class AudioEngine : Node
         MusicPlayer.Stream = audioStream;
         
         MusicPlayer.Play();
+    }
+    
+    public void StopMusic()
+    {
+        MusicPlayer.Stop();
     }
     
     
