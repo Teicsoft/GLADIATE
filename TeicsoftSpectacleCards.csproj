@@ -6,7 +6,6 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="scripts\autoloads\SceneLoader.gd" />
     <Content Include="scripts\customresource\Character_Model.gd" />
     <Content Include="scripts\customresource\Dialogue_Model.gd" />
     <Content Include="scripts\customresource\Location_Model.gd" />
