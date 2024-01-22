@@ -1,27 +1,35 @@
 using Godot;
 using System;
+using TeicsoftSpectacleCards.scripts.customresource;
 
 public partial class AudioEngine : Node
 {
-    Node MusicPlayer;
-    Node SoundPlayer;
+    AudioStreamPlayer MusicPlayer;
+    AudioStreamPlayer SoundPlayer;
     
-    public AudioStreamPlayer CurrentMusicStream { get; set; }
-    public AudioStreamPlayer QueuedMusicStream { get; set; }
+    public AudioStream CurrentMusicStream { get; set; }
+    public AudioStream QueuedMusicStream { get; set; }
     
-    public AudioStreamPlayer CurrentSoundEffectStream { get; set; }
-    public AudioStreamPlayer QueuedSoundEffectStream { get; set; }
+    public AudioStream CurrentSoundEffectStream { get; set; }
+    public AudioStream QueuedSoundEffectStream { get; set; }
+    
+    string musicFolderName = "audio/music/";
+
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        MusicPlayer = GetNode("MusicPlayer");
-        SoundPlayer = GetNode("SoundEffects");
+        MusicPlayer = GetNode<AudioStreamPlayer>("MusicPlayer");
+        SoundPlayer = GetNode<AudioStreamPlayer>("SoundFxPlayer");
     }
 
-    public void PlayMusic()
+    public void PlayMusic(string musicFileName)
     {
-        MusicPlayer.GetNode<AudioStreamPlayer>("MainMenu").Play();
+        string localPath = ResourceGrabber.GetAssetPath(musicFileName, musicFolderName);
+        AudioStream audioStream = (AudioStream)ResourceLoader.Load(localPath);
+        MusicPlayer.Stream = audioStream;
+        
+        MusicPlayer.Play();
     }
     
     
@@ -29,5 +37,6 @@ public partial class AudioEngine : Node
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        
     }
 }

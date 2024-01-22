@@ -6,11 +6,7 @@
 [node name="AudioEngine" type="Node"]
 script = ExtResource("1_q6eu6")
 
-[node name="MusicPlayer" type="Node" parent="."]
-
-[node name="MainMenu" type="AudioStreamPlayer" parent="MusicPlayer"]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_uv4pr")
 
-[node name="SoundEffects" type="Node" parent="."]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundEffects"]
+[node name="SoundFxPlayer" type="AudioStreamPlayer" parent="."]

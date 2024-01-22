@@ -38,7 +38,7 @@ public partial class MainMenu : Control
     {
         AudioEngine audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         
-        audioEngine.PlayMusic();
+        audioEngine.PlayMusic("venividivichy.wav");
 
     }
 }
