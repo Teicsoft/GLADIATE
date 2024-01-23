@@ -2,7 +2,7 @@ using Godot;
 
 namespace TeicsoftSpectacleCards.scripts.battle.card;
 
-public partial class Card {
+public class Card {
 
     public Color color { get; set; }
 
@@ -109,7 +109,7 @@ public partial class Card {
         gameState.ComboCheck(this);
     }
 
-    public Card Clone() {
+    public virtual Card Clone() {
         Card card = new Card();
 
         card.Initialize(Id, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
