@@ -40,6 +40,19 @@ public partial class Enemy : Node2D {
         if (!blocked) { DirectDamage(damage); }
     }
 
+    public void Stun(int stun) {
+        bool blocked = false;
+            if ((defenseUpper > 0) || (defenseLower > 0)) 
+            {
+                blocked = true;
+                defenseUpper = 0;
+                defenseLower = 0;                
+            }
+
+            //else { Lose turn }
+        
+    }
+
     private void DirectDamage(int damage) {
         CurrentHealth = Math.Max(0, CurrentHealth - damage);
         if (CurrentHealth == 0) { ChangeColour(new Color(0, 0, 0)); } else {

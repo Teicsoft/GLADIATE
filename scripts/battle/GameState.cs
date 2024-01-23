@@ -73,6 +73,16 @@ public class GameState {
         if (PlayerHealth == 0) { EndRound(); }
     }
 
+    public void Stun(int stun, PositionEnum position = PositionEnum.Upper) {
+        bool blocked = false;
+            if ((DefenseUpper > 0) || (DefenseLower > 0)) 
+            {
+                blocked = true;
+                DefenseUpper = 0;
+                DefenseLower = 0;                
+            }
+        }
+
     // Combo Methods
     // ****
     public void PushCardStack(Card card) {
@@ -162,6 +172,7 @@ public class GameState {
         int enemyIndex = enemies.IndexOf(enemy);
         selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
+
     // ****
 
     public override string ToString() {

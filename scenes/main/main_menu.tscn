@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1aov81s42w7y"]
 
-[ext_resource type="Script" path="res://scripts/interface/main_menu.gd" id="1_2egd2"]
+[ext_resource type="Script" path="res://scripts/interface/MainMenu.cs" id="1_8852o"]
 [ext_resource type="Texture2D" uid="uid://b571bpfa0yr3x" path="res://assets/images/teicog/batch1/Artboard 8.png" id="2_wwl2c"]
 
 [node name="Main Menu" type="Control"]
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_2egd2")
+script = ExtResource("1_8852o")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

@@ -74,6 +74,10 @@ public partial class Card
             gameState.Draw(CardDraw);
         }
 
+        if (TargetRequired) { Effect(Id,gameState.GetSelectedEnemy(),gameState); } else {
+                foreach (Enemy enemy in gameState.enemies) { Effect(Id,enemy,gameState); }
+            }
+
         if (Discard > 0) {
             // swalsh TODO: Emit Event?
             // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
@@ -125,5 +129,22 @@ public partial class Card
     public override string ToString()
     {
         return $"Card: {CardName} ({Id}), {Attack} attack, {DefenseLower}-{DefenseUpper} defense, {Health} health, {CardDraw} draw, {Discard} discard, {SpectaclePoints} spectacle points";
+    }
+
+    public void Effect(string id, Enemy enemy, GameState gameState){
+        switch (id)
+        {
+            //card cases
+            case "card_05":
+                enemy.Stun(1);
+                break;
+            //combo cases
+            case "combo_02":
+                gameState.Multiplier *= 2;
+                break;
+
+            default:
+                break;
+        }
     }
 }
