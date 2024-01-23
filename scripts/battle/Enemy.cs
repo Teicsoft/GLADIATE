@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using TeicsoftSpectacleCards.scripts.battle;
 
 public partial class Enemy : Node2D {
     [Signal]
@@ -18,17 +19,17 @@ public partial class Enemy : Node2D {
         Rect.Color = new Color(0, 1, 0);
     }
 
-    public void Damage(int damage, PositionEnum position = PositionEnum.Upper) {
+    public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
         bool blocked = false;
         switch (position) {
-            case PositionEnum.Upper:
+            case Utils.PositionEnum.Upper:
                 if (DefenseUpper > 0) {
                     blocked = true;
                     DefenseUpper--;
                 }
 
                 break;
-            case PositionEnum.Lower:
+            case Utils.PositionEnum.Lower:
                 if (DefenseLower > 0) {
                     blocked = true;
                     DefenseLower--;
@@ -41,23 +42,24 @@ public partial class Enemy : Node2D {
     }
 
     public void Stun(int stun) {
-        bool blocked = false;
-            if ((defenseUpper > 0) || (defenseLower > 0)) 
-            {
-                blocked = true;
-                defenseUpper = 0;
-                defenseLower = 0;                
-            }
-
-            //else { Lose turn }
-        
+        if (DefenseUpper > 0 || DefenseLower > 0) {
+            DefenseUpper = 0;
+            DefenseLower = 0;
+        }
+        //else { Lose turn }
     }
 
     private void DirectDamage(int damage) {
         CurrentHealth = Math.Max(0, CurrentHealth - damage);
-        if (CurrentHealth == 0) { ChangeColour(new Color(0, 0, 0)); } else {
+        HealthColorCheck();
+    }
+
+    private void HealthColorCheck() {
+        float blue = DefenseUpper > 0 ? 0.5f : 0f + DefenseLower > 0 ? 0.5f : 0f;
+        if (CurrentHealth == 0) { ChangeColour(new Color(0, 0, blue)); }
+        else {
             float healthRatio = (float)CurrentHealth / MaxHealth;
-            ChangeColour(new Color(1f - healthRatio, healthRatio, 0));
+            ChangeColour(new Color(1f - healthRatio, healthRatio, blue));
         }
     }
 
@@ -69,18 +71,5 @@ public partial class Enemy : Node2D {
 
     private void OnPress() {
         EmitSignal(SignalName.EnemySelected, this);
-    }
-
-    public enum ModifierEnum {
-        Grappled,
-        Grounded,
-        Juggled,
-        None
-    }
-
-    public enum PositionEnum {
-        Upper,
-        Lower,
-        None
     }
 }

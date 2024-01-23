@@ -20,8 +20,8 @@ point_count = 2
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_bmdek")
-CardScene = ExtResource("3_citfa")
-EnemyScene = ExtResource("3_25d28")
+cardScene = ExtResource("3_citfa")
+enemyScene = ExtResource("3_25d28")
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 8

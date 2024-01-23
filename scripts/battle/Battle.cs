@@ -4,7 +4,6 @@ using System.Linq;
 using TeicsoftSpectacleCards.scripts.battle;
 using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
-using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 public partial class Battle : Node2D {
 
@@ -18,7 +17,7 @@ public partial class Battle : Node2D {
 
     public override void _Ready() {
         ModelTesting();
-        
+
         deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
         gameState = new GameState();
         hand = GetNode<Hand>("Hand");
@@ -26,9 +25,9 @@ public partial class Battle : Node2D {
         deck.Discard = discard;
         hand.discard = discard;
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
-        gameState.hand = hand;
-        gameState.deck = deck;
-        
+        gameState.Hand = hand;
+        gameState.Deck = deck;
+
         deck.Shuffle();
 
 
@@ -36,7 +35,7 @@ public partial class Battle : Node2D {
         foreach (int i in Enumerable.Range(0, 3)) {
             Enemy enemy = enemyScene.Instantiate<Enemy>();
             enemy.EnemySelected += gameState.SelectEnemy;
-            gameState.enemies.Add(enemy);
+            gameState.Enemies.Add(enemy);
             enemiesLocation.ProgressRatio = i * locationRatio;
             enemy.Position = enemiesLocation.Position;
             AddChild(enemy);
@@ -59,7 +58,7 @@ public partial class Battle : Node2D {
         GD.Print("\n CardModelTest: " + modelCard + "\n");
 
         //This is a test to see if the combo parsing works, feel free to remove it
-        ComboModel combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
+        Combo combo = ComboXmlParser.ParseComboFromXml("res://data/combos/combo_template.xml");
         GD.Print("\n ComboModelTest: " + combo + ": ");
         foreach (Card card in combo.CardList) { GD.Print(card + "\n"); }
 
