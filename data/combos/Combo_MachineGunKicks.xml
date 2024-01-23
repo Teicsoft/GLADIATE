@@ -4,10 +4,11 @@
 <!-- used to save a combo including card order, stats and design -->
 <!-- To use, copy this file and rename it to combo_name.xml -->
 
-<combo id="combo_01" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<combo id="combo_02" modifier="None" position="NOne"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
     <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
-        <card card_id="card_01"/> <!--card_id: string-->
-        <card card_id="card_01"/>
+        <card card_id="card_02"/> <!--card_id: string-->
+        <card card_id="card_02"/>
+        <card card_id="card_02"/>
     </cards>
     
     <stats>
@@ -15,10 +16,10 @@
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
-        <draw>1</draw> <!--int-->
+        <draw>0</draw> <!--int-->
         <discard>0</discard> <!--int-->
-        <spectacle_points>10</spectacle_points> <!--int-->
-        <multiplier>1</multiplier> <!--int-->
+        <spectacle_points>20</spectacle_points> <!--int-->
+        <multiplier>0</multiplier> <!--int-->
     </stats>
     
     <design>
@@ -29,7 +30,7 @@
     </design>
 
     <text>
-        <name>Pummel</name> <!--string-->
+        <name>Combo Name</name> <!--string-->
         <description>Combo Description</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
