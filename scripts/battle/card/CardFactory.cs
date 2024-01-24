@@ -10,8 +10,12 @@ public static class CardFactory {
         { "card_reckless", () => new StunCard() },
     };
 
+    private static Card ConstructCard(string cardId) {
+        return TypeDictionary.GetValueOrDefault(cardId, () => new Card()).Invoke();
+    }
+
     public static Card MakeBlankCard(string cardId) {
-        Card card = new Card();
+        Card card = ConstructCard(cardId);
         card.Id = cardId;
         return card;
     }
@@ -20,7 +24,7 @@ public static class CardFactory {
         int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints,
         string name, string description, string lore, string tooltip, string imagePath, string animationPath,
         string soundPath, bool targetRequired) {
-        Card card = TypeDictionary.GetValueOrDefault(cardId, () => new Card()).Invoke();
+        Card card = ConstructCard(cardId);
 
         return card.Initialize(cardId, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard,
             spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath);
