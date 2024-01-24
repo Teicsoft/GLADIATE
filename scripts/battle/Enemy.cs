@@ -55,7 +55,7 @@ public partial class Enemy : Node2D {
     }
 
     private void HealthColorCheck() {
-        float blue = DefenseUpper > 0 ? 0.5f : 0f + DefenseLower > 0 ? 0.5f : 0f;
+        float blue = (DefenseUpper > 0 ? 0.5f : 0f) + (DefenseLower > 0 ? 0.5f : 0f);
         if (CurrentHealth == 0) { ChangeColour(new Color(0, 0, blue)); }
         else {
             float healthRatio = (float)CurrentHealth / MaxHealth;
