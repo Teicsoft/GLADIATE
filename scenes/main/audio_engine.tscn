@@ -15,3 +15,5 @@ stream = ExtResource("2_uv4pr")
 [node name="SoundFxPlayer1" type="AudioStreamPlayer" parent="."]
 
 [node name="SoundFxPlayer2" type="AudioStreamPlayer" parent="."]
+
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="."]
