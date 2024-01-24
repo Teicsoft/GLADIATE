@@ -14,4 +14,9 @@ public static class Utils
     {
         return parent.SelectSingleNode(s) != null ? parent.SelectSingleNode(s).InnerText : "";
     }
+
+    public static bool ParseBoolNode(XmlNode parent, string s)
+    {
+        return parent.SelectSingleNode(s) != null ? parent.SelectSingleNode(s).InnerText=="true" : false;
+    }
 }

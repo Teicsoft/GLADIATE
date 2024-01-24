@@ -23,11 +23,11 @@ public static class CardXmlParser {
         string position = cardNode.Attributes["position"].Value;
 
 
-        if (!Enum.TryParse(modifier, out Enemy.ModifierEnum parsedModifier)) {
+        if (!Enum.TryParse(modifier, out battle.Utils.ModifierEnum parsedModifier)) {
             GD.Print("Failed to parse modifier: " + modifier);
         }
 
-        if (!Enum.TryParse(position, out Enemy.PositionEnum parsedPosition)) {
+        if (!Enum.TryParse(position, out battle.Utils.PositionEnum parsedPosition)) {
             GD.Print("Failed to parse position: " + position);
         }
 
@@ -40,6 +40,7 @@ public static class CardXmlParser {
         int draw = Utils.ParseIntNode(statsNode, "draw");
         int discard = Utils.ParseIntNode(statsNode, "discard");
         int spectaclePoints = Utils.ParseIntNode(statsNode, "spectacle_points");
+        bool targetRequired = Utils.ParseBoolNode(statsNode, "target_required");
 
         XmlNode designNode = cardNode.SelectSingleNode("design");
         string imagePath = Utils.ParseTextNode(designNode, "image");
@@ -54,7 +55,7 @@ public static class CardXmlParser {
 
         return CardFactory.MakeCard(cardType, cardId, parsedModifier, parsedPosition, attack, defenseLower,
             defenseUpper, health, draw, discard, spectaclePoints, name, description, lore, tooltip, imagePath,
-            animationPath, soundPath);
+            animationPath, soundPath,targetRequired);
     }
 
     public static Dictionary<string, Card> ParseAllCards()

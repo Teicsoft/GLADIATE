@@ -8,21 +8,15 @@ public class Deck {
     public string Id { get; set; }
     public string Name { get; set; }
     public UsedBy Owner { get; set; }
-    
-    public Discard Discard {get; set; }
+
+    public Discard Discard { get; set; }
     public List<CardSleeve> CardSleeves;
 
     public Deck() {
         CardSleeves = new();
     }
-    
-    public Deck(Discard discard) {
-        this.Discard = discard;
-        CardSleeves = new();
-    }
-    
-    public Deck Initialize(string id, string name, UsedBy usedBy, List<CardSleeve> cardList)
-    {
+
+    public Deck Initialize(string id, string name, UsedBy usedBy, List<CardSleeve> cardList) {
         this.Id = id;
         this.Name = name;
         this.Owner = usedBy;
@@ -61,8 +55,7 @@ public class Deck {
     public List<CardSleeve> DrawCards(int amount) {
         List<CardSleeve> draw = new();
         if (amount > 0) {
-            if (CardSleeves.Count == 0)
-            {
+            if (CardSleeves.Count == 0) {
                 GD.Print("Deck is empty!");
                 return OnDeckEmptied(amount);
             }
@@ -84,32 +77,28 @@ public class Deck {
         Shuffle();
         return DrawCards(amount);
     }
-    
-    public override string ToString()
-    {
+
+    public override string ToString() {
         return
             $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(CardSleeves)}: {CardSleeves}";
     }
-    
-    public enum UsedBy
-    {
+
+    public enum UsedBy {
         Player,
         Enemy
     }
 
-    public static List<CardSleeve> SleeveCards(List <Card> cards)
-    {
+    public static List<CardSleeve> SleeveCards(List<Card> cards) {
         PackedScene cardScene = GD.Load<PackedScene>("res://scenes/battle/Card.tscn");
-        
+
         List<CardSleeve> sleevedCards = new();
 
-        foreach (Card card in cards)
-        {
+        foreach (Card card in cards) {
             CardSleeve cardSleeve = cardScene.Instantiate<CardSleeve>();
             cardSleeve.Card = card;
             sleevedCards.Add(cardSleeve);
         }
-        
+
         return sleevedCards;
     }
 }

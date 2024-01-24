@@ -20,7 +20,7 @@ public partial class Hand : Path2D {
         {
             AddCard(cardSleeve);
         }
-        
+
     }
 
     private new void AddCard(CardSleeve cardSleeve) {

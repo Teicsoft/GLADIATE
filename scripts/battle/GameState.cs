@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
-using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 namespace TeicsoftSpectacleCards.scripts.battle;
 
@@ -19,12 +18,12 @@ public class GameState {
 
     // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
 
-    private List<ComboModel> AllCombos { get; set; }
+    private List<Combo> AllCombos { get; set; }
 
-    public List<Enemy> enemies = new();
-    private int selectedEnemyIndex = -1;
-    public Hand hand;
-    public Deck deck;
+    public List<Enemy> Enemies = new();
+    private int SelectedEnemyIndex = -1;
+    public Hand Hand;
+    public Deck Deck;
 
     // Constructor
     public GameState() {
@@ -38,19 +37,20 @@ public class GameState {
         DefenseUpper = 0;
         PlayerHealth = PlayerMaxHealth;
     }
-    // Player Health Methods
-// ****
-    public void DamagePlayer(int damage, PositionEnum position = PositionEnum.Upper) {
+
+    // Player Methods
+    // ****
+    public void DamagePlayer(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
         bool blocked = false;
         switch (position) {
-            case PositionEnum.Upper:
+            case Utils.PositionEnum.Upper:
                 if (DefenseUpper > 0) {
                     blocked = true;
                     DefenseUpper--;
                 }
 
                 break;
-            case PositionEnum.Lower:
+            case Utils.PositionEnum.Lower:
                 if (DefenseLower > 0) {
                     blocked = true;
                     DefenseLower--;
@@ -66,40 +66,52 @@ public class GameState {
         PlayerHealth = Math.Max(0, PlayerHealth - damage);
         if (PlayerHealth == 0) { EndRound(); }
     }
-    // ****
 
     public void HealPlayer(int amount) {
         PlayerHealth = Math.Min(PlayerMaxHealth, PlayerHealth + Math.Abs(amount));
         if (PlayerHealth == 0) { EndRound(); }
     }
 
-    public void Stun(int stun, PositionEnum position = PositionEnum.Upper) {
+    public void StunPlayer(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
         bool blocked = false;
-            if ((DefenseUpper > 0) || (DefenseLower > 0)) 
-            {
-                blocked = true;
-                DefenseUpper = 0;
-                DefenseLower = 0;                
-            }
+        if ((DefenseUpper > 0) || (DefenseLower > 0)) {
+            blocked = true;
+            DefenseUpper = 0;
+            DefenseLower = 0;
         }
+    }
+
+    public void ModifyPlayerBlock(int change, Utils.PositionEnum position) {
+        switch (position) {
+            case Utils.PositionEnum.Upper:
+                DefenseUpper += change;
+                break;
+            case Utils.PositionEnum.Lower:
+                DefenseLower += change;
+                break;
+        }
+    }
+
+    // ****
 
     // Combo Methods
     // ****
     public void PushCardStack(Card card) {
         ComboStack.Add(card);
     }
+
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
 
         // find a matching combo if it exists, returns null if no match
-        ComboModel matchingCombo = ComboCompare();
+        Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) { ProcessCombo(matchingCombo); }
     }
 
-    private void ProcessCombo(ComboModel matchingCombo) {
+    private void ProcessCombo(Combo matchingCombo) {
+        matchingCombo?.Play(this);
         ProcessMultiplier(matchingCombo?.CardList.Count ?? 0);
         ProcessSpectaclePoints(matchingCombo?.SpectaclePoints ?? 0);
-
         // Combo().Play(); Like Card.Play, do all the gameplay stuff here.
         ComboStack.Clear();
     }
@@ -109,8 +121,8 @@ public class GameState {
     }
 
     // Check for combo matches
-    public ComboModel ComboCompare() {
-        foreach (ComboModel combo in AllCombos) {
+    public Combo ComboCompare() {
+        foreach (Combo combo in AllCombos) {
             int count = combo.CardList.Count;
             if (ComboStack.Count < count) { continue; }
 
@@ -142,52 +154,42 @@ public class GameState {
 
         SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
     }
+
     // ****
 
     // Hand methods
 
-
     public void PlaySelectedCard() {
-        CardSleeve cardSleeve = hand.GetSelectedCard();
+        CardSleeve cardSleeve = Hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
             cardSleeve.Card.Play(this);
-            hand.Discard();
+            Hand.Discard();
         }
     }
 
     public void Draw(int n = 1) {
-        hand.AddCards(deck.DrawCards(n));
+        Hand.AddCards(Deck.DrawCards(n));
     }
-    // ****
 
+    // ****
 
     // Enemy methods
     // ****
 
     public Enemy GetSelectedEnemy() {
-        return selectedEnemyIndex != -1 ? enemies[selectedEnemyIndex] : null;
+        return SelectedEnemyIndex != -1 ? Enemies[SelectedEnemyIndex] : null;
     }
 
     public void SelectEnemy(Enemy enemy) {
-        int enemyIndex = enemies.IndexOf(enemy);
-        selectedEnemyIndex = selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        int enemyIndex = Enemies.IndexOf(enemy);
+        SelectedEnemyIndex = SelectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
 
     // ****
 
     public override string ToString() {
-        return
-            $"ComboMultiplier: {Multiplier}," +
-            $"SpectaclePoints: {SpectaclePoints}," +
-            $"MaxPlayerHealth: {PlayerMaxHealth}," +
-            $"PlayerHealth: {PlayerHealth}," +
-            $"ComboStack: {ComboStack}," +
-            $"AllCombos: {AllCombos}";
-    }
-
-    public enum PositionEnum {
-        Upper,
-        Lower,
-        None
+        return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
+               $"MaxPlayerHealth: {PlayerMaxHealth}," + $"PlayerHealth: {PlayerHealth}," +
+               $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
     }
 }

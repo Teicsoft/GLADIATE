@@ -4,7 +4,7 @@
 <!-- used to save a card, including stats and design -->
 <!-- To use, copy this file and rename it to card_name.xml -->
 
-<card id="card_04" type="Block" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_block" type="Block" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
     <stats>
         <attack>0</attack> <!--int-->
@@ -14,6 +14,7 @@
         <draw>0</draw> <!--int-->
         <discard>1</discard> <!--int-->
         <spectacle_points>0</spectacle_points> <!--int-->
+        <target_required>false</target_required> <!--true/false-->
     </stats>
     
     <design>
