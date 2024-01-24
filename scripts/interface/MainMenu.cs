@@ -17,7 +17,7 @@ public partial class MainMenu : Control
     {
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/battle/Battle.tscn");
-        audioEngine.StopMusic();
+        audioEngine.StopAllTracks();
     }
         
     private void _on_dialogue_button_pressed()
