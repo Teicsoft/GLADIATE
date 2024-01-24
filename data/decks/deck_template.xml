@@ -7,10 +7,10 @@
 
 <deck id="deck_id" used_by="Player" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
     <cards>
-        <card card_id="card_01"/>  <!--card_id: string-->
-        <card card_id="card_02"/>
-        <card card_id="card_03"/>
-        <card card_id="card_04"/>
-        <card card_id="card_05"/>
+        <card card_id="card_punch"/>  <!--card_id: string-->
+        <card card_id="card_kick"/>
+        <card card_id="card_gladius"/>
+        <card card_id="card_block"/>
+        <card card_id="card_reckless"/>
     </cards>
 </deck>
