@@ -59,23 +59,7 @@ public class Card {
 
         // todo this section is just for testing, remove later
         // Colour is a test feature, to help with debugging
-        // setting targetRequired here is temporary, as datafiles do not track this information,
-        // and there is not yet another means of setting this flag
-        uint randint = GD.Randi() % 3;
-        switch (randint) {
-            case 0:
-                color = new Color(1, 1, 1);
-                targetRequired = true;
-                break;
-            case 1:
-                color = new Color(1, 0.5f, 0.5f);
-                targetRequired = false;
-                break;
-            case 2:
-                color = new Color(0, 0, 0);
-                targetRequired = true;
-                break;
-        }
+        color = new Color(1, 1, 1);
 
         return this;
     }
@@ -125,7 +109,7 @@ public class Card {
 
     // This kind of thing is going to be handled by the card reading and inheritance, different effects are going into different files.
     // Going to remove when the combo case is handled.
-    public void Effect(string id, target.Enemy enemy, GameState gameState) {
+    public void Effect(string id, Enemy enemy, GameState gameState) {
         switch (id) {
             //combo cases
             case "combo_02":

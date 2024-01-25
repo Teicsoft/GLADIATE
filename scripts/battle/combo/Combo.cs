@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
+using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.battle;
 
@@ -74,7 +75,7 @@ public class Combo {
         if (Attack != 0) {
             if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); }
             else {
-                foreach (target.Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
             }
         }
 

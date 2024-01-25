@@ -27,7 +27,7 @@ public class GameState {
     // Constructor
     public GameState() {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
-        Player = new Player(12, 0, 0);
+        Player = new Player(100, 0, 0);
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
@@ -155,7 +155,7 @@ public class GameState {
     // Enemy methods
     // ****
 
-    public target.Enemy GetSelectedEnemy() {
+    public Enemy GetSelectedEnemy() {
         return SelectedEnemyIndex != -1 ? Enemies[SelectedEnemyIndex] : null;
     }
 
