@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
 using TeicsoftSpectacleCards.scripts.customresource;
@@ -6,6 +7,8 @@ namespace TeicsoftSpectacleCards.scripts.audio;
 
 public partial class AudioEngine : Node
 {
+    private Dictionary<string, AudioStream> preLoadedAudio;
+    
     // two channels for music, to allow for cross fading
     private AudioStreamPlayer _musicPlayer1;
     private AudioStreamPlayer _musicPlayer2;
@@ -167,6 +170,21 @@ public partial class AudioEngine : Node
         StopAllTracks();
         StopSoundFx();
         _voiceLinePlayer.Stop();
+    }
+
+    public void PreloadAudio(List<string> fileNames)
+    {
+        Dictionary<string, AudioStream> preLoadedAudio = new Dictionary<string, AudioStream>();
+
+        foreach (string file in fileNames)
+        {
+            string localPath = ResourceGrabber.GetAssetPath(file, MusicFolderName);
+            AudioStream audioStream = (AudioStream)ResourceLoader.Load(localPath);
+            
+            preLoadedAudio.Add(file, audioStream);
+        }
+
+        this.preLoadedAudio = preLoadedAudio;
     }
 }
 
