@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
@@ -8,7 +7,10 @@ namespace TeicsoftSpectacleCards.scripts.audio;
 
 public partial class AudioEngine : Node
 {
-    private Dictionary<string, AudioStream> preLoadedAudio;
+    //preloaded audio to avoid stuttering when playing audio for the first time
+    private Dictionary<string, AudioStream> _preLoadedMusic = new Dictionary<string, AudioStream>();
+    private Dictionary<string, AudioStream> _preLoadedSoundFx = new Dictionary<string, AudioStream>();
+    private Dictionary<string, AudioStream> _preLoadedVoiceLines = new Dictionary<string, AudioStream>();
     
     // two channels for music, to allow for cross fading
     private AudioStreamPlayer _musicPlayer1;
@@ -20,7 +22,6 @@ public partial class AudioEngine : Node
 
     // one channel for voice acting as there should only be one voice line at a time for clarity
     private AudioStreamPlayer _voiceLinePlayer;
-    
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -47,14 +48,14 @@ public partial class AudioEngine : Node
         else if (!_musicPlayer1.Playing) // if channel 1 is not playing, but 2 is, cross fade to channel 1
         {
             _musicPlayer1.Stream = audioStream;
-            _= FadeInMusic(_musicPlayer1); // assigning Task to discard to make rider happy, as I'm not awaiting async
+            _= FadeInTrack(_musicPlayer1); // assigning Task to discard to make rider happy, as I'm not awaiting async
             if (_musicPlayer2.Playing) { _ = FadeOutTrack(_musicPlayer2); }
             
         }
         else if (!_musicPlayer2.Playing) // if channel 1 is playing, but not 2, cross fade to channel 2
         {
             _musicPlayer2.Stream = audioStream;
-            _= FadeInMusic(_musicPlayer2);
+            _= FadeInTrack(_musicPlayer2);
             _= FadeOutTrack(_musicPlayer1);
         }
         else // if both channels are playing, just stop all music and play on channel 1
@@ -82,7 +83,7 @@ public partial class AudioEngine : Node
         }
     }
     
-    private async Task FadeInMusic(AudioStreamPlayer player)
+    private async Task FadeInTrack(AudioStreamPlayer player)
     {
         float vol = player.VolumeDb;
         vol -= 80f;
@@ -165,52 +166,64 @@ public partial class AudioEngine : Node
         _voiceLinePlayer.Stop();
     }
 
-    public void PreloadAudio(List<string> fileNames, AudioType audioType)
+    // declare audio in onReady of scene
+    public void PreloadAudio(Dictionary<string, AudioType> sceneAudio)
     {
-        Dictionary<string, AudioStream> preLoadedAudio = new Dictionary<string, AudioStream>();
-
-        foreach (string file in fileNames)
+        foreach (KeyValuePair<string, AudioType> file in sceneAudio)
         {
-            AudioStream audioStream = GetAudioStream(file, audioType);
-            preLoadedAudio.Add(file, audioStream);
-        }
+            AudioStream audioStream = GetAudioStream(file.Key, file.Value);
 
-        this.preLoadedAudio = preLoadedAudio;
+            switch (file.Value)
+            {
+                case AudioType.Music:
+                    _preLoadedMusic.Add(file.Key, audioStream);
+                    break;
+                case AudioType.SoundFx:
+                    _preLoadedSoundFx.Add(file.Key, audioStream);
+                    break;
+                case AudioType.VoiceLine:
+                    _preLoadedVoiceLines.Add(file.Key, audioStream);
+                    break;
+            }
+        }
     }
 
     public void DestroyPreloadedAudio()
     {
-        preLoadedAudio.Clear();
+        _preLoadedMusic.Clear();
+        _preLoadedSoundFx.Clear();
+        _preLoadedVoiceLines.Clear();
     }
 
     private AudioStream GetAudioStream(string filename, AudioType audioType)
     {
         string folder = null;
-        string filePath = null;
+        string filePath;
         
-        string MusicFolderName = "audio/music/";
-        string SoundFxFolderName = "audio/sfx/";
-        string VoiceLineFolderName = "audio/voice/";
-            
+        string musicFolderName = "audio/music/";
+        string soundFxFolderName = "audio/sfx/";
+        string voiceLineFolderName = "audio/voice/";
         
         switch (audioType)
         {
             case AudioType.Music:
-                folder = MusicFolderName;
+                if (_preLoadedMusic.ContainsKey(filename)) { return _preLoadedMusic[filename]; }
+                folder = musicFolderName;
                 break;
             
             case AudioType.SoundFx:
-                folder = SoundFxFolderName;
+                if (_preLoadedSoundFx.ContainsKey(filename)) { return _preLoadedSoundFx[filename]; }
+                folder = soundFxFolderName;
                 break;
             
             case AudioType.VoiceLine:
-                folder = VoiceLineFolderName;
+                if (_preLoadedVoiceLines.ContainsKey(filename)) { return _preLoadedVoiceLines[filename]; }
+                folder = voiceLineFolderName;
                 break;
         }
         
         filePath = ResourceGrabber.GetAssetPath(filename, folder);
         AudioStream audioStream = (AudioStream)ResourceLoader.Load(filePath);
-        
         return audioStream;
     }
 
@@ -220,7 +233,4 @@ public partial class AudioEngine : Node
         SoundFx,
         VoiceLine
     }
-    
 }
-
-//todo it would be worth preloading audio files used by a scene when the scene is loaded, to avoid stuttering when playing audio for the first time

@@ -1,15 +1,23 @@
 using Godot;
-using System;
+using System.Collections.Generic;
+using TeicsoftSpectacleCards.scripts.audio;
 using TeicsoftSpectacleCards.scripts.autoloads;
 
 public partial class MainMenu : Control
 {
-    private TeicsoftSpectacleCards.scripts.audio.AudioEngine audioEngine;
+    private AudioEngine audioEngine;
+
+    // this dictionary is used to declare what audio is used by this scene, so it can be preloaded in AudioEngine
+    Dictionary<string, AudioEngine.AudioType> AudioDeclaration = new Dictionary<string, AudioEngine.AudioType>()
+    {
+        {"Shop_loop_audio.wav", AudioEngine.AudioType.Music},
+        {"venividivichy.wav", AudioEngine.AudioType.Music},
+    };
     
     private void _on_ready()
     {
-        audioEngine = GetNode<TeicsoftSpectacleCards.scripts.audio.AudioEngine>("/root/audio_engine");
-        
+        audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        audioEngine.PreloadAudio(AudioDeclaration);
         StartMusic();
     }
     
