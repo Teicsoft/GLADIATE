@@ -4,88 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using TeicsoftSpectacleCards.scripts.battle.card;
 
-public class Deck {
+public class Deck<T> {
     public string Id { get; set; }
     public string Name { get; set; }
-    public UsedBy Owner { get; set; }
 
-    public Discard Discard { get; set; }
-    public List<CardSleeve> CardSleeves;
+    public Discard<T> Discard { get; set; }
+    public List<T> Cards;
 
     public Deck() {
-        CardSleeves = new();
+        Cards = new();
     }
 
-    public Deck Initialize(string id, string name, UsedBy usedBy, List<CardSleeve> cardList) {
+    public Deck<T> Initialize(string id, string name, List<T> cardList) {
         this.Id = id;
         this.Name = name;
-        this.Owner = usedBy;
-        this.CardSleeves = cardList;
+        this.Cards = cardList;
         return this;
-    }
-
-    public static List<CardSleeve> Shuffle(List<CardSleeve> input) {
-        List<CardSleeve> deck = new(input);
-        for (int i = deck.Count - 1; i > 1; i--) {
-            int j = (int)(GD.Randi() % i + 1);
-            (deck[i], deck[j]) = (deck[j], deck[i]);
-        }
-
-        return deck;
-    }
-
-    public void AddCard(CardSleeve cardSleeve) {
-        // Adds cards to TOP of deck, highest index on top.
-        CardSleeves.Add(cardSleeve);
-    }
-
-    public void AddCards(List<CardSleeve> cardSleeves) {
-        // Adds cards to TOP of deck, highest index on top.
-        this.CardSleeves.AddRange(cardSleeves);
-    }
-
-    public bool IsEmpty() {
-        return CardSleeves.Count == 0;
-    }
-
-    public void Shuffle() {
-        CardSleeves = Shuffle(CardSleeves);
-    }
-
-    public List<CardSleeve> DrawCards(int amount) {
-        List<CardSleeve> draw = new();
-        if (amount > 0) {
-            if (CardSleeves.Count == 0) {
-                GD.Print("Deck is empty!");
-                return OnDeckEmptied(amount);
-            }
-
-            if (CardSleeves.Count > 0) {
-                draw.Add(CardSleeves[^1]);
-                CardSleeves.RemoveAt(CardSleeves.Count - 1);
-                draw.AddRange(DrawCards(amount - 1));
-            }
-        }
-
-        return draw;
-    }
-
-    private List<CardSleeve> OnDeckEmptied(int amount) {
-        if (Discard.IsEmpty()) { return new(); }
-
-        AddCards(Discard.GetCards());
-        Shuffle();
-        return DrawCards(amount);
-    }
-
-    public override string ToString() {
-        return
-            $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Owner)}: {Owner}, {nameof(CardSleeves)}: {CardSleeves}";
-    }
-
-    public enum UsedBy {
-        Player,
-        Enemy
     }
 
     public static List<CardSleeve> SleeveCards(List<Card> cards) {
@@ -100,5 +34,63 @@ public class Deck {
         }
 
         return sleevedCards;
+    }
+
+    public static List<T> Shuffle(List<T> input) {
+        List<T> deck = new(input);
+        for (int i = deck.Count - 1; i > 1; i--) {
+            int j = (int)(GD.Randi() % i + 1);
+            (deck[i], deck[j]) = (deck[j], deck[i]);
+        }
+
+        return deck;
+    }
+
+    public void AddCard(T card) {
+        // Adds cards to TOP of deck, highest index on top.
+        Cards.Add(card);
+    }
+
+    public void AddCards(List<T> cards) {
+        // Adds cards to TOP of deck, highest index on top.
+        Cards.AddRange(cards);
+    }
+
+    public bool IsEmpty() {
+        return Cards.Count == 0;
+    }
+
+    public void Shuffle() {
+        Cards = Shuffle(Cards);
+    }
+
+    public List<T> DrawCards(int amount) {
+        List<T> draw = new();
+        if (amount > 0) {
+            if (Cards.Count == 0) {
+                GD.Print("Deck is empty!");
+                return OnDeckEmptied(amount);
+            }
+
+            if (Cards.Count > 0) {
+                draw.Add(Cards[^1]);
+                Cards.RemoveAt(Cards.Count - 1);
+                draw.AddRange(DrawCards(amount - 1));
+            }
+        }
+
+        return draw;
+    }
+
+    private List<T> OnDeckEmptied(int amount) {
+        if (Discard.IsEmpty()) { return new(); }
+
+        AddCards(Discard.GetCards());
+        Shuffle();
+        return DrawCards(amount);
+    }
+
+    public override string ToString() {
+        return $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Cards)}: {Cards}";
     }
 }

@@ -2,24 +2,24 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Discard {
-    public List<CardSleeve> cards = new();
+public class Discard<T> {
+    public List<T> Cards = new();
 
-    public void AddCard(CardSleeve cardSleeve) {
-        cards.Add(cardSleeve);
+    public void AddCard(T card) {
+        Cards.Add(card);
     }
 
-    public void AddCards(List<CardSleeve> cards) {
-        this.cards.AddRange(cards);
+    public void AddCards(List<T> cards) {
+        Cards.AddRange(cards);
     }
 
     public bool IsEmpty() {
-        return cards.Count == 0;
+        return Cards.Count == 0;
     }
 
-    public List<CardSleeve> GetCards(bool clear = true) {
-        List<CardSleeve> output = new(cards);
-        if (clear) { cards.Clear(); }
+    public List<T> GetCards(bool clear = true) {
+        List<T> output = new(Cards);
+        if (clear) { Cards.Clear(); }
 
         return output;
     }

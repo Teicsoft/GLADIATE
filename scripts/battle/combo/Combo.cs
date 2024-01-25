@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
+using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.battle;
 

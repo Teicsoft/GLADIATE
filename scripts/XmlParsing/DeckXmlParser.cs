@@ -8,7 +8,7 @@ using FileAccess = Godot.FileAccess;
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public class DeckXmlParser {
-    public static Deck ParseDeckFromXml(string filePath) {
+    public static (string, List<string>) ParseDeckFromXml(string filePath) {
         using FileAccess file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
 
@@ -18,22 +18,30 @@ public class DeckXmlParser {
 
         string deckId = deckNode.Attributes["id"].Value;
         string deckName = deckNode.Attributes["name"].Value;
-        string usedBy = deckNode.Attributes["used_by"].Value;
 
-        if (!Enum.TryParse(usedBy, out Deck.UsedBy parsedUsedBy)) { GD.Print("Failed to parse usedBy: " + usedBy); }
-
-        List<Card> cardList = new();
+        List<string> cards = new();
         foreach (XmlNode cardNode in deckNode.SelectNodes("cards/card")) {
             string cardId = cardNode.Attributes["card_id"].Value;
-
-            // cardList.Add(CardFactory.MakeBlankCard(cardId));
-            cardList.Add(CardPrototypes.CloneCard(cardId));
+            cards.Add(cardId);
         }
 
-        Deck deck = new Deck();
+        return (deckId, cards);
+    }
 
-        List<CardSleeve> cardSleeves = Deck.SleeveCards(cardList);
+    public static Dictionary<string, List<string>> ParseAllDecks() {
+        string deckFilePath = "res://data/decks/";
 
-        return deck.Initialize(deckId, deckName, parsedUsedBy, cardSleeves);
+        string[] filesAtPath = DirAccess.GetFilesAt(deckFilePath);
+
+
+        Dictionary<string, List<string>> decks = new();
+        foreach (string fileName in filesAtPath) {
+            if (fileName.EndsWith(".xml") && fileName != "deck_template.xml") {
+                (string deckId, List<string> deck) = ParseDeckFromXml(deckFilePath + fileName);
+                decks.Add(deckId, deck);
+            }
+        }
+
+        return decks;
     }
 }

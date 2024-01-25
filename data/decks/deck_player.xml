@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!-- Deck Template -->
+<!-- used to save a player deck, as a template for the default deck, and to store enemy decks -->
+<!-- To use, copy this file and rename it to deck_name.xml -->
+
+<deck id="deck_player" name ="Player Deck"> <!--id: string--> <!--name: string-->
+    <cards>
+        <card card_id="card_punch"/>  <!--card_id: string-->
+        <card card_id="card_punch"/>  <!--card_id: string-->
+        <card card_id="card_punch"/>  <!--card_id: string-->
+        <card card_id="card_punch"/>  <!--card_id: string-->
+        <card card_id="card_punch"/>  <!--card_id: string-->
+        <card card_id="card_kick"/>
+        <card card_id="card_kick"/>
+        <card card_id="card_kick"/>
+        <card card_id="card_block"/>
+        <card card_id="card_block"/>
+        <card card_id="card_gladius"/>
+        <card card_id="card_reckless"/>
+    </cards>
+</deck>
