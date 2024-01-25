@@ -1,4 +1,5 @@
 using Godot;
+using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.battle.card;
 
@@ -79,34 +80,33 @@ public class Card {
         return this;
     }
 
-    public virtual void Play(GameState gameState) {
+    public virtual void Play(GameState gameState, Target target, Target player) {
+        // not the player player, they who played this card
+        GD.Print(player.GetType().ToString().Split('.')[^1] + " played " + CardName);
         if (Attack != 0) {
-            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); }
+            if (TargetRequired || player is Enemy) { target.Damage(Attack); }
             else {
                 foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
             }
         }
 
-        if (DefenseLower != 0) { gameState.ModifyPlayerBlock(DefenseLower, Utils.PositionEnum.Lower); }
+        if (DefenseLower != 0) { player.ModifyBlock(DefenseLower, Utils.PositionEnum.Lower); }
 
-        if (DefenseUpper != 0) { gameState.ModifyPlayerBlock(DefenseUpper, Utils.PositionEnum.Upper); }
+        if (DefenseUpper != 0) { player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper); }
 
-        if (Health != 0) { gameState.HealPlayer(Health); }
+        if (Health != 0) { player.Heal(Health); }
 
-        if (CardDraw > 0) { gameState.Draw(CardDraw); }
+        if (player is not Enemy) {
+            if (CardDraw > 0) { gameState.Draw(CardDraw); }
 
-        if (TargetRequired) { Effect(Id, gameState.GetSelectedEnemy(), gameState); }
-        else {
-            foreach (Enemy enemy in gameState.Enemies) { Effect(Id, enemy, gameState); }
+            if (Discard > 0) {
+                // swalsh TODO: Emit Event?
+                // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
+                // gameState.DiscardCards(Health);
+            }
+
+            gameState.ComboCheck(this);
         }
-
-        if (Discard > 0) {
-            // swalsh TODO: Emit Event?
-            // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
-            // gameState.DiscardCards(Health);
-        }
-
-        gameState.ComboCheck(this);
     }
 
     public virtual Card Clone() {
@@ -125,7 +125,7 @@ public class Card {
 
     // This kind of thing is going to be handled by the card reading and inheritance, different effects are going into different files.
     // Going to remove when the combo case is handled.
-    public void Effect(string id, Enemy enemy, GameState gameState) {
+    public void Effect(string id, target.Enemy enemy, GameState gameState) {
         switch (id) {
             //combo cases
             case "combo_02":

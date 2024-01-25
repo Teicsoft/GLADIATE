@@ -74,7 +74,7 @@ public class Combo {
         if (Attack != 0) {
             if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); }
             else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
+                foreach (target.Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
             }
         }
 

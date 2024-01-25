@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
+using TeicsoftSpectacleCards.scripts.battle.target;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 namespace TeicsoftSpectacleCards.scripts.battle;
 
 public class GameState {
+
+    public Player Player;
     public int Multiplier { get; set; }
     public int SpectaclePoints { get; set; }
-    public int PlayerMaxHealth { get; set; }
-    public int PlayerHealth { get; set; }
-    private int DefenseLower { get; set; }
-    private int DefenseUpper { get; set; }
 
     public List<Card> ComboStack { get; set; }
 
@@ -23,73 +22,54 @@ public class GameState {
     public List<Enemy> Enemies = new();
     private int SelectedEnemyIndex = -1;
     public Hand Hand;
-    public Deck Deck;
+    public Deck<CardSleeve> Deck;
 
     // Constructor
     public GameState() {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
-
+        Player = new Player(12, 0, 0);
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
-        PlayerMaxHealth = 100; // adjust this as needed, or base on some other check
-        DefenseLower = 0;
-        DefenseUpper = 0;
-        PlayerHealth = PlayerMaxHealth;
+    }
+
+    public void EndTurn() {
+        GD.Print(SpectaclePoints);
+        GD.Print(Player.Health);
+        ProcessCombo(null);
+        foreach (Enemy enemy in Enemies) {
+            Card card = enemy.DrawCard();
+            card.Play(this, Player, enemy);
+            enemy.TakeCardIntoDiscard(card);
+        }
+
+        GD.Print(" ==== ====  END TURN  ==== ====");
+        StartTurn();
+    }
+
+    public void StartTurn() {
+        GD.Print(" ==== ==== START TURN ==== ====");
+        GD.Print(SpectaclePoints);
+        GD.Print(Player.Health);
+        Draw();
     }
 
     // Player Methods
     // ****
     public void DamagePlayer(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
-        bool blocked = false;
-        switch (position) {
-            case Utils.PositionEnum.Upper:
-                if (DefenseUpper > 0) {
-                    blocked = true;
-                    DefenseUpper--;
-                }
-
-                break;
-            case Utils.PositionEnum.Lower:
-                if (DefenseLower > 0) {
-                    blocked = true;
-                    DefenseLower--;
-                }
-
-                break;
-        }
-
-        if (!blocked) { DirectDamagePlayer(damage); }
-    }
-
-    private void DirectDamagePlayer(int damage) {
-        PlayerHealth = Math.Max(0, PlayerHealth - damage);
-        if (PlayerHealth == 0) { EndRound(); }
+        Player.Damage(damage, position);
     }
 
     public void HealPlayer(int amount) {
-        PlayerHealth = Math.Min(PlayerMaxHealth, PlayerHealth + Math.Abs(amount));
-        if (PlayerHealth == 0) { EndRound(); }
+        Player.Heal(amount);
     }
 
     public void StunPlayer(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
-        bool blocked = false;
-        if ((DefenseUpper > 0) || (DefenseLower > 0)) {
-            blocked = true;
-            DefenseUpper = 0;
-            DefenseLower = 0;
-        }
+        Player.Stun(stun);
     }
 
     public void ModifyPlayerBlock(int change, Utils.PositionEnum position) {
-        switch (position) {
-            case Utils.PositionEnum.Upper:
-                DefenseUpper += change;
-                break;
-            case Utils.PositionEnum.Lower:
-                DefenseLower += change;
-                break;
-        }
+        Player.ModifyBlock(change, position);
     }
 
     // ****
@@ -105,19 +85,18 @@ public class GameState {
 
         // find a matching combo if it exists, returns null if no match
         Combo matchingCombo = ComboCompare();
-        if (matchingCombo != null) { ProcessCombo(matchingCombo); }
+        if (matchingCombo != null) {
+            GD.Print("C-C-COMBO!!!");
+            GD.Print(matchingCombo.Name);
+            ProcessCombo(matchingCombo);
+        }
     }
 
-    private void ProcessCombo(Combo matchingCombo) {
-        matchingCombo?.Play(this);
-        ProcessMultiplier(matchingCombo?.CardList.Count ?? 0);
-        ProcessSpectaclePoints(matchingCombo?.SpectaclePoints ?? 0);
-        // Combo().Play(); Like Card.Play, do all the gameplay stuff here.
+    private void ProcessCombo(Combo combo) {
+        combo?.Play(this);
+        ProcessMultiplier(combo?.CardList.Count ?? 0);
+        ProcessSpectaclePoints(combo?.SpectaclePoints ?? 0);
         ComboStack.Clear();
-    }
-
-    public void EndRound() {
-        ProcessCombo(null);
     }
 
     // Check for combo matches
@@ -162,7 +141,7 @@ public class GameState {
     public void PlaySelectedCard() {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
-            cardSleeve.Card.Play(this);
+            cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
             Hand.Discard();
         }
     }
@@ -176,7 +155,7 @@ public class GameState {
     // Enemy methods
     // ****
 
-    public Enemy GetSelectedEnemy() {
+    public target.Enemy GetSelectedEnemy() {
         return SelectedEnemyIndex != -1 ? Enemies[SelectedEnemyIndex] : null;
     }
 
@@ -189,7 +168,6 @@ public class GameState {
 
     public override string ToString() {
         return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
-               $"MaxPlayerHealth: {PlayerMaxHealth}," + $"PlayerHealth: {PlayerHealth}," +
                $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
     }
 }

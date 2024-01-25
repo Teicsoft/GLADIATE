@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TeicsoftSpectacleCards.scripts.battle;
 using TeicsoftSpectacleCards.scripts.battle.card;
+using TeicsoftSpectacleCards.scripts.battle.target;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public partial class Battle : Node2D {
@@ -10,36 +11,51 @@ public partial class Battle : Node2D {
     [Export] private PackedScene cardScene;
     [Export] private PackedScene enemyScene;
     private Hand hand;
-    private Deck deck;
-    private Discard discard;
+    private Deck<CardSleeve> deck;
+    private Discard<CardSleeve> discard;
     private PathFollow2D enemiesLocation;
     private GameState gameState;
 
     public override void _Ready() {
         ModelTesting();
 
-        deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
+        Dictionary<string, List<string>> decks = DeckXmlParser.ParseAllDecks();
+        List<string> playerCardIds;
+        decks.TryGetValue("deck_player", out playerCardIds);
+        deck = new Deck<CardSleeve>();
+        deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
         gameState = new GameState();
         hand = GetNode<Hand>("Hand");
-        discard = new Discard();
+        discard = new Discard<CardSleeve>();
         deck.Discard = discard;
         hand.discard = discard;
         enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         gameState.Hand = hand;
         gameState.Deck = deck;
-
         deck.Shuffle();
+        gameState.Draw(4);
 
 
+        List<string> enemyCardIds;
+        decks.TryGetValue("deck_enemy", out enemyCardIds);
         float locationRatio = 1f / 2;
         foreach (int i in Enumerable.Range(0, 3)) {
             Enemy enemy = enemyScene.Instantiate<Enemy>();
+            Deck<Card> enemyDeck = new();
+            enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
+            enemyDeck.Shuffle();
+            enemy.Deck = enemyDeck;
+            enemy.Discard = new();
             enemy.EnemySelected += gameState.SelectEnemy;
             gameState.Enemies.Add(enemy);
             enemiesLocation.ProgressRatio = i * locationRatio;
             enemy.Position = enemiesLocation.Position;
             AddChild(enemy);
         }
+
+        GD.Print(" ==== ==== START GAME ==== ====");
+        GD.Print(gameState.SpectaclePoints);
+        GD.Print(gameState.Player.Health);
     }
 
     public override void _Process(double delta) { }
@@ -50,6 +66,10 @@ public partial class Battle : Node2D {
 
     private void OnDeckPressed() {
         gameState.Draw();
+    }
+
+    private void EndTurn() {
+        gameState.EndTurn();
     }
 
     private void ModelTesting() {
@@ -65,14 +85,11 @@ public partial class Battle : Node2D {
         GD.Print("\n");
 
         // //This is a test to see if the Deck parsing works, feel free to remove it
-        Deck deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
-        GD.Print("\n DeckModelTest" + deck + ": ");
-        foreach (CardSleeve cardSleeve in deck.CardSleeves)
-        {
-            GD.Print(cardSleeve.Card + "\n");
-        }
-
-        GD.Print("\n");
+        // Deck<CardSleeve> deck = DeckXmlParser.ParseDeckFromXml("res://data/decks/deck_template.xml");
+        // GD.Print("\n DeckModelTest" + deck + ": ");
+        // foreach (CardSleeve card in deck.Cards) { GD.Print(card.Card + "\n"); }
+        //
+        // GD.Print("\n");
 
         // //This is a test to see if the GameState works, feel free to remove it
         GameState gameState = new GameState();
