@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using Godot;
+using TeicsoftSpectacleCards.scripts.battle;
 using TeicsoftSpectacleCards.scripts.battle.card;
-using TeicsoftSpectacleCards.scripts.XmlParsing.models;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public static class ComboXmlParser
 {
-    public static ComboModel ParseComboFromXml(string filepath)
+    public static Combo ParseComboFromXml(string filepath)
     {
         using FileAccess file = FileAccess.Open(filepath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
@@ -23,12 +23,12 @@ public static class ComboXmlParser
         string position = comboNode.Attributes["position"].Value;
 
 
-        if (!Enum.TryParse(modifier, out ComboModel.ModifierEnum parsedModifier))
+        if (!Enum.TryParse(modifier, out battle.Utils.ModifierEnum parsedModifier))
         {
             GD.Print("Failed to parse modifier: " + modifier);
         }
 
-        if (!Enum.TryParse(position, out ComboModel.PositionEnum parsedPosition))
+        if (!Enum.TryParse(position, out battle.Utils.PositionEnum parsedPosition))
         {
             GD.Print("Failed to parse position: " + position);
         }
@@ -61,28 +61,27 @@ public static class ComboXmlParser
         string lore = Utils.ParseTextNode(textNode, "lore");
         string onscreenText = Utils.ParseTextNode(textNode, "onscreen_text");
 
-        ComboModel combo = new(comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower,
+        Combo combo = new(comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower,
             defenseUpper, health, draw, discard, spectaclePoints, name, description, lore, onscreenText, imagePath,
             charAnimationPath, stageAnimationPath, soundPath);
 
         return combo;
     }
     
-    public static List<ComboModel> ParseAllCombos()
+    public static List<Combo> ParseAllCombos()
     {
         string comboFilePath = "res://data/combos/";
         
         // using DirAccess dir = DirAccess.Open("res://data/combos/");
         string[] filesAtPath = DirAccess.GetFilesAt(comboFilePath);
 
-        List<ComboModel> comboModels = new List<ComboModel>();
+        List<Combo> allCombos = new List<Combo>();
         foreach (string fileName in filesAtPath)
         {
             if (!fileName.EndsWith(".xml") || (fileName == "combo_template.xml")) continue;
-            ComboModel combo =  ParseComboFromXml(comboFilePath + fileName);
-            comboModels.Add(combo);
+            allCombos.Add(ParseComboFromXml(comboFilePath + fileName));
         }
 
-        return comboModels;
+        return allCombos;
     }
 }

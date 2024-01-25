@@ -17,7 +17,7 @@ public partial class CardSleeve : Node2D {
     
     public override void _Ready() {
         SelectButton = GetNode<Button>("SelectButton");
-        SelectButton.Text = Card.Attack.ToString();
+        SelectButton.Text = Card.CardName;
         SelectButton.AddThemeColorOverride("font_color", Card.color);
     }
 

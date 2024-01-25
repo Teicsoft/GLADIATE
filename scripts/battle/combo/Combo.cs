@@ -2,19 +2,18 @@ using System.Collections.Generic;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
 
-namespace TeicsoftSpectacleCards.scripts.XmlParsing.models;
+namespace TeicsoftSpectacleCards.scripts.battle;
 
-public class ComboModel
-{
+public class Combo {
     public string Id { get; set; }
 
     public List<Card> CardList;
 
     public bool TargetRequired { get; set; }
 
-    public ModifierEnum Modifier { get; set; }
+    public Utils.ModifierEnum Modifier { get; set; }
 
-    public PositionEnum Position { get; set; }
+    public Utils.PositionEnum Position { get; set; }
 
     // main stats
     public int Attack { get; set; }
@@ -43,13 +42,10 @@ public class ComboModel
     public Animation StageAnimation { get; set; }
     public AudioStream Sound { get; set; }
 
-    public ComboModel(
-        string id, List<Card> cardList, ModifierEnum modifier, PositionEnum position,
-        int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints,
-        string name, string description, string lore, string onscreenText,
-        string imagePath, string charAnimationPath, string stageAnimationPath, string soundPath
-    )
-    {
+    public Combo(string id, List<Card> cardList, Utils.ModifierEnum modifier, Utils.PositionEnum position, int attack,
+        int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, string name,
+        string description, string lore, string onscreenText, string imagePath, string charAnimationPath,
+        string stageAnimationPath, string soundPath) {
         this.Id = id;
         this.CardList = cardList;
         this.Modifier = modifier;
@@ -74,47 +70,47 @@ public class ComboModel
         this.SoundPath = soundPath;
     }
 
-    public void LoadAssets()
-    {
+    public virtual void Play(GameState gameState) {
+        if (Attack != 0) {
+            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); }
+            else {
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
+            }
+        }
+
+        if (DefenseLower != 0) { gameState.ModifyPlayerBlock(DefenseLower, Utils.PositionEnum.Lower); }
+
+        if (DefenseUpper != 0) { gameState.ModifyPlayerBlock(DefenseUpper, Utils.PositionEnum.Upper); }
+
+        if (Health != 0) { gameState.HealPlayer(Health); }
+
+        if (Discard > 0) {
+            // swalsh TODO: Emit Event?
+            // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
+            // gameState.DiscardCards(Health);
+        }
+    }
+
+    public void LoadAssets() {
         LoadTexture();
         LoadCharAnimation();
         LoadStageAnimation();
         LoadSound();
     }
 
-    private void LoadTexture()
-    {
+    private void LoadTexture() {
         Image = (Texture)GD.Load(ImagePath);
     }
 
-    private void LoadCharAnimation()
-    {
+    private void LoadCharAnimation() {
         CharAnimation = (Animation)GD.Load(CharAnimationPath);
     }
 
-    private void LoadStageAnimation()
-    {
+    private void LoadStageAnimation() {
         StageAnimation = (Animation)GD.Load(StageAnimationPath);
     }
 
-    private void LoadSound()
-    {
+    private void LoadSound() {
         Sound = (AudioStream)GD.Load(SoundPath);
-    }
-
-    public enum ModifierEnum
-    {
-        Grappled,
-        Grounded,
-        Juggled,
-        None
-    }
-
-    public enum PositionEnum
-    {
-        Upper,
-        Lower,
-        Both,
-        None
     }
 }

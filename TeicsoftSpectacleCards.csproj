@@ -13,5 +13,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\interface\" />
+    <Folder Include="scripts\XmlParsing\models\" />
   </ItemGroup>
 </Project>
