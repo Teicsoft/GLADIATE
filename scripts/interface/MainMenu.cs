@@ -27,12 +27,16 @@ public partial class MainMenu : Control
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/battle/Battle.tscn");
         audioEngine.StopAllTracks();
+        audioEngine.DestroyPreloadedAudio();
     }
         
     private void _on_dialogue_button_pressed()
     {
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/main/dialogue_display.tscn");
+        audioEngine.StopAllTracks();
+        audioEngine.DestroyPreloadedAudio();
+
     }
 
 
