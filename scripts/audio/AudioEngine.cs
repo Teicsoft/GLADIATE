@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Godot;
@@ -19,12 +20,7 @@ public partial class AudioEngine : Node
 
     // one channel for voice acting as there should only be one voice line at a time for clarity
     private AudioStreamPlayer _voiceLinePlayer;
-
-
-    private const string MusicFolderName = "audio/music/";
-    private const string SoundFxFolderName = "audio/sfx/";
-    private const string VoiceLineFolderName = "audio/voice/";
-
+    
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -39,8 +35,7 @@ public partial class AudioEngine : Node
     // Music Methods //
     public void PlayMusic(string musicFileName)
     {
-        string localPath = ResourceGrabber.GetAssetPath(musicFileName, MusicFolderName);
-        AudioStream audioStream = (AudioStream)ResourceLoader.Load(localPath);
+        AudioStream audioStream = GetAudioStream(musicFileName, AudioType.Music);
         
         if (!_musicPlayer1.Playing && !_musicPlayer2.Playing) // if nothing is playing, play on channel 1
         {
@@ -122,9 +117,8 @@ public partial class AudioEngine : Node
 
     public void PlaySoundFx(string soundFxFileName)
     {
-        string localPath = ResourceGrabber.GetAssetPath(soundFxFileName, SoundFxFolderName);
-        AudioStream audioStream = (AudioStream)ResourceLoader.Load(localPath);
-
+        AudioStream audioStream = GetAudioStream(soundFxFileName, AudioType.SoundFx);
+            
         if (!_soundFxPlayer1.Playing) // if nothing is playing, play on channel 1
         {
             _soundFxPlayer1.Stream = audioStream;
@@ -150,8 +144,7 @@ public partial class AudioEngine : Node
     // Voice Acting Methods //
     public void PlayVoiceLine(string voiceLineFileName)
     {
-        string localPath = ResourceGrabber.GetAssetPath(voiceLineFileName, VoiceLineFolderName);
-        AudioStream audioStream = (AudioStream)ResourceLoader.Load(localPath);
+        AudioStream audioStream = GetAudioStream(voiceLineFileName, AudioType.VoiceLine);
         
         if (!_voiceLinePlayer.Playing) // if nothing is playing, play voice line
         {
@@ -172,20 +165,62 @@ public partial class AudioEngine : Node
         _voiceLinePlayer.Stop();
     }
 
-    public void PreloadAudio(List<string> fileNames)
+    public void PreloadAudio(List<string> fileNames, AudioType audioType)
     {
         Dictionary<string, AudioStream> preLoadedAudio = new Dictionary<string, AudioStream>();
 
         foreach (string file in fileNames)
         {
-            string localPath = ResourceGrabber.GetAssetPath(file, MusicFolderName);
-            AudioStream audioStream = (AudioStream)ResourceLoader.Load(localPath);
-            
+            AudioStream audioStream = GetAudioStream(file, audioType);
             preLoadedAudio.Add(file, audioStream);
         }
 
         this.preLoadedAudio = preLoadedAudio;
     }
+
+    public void DestroyPreloadedAudio()
+    {
+        preLoadedAudio.Clear();
+    }
+
+    private AudioStream GetAudioStream(string filename, AudioType audioType)
+    {
+        string folder = null;
+        string filePath = null;
+        
+        string MusicFolderName = "audio/music/";
+        string SoundFxFolderName = "audio/sfx/";
+        string VoiceLineFolderName = "audio/voice/";
+            
+        
+        switch (audioType)
+        {
+            case AudioType.Music:
+                folder = MusicFolderName;
+                break;
+            
+            case AudioType.SoundFx:
+                folder = SoundFxFolderName;
+                break;
+            
+            case AudioType.VoiceLine:
+                folder = VoiceLineFolderName;
+                break;
+        }
+        
+        filePath = ResourceGrabber.GetAssetPath(filename, folder);
+        AudioStream audioStream = (AudioStream)ResourceLoader.Load(filePath);
+        
+        return audioStream;
+    }
+
+    public enum AudioType
+    {
+        Music,
+        SoundFx,
+        VoiceLine
+    }
+    
 }
 
 //todo it would be worth preloading audio files used by a scene when the scene is loaded, to avoid stuttering when playing audio for the first time
