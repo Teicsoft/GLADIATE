@@ -49,10 +49,8 @@ public partial class AudioEngine : Node
         {
             _musicPlayer1.Stream = audioStream;
             _ = FadeInTrack(_musicPlayer1); // assigning Task to discard to make rider happy, as I'm not awaiting async
-            if (_musicPlayer2.Playing)
-            {
-                _ = FadeOutTrack(_musicPlayer2);
-            }
+            _ = FadeOutTrack(_musicPlayer2);
+
         }
         else if (!_musicPlayer2.Playing) // if channel 1 is playing, but not 2, cross fade to channel 2
         {
@@ -138,12 +136,7 @@ public partial class AudioEngine : Node
             _soundFxPlayer2.Stream = audioStream;
             _soundFxPlayer2.Play();
         }
-        //otherwise, do nothing, 2 sound effects at once is enough
-
-        else
-        {
-            _ = RetrySoundFx(audioStream);
-        }
+        else { _ = RetrySoundFx(audioStream); } //otherwise, do nothing, 2 sound effects at once is enough
     }
 
     private async Task RetrySoundFx(AudioStream audioStream) // to allow for a second effect to be played if close enough to the end of the first line
