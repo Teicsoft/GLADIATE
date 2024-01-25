@@ -12,6 +12,7 @@ public partial class MainMenu : Control
     {
         {"Shop_loop_audio.wav", AudioEngine.AudioType.Music},
         {"venividivichy.wav", AudioEngine.AudioType.Music},
+        {"testsound1.ogg", AudioEngine.AudioType.SoundFx}
     };
     
     private void _on_ready()
@@ -38,7 +39,8 @@ public partial class MainMenu : Control
     private void _on_settings_button_pressed()
     {
         // Replace with function body.
-        audioEngine.PlayMusic("Shop_loop_audio.wav"); //for testing audio engine, remove when setting main menu functionality
+        // audioEngine.PlayMusic("Shop_loop_audio.wav"); //for testing audio engine, remove when setting main menu functionality
+        audioEngine.PlaySoundFx("testsound1.ogg"); //for testing audio engine, remove when setting main menu functionality
     }
 
 
