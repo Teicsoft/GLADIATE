@@ -21,8 +21,6 @@ public partial class MainMenu : Control
         goon2.Animation = "Idle";
         goon2.Frame = 10;
         goon2.Play();
-        AnimatedSprite2D guyinjail = GetNode<AnimatedSprite2D>("BG/guyinjail");
-        guyinjail.Play();
         AnimatedSprite2D remus = GetNode<AnimatedSprite2D>("BG/Remus");
         remus.Play();
         

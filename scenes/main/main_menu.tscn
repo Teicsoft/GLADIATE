@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://d1aov81s42w7y"]
+[gd_scene load_steps=98 format=3 uid="uid://d1aov81s42w7y"]
 
 [ext_resource type="Script" path="res://scripts/interface/MainMenu.cs" id="1_8852o"]
 [ext_resource type="Texture2D" uid="uid://txs3arswiwni" path="res://assets/images/AJ/AJsBGTemp.png" id="2_c8ldl"]
@@ -6,171 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://b5inj50p30g3o" path="res://assets/sprites/Goon/Goon - template_0_Idle.png" id="4_ew60n"]
 [ext_resource type="Texture2D" uid="uid://b43wuc42h6hqe" path="res://assets/sprites/Goon/Goon - template_1_Walk.png" id="5_7afjf"]
 [ext_resource type="Texture2D" uid="uid://bar8mrevlr7mb" path="res://assets/sprites/Joy/Romulus.png" id="7_0nu7t"]
-[ext_resource type="Texture2D" uid="uid://dnjhrtmsujtl" path="res://assets/images/AJ/man in prison/Layer 1.png" id="8_04uss"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="8_nsbhp"]
 [ext_resource type="Texture2D" uid="uid://34dhtw1txk12" path="res://assets/sprites/Z/senator_horse.png" id="9_ck267"]
-[ext_resource type="Texture2D" uid="uid://dxvm20t4ifcuh" path="res://assets/images/AJ/man in prison/Layer 2.png" id="9_mp8dy"]
 [ext_resource type="Texture2D" uid="uid://dvhwr6ftrwrw7" path="res://assets/sprites/Goon/GoonOriginal.png" id="10_3284n"]
-[ext_resource type="Texture2D" uid="uid://dpmvrb544qfud" path="res://assets/images/AJ/man in prison/Layer 3.png" id="10_uwmfr"]
-[ext_resource type="Texture2D" uid="uid://c3q6rbo58obxj" path="res://assets/images/AJ/man in prison/Layer 4.png" id="11_m3005"]
-[ext_resource type="Texture2D" uid="uid://dkeseqprwmves" path="res://assets/images/AJ/man in prison/Layer 5.png" id="12_qpk5s"]
-[ext_resource type="Texture2D" uid="uid://eq16h8vuywlo" path="res://assets/images/AJ/man in prison/Layer 6.png" id="13_c1eic"]
-[ext_resource type="Texture2D" uid="uid://b5s2p1tbfvg6p" path="res://assets/images/AJ/man in prison/Layer 7.png" id="14_ms8hw"]
-[ext_resource type="Texture2D" uid="uid://dcmtke3rn6gt6" path="res://assets/images/AJ/man in prison/Layer 8.png" id="15_5304m"]
-[ext_resource type="Texture2D" uid="uid://bod55nlqlq8kr" path="res://assets/images/AJ/man in prison/Layer 9.png" id="16_mir8w"]
-[ext_resource type="Texture2D" uid="uid://dyu68p1hlkpc1" path="res://assets/images/AJ/man in prison/Layer 10.png" id="17_dnq0k"]
-[ext_resource type="Texture2D" uid="uid://c3e17r2jhbh6f" path="res://assets/images/AJ/man in prison/Layer 11.png" id="18_pt7rh"]
-[ext_resource type="Texture2D" uid="uid://dxopfksp6l2g3" path="res://assets/images/AJ/man in prison/Layer 12.png" id="19_650yq"]
-[ext_resource type="Texture2D" uid="uid://dkxsi2g0xf248" path="res://assets/images/AJ/man in prison/Layer 13.png" id="20_ww1wc"]
-[ext_resource type="Texture2D" uid="uid://bb8o8vuilry35" path="res://assets/images/AJ/man in prison/Layer 14.png" id="21_801au"]
-[ext_resource type="Texture2D" uid="uid://d33i31upbjq1p" path="res://assets/images/AJ/man in prison/Layer 15.png" id="22_222vm"]
-[ext_resource type="Texture2D" uid="uid://djyc1bnijjhd5" path="res://assets/images/AJ/man in prison/Layer 16.png" id="23_apqiy"]
-[ext_resource type="Texture2D" uid="uid://blshqidull6tj" path="res://assets/images/AJ/man in prison/Layer 17.png" id="24_ybetw"]
-[ext_resource type="Texture2D" uid="uid://dbbpfiea8g0c6" path="res://assets/images/AJ/man in prison/Layer 18.png" id="25_g3wr7"]
-[ext_resource type="Texture2D" uid="uid://c1a3nv62qfa7n" path="res://assets/images/AJ/man in prison/Layer 19.png" id="26_hsdik"]
-[ext_resource type="Texture2D" uid="uid://dfi0f5xner6gf" path="res://assets/images/AJ/man in prison/Layer 20.png" id="27_yarbb"]
-[ext_resource type="Texture2D" uid="uid://byd8a7jx2s6dn" path="res://assets/images/AJ/man in prison/Layer 21.png" id="28_gbwo4"]
-[ext_resource type="Texture2D" uid="uid://bvhrym27ugpwe" path="res://assets/images/AJ/man in prison/Layer 22.png" id="29_dqg12"]
-[ext_resource type="Texture2D" uid="uid://hapbt2dwfpt4" path="res://assets/images/AJ/man in prison/Layer 23.png" id="30_74s87"]
-[ext_resource type="Texture2D" uid="uid://bnusmwmcaf4ba" path="res://assets/images/AJ/man in prison/Layer 24.png" id="31_ue5m3"]
-[ext_resource type="Texture2D" uid="uid://dwknymuuyult0" path="res://assets/images/AJ/man in prison/Layer 25.png" id="32_myf0m"]
-[ext_resource type="Texture2D" uid="uid://cc8vme6xwj63a" path="res://assets/images/AJ/man in prison/Layer 26.png" id="33_ppusn"]
-[ext_resource type="Texture2D" uid="uid://dq2qxpi4cxehe" path="res://assets/images/AJ/man in prison/Layer 27.png" id="34_1fext"]
-[ext_resource type="Texture2D" uid="uid://bjy1mvf20qsjx" path="res://assets/images/AJ/man in prison/Layer 28.png" id="35_ctun4"]
-[ext_resource type="Texture2D" uid="uid://c118k1o50n28s" path="res://assets/images/AJ/man in prison/Layer 29.png" id="36_bywq1"]
-[ext_resource type="Texture2D" uid="uid://xeyjuah8j6vo" path="res://assets/images/AJ/man in prison/Layer 30.png" id="37_4p4ng"]
-[ext_resource type="Texture2D" uid="uid://bguenr36jwi0o" path="res://assets/images/AJ/man in prison/Layer 31.png" id="38_e8mpf"]
-[ext_resource type="Texture2D" uid="uid://ccd8lnwlmifgv" path="res://assets/images/AJ/man in prison/Layer 32.png" id="39_a0bjn"]
-[ext_resource type="Texture2D" uid="uid://vq216cw1jud4" path="res://assets/images/AJ/man in prison/Layer 33.png" id="40_4d4li"]
-[ext_resource type="Texture2D" uid="uid://bgmcp4m4l1iq1" path="res://assets/images/AJ/man in prison/Layer 34.png" id="41_gr737"]
-[ext_resource type="Texture2D" uid="uid://bp72ghxubi8y0" path="res://assets/images/AJ/man in prison/Layer 35.png" id="42_4qy2o"]
-[ext_resource type="Texture2D" uid="uid://cia3twvfct3me" path="res://assets/images/AJ/man in prison/Layer 36.png" id="43_dce6h"]
-[ext_resource type="Texture2D" uid="uid://bnkqy3jgwxv48" path="res://assets/images/AJ/man in prison/Layer 37.png" id="44_wl0l2"]
 [ext_resource type="Texture2D" uid="uid://dfcrqumouckwf" path="res://assets/sprites/Joy/Remus1.png" id="45_cwgx4"]
-[ext_resource type="Texture2D" uid="uid://baogqk5alubal" path="res://assets/images/AJ/man in prison/Layer 38.png" id="45_uwaq4"]
 [ext_resource type="Texture2D" uid="uid://c7q2iudbjo1m8" path="res://assets/sprites/Joy/Remus2.png" id="46_55o2s"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_upcfa"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_04uss")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_mp8dy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_uwmfr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_m3005")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_qpk5s")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_c1eic")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_ms8hw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_5304m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_mir8w")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_dnq0k")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_pt7rh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_650yq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_ww1wc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_801au")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_222vm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_apqiy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_ybetw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_g3wr7")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_hsdik")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_yarbb")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_gbwo4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_dqg12")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_74s87")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_ue5m3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_myf0m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("33_ppusn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("34_1fext")
-}, {
-"duration": 1.0,
-"texture": ExtResource("35_ctun4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("36_bywq1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("37_4p4ng")
-}, {
-"duration": 1.0,
-"texture": ExtResource("38_e8mpf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("39_a0bjn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("40_4d4li")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_gr737")
-}, {
-"duration": 1.0,
-"texture": ExtResource("42_4qy2o")
-}, {
-"duration": 1.0,
-"texture": ExtResource("43_dce6h")
-}, {
-"duration": 1.0,
-"texture": ExtResource("44_wl0l2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("45_uwaq4")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t4c82"]
 animations = [{
@@ -838,17 +678,11 @@ position = Vector2(224.5, 847.177)
 scale = Vector2(1.11607, 1.14661)
 texture = ExtResource("10_3284n")
 
-[node name="guyinjail" type="AnimatedSprite2D" parent="BG"]
-position = Vector2(574, 807)
-scale = Vector2(2.68, 2.68)
-sprite_frames = SubResource("SpriteFrames_upcfa")
-frame_progress = 0.969683
-
 [node name="Remus" type="AnimatedSprite2D" parent="BG"]
 position = Vector2(1079, 471)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_t4c82")
-frame_progress = 0.662734
+frame_progress = 0.552995
 
 [node name="Grid Margin" type="MarginContainer" parent="."]
 visible = false
