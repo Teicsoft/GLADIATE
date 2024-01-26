@@ -7,19 +7,10 @@ public partial class MainMenu : Control
 {
     private AudioEngine audioEngine;
 
-    // this dictionary is used to declare what audio is used by this scene, so it can be preloaded in AudioEngine
-    Dictionary<string, AudioEngine.AudioType> AudioDeclaration = new Dictionary<string, AudioEngine.AudioType>()
-    {
-        {"Shop_loop_audio.wav", AudioEngine.AudioType.Music},
-        {"venividivichy.wav", AudioEngine.AudioType.Music},
-        {"testsound1.ogg", AudioEngine.AudioType.SoundFx}
-    };
     
     private void _on_ready()
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        audioEngine.PreloadAudio(AudioDeclaration);
-        StartMusic();
     }
     
     private void _on_start_game_button_pressed()
@@ -53,9 +44,4 @@ public partial class MainMenu : Control
         GetTree().Quit();
     }
     
-    private void StartMusic()
-    {
-        audioEngine.PlayMusic("venividivichy.wav");
-
-    }
 }
