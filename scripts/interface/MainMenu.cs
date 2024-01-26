@@ -15,10 +15,8 @@ public partial class MainMenu : Control
         
         //this is ugly, but I'm just doing this for speed while designing. Will come back later and clean up
         AnimatedSprite2D goon = GetNode<AnimatedSprite2D>("GoonSquad/Goon");
-        goon.Animation = "Idle";
         goon.Play();
         AnimatedSprite2D goon2 = GetNode<AnimatedSprite2D>("GoonSquad/Goon2");
-        goon2.Animation = "Idle";
         goon2.Frame = 10;
         goon2.Play();
         AnimatedSprite2D remus = GetNode<AnimatedSprite2D>("BG/Remus");
