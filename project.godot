@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TeicsoftSpectacleCards"
-run/main_scene="res://scenes/title_screen.tscn"
+run/main_scene="res://scenes/main/title_screen.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://assets/images/Cyber-Denarius.png"
 
