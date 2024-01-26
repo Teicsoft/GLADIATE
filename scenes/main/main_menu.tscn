@@ -848,7 +848,7 @@ frame_progress = 0.969683
 position = Vector2(1079, 471)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_t4c82")
-frame_progress = 0.0960502
+frame_progress = 0.662734
 
 [node name="Grid Margin" type="MarginContainer" parent="."]
 visible = false
