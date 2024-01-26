@@ -35,14 +35,6 @@ public partial class Battle : Node2D {
         deck.Shuffle();
         gameState.Draw(4);
         
-        StyleBoxFlat styleBoxFlat = new StyleBoxFlat();
-        styleBoxFlat.CornerRadiusTopLeft = 10;
-        styleBoxFlat.CornerRadiusTopRight = 10;
-        styleBoxFlat.CornerRadiusBottomRight = 10;
-        styleBoxFlat.CornerRadiusBottomLeft = 10;
-        GetNode<TextureButton>("HUD/Deck").DrawStyleBox(styleBoxFlat, default);
-
-
 
         List<string> enemyCardIds;
         decks.TryGetValue("deck_enemy", out enemyCardIds);

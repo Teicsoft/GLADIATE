@@ -21,9 +21,6 @@ public partial class TitleScreen : Control
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         audioEngine.PreloadAudio(AudioDeclaration);
-        AnimatedSprite2D goon = GetNode<AnimatedSprite2D>("Container/Goon");
-        goon.Animation = "Idle";
-        goon.Play();
     }
     
     private void _on_timer_timeout()
