@@ -1,22 +1,52 @@
 using System;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle;
+using TeicsoftSpectacleCards.scripts.battle.card;
 
-public partial class Enemy : Node2D {
+namespace TeicsoftSpectacleCards.scripts.battle.target;
+
+public partial class Enemy : Node2D,
+    Target {
     [Signal]
     public delegate void EnemySelectedEventHandler(Enemy enemy);
 
     private ColorRect Rect;
     private Button SelectButton;
-    private int CurrentHealth = 12;
-    private int MaxHealth = 12;
-    private int DefenseLower = 0;
-    private int DefenseUpper = 1;
+
+    public int MaxHealth { get; set; } = 12;
+    public int Health { get; set; } = 12;
+    public int DefenseLower { get; set; } = 0;
+    public int DefenseUpper { get; set; } = 1;
+
+    public Deck<Card> Deck;
+
+    private Discard<Card> _discard;
+
+    public Discard<Card> Discard {
+        get => _discard;
+        set {
+            _discard = value;
+            Deck.Discard = value;
+        }
+    }
 
     public override void _Ready() {
         SelectButton = GetNode<Button>("SelectButton");
         Rect = GetNode<ColorRect>("ColorRect");
         Rect.Color = new Color(0, 1, 0);
+    }
+
+    public override void _Process(double delta) { }
+
+    private void OnPress() {
+        EmitSignal(SignalName.EnemySelected, this);
+    }
+
+    public Card DrawCard() {
+        return Deck.DrawCards(1)[0];
+    }
+
+    public void TakeCardIntoDiscard(Card card) {
+        Discard.AddCard(card);
     }
 
     public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
@@ -46,30 +76,25 @@ public partial class Enemy : Node2D {
             DefenseUpper = 0;
             DefenseLower = 0;
         }
+
         //else { Lose turn }
     }
 
     private void DirectDamage(int damage) {
-        CurrentHealth = Math.Max(0, CurrentHealth - damage);
+        Health = Math.Max(0, Health - damage);
         HealthColorCheck();
     }
 
     private void HealthColorCheck() {
         float blue = (DefenseUpper > 0 ? 0.5f : 0f) + (DefenseLower > 0 ? 0.5f : 0f);
-        if (CurrentHealth == 0) { ChangeColour(new Color(0, 0, blue)); }
+        if (Health == 0) { ChangeColour(new Color(0, 0, blue)); }
         else {
-            float healthRatio = (float)CurrentHealth / MaxHealth;
+            float healthRatio = (float)Health / MaxHealth;
             ChangeColour(new Color(1f - healthRatio, healthRatio, blue));
         }
     }
 
-    public override void _Process(double delta) { }
-
     public void ChangeColour(Color color) {
         Rect.Color = color;
-    }
-
-    private void OnPress() {
-        EmitSignal(SignalName.EnemySelected, this);
     }
 }

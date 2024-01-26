@@ -1,4 +1,5 @@
 using Godot;
+using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.battle.card;
 
@@ -58,55 +59,38 @@ public class Card {
 
         // todo this section is just for testing, remove later
         // Colour is a test feature, to help with debugging
-        // setting targetRequired here is temporary, as datafiles do not track this information,
-        // and there is not yet another means of setting this flag
-        uint randint = GD.Randi() % 3;
-        switch (randint) {
-            case 0:
-                color = new Color(1, 1, 1);
-                targetRequired = true;
-                break;
-            case 1:
-                color = new Color(1, 0.5f, 0.5f);
-                targetRequired = false;
-                break;
-            case 2:
-                color = new Color(0, 0, 0);
-                targetRequired = true;
-                break;
-        }
+        color = new Color(1, 1, 1);
 
         return this;
     }
 
-    public virtual void Play(GameState gameState) {
+    public virtual void Play(GameState gameState, Target target, Target player) {
+        // not the player player, they who played this card
+        GD.Print(player.GetType().ToString().Split('.')[^1] + " played " + CardName);
         if (Attack != 0) {
-            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); }
+            if (TargetRequired || player is Enemy) { target.Damage(Attack); }
             else {
                 foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
             }
         }
 
-        if (DefenseLower != 0) { gameState.ModifyPlayerBlock(DefenseLower, Utils.PositionEnum.Lower); }
+        if (DefenseLower != 0) { player.ModifyBlock(DefenseLower, Utils.PositionEnum.Lower); }
 
-        if (DefenseUpper != 0) { gameState.ModifyPlayerBlock(DefenseUpper, Utils.PositionEnum.Upper); }
+        if (DefenseUpper != 0) { player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper); }
 
-        if (Health != 0) { gameState.HealPlayer(Health); }
+        if (Health != 0) { player.Heal(Health); }
 
-        if (CardDraw > 0) { gameState.Draw(CardDraw); }
+        if (player is not Enemy) {
+            if (CardDraw > 0) { gameState.Draw(CardDraw); }
 
-        if (TargetRequired) { Effect(Id, gameState.GetSelectedEnemy(), gameState); }
-        else {
-            foreach (Enemy enemy in gameState.Enemies) { Effect(Id, enemy, gameState); }
+            if (Discard > 0) {
+                // swalsh TODO: Emit Event?
+                // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
+                // gameState.DiscardCards(Health);
+            }
+
+            gameState.ComboCheck(this);
         }
-
-        if (Discard > 0) {
-            // swalsh TODO: Emit Event?
-            // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
-            // gameState.DiscardCards(Health);
-        }
-
-        gameState.ComboCheck(this);
     }
 
     public virtual Card Clone() {

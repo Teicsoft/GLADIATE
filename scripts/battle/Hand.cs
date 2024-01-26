@@ -9,18 +9,14 @@ public partial class Hand : Path2D {
 
     private int selectedCardIndex = -1;
     private PathFollow2D handCardLocation;
-    public Discard discard;
+    public Discard<CardSleeve> discard;
 
     public override void _Ready() {
         handCardLocation = GetNode<PathFollow2D>("HandCardLocation");
     }
 
     public new void AddCards(List<CardSleeve> cardSleeves) {
-        foreach (CardSleeve cardSleeve in cardSleeves)
-        {
-            AddCard(cardSleeve);
-        }
-
+        foreach (CardSleeve cardSleeve in cardSleeves) { AddCard(cardSleeve); }
     }
 
     private new void AddCard(CardSleeve cardSleeve) {
@@ -34,7 +30,9 @@ public partial class Hand : Path2D {
         return selectedCardIndex != -1 ? cards[selectedCardIndex] : null;
     }
 
-    public void Discard() { Discard(cards[selectedCardIndex]); }
+    public void Discard() {
+        Discard(cards[selectedCardIndex]);
+    }
 
     public void Discard(CardSleeve cardSleeve) {
         cardSleeve.CardSelected -= SelectCard;
