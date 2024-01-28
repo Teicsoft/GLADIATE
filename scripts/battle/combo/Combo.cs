@@ -21,7 +21,7 @@ public class Combo {
     public int DefenseLower { get; set; }
     public int DefenseUpper { get; set; }
     public int Health { get; set; }
-    public int Draw { get; set; }
+    public int CardDraw { get; set; }
     public int Discard { get; set; }
     public int SpectaclePoints { get; set; }
 
@@ -44,7 +44,7 @@ public class Combo {
     public AudioStream Sound { get; set; }
 
     public Combo(string id, List<Card> cardList, Utils.ModifierEnum modifier, Utils.PositionEnum position, int attack,
-        int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, string name,
+        int defenseLower, int defenseUpper, int health, int cardDraw, int discard, int spectaclePoints, string name,
         string description, string lore, string onscreenText, string imagePath, string charAnimationPath,
         string stageAnimationPath, string soundPath) {
         this.Id = id;
@@ -56,7 +56,7 @@ public class Combo {
         this.DefenseLower = defenseLower;
         this.DefenseUpper = defenseUpper;
         this.Health = health;
-        this.Draw = draw;
+        this.CardDraw = cardDraw;
         this.Discard = discard;
         this.SpectaclePoints = spectaclePoints;
 
@@ -73,9 +73,9 @@ public class Combo {
 
     public virtual void Play(GameState gameState) {
         if (Attack != 0) {
-            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack); }
+            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack, Position); }
             else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, Position); }
             }
         }
 
@@ -84,6 +84,8 @@ public class Combo {
         if (DefenseUpper != 0) { gameState.ModifyPlayerBlock(DefenseUpper, Utils.PositionEnum.Upper); }
 
         if (Health != 0) { gameState.HealPlayer(Health); }
+
+        if (CardDraw > 0) { gameState.Draw(CardDraw); }
 
         if (Discard > 0) {
             // swalsh TODO: Emit Event?

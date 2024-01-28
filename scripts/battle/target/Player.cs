@@ -3,8 +3,19 @@
 namespace TeicsoftSpectacleCards.scripts.battle.target;
 
 public class Player : Target {
+
+    public event EventHandler PlayerHealthChangedCustomEvent;
     public int MaxHealth { get; set; }
-    public int Health { get; set; }
+    private int _health;
+
+    public int Health {
+        get => _health;
+        set {
+            _health = value;
+            PlayerHealthChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     public int DefenseLower { get; set; }
     public int DefenseUpper { get; set; }
 

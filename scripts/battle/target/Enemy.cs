@@ -9,17 +9,49 @@ public partial class Enemy : Node2D,
     [Signal]
     public delegate void EnemySelectedEventHandler(Enemy enemy);
 
-    private ColorRect Rect;
-    private Button SelectButton;
+    private ColorRect _rect;
+    private Button _selectButton;
 
     public int MaxHealth { get; set; } = 12;
-    public int Health { get; set; } = 12;
-    public int DefenseLower { get; set; } = 0;
-    public int DefenseUpper { get; set; } = 1;
+    private int _health = 12;
+
+    public int Health {
+        get => _health;
+        set {
+            _health = value;
+            UpdateHealthBar();
+        }
+    }
+
+    private int _defenseLower = 0;
+
+    public int DefenseLower {
+        get => _defenseLower;
+        set {
+            _defenseLower = value;
+            UpdateDefenseLowerDisplay();
+        }
+    }
+
+    private int _defenseUpper = 1;
+
+    public int DefenseUpper {
+        get => _defenseUpper;
+        set {
+            _defenseUpper = value;
+            UpdateDefenseUpperDisplay();
+        }
+    }
 
     public Deck<Card> Deck;
 
     private Discard<Card> _discard;
+    private Label _healthDisplay;
+    private ProgressBar _healthProgressBar;
+    private ColorRect _upperBlockRect;
+    private Label _upperBlockDisplay;
+    private ColorRect _lowerBlockRect;
+    private Label _lowerBlockDisplay;
 
     public Discard<Card> Discard {
         get => _discard;
@@ -30,9 +62,19 @@ public partial class Enemy : Node2D,
     }
 
     public override void _Ready() {
-        SelectButton = GetNode<Button>("SelectButton");
-        Rect = GetNode<ColorRect>("ColorRect");
-        Rect.Color = new Color(0, 1, 0);
+        _selectButton = GetNode<Button>("SelectButton");
+        _rect = GetNode<ColorRect>("ColorRect");
+        _healthDisplay = GetNode<Label>("HealthDisplay");
+        _healthDisplay.Text = MaxHealth + "/" + MaxHealth;
+        _healthProgressBar = GetNode<ProgressBar>("HealthProgressBar");
+        _healthProgressBar.Ratio = 1;
+        _upperBlockRect = GetNode<ColorRect>("UpperBlockRect");
+        _upperBlockDisplay = GetNode<Label>("UpperBlockDisplay");
+        _lowerBlockRect = GetNode<ColorRect>("LowerBlockRect");
+        _lowerBlockDisplay = GetNode<Label>("LowerBlockDisplay");
+        UpdateHealthBar();
+        UpdateDefenseUpperDisplay();
+        UpdateDefenseLowerDisplay();
     }
 
     public override void _Process(double delta) { }
@@ -82,19 +124,19 @@ public partial class Enemy : Node2D,
 
     private void DirectDamage(int damage) {
         Health = Math.Max(0, Health - damage);
-        HealthColorCheck();
     }
 
-    private void HealthColorCheck() {
-        float blue = (DefenseUpper > 0 ? 0.5f : 0f) + (DefenseLower > 0 ? 0.5f : 0f);
-        if (Health == 0) { ChangeColour(new Color(0, 0, blue)); }
-        else {
-            float healthRatio = (float)Health / MaxHealth;
-            ChangeColour(new Color(1f - healthRatio, healthRatio, blue));
-        }
+    private void UpdateHealthBar() {
+        _healthDisplay.Text = Health + "/" + MaxHealth;
+        _healthProgressBar.Ratio = (double)Health / MaxHealth;
     }
 
-    public void ChangeColour(Color color) {
-        Rect.Color = color;
+    private void UpdateDefenseUpperDisplay() {
+        _upperBlockRect.Color = new Color(0, 0, DefenseUpper > 0 ? 1 : 0);
+        _upperBlockDisplay.Text = DefenseUpper.ToString();
+    }
+    private void UpdateDefenseLowerDisplay() {
+        _lowerBlockRect.Color = new Color(0, 0, DefenseLower > 0 ? 1 : 0);
+        _lowerBlockDisplay.Text = DefenseLower.ToString();
     }
 }

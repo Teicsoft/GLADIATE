@@ -68,9 +68,9 @@ public class Card {
         // not the player player, they who played this card
         GD.Print(player.GetType().ToString().Split('.')[^1] + " played " + CardName);
         if (Attack != 0) {
-            if (TargetRequired || player is Enemy) { target.Damage(Attack); }
+            if (TargetRequired || player is Enemy) { target.Damage(Attack, TargetPosition); }
             else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, TargetPosition); }
             }
         }
 
@@ -112,7 +112,7 @@ public class Card {
     public void Effect(string id, Enemy enemy, GameState gameState) {
         switch (id) {
             //combo cases
-            case "combo_02":
+            case "combo_mgk":
                 gameState.Multiplier *= 2;
                 break;
 

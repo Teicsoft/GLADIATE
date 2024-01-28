@@ -4,7 +4,7 @@
 <!-- used to save a combo including card order, stats and design -->
 <!-- To use, copy this file and rename it to combo_name.xml -->
 
-<combo id="combo_02" modifier="None" position="NOne"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<combo id="combo_mgk" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
     <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
         <card card_id="card_kick"/> <!--card_id: string-->
         <card card_id="card_kick"/>
@@ -30,7 +30,7 @@
     </design>
 
     <text>
-        <name>Combo Name</name> <!--string-->
+        <name>Machine Gun Kicks</name> <!--string-->
         <description>Combo Description</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->

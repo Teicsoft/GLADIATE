@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,18 @@ using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public partial class Battle : Node2D {
 
-    [Export] private PackedScene cardScene;
-    [Export] private PackedScene enemyScene;
-    private Hand hand;
-    private Deck<CardSleeve> deck;
-    private Discard<CardSleeve> discard;
-    private PathFollow2D enemiesLocation;
-    private GameState gameState;
+    [Export] private PackedScene _cardScene;
+    [Export] private PackedScene _enemyScene;
+    private Hand _hand;
+    private Deck<CardSleeve> _deck;
+    private Discard<CardSleeve> _discard;
+    private PathFollow2D _enemiesLocation;
+    private GameState _gameState;
+    private ProgressBar _playerHealthProgressBar;
+    private Label _multiplierDisplay;
+    private Label _spectacleDisplay;
+    private Label _playerHealthDisplay;
+    private ColorRect _selectedIndicator;
 
     public override void _Ready() {
         ModelTesting();
@@ -22,54 +28,89 @@ public partial class Battle : Node2D {
         Dictionary<string, List<string>> decks = DeckXmlParser.ParseAllDecks();
         List<string> playerCardIds;
         decks.TryGetValue("deck_player", out playerCardIds);
-        deck = new Deck<CardSleeve>();
-        deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
-        gameState = new GameState();
-        hand = GetNode<Hand>("Hand");
-        discard = new Discard<CardSleeve>();
-        deck.Discard = discard;
-        hand.discard = discard;
-        enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
-        gameState.Hand = hand;
-        gameState.Deck = deck;
-        deck.Shuffle();
-        gameState.Draw(4);
-        
+        _discard = new Discard<CardSleeve>();
+        _deck = new Deck<CardSleeve>();
+        _deck.Discard = _discard;
+        _deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
+        _hand = GetNode<Hand>("Hand");
+        _hand.discard = _discard;
+        _gameState = new GameState();
+        _gameState.Hand = _hand;
+        _gameState.Deck = _deck;
+        _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
+        _gameState.MultiplierChangedCustomEvent += OnMultiplierChanged;
+        _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
+        _deck.Shuffle();
+        _gameState.Draw(4);
+        _playerHealthDisplay = GetNode<Label>("HUD/PlayerHealthDisplay");
+        _playerHealthDisplay.Text = _gameState.Player.MaxHealth + "/" + _gameState.Player.MaxHealth;
+        _playerHealthProgressBar = GetNode<ProgressBar>("HUD/PlayerHealthProgressBar");
+        _playerHealthProgressBar.Ratio = 1;
+        _spectacleDisplay = GetNode<Label>("HUD/SpectacleDisplay");
+        _multiplierDisplay = GetNode<Label>("HUD/MultiplierDisplay");
+        _selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
 
-        List<string> enemyCardIds;
-        decks.TryGetValue("deck_enemy", out enemyCardIds);
-        float locationRatio = 1f / 2;
-        foreach (int i in Enumerable.Range(0, 3)) {
-            Enemy enemy = enemyScene.Instantiate<Enemy>();
-            Deck<Card> enemyDeck = new();
-            enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
-            enemyDeck.Shuffle();
-            enemy.Deck = enemyDeck;
-            enemy.Discard = new();
-            enemy.EnemySelected += gameState.SelectEnemy;
-            gameState.Enemies.Add(enemy);
-            enemiesLocation.ProgressRatio = i * locationRatio;
-            enemy.Position = enemiesLocation.Position;
+        _enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
+        decks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
+        const int enemyCount = 3;
+        foreach (int i in Enumerable.Range(0, enemyCount)) {
+            Enemy enemy = CreateEnemy(GetEnemyDeck(enemyCardIds), (float)i / (enemyCount - 1));
             AddChild(enemy);
+            _gameState.Enemies.Add(enemy);
         }
 
         GD.Print(" ==== ==== START GAME ==== ====");
-        GD.Print(gameState.SpectaclePoints);
-        GD.Print(gameState.Player.Health);
+    }
+
+    private Enemy CreateEnemy(Deck<Card> enemyDeck, float progressRatio) {
+        Enemy enemy = _enemyScene.Instantiate<Enemy>();
+        _enemiesLocation.ProgressRatio = progressRatio;
+        enemy.Position = _enemiesLocation.Position;
+        enemy.Deck = enemyDeck;
+        enemy.Discard = new();
+        enemy.EnemySelected += _gameState.SelectEnemy;
+        enemy.EnemySelected += MoveSelectedIndicator;
+        return enemy;
+    }
+
+    private static Deck<Card> GetEnemyDeck(List<string> enemyCardIds) {
+        Deck<Card> enemyDeck = new();
+        enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
+        enemyDeck.Shuffle();
+        return enemyDeck;
+    }
+
+    private void MoveSelectedIndicator(Enemy enemy) {
+        _selectedIndicator.Position =
+            enemy.Position != _selectedIndicator.Position ? enemy.Position : new Vector2(-100, 520);
     }
 
     public override void _Process(double delta) { }
 
+    private void OnPlayerHealthChanged(object sender, EventArgs e) {
+        Player playerObject = _gameState.Player;
+        _playerHealthDisplay.Text = playerObject.Health + "/" + playerObject.MaxHealth;
+        _playerHealthProgressBar.Ratio = (double)playerObject.Health / playerObject.MaxHealth;
+    }
+
+    private void OnMultiplierChanged(object sender, EventArgs e) {
+        _multiplierDisplay.Text = _gameState.Multiplier.ToString();
+    }
+
+    private void OnSpectacleChanged(object sender, EventArgs e) {
+        _spectacleDisplay.Text = _gameState.SpectaclePoints.ToString();
+    }
+
     private void OnPlayButtonPressed() {
-        gameState.PlaySelectedCard();
+        _gameState.PlaySelectedCard();
     }
 
     private void OnDeckPressed() {
-        gameState.Draw();
+        _gameState.Draw();
     }
 
     private void EndTurn() {
-        gameState.EndTurn();
+        _gameState.EndTurn();
     }
 
     private void ModelTesting() {

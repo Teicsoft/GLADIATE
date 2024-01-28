@@ -45,7 +45,7 @@ public static class ComboXmlParser
         int defenseLower = Utils.ParseIntNode(statsNode, "defense_lower");
         int defenseUpper = Utils.ParseIntNode(statsNode, "defense_upper");
         int health = Utils.ParseIntNode(statsNode, "health");
-        int draw = Utils.ParseIntNode(statsNode, "draw");
+        int cardDraw = Utils.ParseIntNode(statsNode, "draw");
         int discard = Utils.ParseIntNode(statsNode, "discard");
         int spectaclePoints = Utils.ParseIntNode(statsNode, "spectacle_points");
 
@@ -62,7 +62,7 @@ public static class ComboXmlParser
         string onscreenText = Utils.ParseTextNode(textNode, "onscreen_text");
 
         Combo combo = new(comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower,
-            defenseUpper, health, draw, discard, spectaclePoints, name, description, lore, onscreenText, imagePath,
+            defenseUpper, health, cardDraw, discard, spectaclePoints, name, description, lore, onscreenText, imagePath,
             charAnimationPath, stageAnimationPath, soundPath);
 
         return combo;
