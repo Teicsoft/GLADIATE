@@ -97,12 +97,12 @@ public class GameState {
 
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
-        GD.Print("Combo Stack Size: " + ComboStack.Count);
 
         // find a matching combo if it exists, returns null if no match
         Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) {
             GD.Print("C-C-COMBO!!!");
+            GD.Print("Playing Combo: " + matchingCombo);
             ProcessCombo(matchingCombo);
         }
     }
@@ -110,11 +110,8 @@ public class GameState {
     private void ProcessCombo(Combo combo) {
         GD.Print("Playing Combo: " + (combo?.Name ?? "null"));
         combo?.Play(this);
-        GD.Print("Processing Multiplier");
         ProcessMultiplier(combo?.CardList.Count ?? 0);
-        GD.Print("Processing Spectacle");
         ProcessSpectaclePoints(combo?.SpectaclePoints ?? 0);
-        GD.Print("Clearing Combo Stack");
         ComboStack.Clear();
     }
 
@@ -143,19 +140,12 @@ public class GameState {
         int comboValue = (int)Math.Floor(Math.Pow(2, comboLength - 1));
         int blunderValue = (int)Math.Floor(Math.Pow(2, blunders - 1));
         int comboMult = comboValue - blunderValue;
-        GD.Print("Total ComboStack Size: " + ComboStack.Count);
-        GD.Print("Blunders: " + blunders);
-        GD.Print("comboValue: " + comboValue);
-        GD.Print("blunderValue: " + blunderValue);
-        GD.Print("Adding " + comboMult + " to Multiplier");
 
         Multiplier = Math.Max(Multiplier + comboMult, 1);
     }
 
     public void ProcessSpectaclePoints(int spectaclePoints) {
         foreach (Card card in ComboStack) { spectaclePoints += card.SpectaclePoints; }
-
-        GD.Print("Base Combo Spectacle Points: " + spectaclePoints);
 
         SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
     }

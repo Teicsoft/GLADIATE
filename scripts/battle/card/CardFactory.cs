@@ -110,7 +110,7 @@ public static class CardFactory {
         string soundPath, bool targetRequired) {
         Card card = ConstructCard(cardId);
 
-        return card.Initialize(cardId, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard,
+        return card.Initialize(cardId,modifier, position, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard,
             spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath);
     }
 }

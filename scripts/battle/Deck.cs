@@ -68,7 +68,6 @@ public class Deck<T> {
         List<T> draw = new();
         if (amount > 0) {
             if (Cards.Count == 0) {
-                GD.Print("Deck is empty!");
                 return OnDeckEmptied(amount);
             }
 

@@ -2,9 +2,13 @@
 
 namespace TeicsoftSpectacleCards.scripts.battle.target;
 
-public class Player : Target {
+public class Player : ITarget {
 
     public event EventHandler PlayerHealthChangedCustomEvent;
+    public event EventHandler PlayerDefenseLowerChangedCustomEvent;
+    public event EventHandler PlayerDefenseUpperChangedCustomEvent;
+
+    public string Name { get; set; }
     public int MaxHealth { get; set; }
     private int _health;
 
@@ -16,14 +20,32 @@ public class Player : Target {
         }
     }
 
-    public int DefenseLower { get; set; }
-    public int DefenseUpper { get; set; }
+    private int _defenseLower = 0;
+
+    public int DefenseLower {
+        get => _defenseLower;
+        set {
+            _defenseLower = value;
+            PlayerDefenseLowerChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private int _defenseUpper = 1;
+
+    public int DefenseUpper {
+        get => _defenseUpper;
+        set {
+            _defenseUpper = value;
+            PlayerDefenseUpperChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        }
+    }
 
     public Player(int maxHealth, int defenseLower, int defenseUpper) {
         MaxHealth = maxHealth;
         Health = maxHealth;
         DefenseLower = defenseLower;
         DefenseUpper = defenseUpper;
+        Name = "Player";
     }
 
     public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
