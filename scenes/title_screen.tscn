@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbpxaie8y57c2"]
+
+[ext_resource type="Texture2D" uid="uid://dvvl4jhn4amfj" path="res://assets/sprites/Dave's Eagle.png" id="1_6nopj"]
+[ext_resource type="Script" path="res://scripts/interface/TitleScreen.cs" id="1_sbgjw"]
+[ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_14m68"]
+[ext_resource type="Texture2D" uid="uid://c6idlull35fp4" path="res://assets/sprites/Dave/Gladiate.png" id="2_j5550"]
+
+[node name="Title Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sbgjw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.701961, 0.219608, 0.192157, 1)
+metadata/_edit_lock_ = true
+
+[node name="Trims" type="Control" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="TrimRight" type="TextureRect" parent="ColorRect/Trims"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_14m68")
+flip_v = true
+
+[node name="TrimLeft" type="TextureRect" parent="ColorRect/Trims"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 52.0
+grow_vertical = 2
+texture = ExtResource("2_14m68")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -244.5
+offset_top = -163.5
+offset_right = 244.5
+offset_bottom = 163.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Eagle" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_6nopj")
+
+[node name="Title" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_j5550")
+
+[node name="MovetoMainMenu" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="StartMusic" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="MovetoMainMenu" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="StartMusic" to="." method="_on_start_music_timeout"]

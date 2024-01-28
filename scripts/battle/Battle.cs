@@ -34,7 +34,7 @@ public partial class Battle : Node2D {
         gameState.Deck = deck;
         deck.Shuffle();
         gameState.Draw(4);
-
+        
 
         List<string> enemyCardIds;
         decks.TryGetValue("deck_enemy", out enemyCardIds);
