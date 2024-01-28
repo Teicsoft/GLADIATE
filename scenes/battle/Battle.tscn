@@ -21,8 +21,8 @@ point_count = 2
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_bmdek")
-cardScene = ExtResource("3_citfa")
-enemyScene = ExtResource("3_25d28")
+_cardScene = ExtResource("3_citfa")
+_enemyScene = ExtResource("3_25d28")
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -98,6 +98,81 @@ offset_bottom = 160.0
 grow_horizontal = 0
 grow_vertical = 2
 text = "End Turn"
+
+[node name="PlayerHealthLabel" type="Label" parent="HUD"]
+offset_left = 180.0
+offset_right = 280.0
+offset_bottom = 50.0
+text = "Player HP"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MultiplierLabel" type="Label" parent="HUD"]
+offset_left = 180.0
+offset_top = 50.0
+offset_right = 280.0
+offset_bottom = 100.0
+text = "Multiplier"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpectacleLabel" type="Label" parent="HUD"]
+offset_left = 180.0
+offset_top = 100.0
+offset_right = 280.0
+offset_bottom = 150.0
+text = "Spectacle"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PlayerHealthProgressBar" type="ProgressBar" parent="HUD"]
+offset_left = 300.0
+offset_top = 5.0
+offset_right = 1620.0
+offset_bottom = 45.0
+step = 1.0
+rounded = true
+show_percentage = false
+
+[node name="MultiplierDisplay" type="Label" parent="HUD"]
+offset_left = 300.0
+offset_top = 55.0
+offset_right = 400.0
+offset_bottom = 95.0
+text = "1"
+vertical_alignment = 1
+
+[node name="SpectacleDisplay" type="Label" parent="HUD"]
+offset_left = 300.0
+offset_top = 105.0
+offset_right = 400.0
+offset_bottom = 145.0
+text = "0"
+vertical_alignment = 1
+
+[node name="PlayerHealthDisplay" type="Label" parent="HUD"]
+offset_left = 300.0
+offset_top = 5.0
+offset_right = 400.0
+offset_bottom = 45.0
+text = "1"
+vertical_alignment = 1
+
+[node name="SelectedIndicator" type="ColorRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1060.0
+offset_top = -20.0
+offset_right = -1020.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(20, 20)
+color = Color(1, 0, 0, 1)
 
 [node name="Hand" type="Path2D" parent="."]
 curve = SubResource("Curve2D_xvv15")
