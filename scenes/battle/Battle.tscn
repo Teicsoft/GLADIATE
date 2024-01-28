@@ -103,7 +103,7 @@ text = "End Turn"
 offset_left = 180.0
 offset_right = 280.0
 offset_bottom = 50.0
-text = "Player HP"
+text = "Player"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -126,9 +126,9 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="PlayerHealthProgressBar" type="ProgressBar" parent="HUD"]
-offset_left = 300.0
+offset_left = 350.0
 offset_top = 5.0
-offset_right = 1620.0
+offset_right = 1630.0
 offset_bottom = 45.0
 step = 1.0
 rounded = true
@@ -151,9 +151,9 @@ text = "0"
 vertical_alignment = 1
 
 [node name="PlayerHealthDisplay" type="Label" parent="HUD"]
-offset_left = 300.0
+offset_left = 350.0
 offset_top = 5.0
-offset_right = 400.0
+offset_right = 450.0
 offset_bottom = 45.0
 text = "1"
 vertical_alignment = 1
@@ -173,6 +173,36 @@ grow_vertical = 2
 rotation = 0.785398
 pivot_offset = Vector2(20, 20)
 color = Color(1, 0, 0, 1)
+
+[node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
+offset_left = 300.0
+offset_top = 5.0
+offset_right = 350.0
+offset_bottom = 25.0
+color = Color(0, 0, 1, 1)
+
+[node name="PlayerUpperBlockDisplay" type="Label" parent="HUD"]
+offset_left = 300.0
+offset_right = 350.0
+offset_bottom = 25.0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="PlayerLowerBlockRect" type="ColorRect" parent="HUD"]
+offset_left = 300.0
+offset_top = 25.0
+offset_right = 350.0
+offset_bottom = 45.0
+color = Color(0, 0, 1, 1)
+
+[node name="PlayerLowerBlockDisplay" type="Label" parent="HUD"]
+offset_left = 300.0
+offset_top = 25.0
+offset_right = 350.0
+offset_bottom = 50.0
+text = "1"
+horizontal_alignment = 1
 
 [node name="Hand" type="Path2D" parent="."]
 curve = SubResource("Curve2D_xvv15")

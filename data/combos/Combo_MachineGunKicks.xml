@@ -4,7 +4,7 @@
 <!-- used to save a combo including card order, stats and design -->
 <!-- To use, copy this file and rename it to combo_name.xml -->
 
-<combo id="combo_mgk" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<combo id="combo_mgk" modifier="None" position="Lower"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
     <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
         <card card_id="card_kick"/> <!--card_id: string-->
         <card card_id="card_kick"/>

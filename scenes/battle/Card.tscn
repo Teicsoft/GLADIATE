@@ -2,22 +2,63 @@
 
 [ext_resource type="Script" path="res://scripts/battle/card/CardSleeve.cs" id="1_bqmvl"]
 
-[node name="Card" type="Node2D"]
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_bqmvl")
 metadata/_edit_group_ = true
 
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -100.0
+offset_top = -140.0
+offset_right = 100.0
+offset_bottom = 140.0
+color = Color(0.701961, 0.219608, 0.192157, 1)
+
+[node name="Art" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -80.0
+offset_top = -95.0
+offset_right = 80.0
+offset_bottom = -5.0
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = -80.0
+offset_top = -120.0
+offset_right = 80.0
+offset_bottom = -90.0
+theme_override_colors/font_shadow_color = Color(0.533333, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.533333, 0, 0, 1)
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 0
+offset_left = -80.0
+offset_right = 80.0
+offset_bottom = 120.0
+theme_override_colors/font_shadow_color = Color(0.533333, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.533333, 0, 0, 1)
+text = "Description"
+horizontal_alignment = 1
+autowrap_mode = 3
+
 [node name="SelectButton" type="Button" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.0
+offset_left = -100.0
 offset_top = -140.0
-offset_right = 90.0
+offset_right = 100.0
 offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Card"
+flat = true
 
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]

@@ -5,13 +5,14 @@ using TeicsoftSpectacleCards.scripts.battle.card;
 namespace TeicsoftSpectacleCards.scripts.battle.target;
 
 public partial class Enemy : Node2D,
-    Target {
+    ITarget {
     [Signal]
     public delegate void EnemySelectedEventHandler(Enemy enemy);
 
     private ColorRect _rect;
     private Button _selectButton;
 
+    public string Name { get; set; }
     public int MaxHealth { get; set; } = 12;
     private int _health = 12;
 
@@ -52,6 +53,7 @@ public partial class Enemy : Node2D,
     private Label _upperBlockDisplay;
     private ColorRect _lowerBlockRect;
     private Label _lowerBlockDisplay;
+    public Color Color;
 
     public Discard<Card> Discard {
         get => _discard;
@@ -64,6 +66,7 @@ public partial class Enemy : Node2D,
     public override void _Ready() {
         _selectButton = GetNode<Button>("SelectButton");
         _rect = GetNode<ColorRect>("ColorRect");
+        _rect.Color = Color;
         _healthDisplay = GetNode<Label>("HealthDisplay");
         _healthDisplay.Text = MaxHealth + "/" + MaxHealth;
         _healthProgressBar = GetNode<ProgressBar>("HealthProgressBar");
@@ -92,6 +95,8 @@ public partial class Enemy : Node2D,
     }
 
     public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
+        GD.Print("position");
+        GD.Print(position);
         bool blocked = false;
         switch (position) {
             case Utils.PositionEnum.Upper:
@@ -109,6 +114,8 @@ public partial class Enemy : Node2D,
 
                 break;
         }
+        GD.Print("blocked");
+        GD.Print(blocked);
 
         if (!blocked) { DirectDamage(damage); }
     }
@@ -124,6 +131,17 @@ public partial class Enemy : Node2D,
 
     private void DirectDamage(int damage) {
         Health = Math.Max(0, Health - damage);
+    }
+
+    public void ModifyBlock(int change, Utils.PositionEnum position) {
+        switch (position) {
+            case Utils.PositionEnum.Upper:
+                DefenseUpper += change;
+                break;
+            case Utils.PositionEnum.Lower:
+                DefenseLower += change;
+                break;
+        }
     }
 
     private void UpdateHealthBar() {
