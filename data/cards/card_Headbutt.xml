@@ -2,7 +2,7 @@
 
 <card id="card_headbutt" type="Attack" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
-    <!-- Deals 2 Damage to self -->
+    <!-- Deals 5 Damage to self -->
     
     <stats>
         <attack>10</attack> <!--int-->

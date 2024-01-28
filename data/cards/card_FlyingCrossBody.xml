@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<card id="card_FlyingCrossBody" type="Attack" modifier="None" position ="Both"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_FlyingCrossBody" type="Attack" modifier="Grounded" position ="Lower"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
       
     <!-- Hits up to 3 targets, SP multiplied by targets, damage divided by targets -->
     
     <stats>
-        <attack>3</attack> <!--int-->
+        <attack>6</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
         <draw>0</draw> <!--int-->
         <discard>0</discard> <!--int-->
-        <spectacle_points>15</spectacle_points> <!--int-->
+        <spectacle_points>8</spectacle_points> <!--int-->
     </stats>
     
     <design>

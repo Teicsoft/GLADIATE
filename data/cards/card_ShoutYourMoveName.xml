@@ -10,7 +10,7 @@
         <heal>0</heal> <!--int-->
         <draw>0</draw> <!--int-->
         <discard>0</discard> <!--int-->
-        <spectacle_points>5</spectacle_points> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
     </stats>
     
     <design>

@@ -2,7 +2,7 @@
 
 <card id="card_BloodOnTheSand" type="Draw" modifier="None" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
-    <!-- Deal 5 damage to yourself -->
+    <!-- Deal 5 damage to user -->
     
     <stats>
         <attack>0</attack> <!--int-->
