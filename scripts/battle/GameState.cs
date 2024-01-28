@@ -9,9 +9,28 @@ namespace TeicsoftSpectacleCards.scripts.battle;
 
 public class GameState {
 
+    public event EventHandler MultiplierChangedCustomEvent;
+    public event EventHandler SpectacleChangedCustomEvent;
     public Player Player;
-    public int Multiplier { get; set; }
-    public int SpectaclePoints { get; set; }
+    private int _multiplier;
+
+    public int Multiplier {
+        get => _multiplier;
+        set {
+            _multiplier = value;
+            MultiplierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private int _spectaclePoints;
+
+    public int SpectaclePoints {
+        get => _spectaclePoints;
+        set {
+            _spectaclePoints = value;
+            SpectacleChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        }
+    }
 
     public List<Card> ComboStack { get; set; }
 
@@ -20,7 +39,7 @@ public class GameState {
     private List<Combo> AllCombos { get; set; }
 
     public List<Enemy> Enemies = new();
-    private int SelectedEnemyIndex = -1;
+    private int _selectedEnemyIndex = -1;
     public Hand Hand;
     public Deck<CardSleeve> Deck;
 
@@ -34,10 +53,8 @@ public class GameState {
     }
 
     public void EndTurn() {
-        GD.Print(SpectaclePoints);
-        GD.Print(Player.Health);
         ProcessCombo(null);
-        foreach (Enemy enemy in Enemies) {
+        foreach (Enemy enemy in Enemies.FindAll(enemy => enemy.Health > 0)) {
             Card card = enemy.DrawCard();
             card.Play(this, Player, enemy);
             enemy.TakeCardIntoDiscard(card);
@@ -49,8 +66,6 @@ public class GameState {
 
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
-        GD.Print(SpectaclePoints);
-        GD.Print(Player.Health);
         Draw();
     }
 
@@ -82,20 +97,24 @@ public class GameState {
 
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
+        GD.Print("Combo Stack Size: " + ComboStack.Count);
 
         // find a matching combo if it exists, returns null if no match
         Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) {
             GD.Print("C-C-COMBO!!!");
-            GD.Print(matchingCombo.Name);
             ProcessCombo(matchingCombo);
         }
     }
 
     private void ProcessCombo(Combo combo) {
+        GD.Print("Playing Combo: " + (combo?.Name ?? "null"));
         combo?.Play(this);
+        GD.Print("Processing Multiplier");
         ProcessMultiplier(combo?.CardList.Count ?? 0);
+        GD.Print("Processing Spectacle");
         ProcessSpectaclePoints(combo?.SpectaclePoints ?? 0);
+        GD.Print("Clearing Combo Stack");
         ComboStack.Clear();
     }
 
@@ -124,12 +143,19 @@ public class GameState {
         int comboValue = (int)Math.Floor(Math.Pow(2, comboLength - 1));
         int blunderValue = (int)Math.Floor(Math.Pow(2, blunders - 1));
         int comboMult = comboValue - blunderValue;
+        GD.Print("Total ComboStack Size: " + ComboStack.Count);
+        GD.Print("Blunders: " + blunders);
+        GD.Print("comboValue: " + comboValue);
+        GD.Print("blunderValue: " + blunderValue);
+        GD.Print("Adding " + comboMult + " to Multiplier");
 
         Multiplier = Math.Max(Multiplier + comboMult, 1);
     }
 
     public void ProcessSpectaclePoints(int spectaclePoints) {
         foreach (Card card in ComboStack) { spectaclePoints += card.SpectaclePoints; }
+
+        GD.Print("Base Combo Spectacle Points: " + spectaclePoints);
 
         SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
     }
@@ -156,12 +182,12 @@ public class GameState {
     // ****
 
     public Enemy GetSelectedEnemy() {
-        return SelectedEnemyIndex != -1 ? Enemies[SelectedEnemyIndex] : null;
+        return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null;
     }
 
     public void SelectEnemy(Enemy enemy) {
         int enemyIndex = Enemies.IndexOf(enemy);
-        SelectedEnemyIndex = SelectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
 
     // ****
