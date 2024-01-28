@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TeicsoftSpectacleCards.scripts.audio;
 using TeicsoftSpectacleCards.scripts.autoloads;
 
@@ -7,19 +8,21 @@ public partial class MainMenu : Control
 {
     private AudioEngine audioEngine;
 
-    // this dictionary is used to declare what audio is used by this scene, so it can be preloaded in AudioEngine
-    Dictionary<string, AudioEngine.AudioType> AudioDeclaration = new Dictionary<string, AudioEngine.AudioType>()
-    {
-        {"Shop_loop_audio.wav", AudioEngine.AudioType.Music},
-        {"venividivichy.wav", AudioEngine.AudioType.Music},
-        {"testsound1.ogg", AudioEngine.AudioType.SoundFx}
-    };
     
     private void _on_ready()
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        audioEngine.PreloadAudio(AudioDeclaration);
-        StartMusic();
+        
+        //this is ugly, but I'm just doing this for speed while designing. Will come back later and clean up
+        AnimatedSprite2D goon = GetNode<AnimatedSprite2D>("GoonSquad/Goon");
+        goon.Play();
+        AnimatedSprite2D goon2 = GetNode<AnimatedSprite2D>("GoonSquad/Goon2");
+        goon2.Frame = 10;
+        goon2.Play();
+        AnimatedSprite2D remus = GetNode<AnimatedSprite2D>("BG/Remus");
+        remus.Play();
+        
+        
     }
     
     private void _on_start_game_button_pressed()
@@ -53,9 +56,4 @@ public partial class MainMenu : Control
         GetTree().Quit();
     }
     
-    private void StartMusic()
-    {
-        audioEngine.PlayMusic("venividivichy.wav");
-
-    }
 }
