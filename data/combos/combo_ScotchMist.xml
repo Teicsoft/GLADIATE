@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<combo id="combo_01" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<combo id="combo_ScotchMist" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+    
+    <!-- Combo Damage applies to all targets -->
+    
     <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
-        <card card_id="card_punch"/> <!--card_id: string-->
-        <card card_id="card_punch"/>
+        <card card_id="card_ShoutYourMoveName"/> <!--card_id: string-->
+        <card card_id="card_FlyingCrossBody"/>
+        <card card_id="card_headbutt"/>
     </cards>
     
     <stats>
-        <attack>0</attack> <!--int-->
+        <attack>5</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
-        <draw>1</draw> <!--int-->
+        <draw>0</draw> <!--int-->
         <discard>0</discard> <!--int-->
-        <spectacle_points>10</spectacle_points> <!--int-->
+        <spectacle_points>40</spectacle_points> <!--int-->
     </stats>
     
     <design>
@@ -24,7 +28,7 @@
     </design>
 
     <text>
-        <name>Pummel</name> <!--string-->
+        <name>ScotchMist</name> <!--string-->
         <description>Combo Description</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<card id="card_id" type="Attack" modifier="None" position ="Lower"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_Spartackle" type="Attack" modifier="None" position ="Lower"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
     
     <!-- 2x damage if opponent is grounded -->
     <stats>
