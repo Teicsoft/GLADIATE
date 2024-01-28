@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<combo id="combo_mgk" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<combo id="combo_mgk" modifier="None" position="Lower"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
 
     <!-- Combo multiplier X 2 -->
 

@@ -21,9 +21,9 @@
 
     <text>
         <name>Punch</name> <!--string-->
-        <description>Punch</description> <!--string-->
-        <lore>Punch</lore> <!--string-->
-        <tooltip_text>Punch</tooltip_text> <!--string-->
-        <onscreen_text>Punch</onscreen_text> <!--string-->
+        <description>2 Damage, Draw 1 Card. 10 SP.</description> <!--string-->
+        <lore>Deep Lore</lore> <!--string-->
+        <tooltip_text>Hover Text</tooltip_text> <!--string-->
+        <onscreen_text>Shown When card played</onscreen_text> <!--string-->
     </text>
 </card>

@@ -1,6 +1,7 @@
 ﻿namespace TeicsoftSpectacleCards.scripts.battle.target;
 
-public interface Target {
+public interface ITarget {
+    public string Name { get; set; }
     public int MaxHealth { get; set; }
     public int Health { get; set; }
     public int DefenseLower { get; set; }
