@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<card id="card_JudoThrow" type="Attack" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+       
+    <!--  	3x Damage and SP against Grappled opponent -->
+    
+    <stats>
+        <attack>1</attack> <!--int-->
+        <defense_lower>0</defense_lower> <!--int-->
+        <defense_upper>0</defense_upper> <!--int-->
+        <heal>0</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <discard>0</discard> <!--int-->
+        <spectacle_points>10</spectacle_points> <!--int-->
+    </stats>
+    
+    <design>
+        <image>res://assets/images/Cards/CardArt/JudoThrow.png</image> <!--path string-->
+        <animation>example_anim</animation> <!--path string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Judo Throw</name> <!--string-->
+        <description>Throw your opponant over your shoulder</description> <!--string-->
+        <lore>Use their weight against them</lore> <!--string-->
+        <tooltip_text>Throw your opponant over your shoulder</tooltip_text> <!--string-->
+        <onscreen_text>Judo Throw</onscreen_text> <!--string-->
+    </text>
+</card>

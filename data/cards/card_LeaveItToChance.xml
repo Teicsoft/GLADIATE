@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<card id="card_LeaveItToChance" type="Attack" modifier="None" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+       
+    <!-- Discard a card and then draw a card. If it is an attack, play it automatically. -->
+    
+    <stats>
+        <attack>0</attack> <!--int-->
+        <defense_lower>0</defense_lower> <!--int-->
+        <defense_upper>0</defense_upper> <!--int-->
+        <heal>0</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <discard>0</discard> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
+    </stats>
+    
+    <design>
+        <image>example.png</image> <!--path string-->
+        <animation>example_anim</animation> <!--path string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Leave It To Chance</name> <!--string-->
+        <description>Leave It To Chance</description> <!--string-->
+        <lore>Leave It To Chance</lore> <!--string-->
+        <tooltip_text>Leave It To Chance</tooltip_text> <!--string-->
+        <onscreen_text>Leave It To Chance</onscreen_text> <!--string-->
+    </text>
+</card>

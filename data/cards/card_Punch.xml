@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Card Template -->
-<!-- used to save a card, including stats and design -->
-<!-- To use, copy this file and rename it to card_name.xml -->
-
 <card id="card_punch" type="Attack" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
     <stats>

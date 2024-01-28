@@ -10,6 +10,6 @@
         <card card_id="card_punch"/>  <!--card_id: string-->
         <card card_id="card_punch"/>  <!--card_id: string-->
         <card card_id="card_kick"/>
-        <card card_id="card_block"/>
+        <card card_id="card_FullBlock"/>
     </cards>
 </deck>
