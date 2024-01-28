@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Card Template -->
-<!-- used to save a card, including stats and design -->
-<!-- To use, copy this file and rename it to card_name.xml -->
-
-<card id="card_block" type="Block" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_ComeCloser" type="Block" modifier="None" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
+    <!-- If an enemy attacks you this turn, deal 5 damage and gain 10SP -->
     <stats>
         <attack>0</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
-        <defense_upper>1</defense_upper> <!--int-->
+        <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
         <draw>0</draw> <!--int-->
-        <discard>1</discard> <!--int-->
+        <discard>0</discard> <!--int-->
         <spectacle_points>0</spectacle_points> <!--int-->
-        <target_required>false</target_required> <!--true/false-->
     </stats>
     
     <design>
@@ -24,7 +20,7 @@
     </design>
 
     <text>
-        <name>Block</name> <!--string-->
+        <name>Card Name</name> <!--string-->
         <description>Card Description</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->

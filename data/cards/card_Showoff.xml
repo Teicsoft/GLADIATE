@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<card id="card_Showoff" type="Modifier" modifier="None" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+       
+    <!-- Double SP on next combo -->
+    <stats>
+        <attack>0</attack> <!--int-->
+        <defense_lower>0</defense_lower> <!--int-->
+        <defense_upper>0</defense_upper> <!--int-->
+        <heal>5</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <discard>1</discard> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
+    </stats>
+    
+    <design>
+        <image>example.png</image> <!--path string-->
+        <animation>example_anim</animation> <!--path string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Show off</name> <!--string-->
+        <description>Show off</description> <!--string-->
+        <lore>Show off</lore> <!--string-->
+        <tooltip_text>Show off</tooltip_text> <!--string-->
+        <onscreen_text>Show off</onscreen_text> <!--string-->
+    </text>
+</card>

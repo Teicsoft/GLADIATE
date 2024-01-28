@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<card id="card_UpperBlock" type="Block" modifier="None" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+       
+    <stats>
+        <attack>0</attack> <!--int-->
+        <defense_lower>0</defense_lower> <!--int-->
+        <defense_upper>1</defense_upper> <!--int-->
+        <heal>0</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <discard>1</discard> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
+    </stats>
+    
+    <design>
+        <image>example.png</image> <!--path string-->
+        <animation>example_anim</animation> <!--path string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Upper Block</name> <!--string-->
+        <description>Upper Block</description> <!--string-->
+        <lore>Upper Block</lore> <!--string-->
+        <tooltip_text>Upper Block</tooltip_text> <!--string-->
+        <onscreen_text>Upper Block</onscreen_text> <!--string-->
+    </text>
+</card>
