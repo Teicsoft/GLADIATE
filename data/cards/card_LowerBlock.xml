@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<card id="card_LowerBlock" type="Block" modifier="None" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+       
+    <stats>
+        <attack>0</attack> <!--int-->
+        <defense_lower>1</defense_lower> <!--int-->
+        <defense_upper>0</defense_upper> <!--int-->
+        <heal>0</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <discard>1</discard> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
+    </stats>
+    
+    <design>
+        <image>res://assets/images/Cards/CardArt/lowerBlock.png</image> <!--path string-->
+        <animation>example_anim</animation> <!--path string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Lower Block</name> <!--string-->
+        <description>Lower Block</description> <!--string-->
+        <lore>Lower Block</lore> <!--string-->
+        <tooltip_text>Lower Block</tooltip_text> <!--string-->
+        <onscreen_text>Lower Block</onscreen_text> <!--string-->
+    </text>
+</card>

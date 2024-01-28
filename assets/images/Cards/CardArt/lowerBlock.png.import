@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0p4kpweexsfc"
-path="res://.godot/imported/Reckless open.png-b02d72601d91c7781c6addc4ac836535.ctex"
+uid="uid://bb4b1d477ov4u"
+path="res://.godot/imported/lowerBlock.png-e24a0d2cc247fea67adef0d8608f031e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Cards/CardArt/Reckless open.png"
-dest_files=["res://.godot/imported/Reckless open.png-b02d72601d91c7781c6addc4ac836535.ctex"]
+source_file="res://assets/images/Cards/CardArt/lowerBlock.png"
+dest_files=["res://.godot/imported/lowerBlock.png-e24a0d2cc247fea67adef0d8608f031e.ctex"]
 
 [params]
 
