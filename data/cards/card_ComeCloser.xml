@@ -20,7 +20,7 @@
     </design>
 
     <text>
-        <name>Card Name</name> <!--string-->
+        <name>Come Closer</name> <!--string-->
         <description>Card Description</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->
