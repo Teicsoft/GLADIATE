@@ -8,7 +8,7 @@ public class Card {
     public Color color { get; set; }
 
     public string Id { get; set; } // card_id
-
+    
     public bool TargetRequired { get; set; }
     public Utils.ModifierEnum Modifier { get; set; }
     public Utils.PositionEnum TargetPosition { get; set; }
@@ -38,8 +38,9 @@ public class Card {
         string description = "", string lore = "", string tooltip = "", string imagePath = "",
         string animationPath = "", string soundPath = "") {
         this.Id = id;
-        Modifier = modifier;
-        TargetPosition = position;
+        this.Modifier = modifier;
+        this.TargetPosition = position;
+        
         this.TargetRequired = targetRequired;
 
         this.Attack = attack;
@@ -68,11 +69,11 @@ public class Card {
 
     public virtual void Play(GameState gameState, ITarget target, ITarget player) {
         // not the player player, they who played this card
-        GD.Print(player.Name + " played " + CardName);
+        GD.Print(player.GetType().ToString().Split('.')[^1] + " played " + CardName);
         if (Attack != 0) {
-            if (TargetRequired || player is Enemy) { target.Damage(Attack, TargetPosition); }
+            if (TargetRequired || player is Enemy) { target.Damage(Attack); }
             else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, TargetPosition); }
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
             }
         }
 
@@ -98,7 +99,7 @@ public class Card {
     public virtual Card Clone() {
         Card card = new Card();
 
-        card.Initialize(Id, Modifier, TargetPosition,TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
+        card.Initialize(Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
             SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath, SoundPath);
         card.color = new Color(this.color.R, this.color.G, this.color.B);
         return card;
@@ -114,7 +115,7 @@ public class Card {
     public void Effect(string id, Enemy enemy, GameState gameState) {
         switch (id) {
             //combo cases
-            case "combo_mgk":
+            case "combo_02":
                 gameState.Multiplier *= 2;
                 break;
 
