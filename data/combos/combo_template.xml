@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Combo Template -->
+<!-- To use, copy this file and rename it to combo_name.xml -->
+<!-- To use, copy this file and rename it to combo_name.xml -->
+
 <combo id="combo_id" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
     
     <!-- Additional effect comments -->
