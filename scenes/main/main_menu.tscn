@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://d1aov81s42w7y"]
+[gd_scene load_steps=99 format=3 uid="uid://d1aov81s42w7y"]
 
 [ext_resource type="Script" path="res://scripts/interface/MainMenu.cs" id="1_8852o"]
 [ext_resource type="Texture2D" uid="uid://txs3arswiwni" path="res://assets/images/AJ/AJsBGTemp.png" id="2_c8ldl"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bar8mrevlr7mb" path="res://assets/sprites/Joy/Romulus.png" id="7_0nu7t"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="8_nsbhp"]
 [ext_resource type="Texture2D" uid="uid://34dhtw1txk12" path="res://assets/sprites/Z/senator_horse.png" id="9_ck267"]
+[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="10_8rwni"]
 [ext_resource type="Texture2D" uid="uid://dvhwr6ftrwrw7" path="res://assets/sprites/Goon/GoonOriginal.png" id="10_3284n"]
 [ext_resource type="Texture2D" uid="uid://dfcrqumouckwf" path="res://assets/sprites/Joy/Remus1.png" id="45_cwgx4"]
 [ext_resource type="Texture2D" uid="uid://c7q2iudbjo1m8" path="res://assets/sprites/Joy/Remus2.png" id="46_55o2s"]
@@ -803,14 +804,9 @@ alignment = 2
 
 [node name="Settings Button" type="Button" parent="RHBox"]
 layout_mode = 2
+theme = ExtResource("10_8rwni")
 theme_override_font_sizes/font_size = 40
 text = "Settings"
-
-[node name="Exit Button" type="Button" parent="RHBox"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_font_sizes/font_size = 40
-text = "Exit"
 
 [node name="LHBox" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -827,11 +823,13 @@ grow_vertical = 2
 
 [node name="Start Game Button" type="Button" parent="LHBox"]
 layout_mode = 2
+theme = ExtResource("10_8rwni")
 theme_override_font_sizes/font_size = 40
 text = "Start Game"
 
 [node name="Dialogue Button" type="Button" parent="LHBox"]
 layout_mode = 2
+theme = ExtResource("10_8rwni")
 theme_override_font_sizes/font_size = 40
 text = "Dialogue
 "
@@ -866,6 +864,5 @@ flip_h = true
 [connection signal="pressed" from="Grid Margin/Menu Grid/Settings Margin/Settings Button" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Grid Margin/Menu Grid/Exit Margin/Exit Button" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="RHBox/Settings Button" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="RHBox/Exit Button" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="LHBox/Start Game Button" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="LHBox/Dialogue Button" to="." method="_on_dialogue_button_pressed"]
