@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpvi3k7nr2q4t"
-path="res://.godot/imported/dramatic_tattoo_reveal.png-6161082c068b542645c63ee77d106f49.ctex"
+uid="uid://cprl4r5lkhx0f"
+path="res://.godot/imported/Health_Armor Bar.png-384966c091404f3f1a28a058c68ae23e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Cards/CardArt/dramatic_tattoo_reveal.png"
-dest_files=["res://.godot/imported/dramatic_tattoo_reveal.png-6161082c068b542645c63ee77d106f49.ctex"]
+source_file="res://assets/ui/Health_Armor Bar.png"
+dest_files=["res://.godot/imported/Health_Armor Bar.png-384966c091404f3f1a28a058c68ae23e.ctex"]
 
 [params]
 

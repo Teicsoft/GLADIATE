@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bn4107iccnnyy"
-path="res://.godot/imported/Shout_your_move_name.png-7f2a9d4baa04139e8427a47fee9df29d.ctex"
+path="res://.godot/imported/shout_your_move_name.png-609bf882bf71267e1c10fda21f7465ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Cards/CardArt/Shout_your_move_name.png"
-dest_files=["res://.godot/imported/Shout_your_move_name.png-7f2a9d4baa04139e8427a47fee9df29d.ctex"]
+source_file="res://assets/images/Cards/CardArt/shout_your_move_name.png"
+dest_files=["res://.godot/imported/shout_your_move_name.png-609bf882bf71267e1c10fda21f7465ea.ctex"]
 
 [params]
 
