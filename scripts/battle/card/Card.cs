@@ -8,7 +8,6 @@ public class Card {
     public Color color { get; set; }
 
     public string Id { get; set; } // card_id
-    
     public bool TargetRequired { get; set; }
     public Utils.ModifierEnum Modifier { get; set; }
     public Utils.PositionEnum TargetPosition { get; set; }
@@ -69,11 +68,11 @@ public class Card {
 
     public virtual void Play(GameState gameState, ITarget target, ITarget player) {
         // not the player player, they who played this card
-        GD.Print(player.GetType().ToString().Split('.')[^1] + " played " + CardName);
+        GD.Print(player.Name + " played " + CardName);
         if (Attack != 0) {
-            if (TargetRequired || player is Enemy) { target.Damage(Attack); }
+            if (TargetRequired || player is Enemy) { target.Damage(Attack, TargetPosition); }
             else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack); }
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, TargetPosition); }
             }
         }
 
@@ -115,10 +114,10 @@ public class Card {
     public void Effect(string id, Enemy enemy, GameState gameState) {
         switch (id) {
             //combo cases
-            case "combo_02":
+            case "combo_mgk":
                 gameState.Multiplier *= 2;
                 break;
-
+            
             default:
                 break;
         }
