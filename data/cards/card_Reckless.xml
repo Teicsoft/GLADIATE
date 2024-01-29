@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<card id="card_reckless" type="Attack" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_reckless" type="Attack" modifier="None" position ="Lower"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
+    <!-- Stuns Enemy -->
     <stats>
-        <attack>10</attack> <!--int-->
+        <attack>5</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
         <draw>3</draw> <!--int-->
         <discard>-3</discard> <!--int-->
-        <spectacle_points>0</spectacle_points> <!--int-->
+        <spectacle_points>5</spectacle_points> <!--int-->
         <target_required>true</target_required> <!--true/false-->
     </stats>
     
@@ -20,7 +21,7 @@
     </design>
 
     <text>
-        <name>Reckless</name> <!--string-->
+        <name>Reckless Open</name> <!--string-->
         <description>Card Description</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->

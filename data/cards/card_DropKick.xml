@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <card id="card_DropKick" type="Attack" modifier="Grounded" position ="Lower"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
-       
+  
+    <!-- apply "Grounded" the user of this card -->
     <stats>
         <attack>3</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->

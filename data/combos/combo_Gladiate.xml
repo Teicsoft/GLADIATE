@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<combo id="combo_Gladiate" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+    
+    <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
+        <card card_id="card_gladius"/> <!--card_id: string-->
+        <card card_id="card_Throw"/>
+        <card card_id="card_gladius"/>
+    </cards>
+    
+    <stats>
+        <attack>5</attack> <!--int-->
+        <defense_lower>0</defense_lower> <!--int-->
+        <defense_upper>0</defense_upper> <!--int-->
+        <heal>0</heal> <!--int-->
+        <draw>0</draw> <!--int-->
+        <discard>0</discard> <!--int-->
+        <spectacle_points>20</spectacle_points> <!--int-->
+    </stats>
+    
+    <design>
+        <image>example.png</image> <!--path string-->
+        <char_animation>example_anim</char_animation> <!--string-->
+        <stage_animation>example_anim</stage_animation> <!--string-->
+        <sound>example.mp3</sound> <!--path string-->
+    </design>
+
+    <text>
+        <name>Gladiate</name> <!--string-->
+        <description>Combo Description</description> <!--string-->
+        <lore>Deep Lore</lore> <!--string-->
+        <onscreen_text>Hover Text</onscreen_text> <!--string-->
+    </text>
+</combo>

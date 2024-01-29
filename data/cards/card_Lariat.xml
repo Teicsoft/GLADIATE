@@ -2,6 +2,7 @@
 
 <card id="card_Lariat" type="Attack" modifier="Grounded" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
+    <!--If target is blocking: Cancelled and target gets 2x damage buff against you-->
     <stats>
         <attack>3</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
@@ -13,7 +14,7 @@
     </stats>
     
     <design>
-        <image>example.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/Lariat.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>

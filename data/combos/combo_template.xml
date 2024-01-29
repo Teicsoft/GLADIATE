@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Combo Template -->
-<!-- used to save a combo including card order, stats and design -->
+<!-- To use, copy this file and rename it to combo_name.xml -->
 <!-- To use, copy this file and rename it to combo_name.xml -->
 
-<combo id="combo_id" modifier="Grounded" position="Upper"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<combo id="combo_id" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+    
+    <!-- Additional effect comments -->
+    
     <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
         <card card_id="card_id"/> <!--card_id: string-->
         <card card_id="card_id"/>
@@ -19,8 +22,7 @@
         <heal>0</heal> <!--int-->
         <draw>0</draw> <!--int-->
         <discard>0</discard> <!--int-->
-        <spectacle_points>11</spectacle_points> <!--int-->
-        <multiplier>1</multiplier> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
     </stats>
     
     <design>

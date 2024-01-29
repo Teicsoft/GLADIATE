@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<card id="card_CallingCard" type="Attack" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_CallingCard" type="Attack" modifier="None" position ="Lower"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
     <!-- If this attack kills an enemy, the card permanently gains +1 attack and +5SP -->
     
     <stats>
-        <attack>3</attack> <!--int-->
+        <attack>1</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
         <draw>1</draw> <!--int-->
         <discard>0</discard> <!--int-->
-        <spectacle_points>25</spectacle_points> <!--int-->
+        <spectacle_points>1</spectacle_points> <!--int-->
     </stats>
     
     <design>

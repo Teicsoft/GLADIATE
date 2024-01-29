@@ -10,11 +10,11 @@
         <heal>0</heal> <!--int-->
         <draw>0</draw> <!--int-->
         <discard>0</discard> <!--int-->
-        <spectacle_points>5</spectacle_points> <!--int-->
+        <spectacle_points>0</spectacle_points> <!--int-->
     </stats>
     
     <design>
-        <image>example.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/Shout_your_move_name.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>

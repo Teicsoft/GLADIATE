@@ -8,7 +8,6 @@ public class Card {
     public Color color { get; set; }
 
     public string Id { get; set; } // card_id
-
     public bool TargetRequired { get; set; }
     public Utils.ModifierEnum Modifier { get; set; }
     public Utils.PositionEnum TargetPosition { get; set; }
@@ -38,8 +37,9 @@ public class Card {
         string description = "", string lore = "", string tooltip = "", string imagePath = "",
         string animationPath = "", string soundPath = "") {
         this.Id = id;
-        Modifier = modifier;
-        TargetPosition = position;
+        this.Modifier = modifier;
+        this.TargetPosition = position;
+        
         this.TargetRequired = targetRequired;
 
         this.Attack = attack;
@@ -98,7 +98,7 @@ public class Card {
     public virtual Card Clone() {
         Card card = new Card();
 
-        card.Initialize(Id, Modifier, TargetPosition,TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
+        card.Initialize(Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
             SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath, SoundPath);
         card.color = new Color(this.color.R, this.color.G, this.color.B);
         return card;
@@ -117,7 +117,7 @@ public class Card {
             case "combo_mgk":
                 gameState.Multiplier *= 2;
                 break;
-
+            
             default:
                 break;
         }

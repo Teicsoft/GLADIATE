@@ -7,7 +7,7 @@
         <attack>0</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
-        <heal>5</heal> <!--int-->
+        <heal>15</heal> <!--int-->
         <draw>0</draw> <!--int-->
         <discard>1</discard> <!--int-->
         <spectacle_points>0</spectacle_points> <!--int-->

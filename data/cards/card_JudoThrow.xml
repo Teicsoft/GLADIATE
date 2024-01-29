@@ -5,7 +5,7 @@
     <!--  	3x Damage and SP against Grappled opponent -->
     
     <stats>
-        <attack>1</attack> <!--int-->
+        <attack>3</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->

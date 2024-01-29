@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<card id="card_GallicSuplex" type="Attack" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_GallicSuplex" type="Attack" modifier="Grappled" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
     <!-- Can only be played if opponent is grappled -->
     <stats>
@@ -8,8 +8,8 @@
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
-        <draw>0</draw> <!--int-->
-        <discard>1</discard> <!--int-->
+        <draw>1</draw> <!--int-->
+        <discard>0</discard> <!--int-->
         <spectacle_points>35</spectacle_points> <!--int-->
     </stats>
     

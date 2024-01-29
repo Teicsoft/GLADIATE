@@ -2,6 +2,7 @@
 
 <card id="card_gladius" type="Attack" modifier="None" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
+    <!-- 2x SP against Juggle -->
     <stats>
         <attack>7</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
@@ -9,12 +10,12 @@
         <heal>0</heal> <!--int-->
         <draw>0</draw> <!--int-->
         <discard>1</discard> <!--int-->
-        <spectacle_points>15</spectacle_points> <!--int-->
+        <spectacle_points>10</spectacle_points> <!--int-->
         <target_required>true</target_required> <!--true/false-->
     </stats>
     
     <design>
-        <image>example.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/gladius.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>
