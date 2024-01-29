@@ -22,7 +22,7 @@
     <text>
         <name>Come Closer</name> <!--string-->
         <description>Card Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>I've got a secret for you.</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->
         <onscreen_text>Shown When card played</onscreen_text> <!--string-->
     </text>

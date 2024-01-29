@@ -14,14 +14,14 @@
     </stats>
     
     <design>
-        <image>example.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/please_the_croud.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>
 
     <text>
         <name>Please The Crowd</name> <!--string-->
-        <description>Please The Crowd</description> <!--string-->
+        <description>Are you not entertained</description> <!--string-->
         <lore>Please The Crowd</lore> <!--string-->
         <tooltip_text>Please The Crowd</tooltip_text> <!--string-->
         <onscreen_text>Please The Crowd</onscreen_text> <!--string-->

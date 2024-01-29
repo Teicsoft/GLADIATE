@@ -13,7 +13,7 @@
     </stats>
     
     <design>
-        <image>res://assets/images/Cards/CardArt/Dramatic_Tattoo_Reveal.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/dramatic_tattoo_reveal.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>
@@ -21,7 +21,7 @@
     <text>
         <name>Dramatic Tattoo Reveal</name> <!--string-->
         <description>Dramatic Tattoo Reveal</description> <!--string-->
-        <lore>Dramatic Tattoo Reveal</lore> <!--string-->
+        <lore>Mom signed my consent form</lore> <!--string-->
         <tooltip_text>Dramatic Tattoo Reveal</tooltip_text> <!--string-->
         <onscreen_text>Dramatic Tattoo Reveal</onscreen_text> <!--string-->
     </text>

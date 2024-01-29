@@ -21,7 +21,7 @@
     <text>
         <name>Full Block</name> <!--string-->
         <description>Full Block</description> <!--string-->
-        <lore>Full Block</lore> <!--string-->
+        <lore>Turtling for the win</lore> <!--string-->
         <tooltip_text>Full Block</tooltip_text> <!--string-->
         <onscreen_text>Full Block</onscreen_text> <!--string-->
     </text>

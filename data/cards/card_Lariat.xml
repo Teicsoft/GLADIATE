@@ -22,7 +22,7 @@
     <text>
         <name>Lariat</name> <!--string-->
         <description>Lariat</description> <!--string-->
-        <lore>Lariat</lore> <!--string-->
+        <lore>Russian wrestling number one</lore> <!--string-->
         <tooltip_text>Lariat</tooltip_text> <!--string-->
         <onscreen_text>Lariat</onscreen_text> <!--string-->
     </text>
