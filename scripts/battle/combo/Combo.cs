@@ -43,32 +43,32 @@ public class Combo {
     public Animation StageAnimation { get; set; }
     public AudioStream Sound { get; set; }
 
-    public Combo(string id, List<Card> cardList, Utils.ModifierEnum modifier, Utils.PositionEnum position, int attack,
-        int defenseLower, int defenseUpper, int health, int cardDraw, int discard, int spectaclePoints, string name,
-        string description, string lore, string onscreenText, string imagePath, string charAnimationPath,
+    public void Initialize(string id, List<Card> cardList, Utils.ModifierEnum modifier, Utils.PositionEnum position,
+        int attack, int defenseLower, int defenseUpper, int health, int cardDraw, int discard, int spectaclePoints,
+        string name, string description, string lore, string onscreenText, string imagePath, string charAnimationPath,
         string stageAnimationPath, string soundPath) {
-        this.Id = id;
-        this.CardList = cardList;
-        this.Modifier = modifier;
-        this.Position = position;
+        Id = id;
+        CardList = cardList;
+        Modifier = modifier;
+        Position = position;
 
-        this.Attack = attack;
-        this.DefenseLower = defenseLower;
-        this.DefenseUpper = defenseUpper;
-        this.Health = health;
-        this.CardDraw = cardDraw;
-        this.Discard = discard;
-        this.SpectaclePoints = spectaclePoints;
+        Attack = attack;
+        DefenseLower = defenseLower;
+        DefenseUpper = defenseUpper;
+        Health = health;
+        CardDraw = cardDraw;
+        Discard = discard;
+        SpectaclePoints = spectaclePoints;
 
-        this.Name = name;
-        this.Description = description;
-        this.Lore = lore;
-        this.OnscreenText = onscreenText;
+        Name = name;
+        Description = description;
+        Lore = lore;
+        OnscreenText = onscreenText;
 
-        this.ImagePath = imagePath;
-        this.CharAnimationPath = charAnimationPath;
-        this.StageAnimationPath = stageAnimationPath;
-        this.SoundPath = soundPath;
+        ImagePath = imagePath;
+        CharAnimationPath = charAnimationPath;
+        StageAnimationPath = stageAnimationPath;
+        SoundPath = soundPath;
     }
 
     public virtual void Play(GameState gameState) {
