@@ -50,7 +50,7 @@ public class Player : ITarget {
         Name = "Player";
     }
 
-    public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
+    public void Damage(int damage, Utils.PositionEnum position) {
         bool blocked = false;
         switch (position) {
             case Utils.PositionEnum.Upper:
@@ -72,13 +72,9 @@ public class Player : ITarget {
         if (!blocked) { DirectDamage(damage); }
     }
 
-    private void DirectDamage(int damage) {
-        Health = Math.Max(0, Health - damage);
-    }
+    private void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
 
-    public void Heal(int amount) {
-        Health = Math.Min(MaxHealth, Health + Math.Abs(amount));
-    }
+    public void Heal(int amount) { Health = Math.Min(MaxHealth, Health + Math.Abs(amount)); }
 
     public void Stun(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
         if ((DefenseUpper > 0) || (DefenseLower > 0)) {

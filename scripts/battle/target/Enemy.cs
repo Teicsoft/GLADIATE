@@ -88,7 +88,7 @@ public partial class Enemy : Node2D, ITarget {
 
     public void TakeCardIntoDiscard(Card card) { Discard.AddCard(card); }
 
-    public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
+    public void Damage(int damage, Utils.PositionEnum position) {
         bool blocked = false;
         switch (position) {
             case Utils.PositionEnum.Upper:
