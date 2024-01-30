@@ -75,7 +75,7 @@ public partial class AudioEngine : Node
             vol -= 0.1f;
             player.VolumeDb = vol;
 
-            await Task.Delay(30);
+            await Task.Delay(15);
             if (vol <= -80)
             {
                 player.Stop();
@@ -94,7 +94,7 @@ public partial class AudioEngine : Node
         {
             vol += 1f;
             player.VolumeDb = vol;
-            await Task.Delay(30);
+            await Task.Delay(15);
             if (vol >= 0)
             {
                 break;

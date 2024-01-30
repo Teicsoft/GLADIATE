@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deck id="deck_Player3" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_BloodOnTheSand"/>  <!--card_id: string-->
+        <card card_id="card_BloodOnTheSand"/> 
+        <card card_id="card_reckless"/> 
+        <card card_id="card_reckless"/> 
+        <card card_id="card_KissTheRing"/> 
+        <card card_id="card_KissTheRing"/> 
+        <card card_id="card_Grapple"/> 
+        <card card_id="card_Grapple"/> 
+        <card card_id="card_GallicSuplex"/> 
+        <card card_id="card_GallicSuplex"/> 
+        <card card_id="card_JudoThrow"/> 
+        <card card_id="card_JudoThrow"/> 
+        <card card_id="card_FullBlock"/> 
+        <card card_id="card_FullBlock"/> 
+    </cards>
+</deck>

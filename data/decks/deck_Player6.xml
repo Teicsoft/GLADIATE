@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deck id="deck_Player6" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_Spartackle"/>  <!--card_id: string-->
+        <card card_id="card_Spartackle"/>  
+        <card card_id="card_Lariat"/>  
+        <card card_id="card_Lariat"/>  
+        <card card_id="card_gladius"/>  
+        <card card_id="card_Throw"/>  
+        <card card_id="card_kick"/>  
+        <card card_id="card_kick"/>  
+        <card card_id="card_ComeCloser"/>  
+        <card card_id="card_ComeCloser"/>  
+        <card card_id="card_DramaticTattooReveal"/>  
+        <card card_id="card_DramaticTattooReveal"/>  
+        <card card_id="card_FullBlock"/>  
+        <card card_id="card_FullBlock"/>  
+    </cards>
+</deck>
