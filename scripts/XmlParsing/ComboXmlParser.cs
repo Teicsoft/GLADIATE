@@ -7,10 +7,13 @@ using TeicsoftSpectacleCards.scripts.battle.card;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
-public static class ComboXmlParser
-{
-    public static Combo ParseComboFromXml(string filepath)
-    {
+public static class ComboXmlParser {
+
+    private static Dictionary<string, Func<Combo>> TypeDictionary = new() {
+        { "combo_mgk", () => new DoubleMultCombo() },
+    };
+
+    public static Combo ParseComboFromXml(string filepath) {
         using FileAccess file = FileAccess.Open(filepath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
 
@@ -23,19 +26,16 @@ public static class ComboXmlParser
         string position = comboNode.Attributes["position"].Value;
 
 
-        if (!Enum.TryParse(modifier, out battle.Utils.ModifierEnum parsedModifier))
-        {
+        if (!Enum.TryParse(modifier, out battle.Utils.ModifierEnum parsedModifier)) {
             GD.Print("Failed to parse modifier: " + modifier);
         }
 
-        if (!Enum.TryParse(position, out battle.Utils.PositionEnum parsedPosition))
-        {
+        if (!Enum.TryParse(position, out battle.Utils.PositionEnum parsedPosition)) {
             GD.Print("Failed to parse position: " + position);
         }
 
         List<Card> cardList = new();
-        foreach (XmlNode cardNode in comboNode.SelectNodes("cards/card"))
-        {
+        foreach (XmlNode cardNode in comboNode.SelectNodes("cards/card")) {
             string cardId = cardNode.Attributes["card_id"].Value;
             cardList.Add(CardFactory.MakeBlankCard(cardId));
         }
@@ -61,27 +61,30 @@ public static class ComboXmlParser
         string lore = Utils.ParseTextNode(textNode, "lore");
         string onscreenText = Utils.ParseTextNode(textNode, "onscreen_text");
 
-        Combo combo = new(comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower,
-            defenseUpper, health, cardDraw, discard, spectaclePoints, name, description, lore, onscreenText, imagePath,
-            charAnimationPath, stageAnimationPath, soundPath);
+        Combo combo = ConstructCombo(comboId);
+        combo.Initialize(comboId, cardList, parsedModifier, parsedPosition, attack, defenseLower, defenseUpper, health,
+            cardDraw, discard, spectaclePoints, name, description, lore, onscreenText, imagePath, charAnimationPath,
+            stageAnimationPath, soundPath);
 
         return combo;
     }
-    
-    public static List<Combo> ParseAllCombos()
-    {
+
+    public static List<Combo> ParseAllCombos() {
         string comboFilePath = "res://data/combos/";
-        
+
         // using DirAccess dir = DirAccess.Open("res://data/combos/");
         string[] filesAtPath = DirAccess.GetFilesAt(comboFilePath);
 
         List<Combo> allCombos = new List<Combo>();
-        foreach (string fileName in filesAtPath)
-        {
+        foreach (string fileName in filesAtPath) {
             if (!fileName.EndsWith(".xml") || (fileName == "combo_template.xml")) continue;
             allCombos.Add(ParseComboFromXml(comboFilePath + fileName));
         }
 
         return allCombos;
+    }
+
+    private static Combo ConstructCombo(string comboId) {
+        return TypeDictionary.GetValueOrDefault(comboId, () => new Combo()).Invoke();
     }
 }

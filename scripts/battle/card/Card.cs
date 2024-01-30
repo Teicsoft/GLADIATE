@@ -32,32 +32,33 @@ public class Card {
     public string AnimationPath { get; set; } //path to animation
     public string SoundPath { get; set; } //path to sound
 
-    public virtual Card Initialize(string id, Utils.ModifierEnum modifier, Utils.PositionEnum position, bool targetRequired = true, int attack = 0, int defenseLower = 0,
-        int defenseUpper = 0, int health = 0, int draw = 0, int discard = 0, int spectaclePoints = 0, string name = "",
-        string description = "", string lore = "", string tooltip = "", string imagePath = "",
-        string animationPath = "", string soundPath = "") {
-        this.Id = id;
-        this.Modifier = modifier;
-        this.TargetPosition = position;
-        
-        this.TargetRequired = targetRequired;
+    public Card Initialize(string id, Utils.ModifierEnum modifier, Utils.PositionEnum position,
+        bool targetRequired = true, int attack = 0, int defenseLower = 0, int defenseUpper = 0, int health = 0,
+        int draw = 0, int discard = 0, int spectaclePoints = 0, string name = "", string description = "",
+        string lore = "", string tooltip = "", string imagePath = "", string animationPath = "",
+        string soundPath = "") {
+        Id = id;
+        Modifier = modifier;
+        TargetPosition = position;
 
-        this.Attack = attack;
-        this.DefenseLower = defenseLower;
-        this.DefenseUpper = defenseUpper;
-        this.Health = health;
-        this.CardDraw = draw;
-        this.Discard = discard;
-        this.SpectaclePoints = spectaclePoints;
+        TargetRequired = targetRequired;
 
-        this.CardName = name;
-        this.Description = description;
-        this.Lore = lore;
-        this.Tooltip = tooltip;
+        Attack = attack;
+        DefenseLower = defenseLower;
+        DefenseUpper = defenseUpper;
+        Health = health;
+        CardDraw = draw;
+        Discard = discard;
+        SpectaclePoints = spectaclePoints;
 
-        this.ImagePath = imagePath;
-        this.AnimationPath = animationPath;
-        this.SoundPath = soundPath;
+        CardName = name;
+        Description = description;
+        Lore = lore;
+        Tooltip = tooltip;
+
+        ImagePath = imagePath;
+        AnimationPath = animationPath;
+        SoundPath = soundPath;
 
         // todo this section is just for testing, remove later
         // Colour is a test feature, to help with debugging
@@ -98,28 +99,15 @@ public class Card {
     public virtual Card Clone() {
         Card card = new Card();
 
-        card.Initialize(Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
-            SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath, SoundPath);
-        card.color = new Color(this.color.R, this.color.G, this.color.B);
+        card.Initialize(Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health,
+            CardDraw, Discard, SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath,
+            SoundPath);
+        card.color = new Color(color.R, color.G, color.B);
         return card;
     }
 
     public override string ToString() {
         return
             $"Card: {CardName} ({Id}), {Attack} attack, {DefenseLower}-{DefenseUpper} defense, {Health} health, {CardDraw} draw, {Discard} discard, {SpectaclePoints} spectacle points";
-    }
-
-    // This kind of thing is going to be handled by the card reading and inheritance, different effects are going into different files.
-    // Going to remove when the combo case is handled.
-    public void Effect(string id, Enemy enemy, GameState gameState) {
-        switch (id) {
-            //combo cases
-            case "combo_mgk":
-                gameState.Multiplier *= 2;
-                break;
-            
-            default:
-                break;
-        }
     }
 }

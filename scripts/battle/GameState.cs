@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.battle.target;
@@ -109,9 +110,14 @@ public class GameState {
 
     private void ProcessCombo(Combo combo) {
         GD.Print("Playing Combo: " + (combo?.Name ?? "null"));
-        combo?.Play(this);
+
+        int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
         ProcessMultiplier(combo?.CardList.Count ?? 0);
-        ProcessSpectaclePoints(combo?.SpectaclePoints ?? 0);
+
+        combo?.Play(this);
+
+        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
+
         ComboStack.Clear();
     }
 
@@ -136,18 +142,12 @@ public class GameState {
     }
 
     public void ProcessMultiplier(int comboLength) {
-        int blunders = ComboStack.Count - comboLength;
         int comboValue = (int)Math.Floor(Math.Pow(2, comboLength - 1));
+
+        int blunders = ComboStack.Count - comboLength;
         int blunderValue = (int)Math.Floor(Math.Pow(2, blunders - 1));
-        int comboMult = comboValue - blunderValue;
 
-        Multiplier = Math.Max(Multiplier + comboMult, 1);
-    }
-
-    public void ProcessSpectaclePoints(int spectaclePoints) {
-        foreach (Card card in ComboStack) { spectaclePoints += card.SpectaclePoints; }
-
-        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
+        Multiplier = Math.Max(Multiplier + (comboValue - blunderValue), 1);
     }
 
     // ****
