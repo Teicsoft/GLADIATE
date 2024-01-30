@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bgymfsek3qa86" path="res://assets/sprites/Columns/Columns.png" id="4_eso5k"]
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
-[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
+[ext_resource type="Theme" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
@@ -214,6 +214,21 @@ offset_bottom = 50.0
 theme = ExtResource("4_v5dtn")
 text = "1"
 horizontal_alignment = 1
+
+[node name="DiscardDisplay" type="Label" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Hand" type="Path2D" parent="."]
 curve = SubResource("Curve2D_xvv15")
