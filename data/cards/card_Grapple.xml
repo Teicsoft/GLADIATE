@@ -21,7 +21,7 @@
     <text>
         <name>Grapple</name> <!--string-->
         <description>Grapple</description> <!--string-->
-        <lore>Grapple</lore> <!--string-->
+        <lore>Did you have anchovies for lunch?</lore> <!--string-->
         <tooltip_text>Grapple</tooltip_text> <!--string-->
         <onscreen_text>Grapple</onscreen_text> <!--string-->
     </text>

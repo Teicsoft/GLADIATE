@@ -22,7 +22,7 @@
     <text>
         <name>Gallic Suplex</name> <!--string-->
         <description>Gallic Suplex</description> <!--string-->
-        <lore>Gallic Suplex</lore> <!--string-->
+        <lore>These romans are crazy!</lore> <!--string-->
         <tooltip_text>Gallic Suplex</tooltip_text> <!--string-->
         <onscreen_text>Gallic Suplex</onscreen_text> <!--string-->
     </text>
