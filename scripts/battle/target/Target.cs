@@ -6,6 +6,8 @@ public interface ITarget {
     public int Health { get; set; }
     public int DefenseLower { get; set; }
     public int DefenseUpper { get; set; }
+
+    public Utils.ModifierEnum Modifier { get; set; }
     void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) { }
 
     void Stun(int stun) { }

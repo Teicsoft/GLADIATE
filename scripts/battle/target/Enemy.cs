@@ -4,10 +4,8 @@ using TeicsoftSpectacleCards.scripts.battle.card;
 
 namespace TeicsoftSpectacleCards.scripts.battle.target;
 
-public partial class Enemy : Node2D,
-    ITarget {
-    [Signal]
-    public delegate void EnemySelectedEventHandler(Enemy enemy);
+public partial class Enemy : Node2D, ITarget {
+    [Signal] public delegate void EnemySelectedEventHandler(Enemy enemy);
 
     private ColorRect _rect;
     private Button _selectButton;
@@ -43,6 +41,8 @@ public partial class Enemy : Node2D,
             UpdateDefenseUpperDisplay();
         }
     }
+
+    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
 
     public Deck<Card> Deck;
 
@@ -82,21 +82,13 @@ public partial class Enemy : Node2D,
 
     public override void _Process(double delta) { }
 
-    private void OnPress() {
-        EmitSignal(SignalName.EnemySelected, this);
-    }
+    private void OnPress() { EmitSignal(SignalName.EnemySelected, this); }
 
-    public Card DrawCard() {
-        return Deck.DrawCards(1)[0];
-    }
+    public Card DrawCard() { return Deck.DrawCards(1)[0]; }
 
-    public void TakeCardIntoDiscard(Card card) {
-        Discard.AddCard(card);
-    }
+    public void TakeCardIntoDiscard(Card card) { Discard.AddCard(card); }
 
     public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
-        GD.Print("position");
-        GD.Print(position);
         bool blocked = false;
         switch (position) {
             case Utils.PositionEnum.Upper:
@@ -114,8 +106,6 @@ public partial class Enemy : Node2D,
 
                 break;
         }
-        GD.Print("blocked");
-        GD.Print(blocked);
 
         if (!blocked) { DirectDamage(damage); }
     }
@@ -124,14 +114,10 @@ public partial class Enemy : Node2D,
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        }
-
-        //else { Lose turn }
+        } // else { Lose next turn }
     }
 
-    private void DirectDamage(int damage) {
-        Health = Math.Max(0, Health - damage);
-    }
+    private void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
 
     public void ModifyBlock(int change, Utils.PositionEnum position) {
         switch (position) {
@@ -153,6 +139,7 @@ public partial class Enemy : Node2D,
         _upperBlockRect.Color = new Color(0, 0, DefenseUpper > 0 ? 1 : 0);
         _upperBlockDisplay.Text = DefenseUpper.ToString();
     }
+
     private void UpdateDefenseLowerDisplay() {
         _lowerBlockRect.Color = new Color(0, 0, DefenseLower > 0 ? 1 : 0);
         _lowerBlockDisplay.Text = DefenseLower.ToString();

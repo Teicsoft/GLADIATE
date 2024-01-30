@@ -40,6 +40,8 @@ public class Player : ITarget {
         }
     }
 
+    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
+
     public Player(int maxHealth, int defenseLower, int defenseUpper) {
         MaxHealth = maxHealth;
         Health = maxHealth;
@@ -79,12 +81,10 @@ public class Player : ITarget {
     }
 
     public void Stun(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
-        bool blocked = false;
         if ((DefenseUpper > 0) || (DefenseLower > 0)) {
-            blocked = true;
             DefenseUpper = 0;
             DefenseLower = 0;
-        }
+        } // else { Lose next turn }
     }
 
     public void ModifyBlock(int change, Utils.PositionEnum position) {

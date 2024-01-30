@@ -11,12 +11,4 @@ public class StunCard : Card {
         base.Play(gameState, target, player);
     }
 
-    public override Card Clone() {
-        Card card = new StunCard();
-
-        card.Initialize(Id,Modifier,TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
-            SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath, SoundPath);
-        return card;
-    }
-
 }

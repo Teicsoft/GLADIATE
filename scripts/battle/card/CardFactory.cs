@@ -92,9 +92,10 @@ public static class CardFactory {
 
     private static Dictionary<string, Func<Card>> TypeDictionary = new() {
         { "card_reckless", () => new StunCard() },
+        { "card_Spartackle", () => new Spartackle() },
     };
 
-    private static Card ConstructCard(string cardId) {
+    public static Card ConstructCard(string cardId) {
         return TypeDictionary.GetValueOrDefault(cardId, () => new Card()).Invoke();
     }
 

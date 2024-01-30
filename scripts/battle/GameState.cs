@@ -12,8 +12,21 @@ public class GameState {
 
     public event EventHandler MultiplierChangedCustomEvent;
     public event EventHandler SpectacleChangedCustomEvent;
+    public event EventHandler<IntEventArgs> DiscardStateChangedCustomEvent;
     public Player Player;
     private int _multiplier;
+
+    private int _discardsRemaining;
+
+    public int DiscardsRemaining {
+        get => _discardsRemaining;
+        set {
+            _discardsRemaining = value;
+            if (value > 0) { StartDiscarding(); }
+            else if (value == 0) { StopDiscarding(); }
+            DiscardStateChangedCustomEvent?.Invoke(this,new IntEventArgs(value));
+        }
+    }
 
     public int Multiplier {
         get => _multiplier;
@@ -54,6 +67,7 @@ public class GameState {
     }
 
     public void EndTurn() {
+        if (DiscardsRemaining > 0) return;
         ProcessCombo(null);
         foreach (Enemy enemy in Enemies.FindAll(enemy => enemy.Health > 0)) {
             Card card = enemy.DrawCard();
@@ -76,25 +90,17 @@ public class GameState {
         Player.Damage(damage, position);
     }
 
-    public void HealPlayer(int amount) {
-        Player.Heal(amount);
-    }
+    public void HealPlayer(int amount) { Player.Heal(amount); }
 
-    public void StunPlayer(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
-        Player.Stun(stun);
-    }
+    public void StunPlayer(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) { Player.Stun(stun); }
 
-    public void ModifyPlayerBlock(int change, Utils.PositionEnum position) {
-        Player.ModifyBlock(change, position);
-    }
+    public void ModifyPlayerBlock(int change, Utils.PositionEnum position) { Player.ModifyBlock(change, position); }
 
     // ****
 
     // Combo Methods
     // ****
-    public void PushCardStack(Card card) {
-        ComboStack.Add(card);
-    }
+    public void PushCardStack(Card card) { ComboStack.Add(card); }
 
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
@@ -109,8 +115,6 @@ public class GameState {
     }
 
     private void ProcessCombo(Combo combo) {
-        GD.Print("Playing Combo: " + (combo?.Name ?? "null"));
-
         int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
         ProcessMultiplier(combo?.CardList.Count ?? 0);
 
@@ -158,12 +162,23 @@ public class GameState {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
             cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
-            Hand.Discard();
+            Hand.DiscardCard();
         }
     }
 
-    public void Draw(int n = 1) {
-        Hand.AddCards(Deck.DrawCards(n));
+    public void Draw(int n = 1) { Hand.AddCards(Deck.DrawCards(n)); }
+
+    public void StartDiscarding() {
+        foreach (CardSleeve sleeve in Hand.Cards) { sleeve.CardSelected += SelectedDiscard; }
+    }
+
+    public void StopDiscarding() {
+        foreach (CardSleeve sleeve in Hand.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+    }
+
+    private void SelectedDiscard(CardSleeve cardSleeve) {
+        DiscardsRemaining--;
+        Hand.DiscardCard(cardSleeve);
     }
 
     // ****
@@ -171,9 +186,7 @@ public class GameState {
     // Enemy methods
     // ****
 
-    public Enemy GetSelectedEnemy() {
-        return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null;
-    }
+    public Enemy GetSelectedEnemy() { return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null; }
 
     public void SelectEnemy(Enemy enemy) {
         int enemyIndex = Enemies.IndexOf(enemy);
@@ -186,4 +199,12 @@ public class GameState {
         return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
                $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
     }
+}
+
+public class IntEventArgs : EventArgs {
+    public IntEventArgs(int n) {
+        N = n;
+    }
+
+    public int N { get; set; }
 }
