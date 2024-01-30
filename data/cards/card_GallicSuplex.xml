@@ -14,7 +14,7 @@
     </stats>
     
     <design>
-        <image>example.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/Suplex.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>

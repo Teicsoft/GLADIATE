@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=10 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bgymfsek3qa86" path="res://assets/sprites/Columns/Columns.png" id="4_eso5k"]
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
+[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
@@ -84,6 +85,7 @@ offset_right = 150.0
 offset_bottom = -380.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("4_v5dtn")
 text = "Play"
 
 [node name="Button" type="Button" parent="HUD"]
@@ -97,12 +99,14 @@ offset_top = 60.0
 offset_bottom = 160.0
 grow_horizontal = 0
 grow_vertical = 2
+theme = ExtResource("4_v5dtn")
 text = "End Turn"
 
 [node name="PlayerHealthLabel" type="Label" parent="HUD"]
 offset_left = 180.0
 offset_right = 280.0
 offset_bottom = 50.0
+theme = ExtResource("4_v5dtn")
 text = "Player"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -112,6 +116,7 @@ offset_left = 180.0
 offset_top = 50.0
 offset_right = 280.0
 offset_bottom = 100.0
+theme = ExtResource("4_v5dtn")
 text = "Multiplier"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -121,6 +126,7 @@ offset_left = 180.0
 offset_top = 100.0
 offset_right = 280.0
 offset_bottom = 150.0
+theme = ExtResource("4_v5dtn")
 text = "Spectacle"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -139,6 +145,7 @@ offset_left = 300.0
 offset_top = 55.0
 offset_right = 400.0
 offset_bottom = 95.0
+theme = ExtResource("4_v5dtn")
 text = "1"
 vertical_alignment = 1
 
@@ -147,6 +154,7 @@ offset_left = 300.0
 offset_top = 105.0
 offset_right = 400.0
 offset_bottom = 145.0
+theme = ExtResource("4_v5dtn")
 text = "0"
 vertical_alignment = 1
 
@@ -155,6 +163,7 @@ offset_left = 350.0
 offset_top = 5.0
 offset_right = 450.0
 offset_bottom = 45.0
+theme = ExtResource("4_v5dtn")
 text = "1"
 vertical_alignment = 1
 
@@ -185,6 +194,7 @@ color = Color(0, 0, 1, 1)
 offset_left = 300.0
 offset_right = 350.0
 offset_bottom = 25.0
+theme = ExtResource("4_v5dtn")
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 2
@@ -201,6 +211,7 @@ offset_left = 300.0
 offset_top = 25.0
 offset_right = 350.0
 offset_bottom = 50.0
+theme = ExtResource("4_v5dtn")
 text = "1"
 horizontal_alignment = 1
 
