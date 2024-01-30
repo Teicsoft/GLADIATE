@@ -23,7 +23,7 @@
     <text>
         <name>Blood On The Sand</name> <!--string-->
         <description>Blood On The Sand</description> <!--string-->
-        <lore>Blood On The Sand</lore> <!--string-->
+        <lore>Bang and the dirt is gone</lore> <!--string-->
         <tooltip_text>Blood On The Sand</tooltip_text> <!--string-->
         <onscreen_text>Blood On The Sand</onscreen_text> <!--string-->
     </text>

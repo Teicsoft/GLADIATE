@@ -21,7 +21,7 @@
     <text>
         <name>Upper Block</name> <!--string-->
         <description>Upper Block</description> <!--string-->
-        <lore>Upper Block</lore> <!--string-->
+        <lore>Tortoises are awesome</lore> <!--string-->
         <tooltip_text>Upper Block</tooltip_text> <!--string-->
         <onscreen_text>Upper Block</onscreen_text> <!--string-->
     </text>

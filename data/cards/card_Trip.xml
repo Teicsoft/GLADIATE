@@ -21,7 +21,7 @@
     <text>
         <name>Trip</name> <!--string-->
         <description>Trip</description> <!--string-->
-        <lore>Trip</lore> <!--string-->
+        <lore>Put your foot out for comic effect</lore> <!--string-->
         <tooltip_text>Trip</tooltip_text> <!--string-->
         <onscreen_text>Trip</onscreen_text> <!--string-->
     </text>

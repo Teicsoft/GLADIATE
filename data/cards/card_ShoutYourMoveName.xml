@@ -14,7 +14,7 @@
     </stats>
     
     <design>
-        <image>res://assets/images/Cards/CardArt/Shout_your_move_name.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/shout_your_move_name.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>
@@ -22,7 +22,7 @@
     <text>
         <name>Shout Your Move Name</name> <!--string-->
         <description>Shout Your Move Name</description> <!--string-->
-        <lore>Shout Your Move Name</lore> <!--string-->
+        <lore>"JUDO CHOP"</lore> <!--string-->
         <tooltip_text>Shout Your Move Name</tooltip_text> <!--string-->
         <onscreen_text>Shout Your Move Name</onscreen_text> <!--string-->
     </text>
