@@ -15,7 +15,6 @@ public class GameState {
     public event EventHandler DiscardStateChangedCustomEvent;
     public event EventHandler ComboStackChangedCustomEvent;
     public Player Player;
-    private int _multiplier;
 
     private int _discards;
 
@@ -30,6 +29,8 @@ public class GameState {
             DiscardStateChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
     }
+
+    private int _multiplier;
 
     public int Multiplier {
         get => _multiplier;
@@ -76,6 +77,10 @@ public class GameState {
 
         ProcessCombo(null);
         foreach (Enemy enemy in Enemies.FindAll(enemy => enemy.Health > 0)) {
+            if (enemy.IsStunned()) {
+                // Update HUD
+                continue;
+            }
             Card card = enemy.DrawCard();
             card.Play(this, Player, enemy);
             enemy.TakeCardIntoDiscard(card);
