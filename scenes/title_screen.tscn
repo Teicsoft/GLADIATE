@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbpxaie8y57c2"]
 
-[ext_resource type="Texture2D" uid="uid://dvvl4jhn4amfj" path="res://assets/sprites/Dave's Eagle.png" id="1_6nopj"]
+[ext_resource type="Texture2D" uid="uid://c0r8l4fbcihi" path="res://assets/sprites/Dave/Eagle.png" id="1_6nopj"]
 [ext_resource type="Script" path="res://scripts/interface/TitleScreen.cs" id="1_sbgjw"]
 [ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_14m68"]
 [ext_resource type="Texture2D" uid="uid://c6idlull35fp4" path="res://assets/sprites/Dave/Gladiate.png" id="2_j5550"]
