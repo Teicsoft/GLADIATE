@@ -5,7 +5,7 @@
 <!-- used to save a player deck, as a template for the default deck, and to store enemy decks -->
 <!-- To use, copy this file and rename it to deck_name.xml -->
 
-<deck id="deck_Enemy5" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+<deck id="deck_Enemy6" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
     <cards>
         <card card_id="card_headbutt"/>  <!--card_id: string-->
         <card card_id="card_FullBlock"/>
