@@ -27,6 +27,8 @@ public partial class Battle : Node2D {
     private Label _playerDefenseUpperDisplay;
     private ColorRect _playerDefenseUpperRect;
 
+    private List<TextureRect> comboArts = new List<TextureRect>();
+
     const int ENEMY_COUNT = 3;
 
     private List<Tuple<string, Color>> _enemyDeets = new() {
@@ -53,11 +55,10 @@ public partial class Battle : Node2D {
     }
 
     private void InitialiseGameState(List<string> playerCardIds) {
-        _deck = new Deck<CardSleeve>();
-        _deck.Discard = _discard;
-        _deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
         _hand = GetNode<Hand>("Hand");
+        _deck = new Deck<CardSleeve>();
         _discard = new Discard<CardSleeve>();
+        _deck.Discard = _discard;
         _hand.Discard = _discard;
         _gameState = new GameState();
         _gameState.Hand = _hand;
@@ -68,6 +69,8 @@ public partial class Battle : Node2D {
         _gameState.MultiplierChangedCustomEvent += OnMultiplierChanged;
         _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
         _gameState.DiscardStateChangedCustomEvent += OnDiscardStateChanged;
+        _gameState.ComboStackChangedCustomEvent += OnComboStackChanged;
+        _deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
         _deck.Shuffle();
         _gameState.Draw(4);
     }
@@ -143,8 +146,37 @@ public partial class Battle : Node2D {
         _spectacleDisplay.Text = _gameState.SpectaclePoints.ToString();
     }
 
-    private void OnDiscardStateChanged(object sender, IntEventArgs e) {
-        GetNode<Label>("HUD/DiscardDisplay").Text = e.N == 0 ? "" : $"You must discard {e.N.ToString()} cards.";
+    private void OnDiscardStateChanged(object sender, EventArgs e) {
+        string discardText = _gameState.Discards == 0 ? "" : $"You must discard {_gameState.Discards} cards.";
+        GetNode<Label>("HUD/DiscardDisplay").Text = discardText;
+    }
+
+    private void OnComboStackChanged(object sender, EventArgs e) {
+        PathFollow2D comboStackLocation = GetNode<PathFollow2D>("ComboStack/ComboStackLocation");
+
+        int stackSize = _gameState.ComboStack.Count;
+        comboArts.ForEach(art => art.QueueFree());
+        comboArts.Clear();
+        if (stackSize != 0) {
+            float stepSize = 1f / Math.Max(stackSize, 7);
+            for (int i = 0; i < stackSize; i++) {
+                comboStackLocation.ProgressRatio = i * stepSize;
+                TextureRect art = LoadArt(_gameState.ComboStack[i]);
+                art.Position = comboStackLocation.Position;
+                comboArts.Add(art);
+                AddChild(art);
+            }
+        }
+    }
+
+    private TextureRect LoadArt(Card card) {
+        TextureRect art = new();
+        Texture2D texture = (Texture2D)GD.Load(card.ImagePath);
+        art.Texture = texture;
+
+        float ratio = 160 / texture.GetSize().X;
+        art.Scale = new Vector2(ratio, ratio);
+        return art;
     }
 
     private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }

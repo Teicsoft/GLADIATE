@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=11 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -14,9 +14,15 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Curve2D" id="Curve2D_r0y7a"]
+[sub_resource type="Curve2D" id="Curve2D_e410o"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 300, 300, 0, 0, 0, 0, 1620, 300)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_r0y7a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 20, 675, 0, 0, 0, 0, 20, 5)
 }
 point_count = 2
 
@@ -239,10 +245,18 @@ position = Vector2(270, 975)
 rotation = -0.785398
 
 [node name="Enemies" type="Path2D" parent="."]
-curve = SubResource("Curve2D_r0y7a")
+curve = SubResource("Curve2D_e410o")
 
 [node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
 position = Vector2(300, 300)
+
+[node name="ComboStack" type="Path2D" parent="."]
+curve = SubResource("Curve2D_r0y7a")
+
+[node name="ComboStackLocation" type="PathFollow2D" parent="ComboStack"]
+position = Vector2(20, 675)
+rotation = -1.5708
+loop = false
 
 [connection signal="pressed" from="HUD/PlayButton" to="." method="OnPlayButtonPressed"]
 [connection signal="pressed" from="HUD/Button" to="." method="EndTurn"]

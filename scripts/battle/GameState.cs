@@ -12,19 +12,20 @@ public class GameState {
 
     public event EventHandler MultiplierChangedCustomEvent;
     public event EventHandler SpectacleChangedCustomEvent;
-    public event EventHandler<IntEventArgs> DiscardStateChangedCustomEvent;
+    public event EventHandler DiscardStateChangedCustomEvent;
+    public event EventHandler ComboStackChangedCustomEvent;
     public Player Player;
     private int _multiplier;
 
-    private int _discardsRemaining;
+    private int _discards;
 
-    public int DiscardsRemaining {
-        get => _discardsRemaining;
+    public int Discards {
+        get => _discards;
         set {
-            _discardsRemaining = value;
             if (value > 0) { StartDiscarding(); }
-            else if (value == 0) { StopDiscarding(); }
-            DiscardStateChangedCustomEvent?.Invoke(this,new IntEventArgs(value));
+            if (value == 0) { StopDiscarding(); }
+            _discards = value;
+            DiscardStateChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -67,7 +68,10 @@ public class GameState {
     }
 
     public void EndTurn() {
-        if (DiscardsRemaining > 0) return;
+        if (Discards > 0) {
+            if (Hand.Cards.Count == 0) { Discards = 0; } else { return; }
+        }
+
         ProcessCombo(null);
         foreach (Enemy enemy in Enemies.FindAll(enemy => enemy.Health > 0)) {
             Card card = enemy.DrawCard();
@@ -112,6 +116,8 @@ public class GameState {
             GD.Print("Playing Combo: " + matchingCombo);
             ProcessCombo(matchingCombo);
         }
+
+        ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
     }
 
     private void ProcessCombo(Combo combo) {
@@ -169,16 +175,21 @@ public class GameState {
     public void Draw(int n = 1) { Hand.AddCards(Deck.DrawCards(n)); }
 
     public void StartDiscarding() {
-        foreach (CardSleeve sleeve in Hand.Cards) { sleeve.CardSelected += SelectedDiscard; }
+        foreach (CardSleeve sleeve in Hand.Cards) {
+            sleeve.CardSelected -= SelectedDiscard;
+            sleeve.CardSelected += SelectedDiscard;
+        }
     }
 
     public void StopDiscarding() {
         foreach (CardSleeve sleeve in Hand.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+        foreach (CardSleeve sleeve in Deck.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+        foreach (CardSleeve sleeve in Deck.Discard.Cards) { sleeve.CardSelected -= SelectedDiscard; }
     }
 
-    private void SelectedDiscard(CardSleeve cardSleeve) {
-        DiscardsRemaining--;
-        Hand.DiscardCard(cardSleeve);
+    private void SelectedDiscard(CardSleeve sleeve) {
+        Discards--;
+        Hand.DiscardCard(sleeve);
     }
 
     // ****
@@ -199,12 +210,4 @@ public class GameState {
         return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
                $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
     }
-}
-
-public class IntEventArgs : EventArgs {
-    public IntEventArgs(int n) {
-        N = n;
-    }
-
-    public int N { get; set; }
 }
