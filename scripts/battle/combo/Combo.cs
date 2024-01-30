@@ -10,8 +10,6 @@ public class Combo {
 
     public List<Card> CardList;
 
-    public bool TargetRequired { get; set; }
-
     public Utils.ModifierEnum Modifier { get; set; }
 
     public Utils.PositionEnum Position { get; set; }
@@ -73,10 +71,10 @@ public class Combo {
 
     public virtual void Play(GameState gameState) {
         if (Attack != 0) {
-            if (TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack, Position); }
-            else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, Position); }
-            }
+            // if the last combo card required a target, then we apply the combo damage to that target.
+            if (CardList[^1].TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack, Position); }
+            // Otherwise, we can't assume that an enemy is selected, so damage all of them.
+            else { foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, Position); } }
         }
 
         if (DefenseLower != 0) { gameState.ModifyPlayerBlock(DefenseLower, Utils.PositionEnum.Lower); }
@@ -87,11 +85,7 @@ public class Combo {
 
         if (CardDraw > 0) { gameState.Draw(CardDraw); }
 
-        if (Discard > 0) {
-            // swalsh TODO: Emit Event?
-            // swalsh TODO: Choice Discard by default, I think, but still needs an interface etc.
-            // gameState.DiscardCards(Health);
-        }
+        if (Discard > 0) { gameState.DiscardsRemaining += Discard; }
     }
 
     public void LoadAssets() {

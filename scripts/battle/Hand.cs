@@ -5,60 +5,58 @@ using System.Collections.Generic;
 using System.Linq;
 
 public partial class Hand : Path2D {
-    private List<CardSleeve> cards = new();
+    public List<CardSleeve> Cards = new();
 
-    private int selectedCardIndex = -1;
-    private PathFollow2D handCardLocation;
-    public Discard<CardSleeve> discard;
+    private int _selectedCardIndex = -1;
+    public Discard<CardSleeve> Discard;
 
-    public override void _Ready() {
-        handCardLocation = GetNode<PathFollow2D>("HandCardLocation");
-    }
+    public override void _Ready() { }
 
     public new void AddCards(List<CardSleeve> cardSleeves) {
-        foreach (CardSleeve cardSleeve in cardSleeves) { AddCard(cardSleeve); }
+        if (cardSleeves.Count > 0) {
+            foreach (CardSleeve cardSleeve in cardSleeves) { AddCard(cardSleeve); }
+        }
     }
 
     private new void AddCard(CardSleeve cardSleeve) {
-        cards.Add(cardSleeve);
+        Cards.Add(cardSleeve);
         AddChild(cardSleeve);
         cardSleeve.CardSelected += SelectCard;
         UpdateCardPositions();
     }
 
     public CardSleeve GetSelectedCard() {
-        return selectedCardIndex != -1 ? cards[selectedCardIndex] : null;
+        return _selectedCardIndex != -1 ? Cards[_selectedCardIndex] : null;
     }
 
-    public void Discard() {
-        Discard(cards[selectedCardIndex]);
+    public void DiscardCard() {
+        DiscardCard(Cards[_selectedCardIndex]);
     }
 
-    public void Discard(CardSleeve cardSleeve) {
+    public void DiscardCard(CardSleeve cardSleeve) {
         cardSleeve.CardSelected -= SelectCard;
-        discard.AddCard(cardSleeve);
-        cards.RemoveAt(selectedCardIndex);
-        selectedCardIndex = -1;
+        Discard.AddCard(cardSleeve);
+        Cards.RemoveAt(_selectedCardIndex);
+        _selectedCardIndex = -1;
         RemoveChild(cardSleeve);
         UpdateCardPositions();
     }
 
     private void UpdateCardPositions() {
-        float locationRatio = 1f / (cards.Count + 1);
-        for (int i = 0; i < cards.Count; i++) {
-            CardSleeve cardSleeve = cards[i];
-            handCardLocation.ProgressRatio = (i + 1) * locationRatio;
+        PathFollow2D handCardLocation = GetNode<PathFollow2D>("HandCardLocation");
+        for (int i = 0; i < Cards.Count; i++) {
+            CardSleeve cardSleeve = Cards[i];
+            handCardLocation.ProgressRatio = (i + 1f) / (Cards.Count + 1f);
             Vector2 cardPosition = handCardLocation.Position;
-            if (i == selectedCardIndex) { cardPosition.Y -= 100; }
-
+            if (i == _selectedCardIndex) { cardPosition.Y -= 100; }
             cardSleeve.Position = cardPosition;
             cardSleeve.Rotation = handCardLocation.Rotation;
         }
     }
 
     private void SelectCard(CardSleeve cardSleeve) {
-        int cardIndex = cards.IndexOf(cardSleeve);
-        selectedCardIndex = selectedCardIndex != cardIndex ? cardIndex : -1;
+        int cardIndex = Cards.IndexOf(cardSleeve);
+        _selectedCardIndex = _selectedCardIndex != cardIndex ? cardIndex : -1;
         UpdateCardPositions();
     }
 }
