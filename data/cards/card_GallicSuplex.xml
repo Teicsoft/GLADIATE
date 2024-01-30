@@ -11,6 +11,7 @@
         <draw>1</draw> <!--int-->
         <discard>0</discard> <!--int-->
         <spectacle_points>35</spectacle_points> <!--int-->
+        <target_required>true</target_required> <!--true/false-->
     </stats>
     
     <design>
