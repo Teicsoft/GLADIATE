@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbpxaie8y57c2"]
+[gd_scene load_steps=6 format=3 uid="uid://bbpxaie8y57c2"]
 
 [ext_resource type="Script" path="res://scripts/interface/TitleScreen.cs" id="1_sbgjw"]
 [ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_14m68"]

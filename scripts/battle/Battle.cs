@@ -8,6 +8,8 @@ using TeicsoftSpectacleCards.scripts.battle.target;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public partial class Battle : Node2D {
+    [Signal]
+    public delegate void GameOverEventHandler();
 
     [Export] private PackedScene _cardScene;
     [Export] private PackedScene _enemyScene;
@@ -37,24 +39,8 @@ public partial class Battle : Node2D {
         ModelTesting();
 
         Dictionary<string, List<string>> decks = DeckXmlParser.ParseAllDecks();
-        List<string> playerCardIds;
-        decks.TryGetValue("deck_player", out playerCardIds);
-        _discard = new Discard<CardSleeve>();
-        _deck = new Deck<CardSleeve>();
-        _deck.Discard = _discard;
-        _deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
-        _hand = GetNode<Hand>("Hand");
-        _hand.discard = _discard;
-        _gameState = new GameState();
-        _gameState.Hand = _hand;
-        _gameState.Deck = _deck;
-        _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
-        _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
-        _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
-        _gameState.MultiplierChangedCustomEvent += OnMultiplierChanged;
-        _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
-        _deck.Shuffle();
-        _gameState.Draw(4);
+        decks.TryGetValue("deck_player", out List<string> playerCardIds);
+        InitialiseGameState(playerCardIds);
         InitialiseHud();
 
         _enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
@@ -66,6 +52,25 @@ public partial class Battle : Node2D {
         }
 
         GD.Print(" ==== ==== START GAME ==== ====");
+    }
+
+    private void InitialiseGameState(List<string> playerCardIds) {
+        _deck = new Deck<CardSleeve>();
+        _deck.Discard = _discard;
+        _deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
+        _hand = GetNode<Hand>("Hand");
+        _discard = new Discard<CardSleeve>();
+        _hand.discard = _discard;
+        _gameState = new GameState();
+        _gameState.Hand = _hand;
+        _gameState.Deck = _deck;
+        _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
+        _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
+        _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
+        _gameState.MultiplierChangedCustomEvent += OnMultiplierChanged;
+        _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
+        _deck.Shuffle();
+        _gameState.Draw(4);
     }
 
     private void InitialiseHud() {
@@ -95,11 +100,10 @@ public partial class Battle : Node2D {
     public override void _Process(double delta) { }
 
     private Enemy CreateEnemy(Deck<Card> enemyDeck, int i) {
-        float progressRatio = (float)i / (ENEMY_COUNT - 1);
         Enemy enemy = _enemyScene.Instantiate<Enemy>();
         enemy.Name = _enemyDeets[i].Item1;
         enemy.Color = _enemyDeets[i].Item2;
-        _enemiesLocation.ProgressRatio = progressRatio;
+        _enemiesLocation.ProgressRatio = (float)i / (ENEMY_COUNT - 1);
         enemy.Position = _enemiesLocation.Position;
         enemy.Deck = enemyDeck;
         enemy.Discard = new();
@@ -122,6 +126,9 @@ public partial class Battle : Node2D {
 
     private void OnPlayerHealthChanged(object sender, EventArgs e) {
         Player playerObject = _gameState.Player;
+        if (playerObject.Health <= 0) {
+            EmitSignal(SignalName.GameOver);
+        }
         _playerHealthDisplay.Text = playerObject.Health + "/" + playerObject.MaxHealth;
         _playerHealthProgressBar.Ratio = (double)playerObject.Health / playerObject.MaxHealth;
     }
