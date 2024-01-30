@@ -37,28 +37,28 @@ public class Card {
         int draw = 0, int discard = 0, int spectaclePoints = 0, string name = "", string description = "",
         string lore = "", string tooltip = "", string imagePath = "", string animationPath = "",
         string soundPath = "") {
-        this.Id = id;
-        this.Modifier = modifier;
-        this.TargetPosition = position;
+        Id = id;
+        Modifier = modifier;
+        TargetPosition = position;
 
-        this.TargetRequired = targetRequired;
+        TargetRequired = targetRequired;
 
-        this.Attack = attack;
-        this.DefenseLower = defenseLower;
-        this.DefenseUpper = defenseUpper;
-        this.Health = health;
-        this.CardDraw = draw;
-        this.Discard = discard;
-        this.SpectaclePoints = spectaclePoints;
+        Attack = attack;
+        DefenseLower = defenseLower;
+        DefenseUpper = defenseUpper;
+        Health = health;
+        CardDraw = draw;
+        Discard = discard;
+        SpectaclePoints = spectaclePoints;
 
-        this.CardName = name;
-        this.Description = description;
-        this.Lore = lore;
-        this.Tooltip = tooltip;
+        CardName = name;
+        Description = description;
+        Lore = lore;
+        Tooltip = tooltip;
 
-        this.ImagePath = imagePath;
-        this.AnimationPath = animationPath;
-        this.SoundPath = soundPath;
+        ImagePath = imagePath;
+        AnimationPath = animationPath;
+        SoundPath = soundPath;
 
         // todo this section is just for testing, remove later
         // Colour is a test feature, to help with debugging
@@ -102,26 +102,12 @@ public class Card {
         card.Initialize(Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health,
             CardDraw, Discard, SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath,
             SoundPath);
-        card.color = new Color(this.color.R, this.color.G, this.color.B);
+        card.color = new Color(color.R, color.G, color.B);
         return card;
     }
 
     public override string ToString() {
         return
             $"Card: {CardName} ({Id}), {Attack} attack, {DefenseLower}-{DefenseUpper} defense, {Health} health, {CardDraw} draw, {Discard} discard, {SpectaclePoints} spectacle points";
-    }
-
-    // This kind of thing is going to be handled by the card reading and inheritance, different effects are going into different files.
-    // Going to remove when the combo case is handled.
-    public void Effect(string id, Enemy enemy, GameState gameState) {
-        switch (id) {
-            //combo cases
-            case "combo_mgk":
-                gameState.Multiplier *= 2;
-                break;
-
-            default:
-                break;
-        }
     }
 }
