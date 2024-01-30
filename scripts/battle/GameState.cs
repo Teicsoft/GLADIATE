@@ -23,7 +23,9 @@ public class GameState {
         get => _discards;
         set {
             if (value > 0) { StartDiscarding(); }
+
             if (value == 0) { StopDiscarding(); }
+
             _discards = value;
             DiscardStateChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
@@ -115,9 +117,7 @@ public class GameState {
             GD.Print("C-C-COMBO!!!");
             GD.Print("Playing Combo: " + matchingCombo);
             ProcessCombo(matchingCombo);
-        }
-
-        ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
     }
 
     private void ProcessCombo(Combo combo) {
@@ -129,6 +129,7 @@ public class GameState {
         SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
 
         ComboStack.Clear();
+        ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
     }
 
     // Check for combo matches
@@ -183,7 +184,9 @@ public class GameState {
 
     public void StopDiscarding() {
         foreach (CardSleeve sleeve in Hand.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+
         foreach (CardSleeve sleeve in Deck.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+
         foreach (CardSleeve sleeve in Deck.Discard.Cards) { sleeve.CardSelected -= SelectedDiscard; }
     }
 
