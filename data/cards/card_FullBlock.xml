@@ -10,6 +10,7 @@
         <draw>0</draw> <!--int-->
         <discard>2</discard> <!--int-->
         <spectacle_points>0</spectacle_points> <!--int-->
+        <target_required>false</target_required> <!--true/false-->
     </stats>
     
     <design>
