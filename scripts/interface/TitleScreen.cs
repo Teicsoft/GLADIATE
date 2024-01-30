@@ -25,19 +25,19 @@ public partial class TitleScreen : Control
         this.Set("mouse_filter", 0);
     }
     
-    private void _on_start_music_timeout()
+    private void OnStartMusicTimeout()
     {
         audioEngine.PlayMusic("Menu_music.wav");
     }
 
-    private void _on_instruction_timer_timeout()
+    private void OnInstructionTimerTimeout()
     {
         Label label = (Label)GetNode("Label");
         if (label.Visible) { label.Hide(); }
         else { label.Show(); }
     }
 
-    private void _on_gui_input(InputEvent @event)
+    private void OnGuiInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseButton)
         {

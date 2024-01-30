@@ -98,7 +98,7 @@ autostart = true
 wait_time = 0.5
 autostart = true
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="gui_input" from="." to="." method="OnGuiInput"]
 [connection signal="gui_input" from="Label" to="." method="_on_gui_input"]
-[connection signal="timeout" from="StartMusic" to="." method="_on_start_music_timeout"]
-[connection signal="timeout" from="InstructionTimer" to="." method="_on_instruction_timer_timeout"]
+[connection signal="timeout" from="StartMusic" to="." method="OnStartMusicTimeout"]
+[connection signal="timeout" from="InstructionTimer" to="." method="OnInstructionTimerTimeout"]

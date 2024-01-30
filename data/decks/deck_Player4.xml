@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deck id="deck_Player4" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_DropKick"/>  <!--card_id: string-->
+        <card card_id="card_DropKick"/>
+        <card card_id="card_DropKick"/>
+        <card card_id="card_KipUp"/>
+        <card card_id="card_KipUp"/>
+        <card card_id="card_KipUp"/>
+        <card card_id="card_Trip"/>
+        <card card_id="card_Trip"/>
+        <card card_id="card_ComeCloser"/>
+        <card card_id="card_ComeCloser"/>
+        <card card_id="card_Showoff"/>
+        <card card_id="card_Showoff"/>
+        <card card_id="card_reckless"/>
+        <card card_id="card_reckless"/>
+    </cards>
+</deck>

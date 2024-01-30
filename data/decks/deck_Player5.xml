@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deck id="deck_Player5" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_headbutt"/>  <!--card_id: string-->
+        <card card_id="card_headbutt"/>  
+        <card card_id="card_headbutt"/>  
+        <card card_id="card_headbutt"/>  
+        <card card_id="card_ShoutYourMoveName"/>  
+        <card card_id="card_ShoutYourMoveName"/>  
+        <card card_id="card_FlyingCrossBody"/>  
+        <card card_id="card_FlyingCrossBody"/>  
+        <card card_id="card_PleaseTheCrowd"/>  
+        <card card_id="card_PleaseTheCrowd"/>  
+        <card card_id="card_CallingCard"/>  
+        <card card_id="card_CallingCard"/>  
+        <card card_id="card_Showoff"/>  
+        <card card_id="card_Showoff"/>  
+    </cards>
+</deck>
