@@ -12,10 +12,12 @@
         <draw>6</draw> <!--int-->
         <discard>0</discard> <!--int-->
         <spectacle_points>20</spectacle_points> <!--int-->
+        <target_required>false</target_required> <!--true/false-->
+
     </stats>
     
     <design>
-        <image>example.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/bloodOnSand.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>
