@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpvi3k7nr2q4t"
-path="res://.godot/imported/dramatic_tattoo_reveal.png-6161082c068b542645c63ee77d106f49.ctex"
+path="res://.godot/imported/Dramatic_Tattoo_Reveal.png-7eb07508977c65576e81039c9763dac7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Cards/CardArt/dramatic_tattoo_reveal.png"
-dest_files=["res://.godot/imported/dramatic_tattoo_reveal.png-6161082c068b542645c63ee77d106f49.ctex"]
+source_file="res://assets/images/Cards/CardArt/Dramatic_Tattoo_Reveal.png"
+dest_files=["res://.godot/imported/Dramatic_Tattoo_Reveal.png-7eb07508977c65576e81039c9763dac7.ctex"]
 
 [params]
 
