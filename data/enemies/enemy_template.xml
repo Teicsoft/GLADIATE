@@ -12,6 +12,6 @@
 
     <deck_id>deck_id</deck_id> <!--deck_id: string-->
     <max_health>20</max_health> <!--health: int-->
-    <starting_block_upper>0</starting_block_upper>
-    <starting_block_lower>0</starting_block_lower>
+    <starting_block_upper>0</starting_block_upper> <!-- int -->
+    <starting_block_lower>0</starting_block_lower> <!-- int -->
 </enemy>
