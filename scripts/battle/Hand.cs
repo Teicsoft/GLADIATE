@@ -6,6 +6,7 @@ using System.Linq;
 using TeicsoftSpectacleCards.scripts.battle.card;
 
 public partial class Hand : Path2D {
+    private const int MAX_HAND_SIZE = 10;
     public List<CardSleeve> Cards = new();
 
     private int _selectedCardIndex = -1;
@@ -18,7 +19,7 @@ public partial class Hand : Path2D {
     }
 
     public void DrawCards(int n) {
-        AddCards(Deck.DrawCards(n));
+        AddCards(Deck.DrawCards(n + Cards.Count > MAX_HAND_SIZE ? MAX_HAND_SIZE - Cards.Count : n));
     }
 
     public void InitialiseDeck(List<string> cardIds) {
@@ -39,13 +40,9 @@ public partial class Hand : Path2D {
         UpdateCardPositions();
     }
 
-    public CardSleeve GetSelectedCard() {
-        return _selectedCardIndex != -1 ? Cards[_selectedCardIndex] : null;
-    }
+    public CardSleeve GetSelectedCard() { return _selectedCardIndex != -1 ? Cards[_selectedCardIndex] : null; }
 
-    public void DiscardCard() {
-        DiscardCard(Cards[_selectedCardIndex]);
-    }
+    public void DiscardCard() { DiscardCard(Cards[_selectedCardIndex]); }
 
     public void DiscardCard(CardSleeve cardSleeve) {
         cardSleeve.CardSelected -= SelectCard;
