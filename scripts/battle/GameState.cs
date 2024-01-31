@@ -68,6 +68,7 @@ public class GameState {
     }
 
     public void StartTurn() {
+        DeselectDeadEnemy();
         GD.Print(" ==== ==== START TURN ==== ====");
         _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
         SpectacleBuffer = 0;
@@ -96,6 +97,13 @@ public class GameState {
             GD.Print("Playing Combo: " + matchingCombo.Name);
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
+        DeselectDeadEnemy();
+    }
+
+    private void DeselectDeadEnemy() {
+        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) {
+            _selectedEnemyIndex = -1;
+        }
     }
 
     public void PushCardStack(Card card) { ComboStack.Add(card); }
@@ -214,8 +222,10 @@ public class GameState {
     public Enemy GetSelectedEnemy() { return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null; }
 
     public void SelectEnemy(Enemy enemy) {
-        int enemyIndex = Enemies.IndexOf(enemy);
-        _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        if (enemy.Health>0) {
+            int enemyIndex = Enemies.IndexOf(enemy);
+            _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        }
     }
 
     public override string ToString() {
