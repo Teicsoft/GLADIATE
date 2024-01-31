@@ -21,9 +21,23 @@ public static class Utils {
 
     public static float GetDamageMultiplier(ITarget player) {
         float damageMultiplier = 1f;
-        if (player.Statuses.Contains(Utils.StatusEnum.TattooRevealed)) { damageMultiplier *= 3f / 4; }
-        if (player.Statuses.Contains(Utils.StatusEnum.DoubleDamage)) { damageMultiplier *= 2; }
+        if (player.Statuses.Contains(StatusEnum.TattooRevealed)) { damageMultiplier *= 3f / 4; }
+        if (player.Statuses.Contains(StatusEnum.DoubleDamage)) { damageMultiplier *= 2; }
         return damageMultiplier;
+    }
+
+    public static void RemoveEndTurnStatuses(ITarget target) {
+        target.Statuses.Remove(StatusEnum.MoveShouted);
+        target.Statuses.Remove(StatusEnum.TattooRevealed);
+        target.Statuses.Remove(StatusEnum.Countering);
+        target.Statuses.Remove(StatusEnum.DoubleDamage);
+    }
+
+    public static void CounterCheck(GameState gameState, ITarget target, ITarget player) {
+        if (target.Statuses.Contains(StatusEnum.Countering)) {
+            player.DirectDamage(5);
+            if (player is Enemy) { gameState.SpectaclePoints += 10 * gameState.Multiplier; }
+        }
     }
     
 

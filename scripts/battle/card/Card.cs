@@ -72,11 +72,8 @@ public class Card {
         // not the player player, they who played this card
         GD.Print(player.Name + " played " + CardName);
         if (Attack != 0) {
-            if (target.Statuses.Contains(Utils.StatusEnum.Countering)) {
-                player.DirectDamage(5);
-                if (player is Enemy) { gameState.SpectaclePoints += 10 * gameState.Multiplier; }
-            }
-            int modifiedAttack = (int)(Attack * Utils.GetDamageMultiplier(player));
+            Utils.CounterCheck(gameState, target, player);
+            int modifiedAttack = (int)Math.Floor(Attack * Utils.GetDamageMultiplier(player));
             if (TargetRequired || player is Enemy) { target.Damage(modifiedAttack, TargetPosition); } else {
                 foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(modifiedAttack, TargetPosition); }
             }

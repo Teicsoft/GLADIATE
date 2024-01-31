@@ -160,15 +160,10 @@ public class GameState {
         }
 
         // Safe to do, even if MoveShouted not in the Set.
-        Player.Statuses.Remove(Utils.StatusEnum.MoveShouted);
 
         ProcessCombo(null);
         List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
-        if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemies.Count > _turnStartEnemyCount) {
-            int enemiesDefeated = _turnStartEnemyCount - aliveEnemies.Count;
-            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
-            Draw(enemiesDefeated*2);
-        }
+        CrowdPleasedCheck(aliveEnemies.Count);
         if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
             foreach (Enemy enemy in aliveEnemies) {
                 if (enemy.IsStunned()) {
@@ -178,17 +173,21 @@ public class GameState {
                 Card card = enemy.DrawCard();
                 card.Play(this, Player, enemy);
                 enemy.TakeCardIntoDiscard(card);
-                enemy.Statuses.Remove(Utils.StatusEnum.TattooRevealed);
-                enemy.Statuses.Remove(Utils.StatusEnum.Countering);
-                enemy.Statuses.Remove(Utils.StatusEnum.DoubleDamage);
+                Utils.RemoveEndTurnStatuses(enemy);
             }
         }
-        Player.Statuses.Remove(Utils.StatusEnum.TattooRevealed);
-        Player.Statuses.Remove(Utils.StatusEnum.Countering);
-        Player.Statuses.Remove(Utils.StatusEnum.DoubleDamage);
+        Utils.RemoveEndTurnStatuses(Player);
 
         GD.Print(" ==== ====  END TURN  ==== ====");
         StartTurn();
+    }
+
+    private void CrowdPleasedCheck(int aliveEnemiesCount) {
+        if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemiesCount > _turnStartEnemyCount) {
+            int enemiesDefeated = _turnStartEnemyCount - aliveEnemiesCount;
+            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
+            Draw(enemiesDefeated*2);
+        }
     }
 
     public void StartDiscarding() {
