@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!-- Enemy Template -->
+<!-- Stores data about an enemy -->
+<!-- To use, copy this file and rename it to enemy_name.xml -->
+
+<enemy id="enemy_template" name ="EnemyName"> <!--id: string--> <!--name: string-->
+    <image>enemy_image.png</image> <!--path: string-->
+    <sound_effect>soundeffect</sound_effect> <!--string for audioengine sfx-->
+    <lore>lore</lore>
+
+    <deck_id>deck_id</deck_id> <!--deck_id: string-->
+    <max_health>20</max_health> <!--health: int-->
+    <starting_block_upper>0</starting_block_upper> <!-- int -->
+    <starting_block_lower>0</starting_block_lower> <!-- int -->
+</enemy>

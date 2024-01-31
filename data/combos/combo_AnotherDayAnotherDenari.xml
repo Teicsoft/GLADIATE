@@ -4,7 +4,7 @@
     
     <cards> <!--card_id: string--> <!--List cards in order as they appear in order-->
         <card card_id="card_punch"/> <!--card_id: string-->
-        <card card_id="card_punch"/>
+        <card card_id="card_FullBlock"/>
         <card card_id="card_FullBlock"/> <!-- Any Block -->
     </cards>
     
@@ -13,7 +13,7 @@
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
-        <draw>0</draw> <!--int-->
+        <draw>1</draw> <!--int-->
         <discard>1</discard> <!--int-->
         <spectacle_points>10</spectacle_points> <!--int-->
     </stats>
