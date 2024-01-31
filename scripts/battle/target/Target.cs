@@ -1,4 +1,6 @@
-﻿namespace TeicsoftSpectacleCards.scripts.battle.target;
+﻿using System.Collections.Generic;
+
+namespace TeicsoftSpectacleCards.scripts.battle.target;
 
 public interface ITarget {
     public string Name { get; set; }
@@ -6,6 +8,7 @@ public interface ITarget {
     public int Health { get; set; }
     public int DefenseLower { get; set; }
     public int DefenseUpper { get; set; }
+    List<Utils.StatusEnum> Statuses { get; set; }
 
     public Utils.ModifierEnum Modifier { get; set; }
     void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) { }

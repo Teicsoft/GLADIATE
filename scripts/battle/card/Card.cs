@@ -87,7 +87,7 @@ public class Card {
         if (player is not Enemy) {
             if (CardDraw > 0) { gameState.Draw(CardDraw); }
 
-            if (Discard > 0) { gameState.DiscardsRemaining += Discard; }
+            if (Discard > 0) { gameState.Discards += Discard; }
 
             gameState.ComboCheck(this);
         }
