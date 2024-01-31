@@ -14,6 +14,7 @@ public partial class TitleScreen : Control
         {"Menu_music.wav", AudioEngine.AudioType.Music},
         {"venividivichy.wav", AudioEngine.AudioType.Music},
         {"whatdidtheromanseverdoforme.wav", AudioEngine.AudioType.Music},
+        {"Lil_tune.wav", AudioEngine.AudioType.Music},
         {"fuckaroundandfindout.wav", AudioEngine.AudioType.Music},
         {"testsound1.ogg", AudioEngine.AudioType.SoundFx}
     };

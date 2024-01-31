@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using TeicsoftSpectacleCards.scripts.audio;
 using TeicsoftSpectacleCards.scripts.autoloads;
 using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.battle.target;
@@ -25,8 +26,12 @@ public partial class Battle : Node2D {
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
+    
+    AudioEngine audioEngine;
 
     public override void _Ready() {
+        audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
 
@@ -133,7 +138,14 @@ public partial class Battle : Node2D {
 
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
-        if (playerObject.Health <= 0) { EmitSignal(Battle.SignalName.BattleLost); }
+        if (playerObject.Health <= 0)
+        {
+            EmitSignal(Battle.SignalName.BattleLost); 
+            
+            var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+            audioEngine.PlayMusic("Lil_tune.wav");
+            sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
+        }
         GetNode<Label>("HUD/PlayerHealthDisplay").Text = playerObject.Health + "/" + playerObject.MaxHealth;
         GetNode<ProgressBar>("HUD/PlayerHealthProgressBar").Ratio =
             (double)playerObject.Health / playerObject.MaxHealth;
