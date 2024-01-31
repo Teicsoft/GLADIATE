@@ -23,7 +23,7 @@
 
     <text>
         <name>Flying Cross Body</name> <!--string-->
-        <description>Flying Cross Body</description> <!--string-->
+        <description>Deal 6 damage. Hits up to 3 targets. SP Multiplied by x targets, damage divided by x targets</description> <!--string-->
         <lore>OwlBear from the top rope</lore> <!--string-->
         <tooltip_text>Flying Cross Body</tooltip_text> <!--string-->
         <onscreen_text>Flying Cross Body</onscreen_text> <!--string-->

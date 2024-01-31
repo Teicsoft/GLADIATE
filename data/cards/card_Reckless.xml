@@ -22,7 +22,7 @@
 
     <text>
         <name>Reckless Open</name> <!--string-->
-        <description>Card Description</description> <!--string-->
+        <description>Deal 5 damage. Draw 3. Discard 3. Stuns an enemy</description> <!--string-->
         <lore>I cant belive you done that</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->
         <onscreen_text>Shown When card played</onscreen_text> <!--string-->

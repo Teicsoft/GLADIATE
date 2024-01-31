@@ -22,7 +22,7 @@
 
     <text>
         <name>Show off</name> <!--string-->
-        <description>Show off</description> <!--string-->
+        <description>Gain 15 health. Discard 1. 2x SP on next combo</description> <!--string-->
         <lore>The backflip at the end was unnesecary </lore> <!--string-->
         <tooltip_text>Show off</tooltip_text> <!--string-->
         <onscreen_text>Show off</onscreen_text> <!--string-->
