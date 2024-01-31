@@ -24,8 +24,8 @@ public partial class Lore : Control
     private void OnButtonPressed()
     {
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
-        sceneLoader.GoToScene("res://scenes/battle/Battle.tscn");
-        audioEngine.PlayMusic("venividivichy.wav");
+        sceneLoader.GoToScene("res://scenes/main/Deck Select.tscn");
+        audioEngine.PlayMusic("fuckaroundandfindout.wav");
     }
 }
 

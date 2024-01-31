@@ -1,20 +1,30 @@
 using System.Collections.Generic;
 using Godot;
+using TeicsoftSpectacleCards.scripts.audio;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 namespace TeicsoftSpectacleCards.scripts.autoloads;
 
 public partial class SceneLoader : Node
 {
+    private AudioEngine audioEngine;
     public Node CurrentScene { get; set; }
     public List<Dictionary<string, dynamic>> battles;
-    private int _i = 1;
+    public int i {get; set;}
+    public int SpectaclePoints { get; set; }
+    public string deckSelected { get; set; }
 
     public override void _Ready()
     {
+        audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+
+        i = 0;
+        
         Viewport root = GetTree().Root;
         CurrentScene = root.GetChild(root.GetChildCount() - 1);
         battles = BattleXmlParser.ParseAllBattles();
+        deckSelected = "deck_Player1";
+        SpectaclePoints = 0;
     }
     
     public void GoToScene(string path)
@@ -32,17 +42,20 @@ public partial class SceneLoader : Node
     }
 
     public void GoToNextBattle()
-    {
-        if (_i < battles.Count)
+    { 
+        if (i < battles.Count)
         {
-            DeferredGotoScene("res://scenes/battle/Battle.tscn");
-            _i++;
+            GD.Print("GotoNextBattle");
+            CallDeferred("DeferredGotoScene", "res://scenes/battle/Battle.tscn");
         }
         else
         {
-            DeferredGotoScene("res://scenes/main/Credits.tscn");
+            GD.Print("GotoVictory");
+            CallDeferred("DeferredGotoScene", "res://scenes/sub/Victory.tscn");
+            audioEngine.PlayMusic("fuck_around_and_find_out_2_electric_boogaloo.mp3");
         }
     }
     
-    public Dictionary<string, dynamic> getCurrentBattleData() { return battles[_i]; }
+    
+    public Dictionary<string, dynamic> getCurrentBattleData() { return battles[i]; }
 }
