@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 namespace TeicsoftSpectacleCards.scripts.battle.target;
 
-public class Player : ITarget {
-
+public partial class Player : Node2D, ITarget {
     public event EventHandler PlayerHealthChangedCustomEvent;
     public event EventHandler PlayerDefenseLowerChangedCustomEvent;
     public event EventHandler PlayerDefenseUpperChangedCustomEvent;
@@ -26,7 +26,6 @@ public class Player : ITarget {
         }
     }
 
-
     public int DefenseLower {
         get => _defenseLower;
         set {
@@ -35,7 +34,6 @@ public class Player : ITarget {
         }
     }
 
-
     public int DefenseUpper {
         get => _defenseUpper;
         set {
@@ -43,7 +41,6 @@ public class Player : ITarget {
             PlayerDefenseUpperChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
     }
-
 
     public Player(int maxHealth, int defenseLower, int defenseUpper) {
         MaxHealth = maxHealth;
@@ -83,7 +80,7 @@ public class Player : ITarget {
         if ((DefenseUpper > 0) || (DefenseLower > 0)) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else if (stun>0) {
+        } else if (stun > 0) {
             // TODO: Figure this out.
             // End turn immediately?
         }

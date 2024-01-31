@@ -41,10 +41,12 @@ public class Combo {
     public Animation StageAnimation { get; set; }
     public AudioStream Sound { get; set; }
 
-    public void Initialize(string id, List<Card> cardList, Utils.ModifierEnum modifier, Utils.PositionEnum position,
-        int attack, int defenseLower, int defenseUpper, int health, int cardDraw, int discard, int spectaclePoints,
-        string name, string description, string lore, string onscreenText, string imagePath, string charAnimationPath,
-        string stageAnimationPath, string soundPath) {
+    public void Initialize(
+        string id, List<Card> cardList, Utils.ModifierEnum modifier, Utils.PositionEnum position, int attack,
+        int defenseLower, int defenseUpper, int health, int cardDraw, int discard, int spectaclePoints, string name,
+        string description, string lore, string onscreenText, string imagePath, string charAnimationPath,
+        string stageAnimationPath, string soundPath
+    ) {
         Id = id;
         CardList = cardList;
         Modifier = modifier;
@@ -73,15 +75,18 @@ public class Combo {
         if (Attack != 0) {
             // if the last combo card required a target, then we apply the combo damage to that target.
             if (CardList[^1].TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack, Position); }
+
             // Otherwise, we can't assume that an enemy is selected, so damage all of them.
-            else { foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, Position); } }
+            else {
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, Position); }
+            }
         }
 
-        if (DefenseLower != 0) { gameState.ModifyPlayerBlock(DefenseLower, Utils.PositionEnum.Lower); }
+        if (DefenseLower != 0) { gameState.Player.ModifyBlock(DefenseLower, Utils.PositionEnum.Lower); }
 
-        if (DefenseUpper != 0) { gameState.ModifyPlayerBlock(DefenseUpper, Utils.PositionEnum.Upper); }
+        if (DefenseUpper != 0) { gameState.Player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper); }
 
-        if (Health != 0) { gameState.HealPlayer(Health); }
+        if (Health != 0) { gameState.Player.Heal(Health); }
 
         if (CardDraw > 0) { gameState.Draw(CardDraw); }
 
@@ -95,19 +100,11 @@ public class Combo {
         LoadSound();
     }
 
-    private void LoadTexture() {
-        Image = (Texture)GD.Load(ImagePath);
-    }
+    private void LoadTexture() { Image = (Texture)GD.Load(ImagePath); }
 
-    private void LoadCharAnimation() {
-        CharAnimation = (Animation)GD.Load(CharAnimationPath);
-    }
+    private void LoadCharAnimation() { CharAnimation = (Animation)GD.Load(CharAnimationPath); }
 
-    private void LoadStageAnimation() {
-        StageAnimation = (Animation)GD.Load(StageAnimationPath);
-    }
+    private void LoadStageAnimation() { StageAnimation = (Animation)GD.Load(StageAnimationPath); }
 
-    private void LoadSound() {
-        Sound = (AudioStream)GD.Load(SoundPath);
-    }
+    private void LoadSound() { Sound = (AudioStream)GD.Load(SoundPath); }
 }
