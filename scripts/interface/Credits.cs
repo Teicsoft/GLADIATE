@@ -10,9 +10,10 @@ public partial class Credits : Control
     private List<string> _lines;
     private ScrollContainer _scroll;
     private VBoxContainer _vbox;
-    private int _i = 0;
+    private int counter = 0;
     private Timer _timer;
 
+    private SceneLoader sceneLoader;
 
     public override void _Ready()
     {
@@ -24,9 +25,13 @@ public partial class Credits : Control
         _vbox.AddChild(new Label());
         LoadTexture("res://assets/sprites/Dave/Eagle.png");
         LoadTexture("res://assets/sprites/Dave/Gladiate.png");
+        
+        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
 
         var audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        audioEngine.PlayMusic("Shop_loop_audio.wav");
+        
+        sceneLoader.i = 0;
+        sceneLoader.SpectaclePoints = 0;
     }
 
     public List<string> Readfile()
@@ -59,18 +64,18 @@ public partial class Credits : Control
     {
         Label label = new Label();
 
-        if (_i == 0)
+        if (counter == 0)
         {
             _vbox.AddChild(new Label());
         }
 
-        if (_i >= _lines.Count)
+        if (counter >= _lines.Count)
         {
             label.Set("text", "\n");
         }
         else
         {
-            label.Set("text", _lines[_i]);
+            label.Set("text", _lines[counter]);
         }
 
         label.SizeFlagsHorizontal = SizeFlags.Fill;
@@ -80,15 +85,15 @@ public partial class Credits : Control
         _vbox.AddChild(label);
 
 
-        if (_i == (_lines.Count + 15))
+        if (counter == (_lines.Count + 15))
         {
-            var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+            sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
             sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
         }
 
 
         _scroll.ScrollVertical = (int)_scroll.GetVScrollBar().MaxValue;
-        _i++;
+        counter++;
     }
 }
 

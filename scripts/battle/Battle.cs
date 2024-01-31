@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using TeicsoftSpectacleCards.scripts.audio;
 using TeicsoftSpectacleCards.scripts.autoloads;
 using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.battle.target;
@@ -21,36 +22,44 @@ public partial class Battle : Node2D {
 
     private List<Enemy> _allEnemies;
     private Dictionary<string, List<string>> _allDecks;
-
+    
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
+    
+    AudioEngine audioEngine;
+    SceneLoader sceneLoader;
 
     public override void _Ready() {
+        audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
 
         // TODO: Change to accepting a player deck.
-        _allDecks.TryGetValue("deck_player", out List<string> playerCardIds);
+
+        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        string deckSelected = sceneLoader.deckSelected;
+        _allDecks.TryGetValue(deckSelected, out List<string> playerCardIds);
 
 
-        var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
 
         Id = battleData["battle_id"];
-        Name = battleData["battle_name"];
+        BattleName = battleData["battle_name"];
         Music = battleData["music"];
 
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-
-
+        
+        
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
+        
+        sceneLoader.i += 1;
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
     public override void _Process(double delta) { }
-
     private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
         Hand hand = GetNode<Hand>("Hand");
         hand.InitialiseDeck(playerCardIds);
@@ -125,10 +134,15 @@ public partial class Battle : Node2D {
     private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
     private void EndTurn() { _gameState.EndTurn(); }
 
-    private void WinBattle(object sender, EventArgs eventArgs) {
+    private void WinBattle(object sender, EventArgs eventArgs)
+    {
         EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
+        
+        audioEngine.PlaySoundFx("victory-jingle.wav");
+        GD.Print(" ==== ====  WIN BATTLE  ==== ====");
+        sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
+        sceneLoader.GoToNextBattle();
     }
-
     private void MoveSelectedIndicator(Enemy enemy) {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
             enemy.Position != GetNode<ColorRect>("HUD/SelectedIndicator").Position
@@ -138,7 +152,14 @@ public partial class Battle : Node2D {
 
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
-        if (playerObject.Health <= 0) { EmitSignal(Battle.SignalName.BattleLost); }
+        if (playerObject.Health <= 0)
+        {
+            EmitSignal(Battle.SignalName.BattleLost); 
+            
+            sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+            audioEngine.PlayMusic("Lil_tune.wav");
+            sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
+        }
         GetNode<Label>("HUD/PlayerHealthDisplay").Text = playerObject.Health + "/" + playerObject.MaxHealth;
         GetNode<ProgressBar>("HUD/PlayerHealthProgressBar").Ratio =
             (double)playerObject.Health / playerObject.MaxHealth;

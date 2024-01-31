@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/battle/target/Enemy.cs" id="1_nns8m"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="2_ggci3"]
-[ext_resource type="Texture2D" path="res://assets/ui/Button.png" id="2_mb0el"]
-[ext_resource type="Theme" path="res://Bigtext.tres" id="3_df0w2"]
-[ext_resource type="Texture2D" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
+[ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="2_mb0el"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="3_df0w2"]
+[ext_resource type="Texture2D" uid="uid://c2ui510hlcb4m" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_nns8m")
@@ -17,7 +17,7 @@ offset_right = 150.0
 offset_bottom = 150.0
 color = Color(0.533333, 0.533333, 0.533333, 0)
 
-[node name="Loser5" type="Sprite2D" parent="."]
+[node name="EnemySprite" type="Sprite2D" parent="."]
 position = Vector2(-3.99998, -8.99999)
 scale = Vector2(0.546429, 0.546429)
 texture = ExtResource("2_ggci3")
@@ -115,4 +115,22 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CardPlayed" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -105.0
+offset_top = -202.0
+offset_right = 92.0
+offset_bottom = -172.0
+grow_horizontal = 2
+text = "Card Played"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardPlayedTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]
+[connection signal="timeout" from="CardPlayedTimer" to="." method="OnCardPlayedTimer"]

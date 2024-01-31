@@ -14,9 +14,13 @@ public partial class TitleScreen : Control
         {"Menu_music.wav", AudioEngine.AudioType.Music},
         {"venividivichy.wav", AudioEngine.AudioType.Music},
         {"whatdidtheromanseverdoforme.wav", AudioEngine.AudioType.Music},
-        {"testsound1.ogg", AudioEngine.AudioType.SoundFx}
+        {"Lil_tune.wav", AudioEngine.AudioType.Music},
+        {"fuckaroundandfindout.wav", AudioEngine.AudioType.Music},
+        {"fuck_around_and_find_out_2_electric_boogaloo.mp3", AudioEngine.AudioType.Music},
+        {"testsound1.ogg", AudioEngine.AudioType.SoundFx},
+        {"victory-jingle.wav", AudioEngine.AudioType.SoundFx}
     };
-    
+
     
     public override void _Ready()
     {

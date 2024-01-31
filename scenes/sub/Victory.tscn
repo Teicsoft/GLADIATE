@@ -1,0 +1,111 @@
+[gd_scene load_steps=5 format=3 uid="uid://byg2eleu7a70h"]
+
+[ext_resource type="Script" path="res://scenes/sub/Victory.cs" id="1_gfe22"]
+[ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_kclqt"]
+[ext_resource type="FontFile" uid="uid://cnq0lsjurchca" path="res://assets/fonts/nimbus-roman-no9-l.regular/nimbus-roman-no9-l.regular.otf" id="3_eng43"]
+[ext_resource type="Texture2D" uid="uid://34dhtw1txk12" path="res://assets/sprites/Z/senator_horse.png" id="4_pdj66"]
+
+[node name="Victory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gfe22")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.701961, 0.219608, 0.192157, 1)
+metadata/_edit_lock_ = true
+
+[node name="Trims" type="Control" parent="ColorRect/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="TrimRight" type="TextureRect" parent="ColorRect/ColorRect/Trims"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_kclqt")
+flip_v = true
+
+[node name="TrimLeft" type="TextureRect" parent="ColorRect/ColorRect/Trims"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 52.0
+grow_vertical = 2
+texture = ExtResource("2_kclqt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -166.0
+offset_top = -268.5
+offset_right = 166.0
+offset_bottom = 268.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_eng43")
+theme_override_font_sizes/font_size = 100
+text = "VICTORY!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="ColorRect/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/ColorRect/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_pdj66")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Label3" type="Label" parent="ColorRect/ColorRect/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spectacle Points" type="Label" parent="ColorRect/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Spectacle Points:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
