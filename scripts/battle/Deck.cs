@@ -11,15 +11,9 @@ public class Deck<T> {
     public Discard<T> Discard { get; set; }
     public List<T> Cards;
 
-    public Deck() {
+    public Deck(Discard<T> discard) {
+        Discard = discard;
         Cards = new();
-    }
-
-    public Deck<T> Initialize(string id, string name, List<T> cardList) {
-        this.Id = id;
-        this.Name = name;
-        this.Cards = cardList;
-        return this;
     }
 
     public static List<CardSleeve> SleeveCards(List<Card> cards) {

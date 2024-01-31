@@ -59,7 +59,6 @@ public class GameState {
     public List<Enemy> Enemies = new();
     private int _selectedEnemyIndex = -1;
     public Hand Hand;
-    public Deck<CardSleeve> Deck;
 
     // Constructor
     public GameState() {
@@ -97,20 +96,6 @@ public class GameState {
         GD.Print(" ==== ==== START TURN ==== ====");
         Draw();
     }
-
-    // Player Methods
-    // ****
-    public void DamagePlayer(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
-        Player.Damage(damage, position);
-    }
-
-    public void HealPlayer(int amount) { Player.Heal(amount); }
-
-    public void StunPlayer(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) { Player.Stun(stun); }
-
-    public void ModifyPlayerBlock(int change, Utils.PositionEnum position) { Player.ModifyBlock(change, position); }
-
-    // ****
 
     // Combo Methods
     // ****
@@ -181,7 +166,7 @@ public class GameState {
         }
     }
 
-    public void Draw(int n = 1) { Hand.AddCards(Deck.DrawCards(n)); }
+    public void Draw(int n = 1) { Hand.DrawCards(n); }
 
     public void StartDiscarding() {
         foreach (CardSleeve sleeve in Hand.Cards) {
@@ -193,9 +178,9 @@ public class GameState {
     public void StopDiscarding() {
         foreach (CardSleeve sleeve in Hand.Cards) { sleeve.CardSelected -= SelectedDiscard; }
 
-        foreach (CardSleeve sleeve in Deck.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+        foreach (CardSleeve sleeve in Hand.Deck.Cards) { sleeve.CardSelected -= SelectedDiscard; }
 
-        foreach (CardSleeve sleeve in Deck.Discard.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+        foreach (CardSleeve sleeve in Hand.Discard.Cards) { sleeve.CardSelected -= SelectedDiscard; }
     }
 
     private void SelectedDiscard(CardSleeve sleeve) {

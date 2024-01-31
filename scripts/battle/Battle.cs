@@ -13,9 +13,6 @@ public partial class Battle : Node2D {
 
     [Export] private PackedScene _cardScene;
     [Export] private PackedScene _enemyScene;
-    private Hand _hand;
-    private Deck<CardSleeve> _deck;
-    private Discard<CardSleeve> _discard;
     private GameState _gameState;
 
     private List<TextureRect> _comboArts = new();
@@ -47,14 +44,10 @@ public partial class Battle : Node2D {
     public override void _Process(double delta) { }
 
     private void InitialiseGameState(List<string> playerCardIds) {
-        _hand = GetNode<Hand>("Hand");
-        _deck = new Deck<CardSleeve>();
-        _discard = new Discard<CardSleeve>();
-        _deck.Discard = _discard;
-        _hand.Discard = _discard;
         _gameState = new GameState();
-        _gameState.Hand = _hand;
-        _gameState.Deck = _deck;
+        Hand hand = GetNode<Hand>("Hand");
+        hand.InitialiseDeck(playerCardIds);
+        _gameState.Hand = hand;
         _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
         _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
         _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
@@ -63,8 +56,6 @@ public partial class Battle : Node2D {
         _gameState.DiscardStateChangedCustomEvent += OnDiscardStateChanged;
         _gameState.ComboStackChangedCustomEvent += OnComboStackChanged;
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
-        _deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
-        _deck.Shuffle();
         _gameState.Draw(4);
     }
 
@@ -84,14 +75,13 @@ public partial class Battle : Node2D {
         enemiesLocation.ProgressRatio = (float)i / (ENEMY_COUNT - 1);
         enemy.Position = enemiesLocation.Position;
         enemy.Deck = enemyDeck;
-        enemy.Discard = new();
         enemy.EnemySelected += _gameState.SelectEnemy;
         enemy.EnemySelected += MoveSelectedIndicator;
         return enemy;
     }
 
     private static Deck<Card> GetEnemyDeck(List<string> enemyCardIds) {
-        Deck<Card> enemyDeck = new();
+        Deck<Card> enemyDeck = new(new ());
         enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
         enemyDeck.Shuffle();
         return enemyDeck;
