@@ -173,4 +173,14 @@ public partial class Enemy : Node2D, ITarget {
         return
             $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
     }
+    
+    private void OnCardPlayedTimer()
+    {
+        Label cardPlayedLabel = GetNode<Label>("CardPlayed");
+        cardPlayedLabel.Visible = false;
+        
+    }
 }
+
+
+
