@@ -103,10 +103,10 @@ public partial class Player : Node2D, ITarget {
     public void ModifyBlock(int change, Utils.PositionEnum position) {
         switch (position) {
             case Utils.PositionEnum.Upper:
-                DefenseUpper += change;
+                DefenseUpper = Math.Max(DefenseUpper + change, 0);
                 break;
             case Utils.PositionEnum.Lower:
-                DefenseLower += change;
+                DefenseLower = Math.Max(DefenseLower + change, 0);
                 break;
         }
     }

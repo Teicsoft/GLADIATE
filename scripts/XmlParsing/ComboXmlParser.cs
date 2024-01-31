@@ -12,6 +12,16 @@ public static class ComboXmlParser {
     private static Dictionary<string, Func<Combo>> TypeDictionary = new() {
         { "combo_mgk", () => new DoubleMultCombo() },
         { "combo_EtTuBrutal", () => new SelfDamageCombo() },
+        { "combo_AndStayThere", () => new StayJuggledCombo() },
+        { "combo_GetPolitical", () => new GetPolitical() },
+        { "combo_Footwork", () => new Footwork() },
+        { "combo_InciteRiot", () => new InciteRiot() },
+        { "combo_ScotchMist", () => new ScotchMist() },
+        { "combo_Overwhelm", () => new StunCombo() },
+        { "combo_SwearVengeance", () => new SwearVengeance() },
+        { "combo_TheAntiThinker", () => new AntiThunker() },
+        { "combo_ThroughHardshipTheseScars", () => new ThroughHardshipTheseScars() },
+        { "combo_GratuitousBackflip", () => new GratuitousBackflip() },
     };
 
     public static Combo ParseComboFromXml(string filepath) {
