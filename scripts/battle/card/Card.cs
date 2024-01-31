@@ -8,6 +8,7 @@ public class Card {
     public Color color { get; set; }
 
     public string Id { get; set; } // card_id
+    public string CardType { get; set; } // card_type
     public bool TargetRequired { get; set; }
     public Utils.ModifierEnum Modifier { get; set; }
     public Utils.PositionEnum TargetPosition { get; set; }
@@ -33,11 +34,12 @@ public class Card {
     public string SoundPath { get; set; } //path to sound
 
     public Card Initialize(
-        string id, Utils.ModifierEnum modifier, Utils.PositionEnum position, bool targetRequired = true, int attack = 0,
+        string cardType, string id, Utils.ModifierEnum modifier, Utils.PositionEnum position, bool targetRequired = true, int attack = 0,
         int defenseLower = 0, int defenseUpper = 0, int health = 0, int draw = 0, int discard = 0,
         int spectaclePoints = 0, string name = "", string description = "", string lore = "", string tooltip = "",
         string imagePath = "", string animationPath = "", string soundPath = ""
     ) {
+        CardType = cardType;
         Id = id;
         Modifier = modifier;
         TargetPosition = position;
@@ -102,7 +104,7 @@ public class Card {
         Card card = CardFactory.ConstructCard(Id);
 
         card.Initialize(
-            Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
+            CardType, Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
             SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath, SoundPath
         );
         card.color = new Color(color.R, color.G, color.B);

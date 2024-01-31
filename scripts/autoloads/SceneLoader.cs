@@ -13,6 +13,7 @@ public partial class SceneLoader : Node
     public int i {get; set;}
     public int SpectaclePoints { get; set; }
     public string deckSelected { get; set; }
+    public int health { get; set; }
 
     public override void _Ready()
     {
