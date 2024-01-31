@@ -63,6 +63,7 @@ public partial class Battle : Node2D {
         _gameState.DiscardStateChangedCustomEvent += OnDiscardStateChanged;
         _gameState.ComboStackChangedCustomEvent += OnComboStackChanged;
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
+        _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Draw(4);
     }
 
@@ -186,6 +187,11 @@ public partial class Battle : Node2D {
             }
         }
     }
+    private void DisplayPlayedCombo(object sender, ComboEventArgs e) {
+        GetNode<Label>("HUD/ComboDisplay").Text = $"C-C-C-COMBO!!! {e.Combo.Name}!";
+        GetNode<Timer>("HUD/ComboDisplay/ComboDisplayTimer").Start();
+    }
+    private void OnComboDisplayTimeout() { GetNode<Label>("HUD/ComboDisplay").Text = ""; }
 
     private void OnPlayerHealthChanged(object sender, EventArgs e) { OnPlayerHealthChanged(); }
     private void OnPlayerDefenseUpperChanged(object sender, EventArgs e) { OnPlayerDefenseUpperChanged(); }

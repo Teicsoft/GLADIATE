@@ -279,6 +279,17 @@ grow_vertical = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ComboDisplay" type="Label" parent="HUD"]
+offset_left = 558.0
+offset_top = 410.0
+offset_right = 916.0
+offset_bottom = 560.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ComboDisplayTimer" type="Timer" parent="HUD/ComboDisplay"]
+wait_time = 3.0
+
 [node name="Hand" type="Path2D" parent="."]
 curve = SubResource("Curve2D_xvv15")
 script = ExtResource("4_swwjy")
@@ -314,4 +325,5 @@ script = ExtResource("11_mow0b")
 
 [connection signal="pressed" from="HUD/PlayButton" to="." method="OnPlayButtonPressed"]
 [connection signal="pressed" from="HUD/End Turn Button" to="." method="EndTurn"]
+[connection signal="timeout" from="HUD/ComboDisplay/ComboDisplayTimer" to="." method="OnComboDisplayTimeout"]
 [connection signal="pressed" from="Toggle Sound" to="Toggle Sound" method="_on_TextureButton_pressed"]

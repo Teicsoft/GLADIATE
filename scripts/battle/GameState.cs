@@ -14,6 +14,7 @@ public class GameState {
     public event EventHandler DiscardStateChangedCustomEvent;
     public event EventHandler AllEnemiesDefeatedCustomEvent;
     public event EventHandler ComboStackChangedCustomEvent;
+    public event EventHandler<ComboEventArgs> ComboPlayedCustomEvent;
 
     private List<Combo> AllCombos;
     public Player Player;
@@ -93,8 +94,7 @@ public class GameState {
         // find a matching combo if it exists, returns null if no match
         Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) {
-            GD.Print("C-C-COMBO!!!");
-            GD.Print("Playing Combo: " + matchingCombo.Name);
+            ComboPlayedCustomEvent?.Invoke(this, new ComboEventArgs(matchingCombo));
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
         DeselectDeadEnemy();
@@ -232,4 +232,9 @@ public class GameState {
         return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
                $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
     }
+}
+
+public class ComboEventArgs : EventArgs {
+    public Combo Combo;
+    public ComboEventArgs(Combo combo) { Combo = combo; }
 }
