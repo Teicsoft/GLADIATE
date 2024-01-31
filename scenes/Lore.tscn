@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1sc8d2yqb0jx"]
+
+[ext_resource type="Script" path="res://scripts/interface/Lore.cs" id="1_n52gq"]
+[ext_resource type="FontFile" uid="uid://cnq0lsjurchca" path="res://assets/fonts/nimbus-roman-no9-l.regular/nimbus-roman-no9-l.regular.otf" id="2_2by0a"]
+[ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_4jfqi"]
+
+[node name="Lore" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n52gq")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.701961, 0.219608, 0.192157, 1)
+metadata/_edit_lock_ = true
+
+[node name="Trims" type="Control" parent="bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="TrimRight" type="TextureRect" parent="bg/Trims"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_4jfqi")
+flip_v = true
+
+[node name="TrimLeft" type="TextureRect" parent="bg/Trims"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 52.0
+grow_vertical = 2
+texture = ExtResource("2_4jfqi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -509.0
+offset_right = 509.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -438.0
+offset_top = 62.0
+offset_right = 438.0
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"HeaderLarge"
+theme_override_fonts/font = ExtResource("2_2by0a")
+theme_override_font_sizes/font_size = 40
+text = "test
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -127.0
+offset_top = -116.0
+offset_right = 127.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continue"
+
+[connection signal="pressed" from="ColorRect/Button" to="." method="OnButtonPressed"]
