@@ -9,10 +9,10 @@ using TeicsoftSpectacleCards.scripts.XmlParsing;
 namespace TeicsoftSpectacleCards.scripts.battle;
 
 public class GameState {
-
     public event EventHandler MultiplierChangedCustomEvent;
     public event EventHandler SpectacleChangedCustomEvent;
     public event EventHandler DiscardStateChangedCustomEvent;
+    public event EventHandler AllEnemiesDefeatedCustomEvent;
     public event EventHandler ComboStackChangedCustomEvent;
     public Player Player;
 
@@ -76,14 +76,17 @@ public class GameState {
         }
 
         ProcessCombo(null);
-        foreach (Enemy enemy in Enemies.FindAll(enemy => enemy.Health > 0)) {
-            if (enemy.IsStunned()) {
-                // Update HUD
-                continue;
+        List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
+        if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
+            foreach (Enemy enemy in aliveEnemies) {
+                if (enemy.IsStunned()) {
+                    // Update HUD
+                    continue;
+                }
+                Card card = enemy.DrawCard();
+                card.Play(this, Player, enemy);
+                enemy.TakeCardIntoDiscard(card);
             }
-            Card card = enemy.DrawCard();
-            card.Play(this, Player, enemy);
-            enemy.TakeCardIntoDiscard(card);
         }
 
         GD.Print(" ==== ====  END TURN  ==== ====");

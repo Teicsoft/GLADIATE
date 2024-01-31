@@ -8,7 +8,8 @@ using TeicsoftSpectacleCards.scripts.battle.target;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 public partial class Battle : Node2D {
-    [Signal] public delegate void GameOverEventHandler();
+    [Signal] public delegate void BattleLostEventHandler();
+    [Signal] public delegate void BattleWonEventHandler(Player player);
 
     [Export] private PackedScene _cardScene;
     [Export] private PackedScene _enemyScene;
@@ -17,7 +18,7 @@ public partial class Battle : Node2D {
     private Discard<CardSleeve> _discard;
     private GameState _gameState;
 
-    private List<TextureRect> _comboArts = new List<TextureRect>();
+    private List<TextureRect> _comboArts = new();
 
     const int ENEMY_COUNT = 3;
 
@@ -61,6 +62,7 @@ public partial class Battle : Node2D {
         _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
         _gameState.DiscardStateChangedCustomEvent += OnDiscardStateChanged;
         _gameState.ComboStackChangedCustomEvent += OnComboStackChanged;
+        _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _deck.AddCards(Deck<CardSleeve>.SleeveCards(playerCardIds.Select(CardPrototypes.CloneCard).ToList()));
         _deck.Shuffle();
         _gameState.Draw(4);
@@ -104,7 +106,7 @@ public partial class Battle : Node2D {
 
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
-        if (playerObject.Health <= 0) { EmitSignal(SignalName.GameOver); }
+        if (playerObject.Health <= 0) { EmitSignal(SignalName.BattleLost); }
         GetNode<Label>("HUD/PlayerHealthDisplay").Text = playerObject.Health + "/" + playerObject.MaxHealth;
         GetNode<ProgressBar>("HUD/PlayerHealthProgressBar").Ratio = (double)playerObject.Health / playerObject.MaxHealth;
     }
@@ -172,4 +174,6 @@ public partial class Battle : Node2D {
     private void OnDeckPressed() { _gameState.Draw(); }
 
     private void EndTurn() { _gameState.EndTurn(); }
+
+    private void WinBattle(object sender, EventArgs eventArgs) { EmitSignal(SignalName.BattleWon, _gameState.Player); }
 }

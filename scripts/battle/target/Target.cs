@@ -9,7 +9,6 @@ public interface ITarget {
     public int DefenseLower { get; set; }
     public int DefenseUpper { get; set; }
     List<Utils.StatusEnum> Statuses { get; set; }
-
     public Utils.ModifierEnum Modifier { get; set; }
     void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) { }
 
