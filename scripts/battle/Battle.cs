@@ -31,11 +31,12 @@ public partial class Battle : Node2D {
         _allDecks = DeckXmlParser.ParseAllDecks();
 
         // TODO: Change to accepting a player deck.
-        _allDecks.TryGetValue("deck_player", out List<string> playerCardIds);
-        
 
-        
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        string deckSelected = sceneLoader.deckSelected;
+        _allDecks.TryGetValue(deckSelected, out List<string> playerCardIds);
+
+
         Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
 
         Id = battleData["battle_id"];
@@ -43,7 +44,6 @@ public partial class Battle : Node2D {
         Music = battleData["music"];
 
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-        
         
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();

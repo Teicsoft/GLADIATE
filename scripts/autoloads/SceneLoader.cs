@@ -9,12 +9,14 @@ public partial class SceneLoader : Node
     public Node CurrentScene { get; set; }
     public List<Dictionary<string, dynamic>> battles;
     private int _i = 1;
+    public string deckSelected { get; set; }
 
     public override void _Ready()
     {
         Viewport root = GetTree().Root;
         CurrentScene = root.GetChild(root.GetChildCount() - 1);
         battles = BattleXmlParser.ParseAllBattles();
+        deckSelected = "deck_Player1";
     }
     
     public void GoToScene(string path)
