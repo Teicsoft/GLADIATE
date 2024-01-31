@@ -23,7 +23,7 @@ public partial class Enemy : Node2D, ITarget {
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
     public int MaxHealth { get; set; }
-    public List<Utils.StatusEnum> Statuses { get; set; } = new();
+    public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
 
     public int Health {
         get => _health;
@@ -94,37 +94,51 @@ public partial class Enemy : Node2D, ITarget {
     public void TakeCardIntoDiscard(Card card) { Deck.Discard.AddCard(card); }
 
     public void Damage(int damage, Utils.PositionEnum position) {
-        bool blocked = false;
+        if (!CheckBlock(position)) { DirectDamage(damage); }
+    }
+
+    public bool CheckBlock(Utils.PositionEnum position) {
         switch (position) {
             case Utils.PositionEnum.Upper:
                 if (DefenseUpper > 0) {
-                    blocked = true;
                     DefenseUpper--;
+                    return true;
                 }
 
                 break;
             case Utils.PositionEnum.Lower:
                 if (DefenseLower > 0) {
-                    blocked = true;
                     DefenseLower--;
+                    return  true;
                 }
 
                 break;
         }
-
-        if (!blocked) { DirectDamage(damage); }
+        return false;
     }
 
-    public void Stun(int stun) {
+    public void Stun() {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else if (stun > 0) {
-            foreach (int _ in Enumerable.Range(0, stun)) { Statuses.Add(Utils.StatusEnum.Stunned); }
+        } else {
+            Statuses.Add(Utils.StatusEnum.Stunned); 
         }
     }
 
-    private void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
+    public void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
+
+    public void Ground(Utils.PositionEnum position) {
+        if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grounded; }
+    }
+
+    public void Juggle() {
+         Modifier = Utils.ModifierEnum.Juggled; 
+    }
+
+    public void Grapple(Utils.PositionEnum position) {
+        if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grappled; }
+    }
 
     public void ModifyBlock(int change, Utils.PositionEnum position) {
         switch (position) {

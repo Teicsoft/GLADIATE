@@ -24,6 +24,7 @@ public class GameState {
     private int _multiplier;
     private int _spectaclePoints;
     private int _discards;
+    private int _turnStartEnemyCount;
     private int _selectedEnemyIndex = -1;
 
     public int Discards {
@@ -68,6 +69,7 @@ public class GameState {
 
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
+        _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
         SpectacleBuffer = 0;
         Draw();
     }
@@ -78,6 +80,9 @@ public class GameState {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
             cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
+            if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) {
+                SpectacleBuffer += 10;
+            }
             ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
         }
@@ -121,11 +126,23 @@ public class GameState {
 
         combo?.Play(this);
 
+        ShowOffCheck();
+
         SpectaclePoints += Math.Abs(SpectacleBuffer * Multiplier);
         SpectacleBuffer = 0;
 
         ComboStack.Clear();
         ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void ShowOffCheck() {
+        if (Player.Statuses.Contains(Utils.StatusEnum.JustShowedOff)) {
+            Player.Statuses.Remove(Utils.StatusEnum.JustShowedOff);
+            Player.Statuses.Add(Utils.StatusEnum.ShowedOff);
+        } else if (Player.Statuses.Contains(Utils.StatusEnum.ShowedOff)) {
+            Player.Statuses.Remove(Utils.StatusEnum.ShowedOff);
+            SpectacleBuffer *= 2;
+        }
     }
 
     public void ProcessMultiplier(int comboLength) {
@@ -142,8 +159,16 @@ public class GameState {
             if (Hand.Cards.Count == 0) { Discards = 0; } else { return; }
         }
 
+        // Safe to do, even if MoveShouted not in the Set.
+        Player.Statuses.Remove(Utils.StatusEnum.MoveShouted);
+
         ProcessCombo(null);
         List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
+        if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemies.Count > _turnStartEnemyCount) {
+            int enemiesDefeated = _turnStartEnemyCount - aliveEnemies.Count;
+            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
+            Draw(enemiesDefeated*2);
+        }
         if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
             foreach (Enemy enemy in aliveEnemies) {
                 if (enemy.IsStunned()) {
@@ -153,8 +178,14 @@ public class GameState {
                 Card card = enemy.DrawCard();
                 card.Play(this, Player, enemy);
                 enemy.TakeCardIntoDiscard(card);
+                enemy.Statuses.Remove(Utils.StatusEnum.TattooRevealed);
+                enemy.Statuses.Remove(Utils.StatusEnum.Countering);
+                enemy.Statuses.Remove(Utils.StatusEnum.DoubleDamage);
             }
         }
+        Player.Statuses.Remove(Utils.StatusEnum.TattooRevealed);
+        Player.Statuses.Remove(Utils.StatusEnum.Countering);
+        Player.Statuses.Remove(Utils.StatusEnum.DoubleDamage);
 
         GD.Print(" ==== ====  END TURN  ==== ====");
         StartTurn();
