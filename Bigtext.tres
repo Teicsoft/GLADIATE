@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://hajaa20bfn8q"]
+
+[ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="1_th68l"]
+
+[resource]
+default_font = ExtResource("1_th68l")
+default_font_size = 37

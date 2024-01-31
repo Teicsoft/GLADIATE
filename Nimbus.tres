@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b4367d11n6l8i"]
+
+[ext_resource type="FontFile" uid="uid://cnq0lsjurchca" path="res://assets/fonts/nimbus-roman-no9-l.regular/nimbus-roman-no9-l.regular.otf" id="1_hrcbx"]
+
+[resource]
+default_font = ExtResource("1_hrcbx")
