@@ -18,27 +18,28 @@ public partial class Battle : Node2D {
 
     private List<TextureRect> _comboArts = new();
 
-    const int ENEMY_COUNT = 3;
+    private List<Enemy> _allEnemies = EnemyXmlParser.ParseAllEnemies();
+    private Dictionary<string, List<string>> _allDecks = DeckXmlParser.ParseAllDecks();
 
-    private List<Enemy> _enemyDeets = EnemyXmlParser.ParseAllEnemies();
-       
     public override void _Ready() {
-        InitialiseGameState(DeckXmlParser.ParseAllDecks());
+        // TODO: Change to accepting a player deck.
+        _allDecks.TryGetValue("deck_player", out List<string> playerCardIds);
+        // TODO: This battle's enemy IDs go here
+        List<string> enemyIds = new();
+        List<Enemy> enemies = CreateEnemies(enemyIds);
+        InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
-        
+
 
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
     public override void _Process(double delta) { }
 
-    private void InitialiseGameState(Dictionary<string, List<string>> decks) {
-        decks.TryGetValue("deck_player", out List<string> playerCardIds);
-        decks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
-
+    private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
         Hand hand = GetNode<Hand>("Hand");
         hand.InitialiseDeck(playerCardIds);
-        _gameState = new GameState(hand, CreateEnemies(enemyCardIds));
+        _gameState = new GameState(hand, enemies);
         _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
         _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
         _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
@@ -50,14 +51,46 @@ public partial class Battle : Node2D {
         _gameState.Draw(4);
     }
 
-    private List<Enemy> CreateEnemies(List<string> enemyCardIds) {
+    private List<Enemy> CreateEnemies(List<string> enemyIds) {
+        int idsCount = enemyIds.Count;
         List<Enemy> enemies = new();
-        foreach (int i in Enumerable.Range(0, ENEMY_COUNT)) {
-            Enemy enemy = CreateEnemy(GetEnemyDeck(enemyCardIds), i);
+        for (int i = 0; i < idsCount; i++) {
+            Enemy enemy = _enemyScene.Instantiate<Enemy>();
+            _allEnemies.First(e => e.Id == enemyIds[i]).CloneTo(enemy);
+            switch (GD.Randi() % 2) {
+                case 0:
+                    enemy.Color = new Color(0.5f, 0, 0);
+                    break;
+                case 1:
+                    enemy.Color = new Color(0, 0.5f, 0);
+                    break;
+                case 2:
+                    enemy.Color = new Color(0, 0, 0.5f);
+                    break;
+            }
+            enemy.Deck = GetEnemyDeck(enemy.DeckId);
+            enemy.Position = GetEnemyPosition(i, idsCount);
+            enemy.EnemySelected += MoveSelectedIndicator;
             AddChild(enemy);
             enemies.Add(enemy);
         }
         return enemies;
+    }
+
+    private Deck<Card> GetEnemyDeck(string deckId) {
+        Deck<Card> enemyDeck = new(new());
+
+        // _allDecks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
+        _allDecks.TryGetValue(deckId, out List<string> enemyCardIds);
+        enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
+        enemyDeck.Shuffle();
+        return enemyDeck;
+    }
+
+    private Vector2 GetEnemyPosition(int index, int count) {
+        PathFollow2D enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
+        enemiesLocation.ProgressRatio = (float)index / (count - 1);
+        return enemiesLocation.Position;
     }
 
     private void InitialiseHud() {
@@ -72,45 +105,13 @@ public partial class Battle : Node2D {
     private void EndTurn() { _gameState.EndTurn(); }
     private void WinBattle(object sender, EventArgs eventArgs) { EmitSignal(SignalName.BattleWon, _gameState.Player); }
 
-    private Enemy CreateEnemy(Deck<Card> enemyDeck, int i) {
-        PathFollow2D enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
-        Enemy enemy = _enemyScene.Instantiate<Enemy>();
-        enemy.Name = _enemyDeets[i].Name;
-
-        switch (GD.Randi() % 2)
-        {
-            case 0:
-                enemy.Color = new Color(0.5f, 0, 0);
-                break;
-            case 1:
-                enemy.Color = new Color(0, 0.5f, 0);
-                break;
-            case 2:
-                enemy.Color = new Color(0, 0, 0.5f);
-                break;
-        }
-        
-        enemiesLocation.ProgressRatio = (float)i / (ENEMY_COUNT - 1);
-        enemy.Position = enemiesLocation.Position;
-        enemy.Deck = enemyDeck;
-        enemy.EnemySelected += MoveSelectedIndicator;
-        return enemy;
-    }
-
-    private static Deck<Card> GetEnemyDeck(List<string> enemyCardIds) {
-        Deck<Card> enemyDeck = new(new());
-        enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
-        enemyDeck.Shuffle();
-        return enemyDeck;
-    }
-
     private void MoveSelectedIndicator(Enemy enemy) {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
             enemy.Position != GetNode<ColorRect>("HUD/SelectedIndicator").Position
                 ? enemy.Position
                 : new Vector2(-100, 520);
     }
-    
+
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
         if (playerObject.Health <= 0) { EmitSignal(SignalName.BattleLost); }

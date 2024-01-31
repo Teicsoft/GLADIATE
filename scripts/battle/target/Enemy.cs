@@ -15,12 +15,10 @@ public partial class Enemy : Node2D, ITarget {
     public string SoundEffect { get; set; }
     public string Lore { get; set; }
     public string DeckId { get; set; }
-    
-    
+
     public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     public Color Color;
     public Deck<Card> Deck;
-    private Discard<Card> _discard;
     private int _health = 12;
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
@@ -52,9 +50,9 @@ public partial class Enemy : Node2D, ITarget {
     }
 
     public Enemy(
-        string id, string name, string image, string soundEffect, string lore, string deckId,int maxHealth, int _defenseUpper, int _defenseLower
-    )
-    {
+        string id, string name, string image, string soundEffect, string lore, string deckId, int maxHealth,
+        int defenseUpper, int defenseLower
+    ) {
         Id = id;
         Name = name;
         Image = image;
@@ -62,17 +60,23 @@ public partial class Enemy : Node2D, ITarget {
         Lore = lore;
         DeckId = deckId;
         MaxHealth = maxHealth;
-        _health = maxHealth;
-        this._defenseUpper = _defenseUpper;
-        this._defenseLower = _defenseLower;
-        
+        Health = maxHealth;
+        DefenseUpper = defenseUpper;
+        DefenseLower = defenseLower;
     }
-    
-    public Enemy clone()
-    {
-        return new Enemy(Id,Name,Image,SoundEffect,Lore,DeckId,MaxHealth,_defenseUpper,_defenseLower);
+
+    public void CloneTo(Enemy enemy) {
+        enemy.Id = Id;
+        enemy.Name = Name;
+        enemy.Image = Image;
+        enemy.SoundEffect = SoundEffect;
+        enemy.Lore = Lore;
+        enemy.DeckId = DeckId;
+        enemy.MaxHealth = MaxHealth;
+        enemy.DefenseUpper = DefenseUpper;
+        enemy.DefenseLower = DefenseLower;
     }
-    
+
     public override void _Ready() {
         GetNode<ColorRect>("ColorRect").Color = Color;
         UpdateHealthBar();

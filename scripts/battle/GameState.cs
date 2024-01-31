@@ -53,8 +53,6 @@ public class GameState {
         }
     }
 
-    // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
-
     // Constructor
     public GameState(Hand hand, List<Enemy> enemies) {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects

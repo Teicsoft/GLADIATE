@@ -8,7 +8,6 @@ public partial class CardSleeve : Control {
 
     public Card Card { get; set; }
     public Button SelectButton;
-    private ColorRect _background;
     private TextureRect _art;
     private Label _name;
     private Label _description;
@@ -19,7 +18,6 @@ public partial class CardSleeve : Control {
 
     public override void _Ready() {
         SelectButton = GetNode<Button>("SelectButton");
-        _background = GetNode<ColorRect>("Background");
         _art = GetNode<TextureRect>("Art");
         _name = GetNode<Label>("Name");
         _description = GetNode<Label>("Description");
