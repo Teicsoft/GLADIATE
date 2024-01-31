@@ -53,7 +53,6 @@ public partial class Enemy : Node2D, ITarget {
         string id, string name, string image, string soundEffect, string lore, string deckId, int maxHealth,
         int defenseUpper, int defenseLower
     ) {
-        GD.Print("Initializing Enemy");
         Id = id;
         Name = name;
         Image = image;
@@ -64,7 +63,6 @@ public partial class Enemy : Node2D, ITarget {
         Health = maxHealth;
         DefenseUpper = defenseUpper;
         DefenseLower = defenseLower;
-        GD.Print("Finished Initializing Enemy");
     }
 
     public void CloneTo(Enemy enemy) {

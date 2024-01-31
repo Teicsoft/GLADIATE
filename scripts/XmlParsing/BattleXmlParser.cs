@@ -50,7 +50,6 @@ public class BattleXmlParser
             {
                 Dictionary<string, dynamic> battleData = ParseBattleFromXml(battleFilePath + fileName);
                 battles.Add(battleData);
-                // GD.Print(battleData["battle_id"].ToString());
             }
         }
 

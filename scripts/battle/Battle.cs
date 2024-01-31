@@ -27,34 +27,22 @@ public partial class Battle : Node2D {
     public string Music { get; set; }
 
     public override void _Ready() {
-        GD.Print("Battle: Starting _Ready");
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
-        GD.Print(0);
         _allDecks = DeckXmlParser.ParseAllDecks();
 
         // TODO: Change to accepting a player deck.
         _allDecks.TryGetValue("deck_player", out List<string> playerCardIds);
-        GD.Print(1);
         
 
         
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
-        GD.Print(2);
 
         Id = battleData["battle_id"];
         Name = battleData["battle_name"];
         Music = battleData["music"];
-        GD.Print(3);
 
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-        GD.Print(4);
-
-        // foreach (Enemy enemy in enemies)
-        // {
-        //     _allEnemies.First(e => e.Id == enemy.Id).CloneTo(enemy);
-        //     GD.Print(enemy);
-        // }
         
         
         InitialiseGameState(playerCardIds, enemies);
@@ -84,8 +72,6 @@ public partial class Battle : Node2D {
         for (int i = 0; i < idsCount; i++) {
             Enemy enemy = _enemyScene.Instantiate<Enemy>();
             _allEnemies.First(e => e.Id == enemyIds[i]).CloneTo(enemy);
-            
-            GD.Print("CreateEnemies" + enemy.ToString());
             
             AssignRandomColorDEBUG(enemy);
             enemy.Deck = GetEnemyDeck(enemy.DeckId);

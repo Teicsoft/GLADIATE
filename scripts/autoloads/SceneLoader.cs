@@ -15,7 +15,6 @@ public partial class SceneLoader : Node
         Viewport root = GetTree().Root;
         CurrentScene = root.GetChild(root.GetChildCount() - 1);
         battles = BattleXmlParser.ParseAllBattles();
-        GD.Print("SceneLoader: Ready");
     }
     
     public void GoToScene(string path)
@@ -38,7 +37,6 @@ public partial class SceneLoader : Node
         {
             DeferredGotoScene("res://scenes/battle/Battle.tscn");
             _i++;
-            GD.Print();
         }
         else
         {

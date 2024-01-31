@@ -27,7 +27,6 @@ public class EnemyXmlParser
         string enemyDeckId = Utils.ParseTextNode(enemyNode, "deck_id");
         
         int enemyHealth = Utils.ParseIntNode(enemyNode, "max_health");
-        GD.Print("Enemy health: " + enemyHealth.ToString());
         int enemyBlockUpper = Utils.ParseIntNode(enemyNode, "starting_block_upper");
         int enemyBlockLower = Utils.ParseIntNode(enemyNode, "starting_block_lower");
         
@@ -38,31 +37,25 @@ public class EnemyXmlParser
         enemy.InitializeEnemy(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
         enemyBlockLower);
         
-        GD.Print("Finished ParseEnemyFromXml");
         return enemy;
     }
     
     public static List<Enemy> ParseAllEnemies()
     {
-        GD.Print("Starting ParseAllEnemies");
         string enemyFilePath = "res://data/enemies/";
         
         string[] filesAtPath = DirAccess.GetFilesAt(enemyFilePath);
-        GD.Print("Got files at path");
-        
+       
         List<Enemy> enemies = new();
         foreach (string fileName in filesAtPath)
         {
-            GD.Print("\nParsing file: " + fileName + " as enemy");
             if (fileName.EndsWith(".xml") && fileName != "enemy_template.xml")
             {
                 Enemy enemy = ParseEnemyFromXml(enemyFilePath + fileName);
-                GD.Print( "Parsed enemy: " + enemy.ToString() +"\n");
                 enemies.Add(enemy);
             }
         }
 
-        GD.Print("Finished ParseAllEnemies");
         return enemies;
     }
 }
