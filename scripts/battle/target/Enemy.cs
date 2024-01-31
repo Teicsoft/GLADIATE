@@ -9,7 +9,14 @@ namespace TeicsoftSpectacleCards.scripts.battle.target;
 public partial class Enemy : Node2D, ITarget {
     [Signal] public delegate void EnemySelectedEventHandler(Enemy enemy);
 
+    public string Id { get; set; }
     public string Name { get; set; }
+    public string Image { get; set; }
+    public string SoundEffect { get; set; }
+    public string Lore { get; set; }
+    public string DeckId { get; set; }
+    
+    
     public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     public Color Color;
     public Deck<Card> Deck;
@@ -44,6 +51,28 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 
+    public Enemy(
+        string id, string name, string image, string soundEffect, string lore, string deckId,int maxHealth, int _defenseUpper, int _defenseLower
+    )
+    {
+        Id = id;
+        Name = name;
+        Image = image;
+        SoundEffect = soundEffect;
+        Lore = lore;
+        DeckId = deckId;
+        MaxHealth = maxHealth;
+        _health = maxHealth;
+        this._defenseUpper = _defenseUpper;
+        this._defenseLower = _defenseLower;
+        
+    }
+    
+    public Enemy clone()
+    {
+        return new Enemy(Id,Name,Image,SoundEffect,Lore,DeckId,MaxHealth,_defenseUpper,_defenseLower);
+    }
+    
     public override void _Ready() {
         GetNode<ColorRect>("ColorRect").Color = Color;
         UpdateHealthBar();

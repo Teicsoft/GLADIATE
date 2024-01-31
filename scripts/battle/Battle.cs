@@ -20,15 +20,12 @@ public partial class Battle : Node2D {
 
     const int ENEMY_COUNT = 3;
 
-    private List<Tuple<string, Color>> _enemyDeets = new() {
-        new Tuple<string, Color>("Red", new Color(0.5f, 0, 0)),
-        new Tuple<string, Color>("Green", new Color(0, 0.5f, 0)),
-        new Tuple<string, Color>("Blue", new Color(0, 0, 0.5f)),
-    };
-
+    private List<Enemy> _enemyDeets = EnemyXmlParser.ParseAllEnemies();
+       
     public override void _Ready() {
         InitialiseGameState(DeckXmlParser.ParseAllDecks());
         InitialiseHud();
+        
 
         GD.Print(" ==== ==== START GAME ==== ====");
     }
@@ -78,8 +75,21 @@ public partial class Battle : Node2D {
     private Enemy CreateEnemy(Deck<Card> enemyDeck, int i) {
         PathFollow2D enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         Enemy enemy = _enemyScene.Instantiate<Enemy>();
-        enemy.Name = _enemyDeets[i].Item1;
-        enemy.Color = _enemyDeets[i].Item2;
+        enemy.Name = _enemyDeets[i].Name;
+
+        switch (GD.Randi() % 2)
+        {
+            case 0:
+                enemy.Color = new Color(0.5f, 0, 0);
+                break;
+            case 1:
+                enemy.Color = new Color(0, 0.5f, 0);
+                break;
+            case 2:
+                enemy.Color = new Color(0, 0, 0.5f);
+                break;
+        }
+        
         enemiesLocation.ProgressRatio = (float)i / (ENEMY_COUNT - 1);
         enemy.Position = enemiesLocation.Position;
         enemy.Deck = enemyDeck;
@@ -100,7 +110,7 @@ public partial class Battle : Node2D {
                 ? enemy.Position
                 : new Vector2(-100, 520);
     }
-
+    
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
         if (playerObject.Health <= 0) { EmitSignal(SignalName.BattleLost); }
