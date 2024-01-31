@@ -83,7 +83,6 @@ public partial class Battle : Node2D {
         enemiesLocation.ProgressRatio = (float)i / (ENEMY_COUNT - 1);
         enemy.Position = enemiesLocation.Position;
         enemy.Deck = enemyDeck;
-        enemy.EnemySelected += _gameState.SelectEnemy;
         enemy.EnemySelected += MoveSelectedIndicator;
         return enemy;
     }

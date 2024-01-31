@@ -64,6 +64,7 @@ public class GameState {
         SpectaclePoints = 0;
         Hand = hand;
         Enemies = enemies;
+        Enemies.ForEach(enemy=>enemy.EnemySelected += SelectEnemy);;
     }
 
     public void StartTurn() {
