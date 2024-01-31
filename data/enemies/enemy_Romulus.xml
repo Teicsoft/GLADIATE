@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<enemy id="enemy_Romulus" name ="Romulus"> <!--id: string--> <!--name: string-->
+    <image>res://assets/sprites/Joy/Romulus.png</image> <!--path: string-->
+    <sound_effect>male-hurt-3.ogg</sound_effect> <!--string for audioengine sfx-->
+    <lore>Good Doggo</lore>
+
+    <deck_id>deck_Enemy4</deck_id> <!--deck_id: string-->
+    <max_health>30</max_health> <!--health: int-->
+    <starting_block_upper>2</starting_block_upper>
+    <starting_block_lower>1</starting_block_lower>
+</enemy>
