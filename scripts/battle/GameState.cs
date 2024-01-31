@@ -120,7 +120,7 @@ public class GameState {
         ProcessMultiplier(combo?.CardList.Count ?? 0);
 
         combo?.Play(this);
-        
+
         SpectaclePoints += Math.Abs(SpectacleBuffer * Multiplier);
         SpectacleBuffer = 0;
 

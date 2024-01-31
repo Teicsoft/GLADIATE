@@ -60,9 +60,9 @@ public partial class Enemy : Node2D, ITarget {
         Lore = lore;
         DeckId = deckId;
         MaxHealth = maxHealth;
-        Health = maxHealth;
-        DefenseUpper = defenseUpper;
-        DefenseLower = defenseLower;
+        _health = maxHealth;
+        _defenseUpper = defenseUpper;
+        _defenseLower = defenseLower;
     }
 
     public void CloneTo(Enemy enemy) {
@@ -73,9 +73,9 @@ public partial class Enemy : Node2D, ITarget {
         enemy.Lore = Lore;
         enemy.DeckId = DeckId;
         enemy.MaxHealth = MaxHealth;
-        enemy.Health = MaxHealth;
-        enemy.DefenseUpper = DefenseUpper;
-        enemy.DefenseLower = DefenseLower;
+        enemy._health = MaxHealth;
+        enemy._defenseUpper = DefenseUpper;
+        enemy._defenseLower = DefenseLower;
     }
 
     public override void _Ready() {

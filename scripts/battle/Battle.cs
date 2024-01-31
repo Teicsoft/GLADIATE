@@ -21,7 +21,7 @@ public partial class Battle : Node2D {
 
     private List<Enemy> _allEnemies;
     private Dictionary<string, List<string>> _allDecks;
-    
+
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
@@ -32,9 +32,8 @@ public partial class Battle : Node2D {
 
         // TODO: Change to accepting a player deck.
         _allDecks.TryGetValue("deck_player", out List<string> playerCardIds);
-        
 
-        
+
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
 
@@ -43,14 +42,15 @@ public partial class Battle : Node2D {
         Music = battleData["music"];
 
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-        
-        
+
+
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
     public override void _Process(double delta) { }
+
     private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
         Hand hand = GetNode<Hand>("Hand");
         hand.InitialiseDeck(playerCardIds);
@@ -72,7 +72,7 @@ public partial class Battle : Node2D {
         for (int i = 0; i < idsCount; i++) {
             Enemy enemy = _enemyScene.Instantiate<Enemy>();
             _allEnemies.First(e => e.Id == enemyIds[i]).CloneTo(enemy);
-            
+
             AssignRandomColorDEBUG(enemy);
             enemy.Deck = GetEnemyDeck(enemy.DeckId);
             enemy.Position = GetEnemyPosition(i, idsCount);
@@ -123,7 +123,11 @@ public partial class Battle : Node2D {
 
     private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
     private void EndTurn() { _gameState.EndTurn(); }
-    private void WinBattle(object sender, EventArgs eventArgs) { EmitSignal(Battle.SignalName.BattleWon, _gameState.Player); }
+
+    private void WinBattle(object sender, EventArgs eventArgs) {
+        EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
+    }
+
     private void MoveSelectedIndicator(Enemy enemy) {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
             enemy.Position != GetNode<ColorRect>("HUD/SelectedIndicator").Position
@@ -189,8 +193,6 @@ public partial class Battle : Node2D {
     private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
     private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
-    
-    public override string ToString() {
-        return $"Battle: {BattleName}({Id})";
-    }
+
+    public override string ToString() { return $"Battle: {BattleName}({Id})"; }
 }
