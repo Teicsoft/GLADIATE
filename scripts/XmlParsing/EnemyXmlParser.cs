@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System;
 using Godot;
+using TeicsoftSpectacleCards.scripts.autoloads;
 using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
@@ -28,20 +29,30 @@ public class EnemyXmlParser
         int enemyHealth = Utils.ParseIntNode(enemyNode, "health");
         int enemyBlockUpper = Utils.ParseIntNode(enemyNode, "block_upper");
         int enemyBlockLower = Utils.ParseIntNode(enemyNode, "block_lower");
+        
 
-        return new(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
+        var scene = GD.Load<PackedScene>("res://scenes/battle/Enemy.tscn");
+        Enemy enemy = (Enemy) scene.Instantiate();
+        
+            
+            enemy.InitializeEnemy(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
             enemyBlockLower);
+        GD.Print("Finished ParseEnemyFromXml");
+        return enemy;
     }
     
     public static List<Enemy> ParseAllEnemies()
     {
+        GD.Print("Starting ParseAllEnemies");
         string enemyFilePath = "res://data/enemies/";
         
         string[] filesAtPath = DirAccess.GetFilesAt(enemyFilePath);
+        GD.Print("Got files at path");
         
         List<Enemy> enemies = new();
         foreach (string fileName in filesAtPath)
         {
+            GD.Print("Parsing file: " + fileName + " as enemy");
             if (fileName.EndsWith(".xml") && fileName != "enemy_template.xml")
             {
                 Enemy enemy = ParseEnemyFromXml(enemyFilePath + fileName);
@@ -49,6 +60,7 @@ public class EnemyXmlParser
             }
         }
 
+        GD.Print("Finished ParseAllEnemies");
         return enemies;
     }
 }
