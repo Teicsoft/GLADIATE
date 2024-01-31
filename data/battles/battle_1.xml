@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<battle id="battle_1" name ="The First Bout"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <Music>song</Music> <!-- AudioEngine: string -->
+    <enemies>
+        <card enemy_id="enemy_Loser"/>  <!--enemy_id: string-->
+        <card enemy_id="enemy_Loser"/>  
+        <card enemy_id="enemy_Loser"/>  
+    </enemies>
+</battle>
