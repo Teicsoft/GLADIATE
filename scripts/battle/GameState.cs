@@ -184,7 +184,7 @@ public class GameState {
             }
             Label cardPlayedLabel = enemy.GetNode<Label>("CardPlayed");
             Timer cardPlayedTimer = enemy.GetNode<Timer>("CardPlayedTimer");
-            
+
             Card card = enemy.DrawCard();
             card.Play(this, Player, enemy);
             enemy.TakeCardIntoDiscard(card);
@@ -192,7 +192,7 @@ public class GameState {
 
             cardPlayedLabel.Text = card.CardName;
             cardPlayedLabel.Visible = true;
-            
+
             cardPlayedTimer.Start();
         }
     }
