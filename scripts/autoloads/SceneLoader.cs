@@ -1,15 +1,20 @@
+using System.Collections.Generic;
 using Godot;
+using TeicsoftSpectacleCards.scripts.XmlParsing;
 
 namespace TeicsoftSpectacleCards.scripts.autoloads;
 
 public partial class SceneLoader : Node
 {
     public Node CurrentScene { get; set; }
+    public List<Dictionary<string, dynamic>> battles;
+    private int _i = 0;
 
     public override void _Ready()
     {
         Viewport root = GetTree().Root;
         CurrentScene = root.GetChild(root.GetChildCount() - 1);
+        battles = BattleXmlParser.ParseAllBattles();
     }
     
     public void GoToScene(string path)
@@ -26,4 +31,19 @@ public partial class SceneLoader : Node
         GetTree().CurrentScene = CurrentScene;
     }
 
+    public void GoToNextBattle()
+    {
+        if (_i < battles.Count)
+        {
+            DeferredGotoScene("res://scenes/battle/Battle.tscn");
+            _i++;
+            GD.Print();
+        }
+        else
+        {
+            DeferredGotoScene("res://scenes/main/Credits.tscn");
+        }
+    }
+    
+    public Dictionary<string, dynamic> getCurrentBattleData() { return battles[_i]; }
 }

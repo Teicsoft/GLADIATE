@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <battle id="battle_5" name ="A Horse Among Lions"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
-    <Music>song</Music> <!-- AudioEngine: string -->
+    <music>song</music> <!-- AudioEngine: string -->
     <enemies>
-        <card enemy_id="enemy_RoboLion"/>  <!--enemy_id: string-->
-        <card enemy_id="enemy_SenatorHorse"/>  
-        <card enemy_id="enemy_RoboLion"/>  
+        <enemy enemy_id="enemy_RoboLion"/>  <!--enemy_id: string-->
+        <enemy enemy_id="enemy_SenatorHorse"/>  
+        <enemy enemy_id="enemy_RoboLion"/>  
     </enemies>
 </battle>
