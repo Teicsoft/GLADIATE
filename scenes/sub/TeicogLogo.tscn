@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbekq055utvam"]
+
+[ext_resource type="Script" path="res://scenes/sub/TeicogLogo.cs" id="1_kkx3g"]
+[ext_resource type="Texture2D" uid="uid://deqq7gichomrp" path="res://assets/images/teicog/COA.png" id="2_br8jf"]
+
+[node name="Logo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kkx3g")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -355.0
+offset_top = -219.5
+offset_right = 355.0
+offset_bottom = 219.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_br8jf")
+stretch_mode = 4
+
+[node name="TCTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="TCTimer" to="." method="_OnTcTimerTimeout"]
