@@ -1,12 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=17 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
 [ext_resource type="PackedScene" uid="uid://4lar8gsflwru" path="res://scenes/battle/Card.tscn" id="3_citfa"]
-[ext_resource type="Texture2D" uid="uid://bgymfsek3qa86" path="res://assets/sprites/Columns/Columns.png" id="4_eso5k"]
+[ext_resource type="Texture2D" uid="uid://biqdpl7e2d8hc" path="res://assets/ui/background.png" id="4_87dpu"]
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
-[ext_resource type="Theme" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
+[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="7_bj4ys"]
+[ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
+[ext_resource type="Texture2D" uid="uid://cprl4r5lkhx0f" path="res://assets/ui/Health_Armor Bar.png" id="9_i3lvk"]
+[ext_resource type="Script" path="res://scenes/battle/Toggle Sound.gd" id="11_mow0b"]
+[ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
+[ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
@@ -16,13 +22,13 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_e410o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 300, 300, 0, 0, 0, 0, 1620, 300)
+"points": PackedVector2Array(0, 0, 0, 0, 1421, 578, 0, 0, 0, 0, 990, 553, 0, 0, 0, 0, 569, 578)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_r0y7a"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 20, 675, 0, 0, 0, 0, 20, 5)
+"points": PackedVector2Array(0, 0, 0, 0, 1740, 675, 0, 0, 0, 0, 1740, 5)
 }
 point_count = 2
 
@@ -50,7 +56,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_eso5k")
+texture = ExtResource("4_87dpu")
 stretch_mode = 4
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -74,10 +80,34 @@ stretch_mode = 0
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -280.0
-offset_right = 180.0
+offset_left = 2.0
+offset_top = -273.0
+offset_right = 199.0
+offset_bottom = -4.0
 grow_vertical = 0
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.231373)
+
+[node name="Sp_combo Background" type="ColorRect" parent="HUD"]
+offset_left = 860.0
+offset_top = 1.0
+offset_right = 1120.0
+offset_bottom = 65.0
+color = Color(0, 0, 0, 0.388235)
+
+[node name="Healthbar Background" type="ColorRect" parent="HUD"]
+offset_left = 709.0
+offset_top = 69.0
+offset_right = 1435.0
+offset_bottom = 109.0
+color = Color(0, 0, 0, 0.811765)
+
+[node name="Button Asset" type="Sprite2D" parent="HUD"]
+position = Vector2(103, 757)
+texture = ExtResource("8_2vyy3")
+
+[node name="Button Asset2" type="Sprite2D" parent="HUD"]
+position = Vector2(103, 657)
+texture = ExtResource("8_2vyy3")
 
 [node name="PlayButton" type="Button" parent="HUD"]
 anchors_preset = 7
@@ -85,93 +115,101 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -480.0
-offset_right = 150.0
-offset_bottom = -380.0
+offset_left = -957.0
+offset_top = -467.0
+offset_right = -762.0
+offset_bottom = -384.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("4_v5dtn")
+theme = ExtResource("7_bj4ys")
 text = "Play"
+flat = true
 
-[node name="Button" type="Button" parent="HUD"]
+[node name="End Turn Button" type="Button" parent="HUD"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = 60.0
-offset_bottom = 160.0
+offset_left = -1916.0
+offset_top = 173.0
+offset_right = -1721.0
+offset_bottom = 256.0
 grow_horizontal = 0
 grow_vertical = 2
-theme = ExtResource("4_v5dtn")
+theme = ExtResource("7_bj4ys")
 text = "End Turn"
+flat = true
 
 [node name="PlayerHealthLabel" type="Label" parent="HUD"]
-offset_left = 180.0
-offset_right = 280.0
-offset_bottom = 50.0
+visible = false
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 101.0
+offset_bottom = 51.0
 theme = ExtResource("4_v5dtn")
 text = "Player"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="MultiplierLabel" type="Label" parent="HUD"]
-offset_left = 180.0
-offset_top = 50.0
-offset_right = 280.0
-offset_bottom = 100.0
-theme = ExtResource("4_v5dtn")
+offset_left = 868.0
+offset_top = 25.0
+offset_right = 986.0
+offset_bottom = 75.0
+theme = ExtResource("7_bj4ys")
 text = "Multiplier"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="SpectacleLabel" type="Label" parent="HUD"]
-offset_left = 180.0
-offset_top = 100.0
-offset_right = 280.0
-offset_bottom = 150.0
-theme = ExtResource("4_v5dtn")
-text = "Spectacle"
-horizontal_alignment = 2
+offset_left = 867.0
+offset_top = -8.0
+offset_right = 1085.0
+offset_bottom = 42.0
+theme = ExtResource("7_bj4ys")
+text = "SP"
 vertical_alignment = 1
 
 [node name="PlayerHealthProgressBar" type="ProgressBar" parent="HUD"]
-offset_left = 350.0
-offset_top = 5.0
-offset_right = 1630.0
-offset_bottom = 45.0
+offset_left = 709.0
+offset_top = 68.0
+offset_right = 1436.0
+offset_bottom = 108.0
 step = 1.0
 rounded = true
 show_percentage = false
 
 [node name="MultiplierDisplay" type="Label" parent="HUD"]
-offset_left = 300.0
-offset_top = 55.0
-offset_right = 400.0
-offset_bottom = 95.0
-theme = ExtResource("4_v5dtn")
+offset_left = 1000.0
+offset_top = 32.0
+offset_right = 1100.0
+offset_bottom = 72.0
+theme = ExtResource("7_bj4ys")
 text = "1"
 vertical_alignment = 1
 
 [node name="SpectacleDisplay" type="Label" parent="HUD"]
-offset_left = 300.0
-offset_top = 105.0
-offset_right = 400.0
-offset_bottom = 145.0
-theme = ExtResource("4_v5dtn")
+offset_left = 908.0
+offset_top = -4.0
+offset_right = 1008.0
+offset_bottom = 36.0
+theme = ExtResource("7_bj4ys")
 text = "0"
 vertical_alignment = 1
 
 [node name="PlayerHealthDisplay" type="Label" parent="HUD"]
-offset_left = 350.0
-offset_top = 5.0
-offset_right = 450.0
-offset_bottom = 45.0
-theme = ExtResource("4_v5dtn")
+offset_left = 726.0
+offset_top = 69.0
+offset_right = 826.0
+offset_bottom = 109.0
+theme = ExtResource("7_bj4ys")
 text = "1"
 vertical_alignment = 1
+
+[node name="HealthArmorBar" type="Sprite2D" parent="HUD"]
+position = Vector2(999, 92)
+texture = ExtResource("9_i3lvk")
 
 [node name="SelectedIndicator" type="ColorRect" parent="HUD"]
 anchors_preset = 8
@@ -186,38 +224,43 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.785398
+scale = Vector2(0.242236, 0.242236)
 pivot_offset = Vector2(20, 20)
-color = Color(1, 0, 0, 1)
+color = Color(1, 0, 0, 0.188235)
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
-offset_left = 300.0
-offset_top = 5.0
-offset_right = 350.0
-offset_bottom = 25.0
+visible = false
+offset_left = 301.0
+offset_top = -51.0
+offset_right = 351.0
+offset_bottom = -31.0
 color = Color(0, 0, 1, 1)
 
 [node name="PlayerUpperBlockDisplay" type="Label" parent="HUD"]
-offset_left = 300.0
-offset_right = 350.0
-offset_bottom = 25.0
-theme = ExtResource("4_v5dtn")
+offset_left = 585.0
+offset_top = 45.0
+offset_right = 635.0
+offset_bottom = 85.0
+theme = ExtResource("7_bj4ys")
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="PlayerLowerBlockRect" type="ColorRect" parent="HUD"]
-offset_left = 300.0
-offset_top = 25.0
-offset_right = 350.0
-offset_bottom = 45.0
+visible = false
+offset_left = 301.0
+offset_top = -30.0
+offset_right = 351.0
+offset_bottom = -10.0
 color = Color(0, 0, 1, 1)
 
 [node name="PlayerLowerBlockDisplay" type="Label" parent="HUD"]
-offset_left = 300.0
-offset_top = 25.0
-offset_right = 350.0
-offset_bottom = 50.0
-theme = ExtResource("4_v5dtn")
+offset_left = 586.0
+offset_top = 95.0
+offset_right = 636.0
+offset_bottom = 135.0
+theme = ExtResource("7_bj4ys")
 text = "1"
 horizontal_alignment = 1
 
@@ -248,15 +291,27 @@ rotation = -0.785398
 curve = SubResource("Curve2D_e410o")
 
 [node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
-position = Vector2(300, 300)
+position = Vector2(1421, 578)
+rotation = -3.08365
 
 [node name="ComboStack" type="Path2D" parent="."]
 curve = SubResource("Curve2D_r0y7a")
 
 [node name="ComboStackLocation" type="PathFollow2D" parent="ComboStack"]
-position = Vector2(20, 675)
+position = Vector2(1740, 675)
 rotation = -1.5708
 loop = false
 
+[node name="Toggle Sound" type="TextureButton" parent="."]
+offset_left = 1814.0
+offset_top = 4.0
+offset_right = 1929.0
+offset_bottom = 70.0
+toggle_mode = true
+texture_normal = ExtResource("11_nrxls")
+texture_pressed = ExtResource("12_8fj8e")
+script = ExtResource("11_mow0b")
+
 [connection signal="pressed" from="HUD/PlayButton" to="." method="OnPlayButtonPressed"]
-[connection signal="pressed" from="HUD/Button" to="." method="EndTurn"]
+[connection signal="pressed" from="HUD/End Turn Button" to="." method="EndTurn"]
+[connection signal="pressed" from="Toggle Sound" to="Toggle Sound" method="_on_TextureButton_pressed"]

@@ -31,7 +31,7 @@ public static class Utils {
         Texture2D texture = (Texture2D)GD.Load(card.ImagePath);
         art.Texture = texture;
 
-        float ratio = 160 / texture.GetSize().X;
+        float ratio = 176 / texture.GetSize().X;
         art.Scale = new Vector2(ratio, ratio);
         return art;
     }

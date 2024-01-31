@@ -26,7 +26,7 @@ public partial class CardSleeve : Control {
 
         _name.Text = Card.CardName;
         _description.Text = Card.Description;
-        LoadImage();
+        Utils.LoadCardArt(Card, _art);
     }
 
     public override void _Process(double delta) { }
@@ -39,14 +39,6 @@ public partial class CardSleeve : Control {
         Utils.LoadCardArt(Card, _art);
         LoadAnimation();
         LoadSound();
-    }
-
-    private void LoadImage() {
-        Texture2D texture = (Texture2D)GD.Load(Card.ImagePath);
-        _art.Texture = texture;
-
-        float ratio = 160 /texture.GetSize().X;
-        _art.Scale = new Vector2(ratio, ratio);
     }
 
     private void LoadAnimation() {
