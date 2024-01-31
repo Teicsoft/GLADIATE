@@ -66,7 +66,7 @@ public partial class Player : Node2D, ITarget {
             case Utils.PositionEnum.Lower:
                 if (DefenseLower > 0) {
                     DefenseLower--;
-                    return  true;
+                    return true;
                 }
 
                 break;
@@ -80,9 +80,7 @@ public partial class Player : Node2D, ITarget {
         if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grounded; }
     }
 
-    public void Juggle() {
-        Modifier = Utils.ModifierEnum.Juggled; 
-    }
+    public void Juggle() { Modifier = Utils.ModifierEnum.Juggled; }
 
     public void Grapple(Utils.PositionEnum position) {
         if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grappled; }
@@ -99,6 +97,8 @@ public partial class Player : Node2D, ITarget {
             // End turn immediately?
         }
     }
+
+    public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }
 
     public void ModifyBlock(int change, Utils.PositionEnum position) {
         switch (position) {

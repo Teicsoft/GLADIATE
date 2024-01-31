@@ -109,7 +109,7 @@ public partial class Enemy : Node2D, ITarget {
             case Utils.PositionEnum.Lower:
                 if (DefenseLower > 0) {
                     DefenseLower--;
-                    return  true;
+                    return true;
                 }
 
                 break;
@@ -121,10 +121,10 @@ public partial class Enemy : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else {
-            Statuses.Add(Utils.StatusEnum.Stunned); 
-        }
+        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
     }
+
+    public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }
 
     public void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
 
@@ -132,9 +132,7 @@ public partial class Enemy : Node2D, ITarget {
         if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grounded; }
     }
 
-    public void Juggle() {
-         Modifier = Utils.ModifierEnum.Juggled; 
-    }
+    public void Juggle() { Modifier = Utils.ModifierEnum.Juggled; }
 
     public void Grapple(Utils.PositionEnum position) {
         if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grappled; }
@@ -149,16 +147,6 @@ public partial class Enemy : Node2D, ITarget {
                 DefenseLower += change;
                 break;
         }
-    }
-
-    public bool IsStunned() {
-        if (Statuses.Contains(Utils.StatusEnum.Stunned)) {
-            GD.Print($"{Name} was stunned this turn");
-            Statuses.Remove(Utils.StatusEnum.Stunned);
-            return true;
-        }
-
-        return false;
     }
 
     private void UpdateHealthBar() {
@@ -176,8 +164,8 @@ public partial class Enemy : Node2D, ITarget {
         GetNode<Label>("LowerBlockDisplay").Text = DefenseLower.ToString();
     }
 
-    public override string ToString()
-    {
-        return $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
+    public override string ToString() {
+        return
+            $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
     }
 }

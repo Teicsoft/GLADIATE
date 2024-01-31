@@ -15,7 +15,9 @@ public interface ITarget {
 
     void Stun() { }
 
-    public bool CheckBlock(Utils.PositionEnum position) { throw new NotImplementedException();}
+    public bool IsStunned() { throw new NotImplementedException(); }
+
+    public bool CheckBlock(Utils.PositionEnum position) { throw new NotImplementedException(); }
 
     public void ModifyBlock(int change, Utils.PositionEnum position) { }
 

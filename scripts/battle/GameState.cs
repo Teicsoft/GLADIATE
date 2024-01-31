@@ -71,7 +71,7 @@ public class GameState {
         GD.Print(" ==== ==== START TURN ==== ====");
         _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
         SpectacleBuffer = 0;
-        Draw();
+        if (Player.IsStunned()) { EndTurn(); } else { Draw(); }
     }
 
     public void Draw(int n = 1) { Hand.DrawCards(n); }
@@ -80,9 +80,7 @@ public class GameState {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
             cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
-            if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) {
-                SpectacleBuffer += 10;
-            }
+            if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
         }
@@ -159,22 +157,11 @@ public class GameState {
             if (Hand.Cards.Count == 0) { Discards = 0; } else { return; }
         }
 
-        // Safe to do, even if MoveShouted not in the Set.
-
         ProcessCombo(null);
         List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
         CrowdPleasedCheck(aliveEnemies.Count);
         if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
-            foreach (Enemy enemy in aliveEnemies) {
-                if (enemy.IsStunned()) {
-                    // Update HUD
-                    continue;
-                }
-                Card card = enemy.DrawCard();
-                card.Play(this, Player, enemy);
-                enemy.TakeCardIntoDiscard(card);
-                Utils.RemoveEndTurnStatuses(enemy);
-            }
+            TakeEnemyTurns(aliveEnemies);
         }
         Utils.RemoveEndTurnStatuses(Player);
 
@@ -182,11 +169,24 @@ public class GameState {
         StartTurn();
     }
 
+    private void TakeEnemyTurns(List<Enemy> aliveEnemies) {
+        foreach (Enemy enemy in aliveEnemies) {
+            if (enemy.IsStunned()) {
+                // Update HUD
+                continue;
+            }
+            Card card = enemy.DrawCard();
+            card.Play(this, Player, enemy);
+            enemy.TakeCardIntoDiscard(card);
+            Utils.RemoveEndTurnStatuses(enemy);
+        }
+    }
+
     private void CrowdPleasedCheck(int aliveEnemiesCount) {
         if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemiesCount > _turnStartEnemyCount) {
             int enemiesDefeated = _turnStartEnemyCount - aliveEnemiesCount;
             SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
-            Draw(enemiesDefeated*2);
+            Draw(enemiesDefeated * 2);
         }
     }
 
