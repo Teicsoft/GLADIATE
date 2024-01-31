@@ -10,5 +10,4 @@ public partial class TeicsoftLogo : Control
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/sub/TeicogLogo.tscn");
     }
-
 }

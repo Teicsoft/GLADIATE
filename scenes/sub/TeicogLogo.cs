@@ -5,10 +5,9 @@ namespace TeicsoftSpectacleCards.scenes.sub;
 
 public partial class TeicogLogo : Control
 {
-    private void OnTcTimerTimeout()
+    private void _OnTcTimerTimeout()
     {
         var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/title_screen.tscn");
     }
-
 }

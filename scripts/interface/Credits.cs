@@ -80,7 +80,7 @@ public partial class Credits : Control
         _vbox.AddChild(label);
 
 
-        if (_i == (_lines.Count + 33))
+        if (_i == (_lines.Count + 15))
         {
             var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
             sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
