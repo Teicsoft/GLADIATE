@@ -29,6 +29,9 @@ public partial class CardSleeve : Control {
         TextureRect cardType = GetNode<TextureRect>("Background/CardTypeIndicator");
         Texture cardTypeTexture = (Texture)GD.Load($"res://assets/images/Cards/Type Icons/{Card.CardType}.png");
         cardType.Texture = (Texture2D)cardTypeTexture;
+        
+        Label SpectaclePoints = GetNode<Label>("Background/SpectaclePoints");
+        SpectaclePoints.Text = Card.SpectaclePoints.ToString();
     }
 
     public override void _Process(double delta) { }
