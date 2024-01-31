@@ -14,6 +14,7 @@ public class GameState {
     public event EventHandler DiscardStateChangedCustomEvent;
     public event EventHandler AllEnemiesDefeatedCustomEvent;
     public event EventHandler ComboStackChangedCustomEvent;
+    public event EventHandler<ComboEventArgs> ComboPlayedCustomEvent;
 
     private List<Combo> AllCombos;
     public Player Player;
@@ -68,6 +69,7 @@ public class GameState {
     }
 
     public void StartTurn() {
+        DeselectDeadEnemy();
         GD.Print(" ==== ==== START TURN ==== ====");
         _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
         SpectacleBuffer = 0;
@@ -78,8 +80,9 @@ public class GameState {
 
     public void PlaySelectedCard() {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
-        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
-            cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
+        Enemy selectedEnemy = GetSelectedEnemy();
+        if (cardSleeve != null && cardSleeve.Card.IsPlayable(selectedEnemy)) {
+            cardSleeve.Card.Play(this, selectedEnemy, Player);
             if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
@@ -92,10 +95,14 @@ public class GameState {
         // find a matching combo if it exists, returns null if no match
         Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) {
-            GD.Print("C-C-COMBO!!!");
-            GD.Print("Playing Combo: " + matchingCombo.Name);
+            ComboPlayedCustomEvent?.Invoke(this, new ComboEventArgs(matchingCombo));
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
+        DeselectDeadEnemy();
+    }
+
+    private void DeselectDeadEnemy() {
+        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
     }
 
     public void PushCardStack(Card card) { ComboStack.Add(card); }
@@ -177,7 +184,7 @@ public class GameState {
             }
             Label cardPlayedLabel = enemy.GetNode<Label>("CardPlayed");
             Timer cardPlayedTimer = enemy.GetNode<Timer>("CardPlayedTimer");
-            
+
             Card card = enemy.DrawCard();
             card.Play(this, Player, enemy);
             enemy.TakeCardIntoDiscard(card);
@@ -185,7 +192,7 @@ public class GameState {
 
             cardPlayedLabel.Text = card.CardName;
             cardPlayedLabel.Visible = true;
-            
+
             cardPlayedTimer.Start();
         }
     }
@@ -222,12 +229,19 @@ public class GameState {
     public Enemy GetSelectedEnemy() { return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null; }
 
     public void SelectEnemy(Enemy enemy) {
-        int enemyIndex = Enemies.IndexOf(enemy);
-        _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        if (enemy.Health > 0) {
+            int enemyIndex = Enemies.IndexOf(enemy);
+            _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+        }
     }
 
     public override string ToString() {
         return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
                $"ComboStack: {ComboStack}," + $"AllCombos: {AllCombos}";
     }
+}
+
+public class ComboEventArgs : EventArgs {
+    public Combo Combo;
+    public ComboEventArgs(Combo combo) { Combo = combo; }
 }

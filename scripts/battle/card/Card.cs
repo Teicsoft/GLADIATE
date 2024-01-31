@@ -96,6 +96,10 @@ public class Card {
         }
     }
 
+    public virtual bool IsPlayable(ITarget target) {
+        return !TargetRequired || (TargetRequired && target != null);
+    }
+
     public Card Clone() {
         Card card = CardFactory.ConstructCard(Id);
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<combo id="combo_ScotchMist" modifier="None" position="None"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<combo id="combo_ScotchMist" modifier="None" position="Upper"> <!--id: string--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
     
     <!-- Combo Damage applies to all targets -->
     

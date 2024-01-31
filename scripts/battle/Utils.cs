@@ -31,6 +31,13 @@ public static class Utils {
         target.Statuses.Remove(StatusEnum.TattooRevealed);
         target.Statuses.Remove(StatusEnum.Countering);
         target.Statuses.Remove(StatusEnum.DoubleDamage);
+        if (!(target.Statuses.Remove(StatusEnum.StayJuggled) && target.Modifier == ModifierEnum.Juggled)) {
+            target.Modifier = ModifierEnum.None;
+        }
+        if (target is Player && target.Statuses.Remove(StatusEnum.GetScars)) {
+            target.ModifyBlock(1,PositionEnum.Upper);
+            target.ModifyBlock(1,PositionEnum.Lower);
+        }
     }
 
     public static void CounterCheck(GameState gameState, ITarget target, ITarget player) {
@@ -63,5 +70,7 @@ public static class Utils {
         JustShowedOff,
         ShowedOff,
         DoubleDamage,
+        StayJuggled,
+        GetScars,
     }
 }

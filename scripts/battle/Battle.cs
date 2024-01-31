@@ -22,17 +22,17 @@ public partial class Battle : Node2D {
 
     private List<Enemy> _allEnemies;
     private Dictionary<string, List<string>> _allDecks;
-    
+
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
-    
+
     AudioEngine audioEngine;
     SceneLoader sceneLoader;
 
     public override void _Ready() {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        
+
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
 
@@ -50,22 +50,20 @@ public partial class Battle : Node2D {
         Music = battleData["music"];
 
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-        
-        
+
+
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
-
-        if (sceneLoader.health != 0)
-        {
+        if (sceneLoader.health != 0) {
             int playerHealth = sceneLoader.health;
             _gameState.Player.Health = playerHealth;
         }
-
         sceneLoader.i += 1;
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
     public override void _Process(double delta) { }
+
     private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
         Hand hand = GetNode<Hand>("Hand");
         hand.InitialiseDeck(playerCardIds);
@@ -78,6 +76,7 @@ public partial class Battle : Node2D {
         _gameState.DiscardStateChangedCustomEvent += OnDiscardStateChanged;
         _gameState.ComboStackChangedCustomEvent += OnComboStackChanged;
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
+        _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Draw(4);
     }
 
@@ -139,29 +138,26 @@ public partial class Battle : Node2D {
     private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
     private void EndTurn() { _gameState.EndTurn(); }
 
-    private void WinBattle(object sender, EventArgs eventArgs)
-    {
+    private void WinBattle(object sender, EventArgs eventArgs) {
         EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
-        
+
         audioEngine.PlaySoundFx("victory-jingle.wav");
         GD.Print(" ==== ====  WIN BATTLE  ==== ====");
         sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
         sceneLoader.health = _gameState.Player.Health;
         sceneLoader.GoToNextBattle();
     }
+
     private void MoveSelectedIndicator(Enemy enemy) {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
-            enemy.Position != GetNode<ColorRect>("HUD/SelectedIndicator").Position
-                ? enemy.Position
-                : new Vector2(-100, 520);
+            _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
     }
 
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
-        if (playerObject.Health <= 0)
-        {
-            EmitSignal(Battle.SignalName.BattleLost); 
-            
+        if (playerObject.Health <= 0) {
+            EmitSignal(Battle.SignalName.BattleLost);
+
             sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
             audioEngine.PlayMusic("Lil_tune.wav");
             sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
@@ -214,6 +210,13 @@ public partial class Battle : Node2D {
             }
         }
     }
+
+    private void DisplayPlayedCombo(object sender, ComboEventArgs e) {
+        GetNode<Label>("HUD/ComboDisplay").Text = $"C-C-C-COMBO!!! {e.Combo.Name}!";
+        GetNode<Timer>("HUD/ComboDisplay/ComboDisplayTimer").Start();
+    }
+
+    private void OnComboDisplayTimeout() { GetNode<Label>("HUD/ComboDisplay").Text = ""; }
 
     private void OnPlayerHealthChanged(object sender, EventArgs e) { OnPlayerHealthChanged(); }
     private void OnPlayerDefenseUpperChanged(object sender, EventArgs e) { OnPlayerDefenseUpperChanged(); }
