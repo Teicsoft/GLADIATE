@@ -51,6 +51,7 @@ public partial class Battle : Node2D {
 
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
         
+        
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
         
@@ -80,7 +81,7 @@ public partial class Battle : Node2D {
         for (int i = 0; i < idsCount; i++) {
             Enemy enemy = _enemyScene.Instantiate<Enemy>();
             _allEnemies.First(e => e.Id == enemyIds[i]).CloneTo(enemy);
-            
+
             AssignRandomColorDEBUG(enemy);
             enemy.Deck = GetEnemyDeck(enemy.DeckId);
             enemy.Position = GetEnemyPosition(i, idsCount);
@@ -213,8 +214,6 @@ public partial class Battle : Node2D {
     private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
     private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
-    
-    public override string ToString() {
-        return $"Battle: {BattleName}({Id})";
-    }
+
+    public override string ToString() { return $"Battle: {BattleName}({Id})"; }
 }

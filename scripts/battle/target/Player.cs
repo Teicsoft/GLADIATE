@@ -12,7 +12,7 @@ public partial class Player : Node2D, ITarget {
 
     public string Name { get; set; }
     public int MaxHealth { get; set; }
-    public List<Utils.StatusEnum> Statuses { get; set; } = new();
+    public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
     public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     private int _health;
     private int _defenseLower = 0;
@@ -51,40 +51,54 @@ public partial class Player : Node2D, ITarget {
     }
 
     public void Damage(int damage, Utils.PositionEnum position) {
-        bool blocked = false;
+        if (!CheckBlock(position)) { DirectDamage(damage); }
+    }
+
+    public bool CheckBlock(Utils.PositionEnum position) {
         switch (position) {
             case Utils.PositionEnum.Upper:
                 if (DefenseUpper > 0) {
-                    blocked = true;
                     DefenseUpper--;
+                    return true;
                 }
 
                 break;
             case Utils.PositionEnum.Lower:
                 if (DefenseLower > 0) {
-                    blocked = true;
                     DefenseLower--;
+                    return true;
                 }
 
                 break;
         }
-
-        if (!blocked) { DirectDamage(damage); }
+        return false;
     }
 
-    private void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
+    public void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
+
+    public void Ground(Utils.PositionEnum position) {
+        if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grounded; }
+    }
+
+    public void Juggle() { Modifier = Utils.ModifierEnum.Juggled; }
+
+    public void Grapple(Utils.PositionEnum position) {
+        if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grappled; }
+    }
 
     public void Heal(int amount) { Health = Math.Min(MaxHealth, Health + Math.Abs(amount)); }
 
-    public void Stun(int stun) {
-        if ((DefenseUpper > 0) || (DefenseLower > 0)) {
+    public void Stun() {
+        if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else if (stun > 0) {
+        } else {
             // TODO: Figure this out.
             // End turn immediately?
         }
     }
+
+    public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }
 
     public void ModifyBlock(int change, Utils.PositionEnum position) {
         switch (position) {

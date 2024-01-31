@@ -93,6 +93,19 @@ public static class CardFactory {
     private static Dictionary<string, Func<Card>> TypeDictionary = new() {
         { "card_reckless", () => new StunCard() },
         { "card_Spartackle", () => new Spartackle() },
+        { "card_BloodOnTheSand", () => new SelfDamageCard() },
+        { "card_gladius", () => new Gladius() },
+        { "card_Grapple", () => new ModifierCard() },
+        { "card_FlyingCrossBody", () => new FlyingCrossBody() },
+        { "card_DropKick", () => new Dropkick() },
+        { "card_headbutt", () => new SelfDamageCard() },
+        { "card_JudoThrow", () => new JudoThrow() },
+        { "card_KipUp", () => new KipUp() },
+        { "card_Throw", () => new ModifierCard() },
+        { "card_Trip", () => new ModifierCard() },
+        { "card_Showoff", () => new ShowOff() },
+        { "card_PleaseTheCrowd", () => new PleaseTheCrowd() },
+        { "card_DramaticTattooReveal", () => new DramaticTattooReveal() },
     };
 
     public static Card ConstructCard(string cardId) {

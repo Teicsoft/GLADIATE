@@ -6,7 +6,7 @@ public class ShoutYourMoveName : Card {
     public override void Play(GameState gameState, ITarget target, ITarget player) {
         if (player is not Enemy) {
             gameState.Enemies.ForEach(e => e.ModifyBlock(1, TargetPosition));
-            gameState.ComboCheck(this);
+            player.Statuses.Add(Utils.StatusEnum.MoveShouted);
         } else { target.ModifyBlock(1, TargetPosition); }
     }
 }

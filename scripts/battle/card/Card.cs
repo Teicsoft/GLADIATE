@@ -1,10 +1,10 @@
+using System;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.battle.card;
 
 public class Card {
-
     public Color color { get; set; }
 
     public string Id { get; set; } // card_id
@@ -72,9 +72,10 @@ public class Card {
         // not the player player, they who played this card
         GD.Print(player.Name + " played " + CardName);
         if (Attack != 0) {
-            if (TargetRequired || player is Enemy) { target.Damage(Attack, TargetPosition); }
-            else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, TargetPosition); }
+            Utils.CounterCheck(gameState, target, player);
+            int modifiedAttack = (int)Math.Floor(Attack * Utils.GetDamageMultiplier(player));
+            if (TargetRequired || player is Enemy) { target.Damage(modifiedAttack, TargetPosition); } else {
+                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(modifiedAttack, TargetPosition); }
             }
         }
 
@@ -89,7 +90,7 @@ public class Card {
 
             if (Discard > 0) { gameState.Discards += Discard; }
 
-            gameState.ComboCheck(this);
+            if (SpectaclePoints > 0) { gameState.SpectacleBuffer += SpectaclePoints; }
         }
     }
 

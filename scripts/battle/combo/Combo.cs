@@ -91,6 +91,8 @@ public class Combo {
         if (CardDraw > 0) { gameState.Draw(CardDraw); }
 
         if (Discard > 0) { gameState.Discards += Discard; }
+
+        if (SpectaclePoints > 0) { gameState.SpectacleBuffer += SpectaclePoints; }
     }
 
     public void LoadAssets() {
