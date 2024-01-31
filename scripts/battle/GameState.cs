@@ -80,8 +80,9 @@ public class GameState {
 
     public void PlaySelectedCard() {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
-        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
-            cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
+        Enemy selectedEnemy = GetSelectedEnemy();
+        if (cardSleeve != null && cardSleeve.Card.IsPlayable(selectedEnemy)) {
+            cardSleeve.Card.Play(this, selectedEnemy, Player);
             if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
@@ -101,9 +102,7 @@ public class GameState {
     }
 
     private void DeselectDeadEnemy() {
-        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) {
-            _selectedEnemyIndex = -1;
-        }
+        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
     }
 
     public void PushCardStack(Card card) { ComboStack.Add(card); }
@@ -222,7 +221,7 @@ public class GameState {
     public Enemy GetSelectedEnemy() { return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null; }
 
     public void SelectEnemy(Enemy enemy) {
-        if (enemy.Health>0) {
+        if (enemy.Health > 0) {
             int enemyIndex = Enemies.IndexOf(enemy);
             _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
         }
