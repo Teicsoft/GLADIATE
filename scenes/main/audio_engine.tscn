@@ -8,12 +8,17 @@ script = ExtResource("1_q6eu6")
 
 [node name="MusicPlayer1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_uv4pr")
+bus = &"Music"
 
 [node name="MusicPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_uv4pr")
+bus = &"Music"
 
 [node name="SoundFxPlayer1" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [node name="SoundFxPlayer2" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [node name="VoicePlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Voice"

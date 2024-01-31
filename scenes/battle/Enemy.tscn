@@ -17,7 +17,7 @@ offset_right = 150.0
 offset_bottom = 150.0
 color = Color(0.533333, 0.533333, 0.533333, 0)
 
-[node name="Loser5" type="Sprite2D" parent="."]
+[node name="EnemySprite" type="Sprite2D" parent="."]
 position = Vector2(-3.99998, -8.99999)
 scale = Vector2(0.546429, 0.546429)
 texture = ExtResource("2_ggci3")
@@ -115,4 +115,22 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CardPlayed" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -105.0
+offset_top = -202.0
+offset_right = 92.0
+offset_bottom = -172.0
+grow_horizontal = 2
+text = "Card Played"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardPlayedTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]
+[connection signal="timeout" from="CardPlayedTimer" to="." method="OnCardPlayedTimer"]
