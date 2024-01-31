@@ -14,9 +14,16 @@ public class GameState {
     public event EventHandler DiscardStateChangedCustomEvent;
     public event EventHandler AllEnemiesDefeatedCustomEvent;
     public event EventHandler ComboStackChangedCustomEvent;
-    public Player Player;
 
+    private List<Combo> AllCombos;
+    public Player Player;
+    public Hand Hand;
+    public List<Enemy> Enemies;
+    public List<Card> ComboStack;
+    private int _multiplier;
+    private int _spectaclePoints;
     private int _discards;
+    private int _selectedEnemyIndex = -1;
 
     public int Discards {
         get => _discards;
@@ -30,8 +37,6 @@ public class GameState {
         }
     }
 
-    private int _multiplier;
-
     public int Multiplier {
         get => _multiplier;
         set {
@@ -39,8 +44,6 @@ public class GameState {
             MultiplierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
     }
-
-    private int _spectaclePoints;
 
     public int SpectaclePoints {
         get => _spectaclePoints;
@@ -50,24 +53,86 @@ public class GameState {
         }
     }
 
-    public List<Card> ComboStack { get; set; }
-
     // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
 
-    private List<Combo> AllCombos { get; set; }
-
-    public List<Enemy> Enemies = new();
-    private int _selectedEnemyIndex = -1;
-    public Hand Hand;
-
     // Constructor
-    public GameState(Hand hand) {
+    public GameState(Hand hand, List<Enemy> enemies) {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
         Player = new Player(100, 0, 0);
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
         Hand = hand;
+        Enemies = enemies;
+    }
+
+    public void StartTurn() {
+        GD.Print(" ==== ==== START TURN ==== ====");
+        Draw();
+    }
+
+    public void Draw(int n = 1) { Hand.DrawCards(n); }
+
+    public void PlaySelectedCard() {
+        CardSleeve cardSleeve = Hand.GetSelectedCard();
+        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
+            cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
+            Hand.DiscardCard();
+        }
+    }
+
+    public void ComboCheck(Card card) { // largely based on Cath's python code
+        PushCardStack(card);
+
+        // find a matching combo if it exists, returns null if no match
+        Combo matchingCombo = ComboCompare();
+        if (matchingCombo != null) {
+            GD.Print("C-C-COMBO!!!");
+            GD.Print("Playing Combo: " + matchingCombo);
+            ProcessCombo(matchingCombo);
+        } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
+    }
+
+    public void PushCardStack(Card card) { ComboStack.Add(card); }
+
+    public Combo ComboCompare() {
+        foreach (Combo combo in AllCombos) {
+            int count = combo.CardList.Count;
+            if (ComboStack.Count < count) { continue; }
+
+            bool match = true;
+            for (int i = 1; i <= count; i++) {
+                if (ComboStack[^i].Id != combo.CardList[^i].Id) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if (match) { return combo; }
+        }
+
+        return null;
+    }
+
+    private void ProcessCombo(Combo combo) {
+        int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
+        ProcessMultiplier(combo?.CardList.Count ?? 0);
+
+        combo?.Play(this);
+
+        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
+
+        ComboStack.Clear();
+        ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ProcessMultiplier(int comboLength) {
+        int comboValue = (int)Math.Floor(Math.Pow(2, comboLength - 1));
+
+        int blunders = ComboStack.Count - comboLength;
+        int blunderValue = (int)Math.Floor(Math.Pow(2, blunders - 1));
+
+        Multiplier = Math.Max(Multiplier + (comboValue - blunderValue), 1);
     }
 
     public void EndTurn() {
@@ -93,82 +158,6 @@ public class GameState {
         StartTurn();
     }
 
-    public void StartTurn() {
-        GD.Print(" ==== ==== START TURN ==== ====");
-        Draw();
-    }
-
-    // Combo Methods
-    // ****
-    public void PushCardStack(Card card) { ComboStack.Add(card); }
-
-    public void ComboCheck(Card card) { // largely based on Cath's python code
-        PushCardStack(card);
-
-        // find a matching combo if it exists, returns null if no match
-        Combo matchingCombo = ComboCompare();
-        if (matchingCombo != null) {
-            GD.Print("C-C-COMBO!!!");
-            GD.Print("Playing Combo: " + matchingCombo);
-            ProcessCombo(matchingCombo);
-        } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
-    }
-
-    private void ProcessCombo(Combo combo) {
-        int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
-        ProcessMultiplier(combo?.CardList.Count ?? 0);
-
-        combo?.Play(this);
-
-        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
-
-        ComboStack.Clear();
-        ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
-    }
-
-    // Check for combo matches
-    public Combo ComboCompare() {
-        foreach (Combo combo in AllCombos) {
-            int count = combo.CardList.Count;
-            if (ComboStack.Count < count) { continue; }
-
-            bool match = true;
-            for (int i = 1; i <= count; i++) {
-                if (ComboStack[^i].Id != combo.CardList[^i].Id) {
-                    match = false;
-                    break;
-                }
-            }
-
-            if (match) { return combo; }
-        }
-
-        return null;
-    }
-
-    public void ProcessMultiplier(int comboLength) {
-        int comboValue = (int)Math.Floor(Math.Pow(2, comboLength - 1));
-
-        int blunders = ComboStack.Count - comboLength;
-        int blunderValue = (int)Math.Floor(Math.Pow(2, blunders - 1));
-
-        Multiplier = Math.Max(Multiplier + (comboValue - blunderValue), 1);
-    }
-
-    // ****
-
-    // Hand methods
-
-    public void PlaySelectedCard() {
-        CardSleeve cardSleeve = Hand.GetSelectedCard();
-        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
-            cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
-            Hand.DiscardCard();
-        }
-    }
-
-    public void Draw(int n = 1) { Hand.DrawCards(n); }
-
     public void StartDiscarding() {
         foreach (CardSleeve sleeve in Hand.Cards) {
             sleeve.CardSelected -= SelectedDiscard;
@@ -189,19 +178,13 @@ public class GameState {
         Hand.DiscardCard(sleeve);
     }
 
-    // ****
-
     // Enemy methods
-    // ****
-
     public Enemy GetSelectedEnemy() { return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null; }
 
     public void SelectEnemy(Enemy enemy) {
         int enemyIndex = Enemies.IndexOf(enemy);
         _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
-
-    // ****
 
     public override string ToString() {
         return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +

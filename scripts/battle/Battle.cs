@@ -27,27 +27,21 @@ public partial class Battle : Node2D {
     };
 
     public override void _Ready() {
-        Dictionary<string, List<string>> decks = DeckXmlParser.ParseAllDecks();
-        decks.TryGetValue("deck_player", out List<string> playerCardIds);
-        InitialiseGameState(playerCardIds);
+        InitialiseGameState(DeckXmlParser.ParseAllDecks());
         InitialiseHud();
-
-        decks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
-        foreach (int i in Enumerable.Range(0, ENEMY_COUNT)) {
-            Enemy enemy = CreateEnemy(GetEnemyDeck(enemyCardIds), i);
-            AddChild(enemy);
-            _gameState.Enemies.Add(enemy);
-        }
 
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
     public override void _Process(double delta) { }
 
-    private void InitialiseGameState(List<string> playerCardIds) {
+    private void InitialiseGameState(Dictionary<string, List<string>> decks) {
+        decks.TryGetValue("deck_player", out List<string> playerCardIds);
+        decks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
+
         Hand hand = GetNode<Hand>("Hand");
         hand.InitialiseDeck(playerCardIds);
-        _gameState = new GameState(hand);
+        _gameState = new GameState(hand, CreateEnemies(enemyCardIds));
         _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
         _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
         _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
@@ -59,6 +53,16 @@ public partial class Battle : Node2D {
         _gameState.Draw(4);
     }
 
+    private List<Enemy> CreateEnemies(List<string> enemyCardIds) {
+        List<Enemy> enemies = new();
+        foreach (int i in Enumerable.Range(0, ENEMY_COUNT)) {
+            Enemy enemy = CreateEnemy(GetEnemyDeck(enemyCardIds), i);
+            AddChild(enemy);
+            enemies.Add(enemy);
+        }
+        return enemies;
+    }
+
     private void InitialiseHud() {
         OnPlayerHealthChanged();
         OnPlayerDefenseUpperChanged();
@@ -66,6 +70,10 @@ public partial class Battle : Node2D {
         OnMultiplierChanged();
         OnSpectacleChanged();
     }
+
+    private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
+    private void EndTurn() { _gameState.EndTurn(); }
+    private void WinBattle(object sender, EventArgs eventArgs) { EmitSignal(SignalName.BattleWon, _gameState.Player); }
 
     private Enemy CreateEnemy(Deck<Card> enemyDeck, int i) {
         PathFollow2D enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
@@ -152,8 +160,4 @@ public partial class Battle : Node2D {
     private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
     private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
-    private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
-    private void OnDeckPressed() { _gameState.Draw(); }
-    private void EndTurn() { _gameState.EndTurn(); }
-    private void WinBattle(object sender, EventArgs eventArgs) { EmitSignal(SignalName.BattleWon, _gameState.Player); }
 }
