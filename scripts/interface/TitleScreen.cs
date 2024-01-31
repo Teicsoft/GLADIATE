@@ -13,6 +13,7 @@ public partial class TitleScreen : Control
         {"Shop_loop_audio.wav", AudioEngine.AudioType.Music},
         {"Menu_music.wav", AudioEngine.AudioType.Music},
         {"venividivichy.wav", AudioEngine.AudioType.Music},
+        {"whatdidtheromanseverdoforme.wav", AudioEngine.AudioType.Music},
         {"testsound1.ogg", AudioEngine.AudioType.SoundFx}
     };
     
@@ -44,8 +45,8 @@ public partial class TitleScreen : Control
             if (mouseButton.Pressed)
             {
                 var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
-                sceneLoader.GoToScene("res://scenes/battle/Battle.tscn");
-                audioEngine.PlayMusic("venividivichy.wav");
+                sceneLoader.GoToScene("res://scenes/Lore.tscn");
+                audioEngine.PlayMusic("whatdidtheromanseverdoforme.wav");
             }
         }
     }
