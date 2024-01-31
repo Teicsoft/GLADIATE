@@ -6,6 +6,7 @@ using TeicsoftSpectacleCards.scripts.battle;
 using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.battle.target;
 using TeicsoftSpectacleCards.scripts.XmlParsing;
+using Utils = TeicsoftSpectacleCards.scripts.battle.Utils;
 
 public partial class Battle : Node2D {
     [Signal] public delegate void BattleLostEventHandler();
@@ -80,7 +81,7 @@ public partial class Battle : Node2D {
     }
 
     private static Deck<Card> GetEnemyDeck(List<string> enemyCardIds) {
-        Deck<Card> enemyDeck = new(new ());
+        Deck<Card> enemyDeck = new(new());
         enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
         enemyDeck.Shuffle();
         return enemyDeck;
@@ -88,45 +89,42 @@ public partial class Battle : Node2D {
 
     private void MoveSelectedIndicator(Enemy enemy) {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
-            enemy.Position != GetNode<ColorRect>("HUD/SelectedIndicator").Position ? enemy.Position : new Vector2(-100, 520);
+            enemy.Position != GetNode<ColorRect>("HUD/SelectedIndicator").Position
+                ? enemy.Position
+                : new Vector2(-100, 520);
     }
-
-    private void OnPlayerHealthChanged(object sender, EventArgs e) { OnPlayerHealthChanged(); }
 
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
         if (playerObject.Health <= 0) { EmitSignal(SignalName.BattleLost); }
         GetNode<Label>("HUD/PlayerHealthDisplay").Text = playerObject.Health + "/" + playerObject.MaxHealth;
-        GetNode<ProgressBar>("HUD/PlayerHealthProgressBar").Ratio = (double)playerObject.Health / playerObject.MaxHealth;
+        GetNode<ProgressBar>("HUD/PlayerHealthProgressBar").Ratio =
+            (double)playerObject.Health / playerObject.MaxHealth;
     }
 
-    private void OnPlayerDefenseUpperChanged(object sender, EventArgs e) { OnPlayerDefenseUpperChanged(); }
-
     private void OnPlayerDefenseUpperChanged() {
-        GetNode<ColorRect>("HUD/PlayerUpperBlockRect").Color = new Color(0, 0, _gameState.Player.DefenseUpper > 0 ? 1 : 0);
+        GetNode<ColorRect>("HUD/PlayerUpperBlockRect").Color =
+            new Color(0, 0, _gameState.Player.DefenseUpper > 0 ? 1 : 0);
         GetNode<Label>("HUD/PlayerUpperBlockDisplay").Text = _gameState.Player.DefenseUpper.ToString();
     }
 
-    private void OnPlayerDefenseLowerChanged(object sender, EventArgs e) { OnPlayerDefenseLowerChanged(); }
-
     private void OnPlayerDefenseLowerChanged() {
-        GetNode<ColorRect>("HUD/PlayerLowerBlockRect").Color = new Color(0, 0, _gameState.Player.DefenseLower > 0 ? 1 : 0);
+        GetNode<ColorRect>("HUD/PlayerLowerBlockRect").Color =
+            new Color(0, 0, _gameState.Player.DefenseLower > 0 ? 1 : 0);
         GetNode<Label>("HUD/PlayerLowerBlockDisplay").Text = _gameState.Player.DefenseLower.ToString();
     }
 
-    private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
+    private void OnMultiplierChanged() {
+        GetNode<Label>("HUD/MultiplierDisplay").Text = _gameState.Multiplier.ToString();
+    }
 
-    private void OnMultiplierChanged() { GetNode<Label>("HUD/MultiplierDisplay").Text = _gameState.Multiplier.ToString(); }
-
-    private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
-
-    private void OnSpectacleChanged() { GetNode<Label>("HUD/SpectacleDisplay").Text = _gameState.SpectaclePoints.ToString(); }
-
-    private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
+    private void OnSpectacleChanged() {
+        GetNode<Label>("HUD/SpectacleDisplay").Text = _gameState.SpectaclePoints.ToString();
+    }
 
     private void OnDiscardStateChanged() {
-        string discardText = _gameState.Discards == 0 ? "" : $"You must discard {_gameState.Discards} cards.";
-        GetNode<Label>("HUD/DiscardDisplay").Text = discardText;
+        GetNode<Label>("HUD/DiscardDisplay").Text =
+            _gameState.Discards == 0 ? "" : $"You must discard {_gameState.Discards} cards.";
     }
 
     private void OnComboStackChanged(object sender, EventArgs e) {
@@ -158,11 +156,14 @@ public partial class Battle : Node2D {
         return art;
     }
 
+    private void OnPlayerHealthChanged(object sender, EventArgs e) { OnPlayerHealthChanged(); }
+    private void OnPlayerDefenseUpperChanged(object sender, EventArgs e) { OnPlayerDefenseUpperChanged(); }
+    private void OnPlayerDefenseLowerChanged(object sender, EventArgs e) { OnPlayerDefenseLowerChanged(); }
+    private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
+    private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
+    private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
     private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
-
     private void OnDeckPressed() { _gameState.Draw(); }
-
     private void EndTurn() { _gameState.EndTurn(); }
-
     private void WinBattle(object sender, EventArgs eventArgs) { EmitSignal(SignalName.BattleWon, _gameState.Player); }
 }
