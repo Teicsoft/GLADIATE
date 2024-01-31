@@ -1,80 +1,103 @@
-[gd_scene load_steps=2 format=3 uid="uid://rocmwsrfn6p7"]
+[gd_scene load_steps=6 format=3 uid="uid://rocmwsrfn6p7"]
 
 [ext_resource type="Script" path="res://scripts/battle/target/Enemy.cs" id="1_nns8m"]
+[ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="2_ggci3"]
+[ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="2_mb0el"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="3_df0w2"]
+[ext_resource type="Texture2D" uid="uid://c2ui510hlcb4m" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_nns8m")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_left = -150.0
 offset_top = -150.0
 offset_right = 150.0
 offset_bottom = 150.0
-color = Color(0.533333, 0.533333, 0.533333, 1)
+color = Color(0.533333, 0.533333, 0.533333, 0)
+
+[node name="Button" type="Sprite2D" parent="."]
+position = Vector2(1, 134.5)
+scale = Vector2(0.524038, 0.535354)
+texture = ExtResource("2_mb0el")
 
 [node name="SelectButton" type="Button" parent="."]
-offset_left = -100.0
-offset_top = 100.0
-offset_right = 100.0
-offset_bottom = 150.0
+offset_left = -52.0
+offset_top = 109.0
+offset_right = 52.0
+offset_bottom = 157.0
+theme = ExtResource("3_df0w2")
 text = "Select"
 
 [node name="HealthLabel" type="Label" parent="."]
-offset_left = -100.0
-offset_top = -140.0
-offset_right = -75.0
-offset_bottom = -80.0
+offset_left = -102.5
+offset_top = -169.0
+offset_right = -77.5
+offset_bottom = -109.0
 text = "HP"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="EneemyHealthbar" type="Sprite2D" parent="."]
+position = Vector2(-1.5, -138)
+texture = ExtResource("4_e4ref")
+
 [node name="HealthProgressBar" type="ProgressBar" parent="."]
-offset_left = -75.0
-offset_top = -140.0
-offset_right = 140.0
-offset_bottom = -80.0
+offset_left = -102.5
+offset_top = -159.0
+offset_right = 99.5
+offset_bottom = -116.0
 step = 1.0
 rounded = true
 show_percentage = false
 
 [node name="HealthDisplay" type="Label" parent="."]
-offset_left = -70.0
-offset_top = -140.0
-offset_right = 30.0
-offset_bottom = -80.0
+offset_left = -75.5
+offset_top = -169.0
+offset_right = 24.5
+offset_bottom = -109.0
 text = "1"
 vertical_alignment = 1
 
 [node name="UpperBlockRect" type="ColorRect" parent="."]
-offset_left = -140.0
-offset_top = -140.0
-offset_right = -100.0
-offset_bottom = -110.0
+visible = false
+offset_left = -195.0
+offset_top = -172.0
+offset_right = -155.0
+offset_bottom = -142.0
 color = Color(0, 0, 1, 1)
 
 [node name="UpperBlockDisplay" type="Label" parent="."]
-offset_left = -140.0
-offset_top = -140.0
-offset_right = -100.0
-offset_bottom = -110.0
+offset_left = -133.0
+offset_top = -164.0
+offset_right = -93.0
+offset_bottom = -134.0
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LowerBlockRect" type="ColorRect" parent="."]
-offset_left = -140.0
-offset_top = -110.0
-offset_right = -100.0
-offset_bottom = -80.0
+visible = false
+offset_left = -195.0
+offset_top = -139.0
+offset_right = -155.0
+offset_bottom = -109.0
 color = Color(0, 0, 1, 1)
 
 [node name="LowerBlockDisplay" type="Label" parent="."]
-offset_left = -140.0
-offset_top = -110.0
-offset_right = -100.0
-offset_bottom = -80.0
+offset_left = -132.0
+offset_top = -142.0
+offset_right = -92.0
+offset_bottom = -112.0
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Loser5" type="Sprite2D" parent="."]
+position = Vector2(-3.99998, -8.99999)
+scale = Vector2(0.546429, 0.546429)
+texture = ExtResource("2_ggci3")
+flip_h = true
 
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]

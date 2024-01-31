@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://4lar8gsflwru"]
+[gd_scene load_steps=4 format=3 uid="uid://4lar8gsflwru"]
 
 [ext_resource type="Script" path="res://scripts/battle/card/CardSleeve.cs" id="1_bqmvl"]
 [ext_resource type="Texture2D" uid="uid://d4jkigkskqd1" path="res://assets/images/Cards/default_card_front.png" id="2_idev5"]
+[ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://Nimbus.tres" id="3_lpomp"]
 
 [node name="Card" type="Control"]
 layout_mode = 3
@@ -34,6 +35,7 @@ offset_left = -80.0
 offset_top = -139.0
 offset_right = 78.0
 offset_bottom = -90.0
+theme = ExtResource("3_lpomp")
 theme_override_colors/font_shadow_color = Color(0.533333, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.533333, 0, 0, 1)
 text = "Name"
@@ -46,6 +48,7 @@ offset_left = -80.0
 offset_top = 28.0
 offset_right = 77.0
 offset_bottom = 120.0
+theme = ExtResource("3_lpomp")
 theme_override_colors/font_shadow_color = Color(0.533333, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.533333, 0, 0, 1)
 text = "Description"
