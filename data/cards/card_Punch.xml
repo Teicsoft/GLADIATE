@@ -7,7 +7,7 @@
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
-        <draw>1</draw> <!--int-->
+        <draw>0</draw> <!--int-->
         <discard>0</discard> <!--int-->
         <spectacle_points>10</spectacle_points> <!--int-->
         <target_required>true</target_required> <!--true/false-->
