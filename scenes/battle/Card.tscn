@@ -20,9 +20,10 @@ color = Color(0.701961, 0.219608, 0.192157, 1)
 
 [node name="Art" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -87.0
-offset_top = -101.0
-offset_right = 83.0
+offset_left = -88.0
+offset_top = -100.0
+offset_right = 88.0
+offset_bottom = -1.0
 
 [node name="CardTemplateRed" type="Sprite2D" parent="."]
 position = Vector2(1.16825e-05, -0.5)

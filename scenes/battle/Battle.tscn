@@ -19,9 +19,9 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_e410o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 300, 300, 0, 0, 0, 0, 1620, 300)
+"points": PackedVector2Array(0, 0, 0, 0, 1421, 578, 0, 0, 0, 0, 990, 553, 0, 0, 0, 0, 569, 578)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_r0y7a"]
 _data = {
@@ -84,6 +84,20 @@ offset_bottom = -4.0
 grow_vertical = 0
 color = Color(0, 0, 0, 0.231373)
 
+[node name="ColorRect2" type="ColorRect" parent="HUD"]
+offset_left = 860.0
+offset_top = 1.0
+offset_right = 1120.0
+offset_bottom = 65.0
+color = Color(0, 0, 0, 0.388235)
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+offset_left = 709.0
+offset_top = 69.0
+offset_right = 1435.0
+offset_bottom = 109.0
+color = Color(0, 0, 0, 0.811765)
+
 [node name="Button Asset" type="Sprite2D" parent="HUD"]
 position = Vector2(103, 757)
 texture = ExtResource("8_2vyy3")
@@ -106,6 +120,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("7_bj4ys")
 text = "Play"
+flat = true
 
 [node name="End Turn Button" type="Button" parent="HUD"]
 anchors_preset = 6
@@ -121,8 +136,10 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("7_bj4ys")
 text = "End Turn"
+flat = true
 
 [node name="PlayerHealthLabel" type="Label" parent="HUD"]
+visible = false
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 101.0
@@ -148,8 +165,7 @@ offset_top = -8.0
 offset_right = 1085.0
 offset_bottom = 42.0
 theme = ExtResource("7_bj4ys")
-text = "Spectacle Points"
-horizontal_alignment = 2
+text = "SP"
 vertical_alignment = 1
 
 [node name="PlayerHealthProgressBar" type="ProgressBar" parent="HUD"]
@@ -162,19 +178,19 @@ rounded = true
 show_percentage = false
 
 [node name="MultiplierDisplay" type="Label" parent="HUD"]
-offset_left = 1018.0
-offset_top = 34.0
-offset_right = 1118.0
-offset_bottom = 74.0
+offset_left = 1000.0
+offset_top = 32.0
+offset_right = 1100.0
+offset_bottom = 72.0
 theme = ExtResource("7_bj4ys")
 text = "1"
 vertical_alignment = 1
 
 [node name="SpectacleDisplay" type="Label" parent="HUD"]
-offset_left = 1097.0
-offset_top = -1.0
-offset_right = 1197.0
-offset_bottom = 39.0
+offset_left = 908.0
+offset_top = -4.0
+offset_right = 1008.0
+offset_bottom = 36.0
 theme = ExtResource("7_bj4ys")
 text = "0"
 vertical_alignment = 1
@@ -205,8 +221,9 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.785398
+scale = Vector2(0.242236, 0.242236)
 pivot_offset = Vector2(20, 20)
-color = Color(1, 0, 0, 1)
+color = Color(1, 0, 0, 0.188235)
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
@@ -271,7 +288,8 @@ rotation = -0.785398
 curve = SubResource("Curve2D_e410o")
 
 [node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
-position = Vector2(300, 300)
+position = Vector2(1421, 578)
+rotation = -3.08365
 
 [node name="ComboStack" type="Path2D" parent="."]
 curve = SubResource("Curve2D_r0y7a")
