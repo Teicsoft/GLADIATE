@@ -138,22 +138,12 @@ public partial class Battle : Node2D {
             float stepSize = 1f / Math.Max(stackSize, 7);
             for (int i = 0; i < stackSize; i++) {
                 comboStackLocation.ProgressRatio = i * stepSize;
-                TextureRect art = LoadArt(_gameState.ComboStack[i]);
+                TextureRect art = Utils.LoadCardArt(_gameState.ComboStack[i]);
                 art.Position = comboStackLocation.Position;
                 _comboArts.Add(art);
                 AddChild(art);
             }
         }
-    }
-
-    private TextureRect LoadArt(Card card) {
-        TextureRect art = new();
-        Texture2D texture = (Texture2D)GD.Load(card.ImagePath);
-        art.Texture = texture;
-
-        float ratio = 160 / texture.GetSize().X;
-        art.Scale = new Vector2(ratio, ratio);
-        return art;
     }
 
     private void OnPlayerHealthChanged(object sender, EventArgs e) { OnPlayerHealthChanged(); }

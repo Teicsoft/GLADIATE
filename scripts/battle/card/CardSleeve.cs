@@ -36,7 +36,7 @@ public partial class CardSleeve : Control {
     }
 
     public void LoadAssets() {
-        LoadImage();
+        Utils.LoadCardArt(Card, _art);
         LoadAnimation();
         LoadSound();
     }
