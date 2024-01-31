@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System;
 using Godot;
+using TeicsoftSpectacleCards.scripts.autoloads;
 using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
@@ -25,12 +26,18 @@ public class EnemyXmlParser
         string enemyLore = Utils.ParseTextNode(enemyNode, "lore");
         string enemyDeckId = Utils.ParseTextNode(enemyNode, "deck_id");
         
-        int enemyHealth = Utils.ParseIntNode(enemyNode, "health");
-        int enemyBlockUpper = Utils.ParseIntNode(enemyNode, "block_upper");
-        int enemyBlockLower = Utils.ParseIntNode(enemyNode, "block_lower");
+        int enemyHealth = Utils.ParseIntNode(enemyNode, "max_health");
+        int enemyBlockUpper = Utils.ParseIntNode(enemyNode, "starting_block_upper");
+        int enemyBlockLower = Utils.ParseIntNode(enemyNode, "starting_block_lower");
+        
 
-        return new(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
-            enemyBlockLower);
+        var scene = GD.Load<PackedScene>("res://scenes/battle/Enemy.tscn");
+        Enemy enemy = (Enemy) scene.Instantiate();
+        
+        enemy.InitializeEnemy(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
+        enemyBlockLower);
+        
+        return enemy;
     }
     
     public static List<Enemy> ParseAllEnemies()
@@ -38,7 +45,7 @@ public class EnemyXmlParser
         string enemyFilePath = "res://data/enemies/";
         
         string[] filesAtPath = DirAccess.GetFilesAt(enemyFilePath);
-        
+       
         List<Enemy> enemies = new();
         foreach (string fileName in filesAtPath)
         {

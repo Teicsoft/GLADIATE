@@ -22,7 +22,7 @@ public class BattleXmlParser
         string music = Utils.ParseTextNode(battleNode, "music");
 
         List<string> enemies = new();
-        foreach (XmlNode enemyNode in battleNode.SelectNodes("enemies"))
+        foreach (XmlNode enemyNode in battleNode.SelectNodes("enemies/enemy"))
         {
             string enemyId = enemyNode.Attributes["enemy_id"].Value;
             enemies.Add(enemyId);
@@ -39,7 +39,7 @@ public class BattleXmlParser
     
     public static List<Dictionary<string, dynamic>> ParseAllBattles()
     {
-        string battleFilePath = "res://data/enemies/";
+        string battleFilePath = "res://data/battles/";
         
         string[] filesAtPath = DirAccess.GetFilesAt(battleFilePath);
         

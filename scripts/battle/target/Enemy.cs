@@ -19,10 +19,10 @@ public partial class Enemy : Node2D, ITarget {
     public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     public Color Color;
     public Deck<Card> Deck;
-    private int _health = 12;
+    private int _health;
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
-    public int MaxHealth { get; set; } = 12;
+    public int MaxHealth { get; set; }
     public List<Utils.StatusEnum> Statuses { get; set; } = new();
 
     public int Health {
@@ -49,7 +49,7 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 
-    public Enemy(
+    public void InitializeEnemy(
         string id, string name, string image, string soundEffect, string lore, string deckId, int maxHealth,
         int defenseUpper, int defenseLower
     ) {
@@ -73,6 +73,7 @@ public partial class Enemy : Node2D, ITarget {
         enemy.Lore = Lore;
         enemy.DeckId = DeckId;
         enemy.MaxHealth = MaxHealth;
+        enemy.Health = MaxHealth;
         enemy.DefenseUpper = DefenseUpper;
         enemy.DefenseLower = DefenseLower;
     }
@@ -159,5 +160,10 @@ public partial class Enemy : Node2D, ITarget {
     private void UpdateDefenseLowerDisplay() {
         GetNode<ColorRect>("LowerBlockRect").Color = new Color(0, 0, DefenseLower > 0 ? 1 : 0);
         GetNode<Label>("LowerBlockDisplay").Text = DefenseLower.ToString();
+    }
+
+    public override string ToString()
+    {
+        return $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
     }
 }
