@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=17 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -10,6 +10,9 @@
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="7_bj4ys"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
 [ext_resource type="Texture2D" uid="uid://cprl4r5lkhx0f" path="res://assets/ui/Health_Armor Bar.png" id="9_i3lvk"]
+[ext_resource type="Script" path="res://scenes/battle/Toggle Sound.gd" id="11_mow0b"]
+[ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
+[ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
@@ -84,14 +87,14 @@ offset_bottom = -4.0
 grow_vertical = 0
 color = Color(0, 0, 0, 0.231373)
 
-[node name="ColorRect2" type="ColorRect" parent="HUD"]
+[node name="Sp_combo Background" type="ColorRect" parent="HUD"]
 offset_left = 860.0
 offset_top = 1.0
 offset_right = 1120.0
 offset_bottom = 65.0
 color = Color(0, 0, 0, 0.388235)
 
-[node name="ColorRect" type="ColorRect" parent="HUD"]
+[node name="Healthbar Background" type="ColorRect" parent="HUD"]
 offset_left = 709.0
 offset_top = 69.0
 offset_right = 1435.0
@@ -299,5 +302,16 @@ position = Vector2(1740, 675)
 rotation = -1.5708
 loop = false
 
+[node name="Toggle Sound" type="TextureButton" parent="."]
+offset_left = 1814.0
+offset_top = 4.0
+offset_right = 1929.0
+offset_bottom = 70.0
+toggle_mode = true
+texture_normal = ExtResource("11_nrxls")
+texture_pressed = ExtResource("12_8fj8e")
+script = ExtResource("11_mow0b")
+
 [connection signal="pressed" from="HUD/PlayButton" to="." method="OnPlayButtonPressed"]
 [connection signal="pressed" from="HUD/End Turn Button" to="." method="EndTurn"]
+[connection signal="pressed" from="Toggle Sound" to="Toggle Sound" method="_on_TextureButton_pressed"]
