@@ -20,6 +20,7 @@ public class GameState {
     public Hand Hand;
     public List<Enemy> Enemies;
     public List<Card> ComboStack;
+    public int SpectacleBuffer;
     private int _multiplier;
     private int _spectaclePoints;
     private int _discards;
@@ -62,11 +63,12 @@ public class GameState {
         SpectaclePoints = 0;
         Hand = hand;
         Enemies = enemies;
-        Enemies.ForEach(enemy=>enemy.EnemySelected += SelectEnemy);;
+        Enemies.ForEach(enemy => enemy.EnemySelected += SelectEnemy);
     }
 
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
+        SpectacleBuffer = 0;
         Draw();
     }
 
@@ -76,6 +78,7 @@ public class GameState {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
             cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
+            ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
         }
     }
@@ -114,12 +117,12 @@ public class GameState {
     }
 
     private void ProcessCombo(Combo combo) {
-        int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
         ProcessMultiplier(combo?.CardList.Count ?? 0);
 
         combo?.Play(this);
-
-        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
+        
+        SpectaclePoints += Math.Abs(SpectacleBuffer * Multiplier);
+        SpectacleBuffer = 0;
 
         ComboStack.Clear();
         ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);

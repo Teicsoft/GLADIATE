@@ -89,7 +89,7 @@ public class Card {
 
             if (Discard > 0) { gameState.Discards += Discard; }
 
-            gameState.ComboCheck(this);
+            if (SpectaclePoints > 0) { gameState.SpectacleBuffer+=SpectaclePoints; }
         }
     }
 
