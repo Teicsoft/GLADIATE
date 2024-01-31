@@ -28,6 +28,7 @@ public partial class Battle : Node2D {
     public string Music { get; set; }
     
     AudioEngine audioEngine;
+    SceneLoader sceneLoader;
 
     public override void _Ready() {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
@@ -37,7 +38,7 @@ public partial class Battle : Node2D {
 
         // TODO: Change to accepting a player deck.
 
-        var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
         string deckSelected = sceneLoader.deckSelected;
         _allDecks.TryGetValue(deckSelected, out List<string> playerCardIds);
 
@@ -45,13 +46,15 @@ public partial class Battle : Node2D {
         Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
 
         Id = battleData["battle_id"];
-        Name = battleData["battle_name"];
+        BattleName = battleData["battle_name"];
         Music = battleData["music"];
 
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
         
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
+        
+        sceneLoader.i += 1;
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
@@ -128,7 +131,16 @@ public partial class Battle : Node2D {
 
     private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
     private void EndTurn() { _gameState.EndTurn(); }
-    private void WinBattle(object sender, EventArgs eventArgs) { EmitSignal(Battle.SignalName.BattleWon, _gameState.Player); }
+
+    private void WinBattle(object sender, EventArgs eventArgs)
+    {
+        EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
+        
+        audioEngine.PlaySoundFx("victory-jingle.wav");
+        GD.Print(" ==== ====  WIN BATTLE  ==== ====");
+        sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
+        sceneLoader.GoToNextBattle();
+    }
     private void MoveSelectedIndicator(Enemy enemy) {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
             enemy.Position != GetNode<ColorRect>("HUD/SelectedIndicator").Position
@@ -142,7 +154,7 @@ public partial class Battle : Node2D {
         {
             EmitSignal(Battle.SignalName.BattleLost); 
             
-            var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+            sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
             audioEngine.PlayMusic("Lil_tune.wav");
             sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
         }

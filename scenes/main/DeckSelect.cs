@@ -21,8 +21,8 @@ public partial class DeckSelect : Control
                 var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
                 
                 sceneLoader.deckSelected = deckId;
-                sceneLoader.GoToScene("res://scenes/battle/Battle.tscn");
                 audioEngine.PlayMusic("venividivichy.wav");
+                sceneLoader.GoToNextBattle();
             }
         }
     }
