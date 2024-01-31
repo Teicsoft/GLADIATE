@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using TeicsoftSpectacleCards.scripts.battle.card;
 
@@ -7,12 +9,16 @@ namespace TeicsoftSpectacleCards.scripts.battle.target;
 public partial class Enemy : Node2D, ITarget {
     [Signal] public delegate void EnemySelectedEventHandler(Enemy enemy);
 
-    private ColorRect _rect;
-    private Button _selectButton;
-
     public string Name { get; set; }
-    public int MaxHealth { get; set; } = 12;
+    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
+    public Color Color;
+    public Deck<Card> Deck;
+    private Discard<Card> _discard;
     private int _health = 12;
+    private int _defenseUpper = 1;
+    private int _defenseLower = 0;
+    public int MaxHealth { get; set; } = 12;
+    public List<Utils.StatusEnum> Statuses { get; set; } = new();
 
     public int Health {
         get => _health;
@@ -22,8 +28,6 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 
-    private int _defenseLower = 0;
-
     public int DefenseLower {
         get => _defenseLower;
         set {
@@ -32,8 +36,6 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 
-    private int _defenseUpper = 1;
-
     public int DefenseUpper {
         get => _defenseUpper;
         set {
@@ -41,19 +43,6 @@ public partial class Enemy : Node2D, ITarget {
             UpdateDefenseUpperDisplay();
         }
     }
-
-    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
-
-    public Deck<Card> Deck;
-
-    private Discard<Card> _discard;
-    private Label _healthDisplay;
-    private ProgressBar _healthProgressBar;
-    private ColorRect _upperBlockRect;
-    private Label _upperBlockDisplay;
-    private ColorRect _lowerBlockRect;
-    private Label _lowerBlockDisplay;
-    public Color Color;
 
     public Discard<Card> Discard {
         get => _discard;
@@ -64,17 +53,7 @@ public partial class Enemy : Node2D, ITarget {
     }
 
     public override void _Ready() {
-        _selectButton = GetNode<Button>("SelectButton");
-        _rect = GetNode<ColorRect>("ColorRect");
-        _rect.Color = Color;
-        _healthDisplay = GetNode<Label>("HealthDisplay");
-        _healthDisplay.Text = MaxHealth + "/" + MaxHealth;
-        _healthProgressBar = GetNode<ProgressBar>("HealthProgressBar");
-        _healthProgressBar.Ratio = 1;
-        _upperBlockRect = GetNode<ColorRect>("UpperBlockRect");
-        _upperBlockDisplay = GetNode<Label>("UpperBlockDisplay");
-        _lowerBlockRect = GetNode<ColorRect>("LowerBlockRect");
-        _lowerBlockDisplay = GetNode<Label>("LowerBlockDisplay");
+        GetNode<ColorRect>("ColorRect").Color = Color;
         UpdateHealthBar();
         UpdateDefenseUpperDisplay();
         UpdateDefenseLowerDisplay();
@@ -88,7 +67,7 @@ public partial class Enemy : Node2D, ITarget {
 
     public void TakeCardIntoDiscard(Card card) { Discard.AddCard(card); }
 
-    public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
+    public void Damage(int damage, Utils.PositionEnum position) {
         bool blocked = false;
         switch (position) {
             case Utils.PositionEnum.Upper:
@@ -114,7 +93,9 @@ public partial class Enemy : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } // else { Lose next turn }
+        } else if (stun > 0) {
+            foreach (int _ in Enumerable.Range(0, stun)) { Statuses.Add(Utils.StatusEnum.Stunned); }
+        }
     }
 
     private void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
@@ -130,18 +111,28 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 
+    public bool IsStunned() {
+        if (Statuses.Contains(Utils.StatusEnum.Stunned)) {
+            GD.Print($"{Name} was stunned this turn");
+            Statuses.Remove(Utils.StatusEnum.Stunned);
+            return true;
+        }
+
+        return false;
+    }
+
     private void UpdateHealthBar() {
-        _healthDisplay.Text = Health + "/" + MaxHealth;
-        _healthProgressBar.Ratio = (double)Health / MaxHealth;
+        GetNode<Label>("HealthDisplay").Text = Health + "/" + MaxHealth;
+        GetNode<ProgressBar>("HealthProgressBar").Ratio = (double)Health / MaxHealth;
     }
 
     private void UpdateDefenseUpperDisplay() {
-        _upperBlockRect.Color = new Color(0, 0, DefenseUpper > 0 ? 1 : 0);
-        _upperBlockDisplay.Text = DefenseUpper.ToString();
+        GetNode<ColorRect>("UpperBlockRect").Color = new Color(0, 0, DefenseUpper > 0 ? 1 : 0);
+        GetNode<Label>("UpperBlockDisplay").Text = DefenseUpper.ToString();
     }
 
     private void UpdateDefenseLowerDisplay() {
-        _lowerBlockRect.Color = new Color(0, 0, DefenseLower > 0 ? 1 : 0);
-        _lowerBlockDisplay.Text = DefenseLower.ToString();
+        GetNode<ColorRect>("LowerBlockRect").Color = new Color(0, 0, DefenseLower > 0 ? 1 : 0);
+        GetNode<Label>("LowerBlockDisplay").Text = DefenseLower.ToString();
     }
 }

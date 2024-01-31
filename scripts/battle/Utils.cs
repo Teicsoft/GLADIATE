@@ -15,4 +15,8 @@ public static class Utils {
         Lower,
         None
     }
+
+    public enum StatusEnum {
+        Stunned,
+    }
 }

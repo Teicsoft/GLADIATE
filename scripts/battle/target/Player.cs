@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TeicsoftSpectacleCards.scripts.battle.target;
 
@@ -10,7 +12,11 @@ public class Player : ITarget {
 
     public string Name { get; set; }
     public int MaxHealth { get; set; }
+    public List<Utils.StatusEnum> Statuses { get; set; } = new();
+    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     private int _health;
+    private int _defenseLower = 0;
+    private int _defenseUpper = 1;
 
     public int Health {
         get => _health;
@@ -20,7 +26,6 @@ public class Player : ITarget {
         }
     }
 
-    private int _defenseLower = 0;
 
     public int DefenseLower {
         get => _defenseLower;
@@ -30,7 +35,6 @@ public class Player : ITarget {
         }
     }
 
-    private int _defenseUpper = 1;
 
     public int DefenseUpper {
         get => _defenseUpper;
@@ -40,7 +44,6 @@ public class Player : ITarget {
         }
     }
 
-    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
 
     public Player(int maxHealth, int defenseLower, int defenseUpper) {
         MaxHealth = maxHealth;
@@ -50,7 +53,7 @@ public class Player : ITarget {
         Name = "Player";
     }
 
-    public void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
+    public void Damage(int damage, Utils.PositionEnum position) {
         bool blocked = false;
         switch (position) {
             case Utils.PositionEnum.Upper:
@@ -72,19 +75,18 @@ public class Player : ITarget {
         if (!blocked) { DirectDamage(damage); }
     }
 
-    private void DirectDamage(int damage) {
-        Health = Math.Max(0, Health - damage);
-    }
+    private void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
 
-    public void Heal(int amount) {
-        Health = Math.Min(MaxHealth, Health + Math.Abs(amount));
-    }
+    public void Heal(int amount) { Health = Math.Min(MaxHealth, Health + Math.Abs(amount)); }
 
-    public void Stun(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
+    public void Stun(int stun) {
         if ((DefenseUpper > 0) || (DefenseLower > 0)) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } // else { Lose next turn }
+        } else if (stun>0) {
+            // TODO: Figure this out.
+            // End turn immediately?
+        }
     }
 
     public void ModifyBlock(int change, Utils.PositionEnum position) {
