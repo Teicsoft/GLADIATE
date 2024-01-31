@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://4lar8gsflwru"]
 
 [ext_resource type="Script" path="res://scripts/battle/card/CardSleeve.cs" id="1_bqmvl"]
-[ext_resource type="Texture2D" uid="uid://d4jkigkskqd1" path="res://assets/images/Cards/default_card_front.png" id="2_idev5"]
-[ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://Nimbus.tres" id="3_lpomp"]
+[ext_resource type="Texture2D" path="res://assets/images/Cards/default_card_front.png" id="2_idev5"]
+[ext_resource type="Theme" path="res://Nimbus.tres" id="3_lpomp"]
 
 [node name="Card" type="Control"]
 layout_mode = 3

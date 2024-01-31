@@ -11,6 +11,7 @@ public static class ComboXmlParser {
 
     private static Dictionary<string, Func<Combo>> TypeDictionary = new() {
         { "combo_mgk", () => new DoubleMultCombo() },
+        { "combo_EtTuBrutal", () => new SelfDamageCombo() },
     };
 
     public static Combo ParseComboFromXml(string filepath) {

@@ -20,9 +20,11 @@ public class GameState {
     public Hand Hand;
     public List<Enemy> Enemies;
     public List<Card> ComboStack;
+    public int SpectacleBuffer;
     private int _multiplier;
     private int _spectaclePoints;
     private int _discards;
+    private int _turnStartEnemyCount;
     private int _selectedEnemyIndex = -1;
 
     public int Discards {
@@ -62,12 +64,14 @@ public class GameState {
         SpectaclePoints = 0;
         Hand = hand;
         Enemies = enemies;
-        Enemies.ForEach(enemy=>enemy.EnemySelected += SelectEnemy);;
+        Enemies.ForEach(enemy => enemy.EnemySelected += SelectEnemy);
     }
 
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
-        Draw();
+        _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
+        SpectacleBuffer = 0;
+        if (Player.IsStunned()) { EndTurn(); } else { Draw(); }
     }
 
     public void Draw(int n = 1) { Hand.DrawCards(n); }
@@ -76,6 +80,8 @@ public class GameState {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
         if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
             cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
+            if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
+            ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
         }
     }
@@ -114,15 +120,27 @@ public class GameState {
     }
 
     private void ProcessCombo(Combo combo) {
-        int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
         ProcessMultiplier(combo?.CardList.Count ?? 0);
 
         combo?.Play(this);
 
-        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
+        ShowOffCheck();
+
+        SpectaclePoints += Math.Abs(SpectacleBuffer * Multiplier);
+        SpectacleBuffer = 0;
 
         ComboStack.Clear();
         ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void ShowOffCheck() {
+        if (Player.Statuses.Contains(Utils.StatusEnum.JustShowedOff)) {
+            Player.Statuses.Remove(Utils.StatusEnum.JustShowedOff);
+            Player.Statuses.Add(Utils.StatusEnum.ShowedOff);
+        } else if (Player.Statuses.Contains(Utils.StatusEnum.ShowedOff)) {
+            Player.Statuses.Remove(Utils.StatusEnum.ShowedOff);
+            SpectacleBuffer *= 2;
+        }
     }
 
     public void ProcessMultiplier(int comboLength) {
@@ -141,20 +159,35 @@ public class GameState {
 
         ProcessCombo(null);
         List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
+        CrowdPleasedCheck(aliveEnemies.Count);
         if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
-            foreach (Enemy enemy in aliveEnemies) {
-                if (enemy.IsStunned()) {
-                    // Update HUD
-                    continue;
-                }
-                Card card = enemy.DrawCard();
-                card.Play(this, Player, enemy);
-                enemy.TakeCardIntoDiscard(card);
-            }
+            TakeEnemyTurns(aliveEnemies);
         }
+        Utils.RemoveEndTurnStatuses(Player);
 
         GD.Print(" ==== ====  END TURN  ==== ====");
         StartTurn();
+    }
+
+    private void TakeEnemyTurns(List<Enemy> aliveEnemies) {
+        foreach (Enemy enemy in aliveEnemies) {
+            if (enemy.IsStunned()) {
+                // Update HUD
+                continue;
+            }
+            Card card = enemy.DrawCard();
+            card.Play(this, Player, enemy);
+            enemy.TakeCardIntoDiscard(card);
+            Utils.RemoveEndTurnStatuses(enemy);
+        }
+    }
+
+    private void CrowdPleasedCheck(int aliveEnemiesCount) {
+        if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemiesCount > _turnStartEnemyCount) {
+            int enemiesDefeated = _turnStartEnemyCount - aliveEnemiesCount;
+            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
+            Draw(enemiesDefeated * 2);
+        }
     }
 
     public void StartDiscarding() {
