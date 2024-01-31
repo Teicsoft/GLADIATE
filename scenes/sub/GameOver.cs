@@ -10,6 +10,7 @@ public partial class GameOver : Control
         sceneLoader.GoToScene("res://scenes/title_screen.tscn");
         sceneLoader.i = 0;
         sceneLoader.SpectaclePoints = 0;
+        sceneLoader.health = 0;
     }
 }
 

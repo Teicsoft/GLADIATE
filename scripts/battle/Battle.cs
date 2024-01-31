@@ -54,7 +54,13 @@ public partial class Battle : Node2D {
         
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
-        
+
+        if (sceneLoader.health != 0)
+        {
+            int playerHealth = sceneLoader.health;
+            _gameState.Player.Health = playerHealth;
+        }
+
         sceneLoader.i += 1;
         GD.Print(" ==== ==== START GAME ==== ====");
     }
@@ -140,6 +146,7 @@ public partial class Battle : Node2D {
         audioEngine.PlaySoundFx("victory-jingle.wav");
         GD.Print(" ==== ====  WIN BATTLE  ==== ====");
         sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
+        sceneLoader.health = _gameState.Player.Health;
         sceneLoader.GoToNextBattle();
     }
     private void MoveSelectedIndicator(Enemy enemy) {
