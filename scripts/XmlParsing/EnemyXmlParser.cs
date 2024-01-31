@@ -26,17 +26,18 @@ public class EnemyXmlParser
         string enemyLore = Utils.ParseTextNode(enemyNode, "lore");
         string enemyDeckId = Utils.ParseTextNode(enemyNode, "deck_id");
         
-        int enemyHealth = Utils.ParseIntNode(enemyNode, "health");
-        int enemyBlockUpper = Utils.ParseIntNode(enemyNode, "block_upper");
-        int enemyBlockLower = Utils.ParseIntNode(enemyNode, "block_lower");
+        int enemyHealth = Utils.ParseIntNode(enemyNode, "max_health");
+        GD.Print("Enemy health: " + enemyHealth.ToString());
+        int enemyBlockUpper = Utils.ParseIntNode(enemyNode, "starting_block_upper");
+        int enemyBlockLower = Utils.ParseIntNode(enemyNode, "starting_block_lower");
         
 
         var scene = GD.Load<PackedScene>("res://scenes/battle/Enemy.tscn");
         Enemy enemy = (Enemy) scene.Instantiate();
         
-            
-            enemy.InitializeEnemy(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
-            enemyBlockLower);
+        enemy.InitializeEnemy(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
+        enemyBlockLower);
+        
         GD.Print("Finished ParseEnemyFromXml");
         return enemy;
     }
@@ -52,10 +53,11 @@ public class EnemyXmlParser
         List<Enemy> enemies = new();
         foreach (string fileName in filesAtPath)
         {
-            GD.Print("Parsing file: " + fileName + " as enemy");
+            GD.Print("\nParsing file: " + fileName + " as enemy");
             if (fileName.EndsWith(".xml") && fileName != "enemy_template.xml")
             {
                 Enemy enemy = ParseEnemyFromXml(enemyFilePath + fileName);
+                GD.Print( "Parsed enemy: " + enemy.ToString() +"\n");
                 enemies.Add(enemy);
             }
         }

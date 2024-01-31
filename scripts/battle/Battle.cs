@@ -50,10 +50,11 @@ public partial class Battle : Node2D {
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
         GD.Print(4);
 
-        foreach (Enemy enemy in enemies)
-        {
-            GD.Print(enemy.ToString());
-        }
+        // foreach (Enemy enemy in enemies)
+        // {
+        //     _allEnemies.First(e => e.Id == enemy.Id).CloneTo(enemy);
+        //     GD.Print(enemy);
+        // }
         
         
         InitialiseGameState(playerCardIds, enemies);
@@ -83,6 +84,9 @@ public partial class Battle : Node2D {
         for (int i = 0; i < idsCount; i++) {
             Enemy enemy = _enemyScene.Instantiate<Enemy>();
             _allEnemies.First(e => e.Id == enemyIds[i]).CloneTo(enemy);
+            
+            GD.Print("CreateEnemies" + enemy.ToString());
+            
             AssignRandomColorDEBUG(enemy);
             enemy.Deck = GetEnemyDeck(enemy.DeckId);
             enemy.Position = GetEnemyPosition(i, idsCount);

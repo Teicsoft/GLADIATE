@@ -8,7 +8,7 @@ public partial class SceneLoader : Node
 {
     public Node CurrentScene { get; set; }
     public List<Dictionary<string, dynamic>> battles;
-    private int _i = 0;
+    private int _i = 1;
 
     public override void _Ready()
     {

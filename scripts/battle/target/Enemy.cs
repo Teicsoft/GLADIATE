@@ -19,10 +19,10 @@ public partial class Enemy : Node2D, ITarget {
     public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     public Color Color;
     public Deck<Card> Deck;
-    private int _health = 12;
+    private int _health;
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
-    public int MaxHealth { get; set; } = 12;
+    public int MaxHealth { get; set; }
     public List<Utils.StatusEnum> Statuses { get; set; } = new();
 
     public int Health {
@@ -53,6 +53,7 @@ public partial class Enemy : Node2D, ITarget {
         string id, string name, string image, string soundEffect, string lore, string deckId, int maxHealth,
         int defenseUpper, int defenseLower
     ) {
+        GD.Print("Initializing Enemy");
         Id = id;
         Name = name;
         Image = image;
@@ -63,6 +64,7 @@ public partial class Enemy : Node2D, ITarget {
         Health = maxHealth;
         DefenseUpper = defenseUpper;
         DefenseLower = defenseLower;
+        GD.Print("Finished Initializing Enemy");
     }
 
     public void CloneTo(Enemy enemy) {
@@ -73,6 +75,7 @@ public partial class Enemy : Node2D, ITarget {
         enemy.Lore = Lore;
         enemy.DeckId = DeckId;
         enemy.MaxHealth = MaxHealth;
+        enemy.Health = MaxHealth;
         enemy.DefenseUpper = DefenseUpper;
         enemy.DefenseLower = DefenseLower;
     }
