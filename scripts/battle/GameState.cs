@@ -89,7 +89,7 @@ public class GameState {
         Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) {
             GD.Print("C-C-COMBO!!!");
-            GD.Print("Playing Combo: " + matchingCombo);
+            GD.Print("Playing Combo: " + matchingCombo.Name);
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
     }
