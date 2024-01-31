@@ -2,6 +2,7 @@ using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using TeicsoftSpectacleCards.scripts.autoloads;
 using TeicsoftSpectacleCards.scripts.battle;
 using TeicsoftSpectacleCards.scripts.battle.card;
 using TeicsoftSpectacleCards.scripts.battle.target;
@@ -17,14 +18,24 @@ public partial class Battle : Node2D {
     private GameState _gameState;
 
     private List<TextureRect> _comboArts = new();
-
-    const int ENEMY_COUNT = 3;
-
-    private List<Enemy> _enemyDeets = EnemyXmlParser.ParseAllEnemies();
+    private List<Enemy> _enemyDeets;
+    private List<Enemy> _allenemyDeets = EnemyXmlParser.ParseAllEnemies();
+    
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Music { get; set; }
        
     public override void _Ready() {
-        InitialiseGameState(DeckXmlParser.ParseAllDecks());
+        InitialiseGameState(DeckXmlParser.ParseAllDecks(), EnemyXmlParser.ParseAllEnemies());
         InitialiseHud();
+        
+        var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
+        
+        Id = battleData["battle_id"];
+        Name = battleData["battle_name"];
+        Music = battleData["music"];
+        _enemyDeets = battleData["enemies"];
         
 
         GD.Print(" ==== ==== START GAME ==== ====");
@@ -32,7 +43,9 @@ public partial class Battle : Node2D {
 
     public override void _Process(double delta) { }
 
-    private void InitialiseGameState(Dictionary<string, List<string>> decks) {
+    private void InitialiseGameState(Dictionary<string, List<string>> decks, List<Enemy> enemies) {
+        
+        
         decks.TryGetValue("deck_player", out List<string> playerCardIds);
         decks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
 
@@ -52,7 +65,7 @@ public partial class Battle : Node2D {
 
     private List<Enemy> CreateEnemies(List<string> enemyCardIds) {
         List<Enemy> enemies = new();
-        foreach (int i in Enumerable.Range(0, ENEMY_COUNT)) {
+        foreach (int i in Enumerable.Range(0, _enemyDeets.Count)) {
             Enemy enemy = CreateEnemy(GetEnemyDeck(enemyCardIds), i);
             AddChild(enemy);
             enemies.Add(enemy);
@@ -90,7 +103,7 @@ public partial class Battle : Node2D {
                 break;
         }
         
-        enemiesLocation.ProgressRatio = (float)i / (ENEMY_COUNT - 1);
+        enemiesLocation.ProgressRatio = (float)i / (_enemyDeets.Count - 1);
         enemy.Position = enemiesLocation.Position;
         enemy.Deck = enemyDeck;
         enemy.EnemySelected += MoveSelectedIndicator;

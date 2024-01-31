@@ -6,49 +6,53 @@ using TeicsoftSpectacleCards.scripts.battle.target;
 
 namespace TeicsoftSpectacleCards.scripts.XmlParsing;
 
-public class EnemyXmlParser
+public class BattleXmlParser
 {
-    public static Enemy ParseEnemyFromXml(string filePath)
+    public static Dictionary<string, dynamic> ParseBattleFromXml(string filePath)
     {
         using FileAccess file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
         
         XmlDocument doc = new();
         doc.LoadXml(content);
-        XmlNode enemyNode = doc.SelectSingleNode("enemy");
+        XmlNode battleNode = doc.SelectSingleNode("battle");
         
-        string enemyId = enemyNode.Attributes["id"].Value;
-        string enemyName = enemyNode.Attributes["name"].Value;
-        
-        string enemyImage = Utils.ParseTextNode(enemyNode, "image");
-        string enemySoundEffect = Utils.ParseTextNode(enemyNode, "sound_effect");
-        string enemyLore = Utils.ParseTextNode(enemyNode, "lore");
-        string enemyDeckId = Utils.ParseTextNode(enemyNode, "deck_id");
-        
-        int enemyHealth = Utils.ParseIntNode(enemyNode, "health");
-        int enemyBlockUpper = Utils.ParseIntNode(enemyNode, "block_upper");
-        int enemyBlockLower = Utils.ParseIntNode(enemyNode, "block_lower");
+        string battleId = battleNode.Attributes["id"].Value;
+        string battleName = battleNode.Attributes["name"].Value;
+        string music = Utils.ParseTextNode(battleNode, "music");
 
-        return new(enemyId, enemyName, enemyImage, enemySoundEffect, enemyLore, enemyDeckId, enemyHealth, enemyBlockUpper,
-            enemyBlockLower);
+        List<string> enemies = new();
+        foreach (XmlNode enemyNode in battleNode.SelectNodes("enemies"))
+        {
+            string enemyId = enemyNode.Attributes["enemy_id"].Value;
+            enemies.Add(enemyId);
+        }
+        
+        Dictionary<string, dynamic> battleData = new();
+            battleData.Add("battle_id", battleId);
+            battleData.Add("battle_name", battleName);
+            battleData.Add("music", music);
+            battleData.Add("enemies", enemies);
+
+            return battleData;
     }
     
-    public static List<Enemy> ParseAllEnemies()
+    public static List<Dictionary<string, dynamic>> ParseAllBattles()
     {
-        string enemyFilePath = "res://data/enemies/";
+        string battleFilePath = "res://data/enemies/";
         
-        string[] filesAtPath = DirAccess.GetFilesAt(enemyFilePath);
+        string[] filesAtPath = DirAccess.GetFilesAt(battleFilePath);
         
-        List<Enemy> enemies = new();
+        List<Dictionary<string, dynamic>> battles = new();
         foreach (string fileName in filesAtPath)
         {
-            if (fileName.EndsWith(".xml") && fileName != "enemy_template.xml")
+            if (fileName.EndsWith(".xml") && fileName != "battle_template.xml")
             {
-                Enemy enemy = ParseEnemyFromXml(enemyFilePath + fileName);
-                enemies.Add(enemy);
+                Dictionary<string, dynamic> battleData = ParseBattleFromXml(battleFilePath + fileName);
+                battles.Add(battleData);
             }
         }
 
-        return enemies;
+        return battles;
     }
 }

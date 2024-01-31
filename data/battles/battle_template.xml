@@ -5,6 +5,7 @@
 <!-- To use, copy this file and rename it to battle_name.xml -->
 
 <battle id="battle_id" name ="Name"> <!--id: string--><!--name: string-->
+    <music>song</music> <!-- AudioEngine: string -->
     <enemies>
         <enemy enemy_id="enemy_id"/>  <!--enemy_id: string-->
         <enemy enemy_id="enemy_id"/>  
