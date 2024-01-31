@@ -61,12 +61,13 @@ public class GameState {
     public Hand Hand;
 
     // Constructor
-    public GameState() {
+    public GameState(Hand hand) {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
         Player = new Player(100, 0, 0);
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
+        Hand = hand;
     }
 
     public void EndTurn() {

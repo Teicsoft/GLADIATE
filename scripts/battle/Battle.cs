@@ -44,10 +44,9 @@ public partial class Battle : Node2D {
     public override void _Process(double delta) { }
 
     private void InitialiseGameState(List<string> playerCardIds) {
-        _gameState = new GameState();
         Hand hand = GetNode<Hand>("Hand");
         hand.InitialiseDeck(playerCardIds);
-        _gameState.Hand = hand;
+        _gameState = new GameState(hand);
         _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
         _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
         _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
