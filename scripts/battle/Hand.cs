@@ -3,22 +3,36 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TeicsoftSpectacleCards.scripts.battle.card;
 
 public partial class Hand : Path2D {
     public List<CardSleeve> Cards = new();
 
     private int _selectedCardIndex = -1;
+    public Deck<CardSleeve> Deck;
     public Discard<CardSleeve> Discard;
 
-    public override void _Ready() { }
+    public override void _Ready() {
+        Discard = new Discard<CardSleeve>();
+        Deck = new Deck<CardSleeve>(Discard);
+    }
 
-    public new void AddCards(List<CardSleeve> cardSleeves) {
+    public void DrawCards(int n) {
+        AddCards(Deck.DrawCards(n));
+    }
+
+    public void InitialiseDeck(List<string> cardIds) {
+        Deck.AddCards(Deck<CardSleeve>.SleeveCards(cardIds.Select(CardPrototypes.CloneCard).ToList()));
+        Deck.Shuffle();
+    }
+
+    public void AddCards(List<CardSleeve> cardSleeves) {
         if (cardSleeves.Count > 0) {
             foreach (CardSleeve cardSleeve in cardSleeves) { AddCard(cardSleeve); }
         }
     }
 
-    private new void AddCard(CardSleeve cardSleeve) {
+    private void AddCard(CardSleeve cardSleeve) {
         Cards.Add(cardSleeve);
         AddChild(cardSleeve);
         cardSleeve.CardSelected += SelectCard;

@@ -44,14 +44,6 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 
-    public Discard<Card> Discard {
-        get => _discard;
-        set {
-            _discard = value;
-            Deck.Discard = value;
-        }
-    }
-
     public override void _Ready() {
         GetNode<ColorRect>("ColorRect").Color = Color;
         UpdateHealthBar();
@@ -65,7 +57,7 @@ public partial class Enemy : Node2D, ITarget {
 
     public Card DrawCard() { return Deck.DrawCards(1)[0]; }
 
-    public void TakeCardIntoDiscard(Card card) { Discard.AddCard(card); }
+    public void TakeCardIntoDiscard(Card card) { Deck.Discard.AddCard(card); }
 
     public void Damage(int damage, Utils.PositionEnum position) {
         bool blocked = false;

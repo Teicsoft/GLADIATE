@@ -9,14 +9,21 @@ using TeicsoftSpectacleCards.scripts.XmlParsing;
 namespace TeicsoftSpectacleCards.scripts.battle;
 
 public class GameState {
-
     public event EventHandler MultiplierChangedCustomEvent;
     public event EventHandler SpectacleChangedCustomEvent;
     public event EventHandler DiscardStateChangedCustomEvent;
+    public event EventHandler AllEnemiesDefeatedCustomEvent;
     public event EventHandler ComboStackChangedCustomEvent;
-    public Player Player;
 
+    private List<Combo> AllCombos;
+    public Player Player;
+    public Hand Hand;
+    public List<Enemy> Enemies;
+    public List<Card> ComboStack;
+    private int _multiplier;
+    private int _spectaclePoints;
     private int _discards;
+    private int _selectedEnemyIndex = -1;
 
     public int Discards {
         get => _discards;
@@ -30,8 +37,6 @@ public class GameState {
         }
     }
 
-    private int _multiplier;
-
     public int Multiplier {
         get => _multiplier;
         set {
@@ -39,8 +44,6 @@ public class GameState {
             MultiplierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
     }
-
-    private int _spectaclePoints;
 
     public int SpectaclePoints {
         get => _spectaclePoints;
@@ -50,44 +53,18 @@ public class GameState {
         }
     }
 
-    public List<Card> ComboStack { get; set; }
-
     // changed this back to Card objects, as we use spectacle points in the combo processing. Easier than tracking separately.
 
-    private List<Combo> AllCombos { get; set; }
-
-    public List<Enemy> Enemies = new();
-    private int _selectedEnemyIndex = -1;
-    public Hand Hand;
-    public Deck<CardSleeve> Deck;
-
     // Constructor
-    public GameState() {
+    public GameState(Hand hand, List<Enemy> enemies) {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
         Player = new Player(100, 0, 0);
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
-    }
-
-    public void EndTurn() {
-        if (Discards > 0) {
-            if (Hand.Cards.Count == 0) { Discards = 0; } else { return; }
-        }
-
-        ProcessCombo(null);
-        foreach (Enemy enemy in Enemies.FindAll(enemy => enemy.Health > 0)) {
-            if (enemy.IsStunned()) {
-                // Update HUD
-                continue;
-            }
-            Card card = enemy.DrawCard();
-            card.Play(this, Player, enemy);
-            enemy.TakeCardIntoDiscard(card);
-        }
-
-        GD.Print(" ==== ====  END TURN  ==== ====");
-        StartTurn();
+        Hand = hand;
+        Enemies = enemies;
+        Enemies.ForEach(enemy=>enemy.EnemySelected += SelectEnemy);;
     }
 
     public void StartTurn() {
@@ -95,23 +72,15 @@ public class GameState {
         Draw();
     }
 
-    // Player Methods
-    // ****
-    public void DamagePlayer(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) {
-        Player.Damage(damage, position);
+    public void Draw(int n = 1) { Hand.DrawCards(n); }
+
+    public void PlaySelectedCard() {
+        CardSleeve cardSleeve = Hand.GetSelectedCard();
+        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
+            cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
+            Hand.DiscardCard();
+        }
     }
-
-    public void HealPlayer(int amount) { Player.Heal(amount); }
-
-    public void StunPlayer(int stun, Utils.PositionEnum position = Utils.PositionEnum.Upper) { Player.Stun(stun); }
-
-    public void ModifyPlayerBlock(int change, Utils.PositionEnum position) { Player.ModifyBlock(change, position); }
-
-    // ****
-
-    // Combo Methods
-    // ****
-    public void PushCardStack(Card card) { ComboStack.Add(card); }
 
     public void ComboCheck(Card card) { // largely based on Cath's python code
         PushCardStack(card);
@@ -120,24 +89,13 @@ public class GameState {
         Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) {
             GD.Print("C-C-COMBO!!!");
-            GD.Print("Playing Combo: " + matchingCombo);
+            GD.Print("Playing Combo: " + matchingCombo.Name);
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
     }
 
-    private void ProcessCombo(Combo combo) {
-        int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
-        ProcessMultiplier(combo?.CardList.Count ?? 0);
+    public void PushCardStack(Card card) { ComboStack.Add(card); }
 
-        combo?.Play(this);
-
-        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
-
-        ComboStack.Clear();
-        ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
-    }
-
-    // Check for combo matches
     public Combo ComboCompare() {
         foreach (Combo combo in AllCombos) {
             int count = combo.CardList.Count;
@@ -157,6 +115,18 @@ public class GameState {
         return null;
     }
 
+    private void ProcessCombo(Combo combo) {
+        int spectaclePoints = ComboStack.Sum(card => card.SpectaclePoints) + (combo?.SpectaclePoints ?? 0);
+        ProcessMultiplier(combo?.CardList.Count ?? 0);
+
+        combo?.Play(this);
+
+        SpectaclePoints += Math.Abs(spectaclePoints * Multiplier);
+
+        ComboStack.Clear();
+        ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+    }
+
     public void ProcessMultiplier(int comboLength) {
         int comboValue = (int)Math.Floor(Math.Pow(2, comboLength - 1));
 
@@ -166,19 +136,28 @@ public class GameState {
         Multiplier = Math.Max(Multiplier + (comboValue - blunderValue), 1);
     }
 
-    // ****
-
-    // Hand methods
-
-    public void PlaySelectedCard() {
-        CardSleeve cardSleeve = Hand.GetSelectedCard();
-        if (cardSleeve != null && !(cardSleeve.Card.TargetRequired && GetSelectedEnemy() == null)) {
-            cardSleeve.Card.Play(this, GetSelectedEnemy(), Player);
-            Hand.DiscardCard();
+    public void EndTurn() {
+        if (Discards > 0) {
+            if (Hand.Cards.Count == 0) { Discards = 0; } else { return; }
         }
-    }
 
-    public void Draw(int n = 1) { Hand.AddCards(Deck.DrawCards(n)); }
+        ProcessCombo(null);
+        List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
+        if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
+            foreach (Enemy enemy in aliveEnemies) {
+                if (enemy.IsStunned()) {
+                    // Update HUD
+                    continue;
+                }
+                Card card = enemy.DrawCard();
+                card.Play(this, Player, enemy);
+                enemy.TakeCardIntoDiscard(card);
+            }
+        }
+
+        GD.Print(" ==== ====  END TURN  ==== ====");
+        StartTurn();
+    }
 
     public void StartDiscarding() {
         foreach (CardSleeve sleeve in Hand.Cards) {
@@ -190,9 +169,9 @@ public class GameState {
     public void StopDiscarding() {
         foreach (CardSleeve sleeve in Hand.Cards) { sleeve.CardSelected -= SelectedDiscard; }
 
-        foreach (CardSleeve sleeve in Deck.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+        foreach (CardSleeve sleeve in Hand.Deck.Cards) { sleeve.CardSelected -= SelectedDiscard; }
 
-        foreach (CardSleeve sleeve in Deck.Discard.Cards) { sleeve.CardSelected -= SelectedDiscard; }
+        foreach (CardSleeve sleeve in Hand.Discard.Cards) { sleeve.CardSelected -= SelectedDiscard; }
     }
 
     private void SelectedDiscard(CardSleeve sleeve) {
@@ -200,19 +179,13 @@ public class GameState {
         Hand.DiscardCard(sleeve);
     }
 
-    // ****
-
     // Enemy methods
-    // ****
-
     public Enemy GetSelectedEnemy() { return _selectedEnemyIndex != -1 ? Enemies[_selectedEnemyIndex] : null; }
 
     public void SelectEnemy(Enemy enemy) {
         int enemyIndex = Enemies.IndexOf(enemy);
         _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
     }
-
-    // ****
 
     public override string ToString() {
         return $"ComboMultiplier: {Multiplier}," + $"SpectaclePoints: {SpectaclePoints}," +
