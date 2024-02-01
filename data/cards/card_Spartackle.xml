@@ -22,7 +22,7 @@
 
     <text>
         <name>Spartackle</name> <!--string-->
-        <description>Card Description</description> <!--string-->
+        <description>Deal 5 damage. 2x damage on Grounded enemies</description> <!--string-->
         <lore>THIS.IS.GLADIATE</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->
         <onscreen_text>Shown When card played</onscreen_text> <!--string-->

@@ -23,7 +23,7 @@
 
     <text>
         <name>KipUp</name> <!--string-->
-        <description>KipUp</description> <!--string-->
+        <description>Gain 5 health. Removes grounded from player</description> <!--string-->
         <lore>Everyone liked that</lore> <!--string-->
         <tooltip_text>KipUp</tooltip_text> <!--string-->
         <onscreen_text>KipUp</onscreen_text> <!--string-->

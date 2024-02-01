@@ -21,7 +21,7 @@
 
     <text>
         <name>Dramatic Tattoo Reveal</name> <!--string-->
-        <description>Dramatic Tattoo Reveal</description> <!--string-->
+        <description>Reduce attack of all enemies by 25% next turn</description> <!--string-->
         <lore>Mom signed my consent form</lore> <!--string-->
         <tooltip_text>Dramatic Tattoo Reveal</tooltip_text> <!--string-->
         <onscreen_text>Dramatic Tattoo Reveal</onscreen_text> <!--string-->

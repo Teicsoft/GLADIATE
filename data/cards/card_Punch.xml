@@ -21,7 +21,7 @@
 
     <text>
         <name>Punch</name> <!--string-->
-        <description>2 Damage, Draw 1 Card. 10 SP.</description> <!--string-->
+        <description>Deal 2 Damage. Draw 1</description> <!--string-->
         <lore> </lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->
         <onscreen_text>Shown When card played</onscreen_text> <!--string-->

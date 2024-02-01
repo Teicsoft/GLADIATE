@@ -23,7 +23,7 @@
 
     <text>
         <name>Headbutt</name> <!--string-->
-        <description>You hit them with your head</description> <!--string-->
+        <description>Deal 10 damage. Draw 1. Deal 5 damage to yourself</description> <!--string-->
         <lore>Once upon a time, you hit someone with your head</lore> <!--string-->
         <tooltip_text>Headbutt</tooltip_text> <!--string-->
         <onscreen_text>Headbutt</onscreen_text> <!--string-->

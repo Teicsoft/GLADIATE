@@ -22,7 +22,7 @@
 
     <text>
         <name>Gallic Suplex</name> <!--string-->
-        <description>Gallic Suplex</description> <!--string-->
+        <description>Deal 8 damage. Draw 1. Can only target Grappled enemies</description> <!--string-->
         <lore>These romans are crazy!</lore> <!--string-->
         <tooltip_text>Gallic Suplex</tooltip_text> <!--string-->
         <onscreen_text>Gallic Suplex</onscreen_text> <!--string-->

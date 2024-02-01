@@ -21,7 +21,7 @@
 
     <text>
         <name>Upper Block</name> <!--string-->
-        <description>Upper Block</description> <!--string-->
+        <description>Discard 1. Gain 1 upper block</description> <!--string-->
         <lore>Tortoises are awesome</lore> <!--string-->
         <tooltip_text>Upper Block</tooltip_text> <!--string-->
         <onscreen_text>Upper Block</onscreen_text> <!--string-->

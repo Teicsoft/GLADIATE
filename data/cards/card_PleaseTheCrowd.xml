@@ -22,8 +22,8 @@
 
     <text>
         <name>Please The Crowd</name> <!--string-->
-        <description>Are you not entertained</description> <!--string-->
-        <lore>Please The Crowd</lore> <!--string-->
+        <description>At the end of your turn gain 20 SP and draw 2 per enemy defeated this turn</description> <!--string-->
+        <lore>Are you not entertained</lore> <!--string-->
         <tooltip_text>Please The Crowd</tooltip_text> <!--string-->
         <onscreen_text>Please The Crowd</onscreen_text> <!--string-->
     </text>

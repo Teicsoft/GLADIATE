@@ -21,7 +21,7 @@
 
     <text>
         <name>Kiss The Ring</name> <!--string-->
-        <description>Kiss The Ring</description> <!--string-->
+        <description>Draw 4 cards</description> <!--string-->
         <lore>Did you wash your hands?</lore> <!--string-->
         <tooltip_text>Kiss The Ring</tooltip_text> <!--string-->
         <onscreen_text>Kiss The Ring</onscreen_text> <!--string-->
