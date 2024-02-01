@@ -21,7 +21,7 @@
 
     <text>
         <name>Full Block</name> <!--string-->
-        <description>Full Block</description> <!--string-->
+        <description>Discard 2. Gain 1 Upper and 1 Lower block</description> <!--string-->
         <lore>Turtling for the win</lore> <!--string-->
         <tooltip_text>Full Block</tooltip_text> <!--string-->
         <onscreen_text>Full Block</onscreen_text> <!--string-->

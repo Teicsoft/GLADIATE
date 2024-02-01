@@ -21,7 +21,7 @@
 
     <text>
         <name>Kick</name> <!--string-->
-        <description>5 Damage, Discard 1 card, 10 Spectacle</description> <!--string-->
+        <description>Deal 5 damage. Discard 1</description> <!--string-->
         <lore>Dont get cocky, its going to get rocky</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->
         <onscreen_text>Shown When card played</onscreen_text> <!--string-->
