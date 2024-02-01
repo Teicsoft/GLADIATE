@@ -25,11 +25,11 @@ public partial class CardSleeve : Control {
         _name.Text = Card.CardName;
         _description.Text = Card.Description;
         Utils.LoadCardArt(Card, _art);
-        
+
         TextureRect cardType = GetNode<TextureRect>("Background/CardTypeIndicator");
         Texture cardTypeTexture = (Texture)GD.Load($"res://assets/images/Cards/Type Icons/{Card.CardType}.png");
         cardType.Texture = (Texture2D)cardTypeTexture;
-        
+
         Label SpectaclePoints = GetNode<Label>("Background/SpectaclePoints");
         SpectaclePoints.Text = Card.SpectaclePoints.ToString();
     }

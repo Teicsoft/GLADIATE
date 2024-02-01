@@ -36,7 +36,7 @@ public static class CardXmlParser {
         int attack = XmlParsing.Utils.ParseIntNode(statsNode, "attack");
         int defenseLower = XmlParsing.Utils.ParseIntNode(statsNode, "defense_lower");
         int defenseUpper = XmlParsing.Utils.ParseIntNode(statsNode, "defense_upper");
-        int health = XmlParsing.Utils.ParseIntNode(statsNode, "health");
+        int health = XmlParsing.Utils.ParseIntNode(statsNode, "heal");
         int draw = XmlParsing.Utils.ParseIntNode(statsNode, "draw");
         int discard = XmlParsing.Utils.ParseIntNode(statsNode, "discard");
         int spectaclePoints = XmlParsing.Utils.ParseIntNode(statsNode, "spectacle_points");
