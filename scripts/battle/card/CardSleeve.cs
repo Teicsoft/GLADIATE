@@ -8,8 +8,6 @@ public partial class CardSleeve : Control {
     public Card Card { get; set; }
     public Button SelectButton;
     private TextureRect _art;
-    private Label _name;
-    private Label _description;
 
     //cache
     public Animation Animation { get; set; }
@@ -18,19 +16,13 @@ public partial class CardSleeve : Control {
     public override void _Ready() {
         SelectButton = GetNode<Button>("SelectButton");
         _art = GetNode<TextureRect>("Art");
-        _name = GetNode<Label>("Name");
-        _description = GetNode<Label>("Description");
-
-        _name.Text = Card.CardName;
-        _description.Text = Card.Description;
         Utils.LoadCardArt(Card, _art);
 
-        TextureRect cardType = GetNode<TextureRect>("Background/CardTypeIndicator");
-        Texture cardTypeTexture = (Texture)GD.Load($"res://assets/images/Cards/Type Icons/{Card.CardType}.png");
-        cardType.Texture = (Texture2D)cardTypeTexture;
-
-        Label SpectaclePoints = GetNode<Label>("Background/SpectaclePoints");
-        SpectaclePoints.Text = Card.SpectaclePoints.ToString();
+        GetNode<Label>("Name").Text = Card.CardName;
+        GetNode<Label>("Description").Text = Card.Description;
+        GetNode<Label>("Background/SpectaclePoints").Text = Card.SpectaclePoints.ToString();
+        GetNode<TextureRect>("Background/CardTypeIndicator").Texture =
+            (Texture2D)GD.Load($"res://assets/images/Cards/Type Icons/{Card.CardType}.png");
     }
 
     public override void _Process(double delta) { }

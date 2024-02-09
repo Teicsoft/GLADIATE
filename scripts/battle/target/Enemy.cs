@@ -15,7 +15,6 @@ public partial class Enemy : Node2D, ITarget {
     public string SoundEffect { get; set; }
     public string Lore { get; set; }
     public string DeckId { get; set; }
-    Sprite2D EnemySprite { get; set; }
 
     public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     public Color Color;
@@ -85,9 +84,7 @@ public partial class Enemy : Node2D, ITarget {
         UpdateDefenseUpperDisplay();
         UpdateDefenseLowerDisplay();
 
-        Texture texture = (Texture2D)GD.Load(Image);
-        EnemySprite = GetNode<Sprite2D>("EnemySprite");
-        EnemySprite.Texture = (Texture2D)texture;
+        GetNode<Sprite2D>("EnemySprite").Texture = (Texture2D)GD.Load(Image);
     }
 
     public override void _Process(double delta) { }

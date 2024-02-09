@@ -178,8 +178,9 @@ public partial class Battle : Node2D {
     }
 
     private void OnDiscardStateChanged() {
-        GetNode<Label>("HUD/DiscardDisplay").Text =
-            _gameState.Discards == 0 ? "" : $"You must discard {_gameState.Discards} cards.";
+        GetNode<Label>("HUD/DiscardDisplay").Text = _gameState.Discards == 0
+            ? ""
+            : $"You must discard {_gameState.Discards} card{(_gameState.Discards == 1 ? "" : "s")}.";
     }
 
     private void OnComboStackChanged(object sender, EventArgs e) {
