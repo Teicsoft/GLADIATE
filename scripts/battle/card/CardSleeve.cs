@@ -3,8 +3,7 @@ using TeicsoftSpectacleCards.scripts.battle;
 using TeicsoftSpectacleCards.scripts.battle.card;
 
 public partial class CardSleeve : Control {
-    [Signal]
-    public delegate void CardSelectedEventHandler(CardSleeve cardSleeve);
+    [Signal] public delegate void CardSelectedEventHandler(CardSleeve cardSleeve);
 
     public Card Card { get; set; }
     public Button SelectButton;
@@ -36,9 +35,7 @@ public partial class CardSleeve : Control {
 
     public override void _Process(double delta) { }
 
-    private void OnPress() {
-        EmitSignal(SignalName.CardSelected, this);
-    }
+    private void OnPress() { EmitSignal(SignalName.CardSelected, this); }
 
     public void LoadAssets() {
         Utils.LoadCardArt(Card, _art);
@@ -46,15 +43,9 @@ public partial class CardSleeve : Control {
         LoadSound();
     }
 
-    private void LoadAnimation() {
-        Animation = (Animation)GD.Load(Card.AnimationPath);
-    }
+    private void LoadAnimation() { Animation = (Animation)GD.Load(Card.AnimationPath); }
 
-    private void LoadSound() {
-        Sound = (AudioStream)GD.Load(Card.SoundPath);
-    }
+    private void LoadSound() { Sound = (AudioStream)GD.Load(Card.SoundPath); }
 
-    public override string ToString() {
-        return $"CardSleve: " + Card.ToString();
-    }
+    public override string ToString() { return $"CardSleve: " + Card.ToString(); }
 }

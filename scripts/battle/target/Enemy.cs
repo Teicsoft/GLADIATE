@@ -15,7 +15,7 @@ public partial class Enemy : Node2D, ITarget {
     public string SoundEffect { get; set; }
     public string Lore { get; set; }
     public string DeckId { get; set; }
-    Sprite2D EnemySprite {get; set;}
+    Sprite2D EnemySprite { get; set; }
 
     public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     public Color Color;
@@ -85,7 +85,7 @@ public partial class Enemy : Node2D, ITarget {
         UpdateDefenseUpperDisplay();
         UpdateDefenseLowerDisplay();
 
-        Texture texture = (Texture2D) GD.Load(Image);
+        Texture texture = (Texture2D)GD.Load(Image);
         EnemySprite = GetNode<Sprite2D>("EnemySprite");
         EnemySprite.Texture = (Texture2D)texture;
     }
@@ -146,10 +146,10 @@ public partial class Enemy : Node2D, ITarget {
     public void ModifyBlock(int change, Utils.PositionEnum position) {
         switch (position) {
             case Utils.PositionEnum.Upper:
-                DefenseUpper = Math.Max(DefenseUpper + change,0);
+                DefenseUpper = Math.Max(DefenseUpper + change, 0);
                 break;
             case Utils.PositionEnum.Lower:
-                DefenseLower = Math.Max(DefenseLower + change,0);
+                DefenseLower = Math.Max(DefenseLower + change, 0);
                 break;
         }
     }
@@ -174,13 +174,8 @@ public partial class Enemy : Node2D, ITarget {
             $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
     }
 
-    private void OnCardPlayedTimer()
-    {
+    private void OnCardPlayedTimer() {
         Label cardPlayedLabel = GetNode<Label>("CardPlayed");
         cardPlayedLabel.Visible = false;
-
     }
 }
-
-
-

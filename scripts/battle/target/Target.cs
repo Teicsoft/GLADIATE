@@ -12,17 +12,11 @@ public interface ITarget {
     HashSet<Utils.StatusEnum> Statuses { get; set; }
     public Utils.ModifierEnum Modifier { get; set; }
     void Damage(int damage, Utils.PositionEnum position = Utils.PositionEnum.Upper) { }
-
     void Stun() { }
-
     public bool IsStunned() { throw new NotImplementedException(); }
-
     public bool CheckBlock(Utils.PositionEnum position) { throw new NotImplementedException(); }
-
     public void ModifyBlock(int change, Utils.PositionEnum position) { }
-
     public void Heal(int amount) { }
-
     public void DirectDamage(int damage) { }
     public void Grapple(Utils.PositionEnum position);
     public void Ground(Utils.PositionEnum position);

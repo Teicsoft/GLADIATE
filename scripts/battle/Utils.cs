@@ -5,10 +5,7 @@ using TeicsoftSpectacleCards.scripts.battle.target;
 namespace TeicsoftSpectacleCards.scripts.battle;
 
 public static class Utils {
-
-    public static TextureRect LoadCardArt(Card card) { 
-        return LoadCardArt(card, new());
-    }
+    public static TextureRect LoadCardArt(Card card) { return LoadCardArt(card, new()); }
 
     public static TextureRect LoadCardArt(Card card, TextureRect art) {
         Texture2D texture = (Texture2D)GD.Load(card.ImagePath);
@@ -31,12 +28,12 @@ public static class Utils {
         target.Statuses.Remove(StatusEnum.TattooRevealed);
         target.Statuses.Remove(StatusEnum.Countering);
         target.Statuses.Remove(StatusEnum.DoubleDamage);
+        if (target is Player && target.Statuses.Remove(StatusEnum.GetScars)) {
+            target.ModifyBlock(1, PositionEnum.Upper);
+            target.ModifyBlock(1, PositionEnum.Lower);
+        }
         if (!(target.Statuses.Remove(StatusEnum.StayJuggled) && target.Modifier == ModifierEnum.Juggled)) {
             target.Modifier = ModifierEnum.None;
-        }
-        if (target is Player && target.Statuses.Remove(StatusEnum.GetScars)) {
-            target.ModifyBlock(1,PositionEnum.Upper);
-            target.ModifyBlock(1,PositionEnum.Lower);
         }
     }
 
@@ -46,20 +43,10 @@ public static class Utils {
             if (player is Enemy) { gameState.SpectaclePoints += 10 * gameState.Multiplier; }
         }
     }
-    
 
-    public enum ModifierEnum {
-        Grappled,
-        Grounded,
-        Juggled,
-        None
-    }
+    public enum ModifierEnum { Grappled, Grounded, Juggled, None }
 
-    public enum PositionEnum {
-        Upper,
-        Lower,
-        None
-    }
+    public enum PositionEnum { Upper, Lower, None }
 
     public enum StatusEnum {
         Stunned,
