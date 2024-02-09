@@ -34,15 +34,15 @@ public partial class Battle : Node2D {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
 
+        _allEnemies = EnemyXmlParser.ParseAllEnemies();
+        _allDecks = DeckXmlParser.ParseAllDecks();
+        _allDecks.TryGetValue(sceneLoader.deckSelected, out List<string> playerCardIds);
+
         Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-
-        _allEnemies = EnemyXmlParser.ParseAllEnemies();
-        _allDecks = DeckXmlParser.ParseAllDecks();
-        _allDecks.TryGetValue(sceneLoader.deckSelected, out List<string> playerCardIds);
 
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
