@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=23 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -9,10 +9,19 @@
 [ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="7_bj4ys"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
+[ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="8_d7wxd"]
+[ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="9_6h2s6"]
 [ext_resource type="Texture2D" uid="uid://cprl4r5lkhx0f" path="res://assets/ui/Health_Armor Bar.png" id="9_i3lvk"]
+[ext_resource type="Texture2D" uid="uid://c3i31cb0fpl1w" path="res://assets/ui/large_button_pressed.png" id="9_x3afa"]
 [ext_resource type="Script" path="res://scenes/battle/Toggle Sound.gd" id="11_mow0b"]
 [ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
 [ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
+[ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
+[ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
+
+[sub_resource type="Theme" id="Theme_gua0v"]
+default_font = ExtResource("9_6h2s6")
+default_font_size = 37
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
@@ -61,32 +70,6 @@ stretch_mode = 4
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Deck" type="TextureButton" parent="HUD"]
-anchors_preset = -1
-anchor_left = 0.657812
-anchor_top = 0.169444
-anchor_right = 0.828906
-anchor_bottom = 0.584722
-offset_left = 456.0
-offset_top = 625.0
-offset_right = 784.5
-offset_bottom = 1073.5
-grow_vertical = 0
-scale = Vector2(0.3, 0.3)
-texture_normal = ExtResource("4_u6rcd")
-stretch_mode = 0
-
-[node name="Discard" type="ColorRect" parent="HUD"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -273.0
-offset_right = 199.0
-offset_bottom = -4.0
-grow_vertical = 0
-color = Color(0, 0, 0, 0.231373)
-
 [node name="Sp_combo Background" type="ColorRect" parent="HUD"]
 offset_left = 860.0
 offset_top = 1.0
@@ -102,44 +85,103 @@ offset_bottom = 109.0
 color = Color(0, 0, 0, 0.811765)
 
 [node name="Button Asset" type="Sprite2D" parent="HUD"]
+visible = false
 position = Vector2(103, 757)
 texture = ExtResource("8_2vyy3")
 
 [node name="Button Asset2" type="Sprite2D" parent="HUD"]
+visible = false
 position = Vector2(103, 657)
 texture = ExtResource("8_2vyy3")
 
+[node name="TextureButton" type="TextureButton" parent="HUD"]
+offset_left = -1.0
+offset_top = 641.0
+offset_right = 204.0
+offset_bottom = 722.0
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="HUD/TextureButton"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 11.0
+offset_right = 127.0
+offset_bottom = 51.0
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
+text = "Play"
+
+[node name="TextureButton2" type="TextureButton" parent="HUD"]
+offset_left = -1.0
+offset_top = 719.0
+offset_right = 204.0
+offset_bottom = 800.0
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="HUD/TextureButton2"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 11.0
+offset_right = 161.0
+offset_bottom = 51.0
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.403922)
+text = "End Turn"
+
 [node name="PlayButton" type="Button" parent="HUD"]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -957.0
-offset_top = -467.0
+offset_top = -448.0
 offset_right = -762.0
-offset_bottom = -384.0
+offset_bottom = -365.0
 grow_horizontal = 2
 grow_vertical = 0
-theme = ExtResource("7_bj4ys")
+theme = SubResource("Theme_gua0v")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 text = "Play"
 flat = true
 
 [node name="End Turn Button" type="Button" parent="HUD"]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -1916.0
+offset_left = -1915.0
 offset_top = 173.0
-offset_right = -1721.0
+offset_right = -1720.0
 offset_bottom = 256.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 text = "End Turn"
 flat = true
+
+[node name="Discard" type="ColorRect" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -266.0
+offset_right = 192.0
+offset_bottom = -11.0
+grow_vertical = 0
+color = Color(0, 0, 0, 0.231373)
 
 [node name="PlayerHealthLabel" type="Label" parent="HUD"]
 visible = false
@@ -326,7 +368,104 @@ texture_normal = ExtResource("11_nrxls")
 texture_pressed = ExtResource("12_8fj8e")
 script = ExtResource("11_mow0b")
 
-[connection signal="pressed" from="HUD/PlayButton" to="." method="OnPlayButtonPressed"]
+[node name="Discard Area" type="CanvasGroup" parent="."]
+
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Discard Area"]
+position = Vector2(188, 818)
+texture = ExtResource("16_o3gvq")
+
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Discard Area"]
+position = Vector2(13, 818)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Discard Area"]
+position = Vector2(100.375, 811)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Discard Area"]
+position = Vector2(195, 941.366)
+rotation = 1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Discard Area"]
+position = Vector2(6, 942)
+rotation = -1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Discard Area"]
+position = Vector2(188, 1065)
+texture = ExtResource("16_o3gvq")
+flip_v = true
+
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Discard Area"]
+position = Vector2(13, 1065)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+flip_v = true
+
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Discard Area"]
+position = Vector2(100.375, 1072)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+flip_v = true
+
+[node name="Discard Area2" type="CanvasGroup" parent="."]
+position = Vector2(1720, 1)
+
+[node name="Card-back-blood-spatter" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(101, 942)
+scale = Vector2(0.277017, 0.285396)
+texture = ExtResource("4_u6rcd")
+
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(188, 818)
+texture = ExtResource("16_o3gvq")
+
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(13, 818)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(100.375, 811)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(195, 941.366)
+rotation = 1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(6, 942)
+rotation = -1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(188, 1065)
+texture = ExtResource("16_o3gvq")
+flip_v = true
+
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(13, 1065)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+flip_v = true
+
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Discard Area2"]
+position = Vector2(100.375, 1072)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+flip_v = true
+
+[connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]
+[connection signal="pressed" from="HUD/TextureButton2" to="." method="EndTurn"]
 [connection signal="pressed" from="HUD/End Turn Button" to="." method="EndTurn"]
 [connection signal="timeout" from="HUD/ComboDisplay/ComboDisplayTimer" to="." method="OnComboDisplayTimeout"]
 [connection signal="pressed" from="Toggle Sound" to="Toggle Sound" method="_on_TextureButton_pressed"]
