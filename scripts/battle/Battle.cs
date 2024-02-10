@@ -32,33 +32,21 @@ public partial class Battle : Node2D {
 
     public override void _Ready() {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
 
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
-
-        // TODO: Change to accepting a player deck.
-
-        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
-        string deckSelected = sceneLoader.deckSelected;
-        _allDecks.TryGetValue(deckSelected, out List<string> playerCardIds);
-
+        _allDecks.TryGetValue(sceneLoader.deckSelected, out List<string> playerCardIds);
 
         Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
-
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
-
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-
 
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
-        if (sceneLoader.health != 0) {
-            int playerHealth = sceneLoader.health;
-            _gameState.Player.Health = playerHealth;
-        }
-        sceneLoader.i += 1;
+
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
@@ -78,6 +66,8 @@ public partial class Battle : Node2D {
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Draw(4);
+        if (sceneLoader.health != 0) { _gameState.Player.Health = sceneLoader.health; }
+        sceneLoader.i += 1;
     }
 
     private List<Enemy> CreateEnemies(List<string> enemyIds) {
@@ -188,8 +178,9 @@ public partial class Battle : Node2D {
     }
 
     private void OnDiscardStateChanged() {
-        GetNode<Label>("HUD/DiscardDisplay").Text =
-            _gameState.Discards == 0 ? "" : $"You must discard {_gameState.Discards} cards.";
+        GetNode<Label>("HUD/DiscardDisplay").Text = _gameState.Discards == 0
+            ? ""
+            : $"You must discard {_gameState.Discards} card{(_gameState.Discards == 1 ? "" : "s")}.";
     }
 
     private void OnComboStackChanged(object sender, EventArgs e) {

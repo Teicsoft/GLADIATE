@@ -50,20 +50,14 @@ public class Deck<T> {
         Cards.AddRange(cards);
     }
 
-    public bool IsEmpty() {
-        return Cards.Count == 0;
-    }
+    public bool IsEmpty() { return Cards.Count == 0; }
 
-    public void Shuffle() {
-        Cards = Shuffle(Cards);
-    }
+    public void Shuffle() { Cards = Shuffle(Cards); }
 
     public List<T> DrawCards(int amount) {
         List<T> draw = new();
         if (amount > 0) {
-            if (Cards.Count == 0) {
-                return OnDeckEmptied(amount);
-            }
+            if (Cards.Count == 0) { return OnDeckEmptied(amount); }
 
             if (Cards.Count > 0) {
                 draw.Add(Cards[^1]);
