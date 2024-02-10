@@ -104,6 +104,8 @@ public static class CardFactory {
         { "card_DramaticTattooReveal", () => new DramaticTattooReveal() },
         { "card_GallicSuplex", () => new GallicSuplex() },
         { "card_ComeCloser", () => new ComeCloser() },
+        { "card_ShoutYourMoveName", () => new ShoutYourMoveName() },
+        { "card_Lariat", () => new Lariat() },
     };
 
     public static Card ConstructCard(string cardId) {
