@@ -10,8 +10,6 @@ public class FlyingCrossBody : Card {
                 enemy.Damage((int)Math.Floor((double)Attack / gameState.Enemies.Count), TargetPosition);
             }
             gameState.SpectacleBuffer += SpectaclePoints * gameState.Enemies.Count;
-        } else {
-            base.Play( gameState,  target,  player);
-        }
+        } else { base.Play(gameState, target, player); }
     }
 }
