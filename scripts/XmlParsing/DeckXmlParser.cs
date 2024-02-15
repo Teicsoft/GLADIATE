@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Xml;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle.card;
 using FileAccess = Godot.FileAccess;
 
-namespace TeicsoftSpectacleCards.scripts.XmlParsing;
+namespace GLADIATE.scripts.XmlParsing;
 
 public class DeckXmlParser {
     public static (string, List<string>) ParseDeckFromXml(string filePath) {

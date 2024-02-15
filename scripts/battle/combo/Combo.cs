@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using GLADIATE.scripts.battle.card;
+using GLADIATE.scripts.battle.target;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle.card;
-using TeicsoftSpectacleCards.scripts.battle.target;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public class Combo {
     public string Id { get; set; }

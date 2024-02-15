@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.dialogue;
+namespace GLADIATE.scripts.dialogue;
 
 public static class DialogueXmlParser
 {

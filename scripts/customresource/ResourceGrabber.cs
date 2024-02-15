@@ -1,12 +1,11 @@
 using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.customresource;
+namespace GLADIATE.scripts.customresource;
 
 public static class ResourceGrabber
 {
     // This Class will attempt to grab the resource path from the _closed_source_assets folder first. 
     // If this folder is not present, it will fall back to open source assets. 
-
 
     public const string ClosedSourceAssetsFolder = "res://assets/_closed_source_assets/GLADIATE-ClosedAssets/";
     public const string OpenSourceAssetsFolder = "res://assets/";

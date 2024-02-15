@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace TeicsoftSpectacleCards.scripts.battle;
+﻿namespace GLADIATE.scripts.battle;
 
 public class AntiThunker : Combo { // misspalt intenshunally
     public override void Play(GameState gameState) {

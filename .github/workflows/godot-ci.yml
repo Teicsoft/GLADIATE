@@ -1,0 +1,39 @@
+name: "godot-ci export"
+on: push
+
+env:
+  GODOT_VERSION: 4.2.1
+  EXPORT_NAME: GLADIATE
+  PROJECT_PATH: GLADIATE
+  EXPORT_PATH: ~/build/windows/
+
+jobs:
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-22.04
+    container:
+      image: barichello/godot-ci:mono-4.2.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          pwd
+          mkdir -v -p /github/home/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono /github/home/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
+      - name: .NET installation
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "6.0.x"
+          
+      - name: Windows Build
+        run: |
+          mkdir -v -p $EXPORT_PATH
+          godot --headless --verbose --export-release "Windows Desktop" $EXPORT_PATH/$EXPORT_NAME.exe
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows
+          path: ${{ env.EXPORT_PATH }}

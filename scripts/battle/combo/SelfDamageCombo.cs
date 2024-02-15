@@ -1,6 +1,4 @@
-﻿using TeicsoftSpectacleCards.scripts.battle.target;
-
-namespace TeicsoftSpectacleCards.scripts.battle;
+﻿namespace GLADIATE.scripts.battle;
 
 public class SelfDamageCombo : Combo {
     public override void Play(GameState gameState) {

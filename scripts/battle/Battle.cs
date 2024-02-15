@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GLADIATE.scripts.audio;
+using GLADIATE.scripts.battle.card;
+using GLADIATE.scripts.battle.target;
+using GLADIATE.scripts.XmlParsing;
 using Godot;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.autoloads;
-using TeicsoftSpectacleCards.scripts.battle.card;
-using TeicsoftSpectacleCards.scripts.battle.target;
-using TeicsoftSpectacleCards.scripts.XmlParsing;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public partial class Battle : Node2D {
     [Signal] public delegate void BattleLostEventHandler();
@@ -28,17 +27,17 @@ public partial class Battle : Node2D {
     public string Music { get; set; }
 
     AudioEngine audioEngine;
-    SceneLoader sceneLoader;
+    autoloads.SceneLoader sceneLoader;
 
     public override void _Ready() {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
 
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
-        _allDecks.TryGetValue(sceneLoader.deckSelected, out List<string> playerCardIds);
+        _allDecks.TryGetValue(sceneLoader.DeckSelected, out List<string> playerCardIds);
 
-        Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
+        Dictionary<string, dynamic> battleData = sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
@@ -66,7 +65,7 @@ public partial class Battle : Node2D {
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Draw(4);
-        if (sceneLoader.health != 0) { _gameState.Player.Health = sceneLoader.health; }
+        if (sceneLoader.Health != 0) { _gameState.Player.Health = sceneLoader.Health; }
         sceneLoader.i += 1;
     }
 
@@ -134,7 +133,7 @@ public partial class Battle : Node2D {
         audioEngine.PlaySoundFx("victory-jingle.wav");
         GD.Print(" ==== ====  WIN BATTLE  ==== ====");
         sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
-        sceneLoader.health = _gameState.Player.Health;
+        sceneLoader.Health = _gameState.Player.Health;
         sceneLoader.GoToNextBattle();
     }
 
@@ -148,7 +147,7 @@ public partial class Battle : Node2D {
         if (playerObject.Health <= 0) {
             EmitSignal(Battle.SignalName.BattleLost);
 
-            sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
             audioEngine.PlayMusic("Lil_tune.wav");
             sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
         }

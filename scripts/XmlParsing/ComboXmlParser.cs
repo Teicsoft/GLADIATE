@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
+using GLADIATE.scripts.battle;
+using GLADIATE.scripts.battle.card;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle;
-using TeicsoftSpectacleCards.scripts.battle.card;
 
-namespace TeicsoftSpectacleCards.scripts.XmlParsing;
+namespace GLADIATE.scripts.XmlParsing;
 
 public static class ComboXmlParser {
 

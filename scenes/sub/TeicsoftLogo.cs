@@ -1,13 +1,12 @@
 using Godot;
-using TeicsoftSpectacleCards.scripts.autoloads;
 
-namespace TeicsoftSpectacleCards.scenes.sub;
+namespace GLADIATE.scenes.sub;
 
 public partial class TeicsoftLogo : Control
 {
     private void _OnTsTimerTimeout()
     {
-        var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        var sceneLoader = GetNode<scripts.autoloads.SceneLoader>("/root/SceneLoader");
         sceneLoader.GoToScene("res://scenes/sub/TeicogLogo.tscn");
     }
 }
