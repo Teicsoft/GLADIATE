@@ -20,7 +20,14 @@ jobs:
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
-          cd /root/.local/share/godot/export_templates/
+          ls -la
+          cd /root
+          ls -la
+          cd /root/
+          ls -la
+          cd /root/.local/share
+          ls -la
+          cd /root/.local/share/godot
           ls -la
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
       - name: Windows Build
