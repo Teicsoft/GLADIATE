@@ -19,6 +19,7 @@ jobs:
           lfs: true
       - name: Setup
         run: |
+          cd /
           mkdir -v -p ~/.local/share/godot/export_templates/
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
       - name: Windows Build
