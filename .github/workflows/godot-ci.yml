@@ -3,8 +3,8 @@ on: push
 
 env:
   GODOT_VERSION: 4.2.1
-  EXPORT_NAME: Gladiate
-  PROJECT_PATH: Gladiate
+  EXPORT_NAME: test-project
+  PROJECT_PATH: test-project
 
 jobs:
   export-windows:
