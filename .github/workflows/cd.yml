@@ -6,20 +6,25 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: windows-latest
+  export_game:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    name: Export Game
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: checkout 
+        uses: actions/checkout@v3.3.0
 
-      - name: Install Godot
+      - name: export game
+        id: export
         uses: firebelley/godot-export@v5.2.1
         with:
-          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.2.1/Godot_v4.2.1-stable_win64.exe.zip
-          export_presets_path: export_presets.cfg
-          godot_template_version: 4.2.1
-
+          # Defining all the required inputs
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.2.1/Godot_v4.2.1-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.2.1/Godot_v4.2.1-stable_export_templates.tpz
+          relative_project_path: ./
+          archive_output: true
+                    
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
