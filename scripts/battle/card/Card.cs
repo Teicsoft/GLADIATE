@@ -34,10 +34,10 @@ public class Card {
     public string SoundPath { get; set; } //path to sound
 
     public Card Initialize(
-        string cardType, string id, Utils.ModifierEnum modifier, Utils.PositionEnum position, bool targetRequired = true, int attack = 0,
-        int defenseLower = 0, int defenseUpper = 0, int health = 0, int draw = 0, int discard = 0,
-        int spectaclePoints = 0, string name = "", string description = "", string lore = "", string tooltip = "",
-        string imagePath = "", string animationPath = "", string soundPath = ""
+        string cardType, string id, Utils.ModifierEnum modifier, Utils.PositionEnum position,
+        bool targetRequired = true, int attack = 0, int defenseLower = 0, int defenseUpper = 0, int health = 0,
+        int draw = 0, int discard = 0, int spectaclePoints = 0, string name = "", string description = "",
+        string lore = "", string tooltip = "", string imagePath = "", string animationPath = "", string soundPath = ""
     ) {
         CardType = cardType;
         Id = id;
@@ -96,16 +96,15 @@ public class Card {
         }
     }
 
-    public virtual bool IsPlayable(ITarget target) {
-        return !TargetRequired || (TargetRequired && target != null);
-    }
+    public virtual bool IsPlayable(ITarget target) { return !TargetRequired || (TargetRequired && target != null); }
 
     public Card Clone() {
         Card card = CardFactory.ConstructCard(Id);
 
         card.Initialize(
-            CardType, Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health, CardDraw, Discard,
-            SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath, SoundPath
+            CardType, Id, Modifier, TargetPosition, TargetRequired, Attack, DefenseLower, DefenseUpper, Health,
+            CardDraw, Discard, SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath,
+            SoundPath
         );
         card.color = new Color(color.R, color.G, color.B);
         return card;

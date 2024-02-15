@@ -53,9 +53,10 @@ public static class CardXmlParser {
         string lore = XmlParsing.Utils.ParseTextNode(textNode, "lore");
         string tooltip = XmlParsing.Utils.ParseTextNode(textNode, "tooltip_text");
 
-        return CardFactory.MakeCard(cardType, cardId, parsedModifier, parsedPosition, attack, defenseLower,
-            defenseUpper, health, draw, discard, spectaclePoints, name, description, lore, tooltip, imagePath,
-            animationPath, soundPath, targetRequired);
+        return CardFactory.MakeCard(
+            cardType, cardId, parsedModifier, parsedPosition, attack, defenseLower, defenseUpper, health, draw, discard,
+            spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath, targetRequired
+        );
     }
 
     public static Dictionary<string, Card> ParseAllCards() {
@@ -79,17 +80,12 @@ public static class CardXmlParser {
 public static class CardPrototypes {
     public static Dictionary<string, Card> cardPrototypeDict = CardXmlParser.ParseAllCards();
 
-    public static Card CloneCard(string cardId) {
-        return cardPrototypeDict[cardId].Clone();
-    }
+    public static Card CloneCard(string cardId) { return cardPrototypeDict[cardId].Clone(); }
 
-    public static void ReloadCardPrototypes() {
-        cardPrototypeDict = CardXmlParser.ParseAllCards();
-    }
+    public static void ReloadCardPrototypes() { cardPrototypeDict = CardXmlParser.ParseAllCards(); }
 }
 
 public static class CardFactory {
-
     private static Dictionary<string, Func<Card>> TypeDictionary = new() {
         { "card_reckless", () => new StunCard() },
         { "card_Spartackle", () => new Spartackle() },
@@ -107,6 +103,9 @@ public static class CardFactory {
         { "card_PleaseTheCrowd", () => new PleaseTheCrowd() },
         { "card_DramaticTattooReveal", () => new DramaticTattooReveal() },
         { "card_GallicSuplex", () => new GallicSuplex() },
+        { "card_ComeCloser", () => new ComeCloser() },
+        { "card_ShoutYourMoveName", () => new ShoutYourMoveName() },
+        { "card_Lariat", () => new Lariat() },
     };
 
     public static Card ConstructCard(string cardId) {
@@ -119,13 +118,17 @@ public static class CardFactory {
         return card;
     }
 
-    public static Card MakeCard(string type, string cardId, Utils.ModifierEnum modifier, Utils.PositionEnum position,
-        int attack, int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints,
-        string name, string description, string lore, string tooltip, string imagePath, string animationPath,
-        string soundPath, bool targetRequired) {
+    public static Card MakeCard(
+        string type, string cardId, Utils.ModifierEnum modifier, Utils.PositionEnum position, int attack,
+        int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, string name,
+        string description, string lore, string tooltip, string imagePath, string animationPath, string soundPath,
+        bool targetRequired
+    ) {
         Card card = ConstructCard(cardId);
 
-        return card.Initialize(type, cardId,modifier, position, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard,
-            spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath);
+        return card.Initialize(
+            type, cardId, modifier, position, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard,
+            spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath
+        );
     }
 }

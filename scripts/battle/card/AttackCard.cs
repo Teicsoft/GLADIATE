@@ -1,9 +1,5 @@
 namespace TeicsoftSpectacleCards.scripts.battle.card;
 
-public partial class AttackCard : Card
-{
-    public override string ToString()
-    {
-        return this.GetType().Name + base.ToString();
-    }
+public partial class AttackCard : Card {
+    public override string ToString() { return this.GetType().Name + base.ToString(); }
 }
