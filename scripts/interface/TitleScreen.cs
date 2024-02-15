@@ -48,7 +48,7 @@ public partial class TitleScreen : Control
         {
             if (mouseButton.Pressed)
             {
-                var sceneLoader = GetNode<TeicsoftSpectacleCards.scripts.autoloads.SceneLoader>("/root/scene_loader");
+                var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
                 sceneLoader.GoToScene("res://scenes/Lore.tscn");
                 audioEngine.PlayMusic("whatdidtheromanseverdoforme.wav");
             }
