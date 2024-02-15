@@ -6,7 +6,7 @@ public partial class GameOver : Control
 {
     private void OnTimerTimeout()
     {
-        var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        var sceneLoader = GetNode<TeicsoftSpectacleCards.scripts.autoloads.SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/title_screen.tscn");
         sceneLoader.i = 0;
         sceneLoader.SpectaclePoints = 0;

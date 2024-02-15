@@ -30,7 +30,7 @@ public partial class SceneLoader : Node
     
     public void GoToScene(string path)
     {
-        CallDeferred(MethodName.DeferredGotoScene, path);
+        CallDeferred(SceneLoader.MethodName.DeferredGotoScene, path);
     }
     
     public void DeferredGotoScene(string path)

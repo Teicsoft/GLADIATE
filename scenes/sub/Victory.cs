@@ -6,7 +6,7 @@ using TeicsoftSpectacleCards.scripts.autoloads;
 public partial class Victory : Control
 {
     private AudioEngine audioEngine;
-    private SceneLoader sceneLoader;
+    private TeicsoftSpectacleCards.scripts.autoloads.SceneLoader sceneLoader;
     
     Label label;
     
@@ -15,7 +15,7 @@ public partial class Victory : Control
     public override void _Ready()
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<TeicsoftSpectacleCards.scripts.autoloads.SceneLoader>("/root/scene_loader");
         
         label = GetNode<Label>("ColorRect/ColorRect/VBoxContainer/Spectacle Points");
         label.Text = sceneLoader.SpectaclePoints + " Spectacle Points!";

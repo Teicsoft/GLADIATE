@@ -18,7 +18,7 @@ public partial class DeckSelect : Control
         {
             if (mouseButton.Pressed)
             {
-                var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+                var sceneLoader = GetNode<TeicsoftSpectacleCards.scripts.autoloads.SceneLoader>("/root/scene_loader");
                 
                 sceneLoader.DeckSelected = deckId;
                 audioEngine.PlayMusic("venividivichy.wav");

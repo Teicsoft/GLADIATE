@@ -23,7 +23,7 @@ public partial class Lore : Control
     
     private void OnButtonPressed()
     {
-        var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        var sceneLoader = GetNode<TeicsoftSpectacleCards.scripts.autoloads.SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/main/Deck Select.tscn");
         audioEngine.PlayMusic("fuckaroundandfindout.wav");
     }
