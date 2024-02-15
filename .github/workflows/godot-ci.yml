@@ -2,7 +2,7 @@ name: "godot-ci export"
 on: push
 
 env:
-  GODOT_VERSION: mono-4.2.1
+  GODOT_VERSION: 4.2.1
   EXPORT_NAME: test-project
   PROJECT_PATH: test-project
 
@@ -11,7 +11,7 @@ jobs:
     name: Windows Export
     runs-on: ubuntu-20.04
     container:
-      image: barichello/godot-ci:mono-4.2.1
+      image: barichello/godot-ci:mono-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
       - name: Setup
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates/
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
