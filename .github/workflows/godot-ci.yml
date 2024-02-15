@@ -9,7 +9,7 @@ env:
 jobs:
   export-windows:
     name: Windows Export
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container:
       image: barichello/godot-ci:mono-4.2.1
     steps:
@@ -25,7 +25,7 @@ jobs:
       - name: .NET installation
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "6.0.x"
+          dotnet-version: "7.0.x"
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
