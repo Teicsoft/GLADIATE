@@ -20,7 +20,7 @@ public partial class DeckSelect : Control
             {
                 var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
                 
-                sceneLoader.deckSelected = deckId;
+                sceneLoader.DeckSelected = deckId;
                 audioEngine.PlayMusic("venividivichy.wav");
                 sceneLoader.GoToNextBattle();
             }

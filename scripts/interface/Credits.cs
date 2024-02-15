@@ -31,7 +31,7 @@ public partial class Credits : Control
         var audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         
         sceneLoader.i = 0;
-        sceneLoader.health = 0;
+        sceneLoader.Health = 0;
         sceneLoader.SpectaclePoints = 0;
     }
 

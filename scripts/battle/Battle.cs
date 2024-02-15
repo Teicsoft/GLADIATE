@@ -36,9 +36,9 @@ public partial class Battle : Node2D {
 
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
-        _allDecks.TryGetValue(sceneLoader.deckSelected, out List<string> playerCardIds);
+        _allDecks.TryGetValue(sceneLoader.DeckSelected, out List<string> playerCardIds);
 
-        Dictionary<string, dynamic> battleData = sceneLoader.getCurrentBattleData();
+        Dictionary<string, dynamic> battleData = sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
@@ -66,7 +66,7 @@ public partial class Battle : Node2D {
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Draw(4);
-        if (sceneLoader.health != 0) { _gameState.Player.Health = sceneLoader.health; }
+        if (sceneLoader.Health != 0) { _gameState.Player.Health = sceneLoader.Health; }
         sceneLoader.i += 1;
     }
 
@@ -134,7 +134,7 @@ public partial class Battle : Node2D {
         audioEngine.PlaySoundFx("victory-jingle.wav");
         GD.Print(" ==== ====  WIN BATTLE  ==== ====");
         sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
-        sceneLoader.health = _gameState.Player.Health;
+        sceneLoader.Health = _gameState.Player.Health;
         sceneLoader.GoToNextBattle();
     }
 
