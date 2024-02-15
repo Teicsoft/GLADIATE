@@ -28,5 +28,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: MyGame
-          path: export/Gladiate.exe
+          name: Gladiate
+          path: builds/win/Gladiate.exe
