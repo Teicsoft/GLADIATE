@@ -21,6 +21,10 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates/
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
+      - name: .NET installation
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "6.0.x"
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
