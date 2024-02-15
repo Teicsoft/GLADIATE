@@ -4,7 +4,7 @@ on: push
 env:
   GODOT_VERSION: 4.2.1
   EXPORT_NAME: Gladiate
-  PROJECT_PATH: Gladiate
+  PROJECT_PATH: build/windows
 
 jobs:
   export-windows:
