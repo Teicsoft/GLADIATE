@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeicsoftSpectacleCards", "TeicsoftSpectacleCards.csproj", "{9ED99F0B-7B9D-47E7-A723-0CC4C93CAA3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeicsoftSpectacleCards", "TeicsoftSpectacleCards.csproj", "{422BEEF4-4152-449B-826D-9527736F4469}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9ED99F0B-7B9D-47E7-A723-0CC4C93CAA3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9ED99F0B-7B9D-47E7-A723-0CC4C93CAA3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9ED99F0B-7B9D-47E7-A723-0CC4C93CAA3C}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{9ED99F0B-7B9D-47E7-A723-0CC4C93CAA3C}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{9ED99F0B-7B9D-47E7-A723-0CC4C93CAA3C}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{9ED99F0B-7B9D-47E7-A723-0CC4C93CAA3C}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{422BEEF4-4152-449B-826D-9527736F4469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{422BEEF4-4152-449B-826D-9527736F4469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{422BEEF4-4152-449B-826D-9527736F4469}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{422BEEF4-4152-449B-826D-9527736F4469}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{422BEEF4-4152-449B-826D-9527736F4469}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{422BEEF4-4152-449B-826D-9527736F4469}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

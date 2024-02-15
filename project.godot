@@ -17,9 +17,9 @@ config/icon="res://assets/images/icon.png"
 
 [autoload]
 
-snap_global="res://scripts/autoloads/snap_global.gd"
+snap_global="*res://scripts/autoloads/snap_global.gd"
 scene_loader="*res://scripts/autoloads/SceneLoader.cs"
-audio_engine="res://scenes/main/audio_engine.tscn"
+audio_engine="*res://scenes/main/audio_engine.tscn"
 
 [display]
 
