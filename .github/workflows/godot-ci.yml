@@ -19,8 +19,9 @@ jobs:
           lfs: true
       - name: Setup
         run: |
-          mkdir -v -p ~/.local/share/godot/templates/
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
+          pwd
+          mkdir -v -p /github/home/.local/share/godot/templates/
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono /github/home/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
       - name: .NET installation
         uses: actions/setup-dotnet@v3
         with:
