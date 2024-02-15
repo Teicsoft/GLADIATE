@@ -5,14 +5,4 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
-  <ItemGroup>
-    <Content Include="scripts\customresource\Character_Model.gd" />
-    <Content Include="scripts\customresource\Dialogue_Model.gd" />
-    <Content Include="scripts\customresource\Location_Model.gd" />
-    <Content Include="scripts\customresource\Dialogue_Script_Model.gd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scenes\" />
-    <Folder Include="scripts\XmlParsing\models\" />
-  </ItemGroup>
 </Project>
