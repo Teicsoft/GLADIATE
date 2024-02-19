@@ -14,7 +14,7 @@
     </stats>
     
     <design>
-        <image>res://assets/images/Cards/CardArt/dramatic_tattoo_reveal.png</image> <!--path string-->
+        <image>res://assets/images/Cards/CardArt/Dramatic_Tattoo_Reveal.png</image> <!--path string-->
         <animation>example_anim</animation> <!--path string-->
         <sound>example.mp3</sound> <!--path string-->
     </design>
