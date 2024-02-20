@@ -25,7 +25,7 @@ jobs:
       - name: .NET installation
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "6.0.x"
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
