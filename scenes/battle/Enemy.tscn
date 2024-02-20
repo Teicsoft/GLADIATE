@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/battle/target/Enemy.cs" id="1_nns8m"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="2_ggci3"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="2_mb0el"]
-[ext_resource type="Theme" path="res://Bigtext.tres" id="3_df0w2"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="3_df0w2"]
 [ext_resource type="Texture2D" uid="uid://c2ui510hlcb4m" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
 
 [node name="Enemy" type="Node2D"]
