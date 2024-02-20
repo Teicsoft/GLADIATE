@@ -58,7 +58,7 @@ public class GameState {
     // Constructor
     public GameState(Hand hand, List<Enemy> enemies) {
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
-        Player = new Player(1000, 0, 0);
+        Player = new Player(500, 0, 0);
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
