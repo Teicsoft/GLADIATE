@@ -5,9 +5,9 @@ using Godot;
 
 namespace GLADIATE.scripts.autoloads;
 
-public partial class SceneLoader : Node
+public partial class SceneLoader : Godot.Node
 {
-    private AudioEngine _audioEngine;
+    private audio_engine _audioEngine;
     public Node CurrentScene { get; set; }
     public List<Dictionary<string, dynamic>> Battles;
     public int i {get; set;}
@@ -17,7 +17,7 @@ public partial class SceneLoader : Node
 
     public override void _Ready()
     {
-        _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        _audioEngine = GetNode<audio_engine>("/root/audio_engine");
 
         i = 0;
         
@@ -30,7 +30,7 @@ public partial class SceneLoader : Node
     
     public void GoToScene(string path)
     {
-        CallDeferred(SceneLoader.MethodName.DeferredGotoScene, path);
+        CallDeferred(MethodName.DeferredGotoScene, path);
     }
     
     public void DeferredGotoScene(string path)
