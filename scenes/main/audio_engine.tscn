@@ -1,17 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://kl831abbllds"]
+[gd_scene load_steps=2 format=3 uid="uid://kl831abbllds"]
 
 [ext_resource type="Script" path="res://scripts/audio/AudioEngine.cs" id="1_q6eu6"]
-[ext_resource type="AudioStream" uid="uid://bwjoh8vf0ga7j" path="res://assets/audio/music/venividivichy.wav" id="2_uv4pr"]
 
 [node name="AudioEngine" type="Node"]
 script = ExtResource("1_q6eu6")
 
 [node name="MusicPlayer1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_uv4pr")
 bus = &"Music"
 
 [node name="MusicPlayer2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_uv4pr")
 bus = &"Music"
 
 [node name="SoundFxPlayer1" type="AudioStreamPlayer" parent="."]
