@@ -28,18 +28,6 @@ jobs:
         with:
           dotnet-version: "6.0.x"
           
-      - name: Install rcedit
-        run: |
-          wget -qO rcedit.zip https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe.zip
-          unzip rcedit.zip -d /usr/local/bin
-          chmod +x /usr/local/bin/rcedit-x64.exe
-
-      - name: Set rcedit path in Godot
-        run: |
-          mkdir -p $HOME/.config/godot
-          echo "[editor]" > $HOME/.config/godot/editor_settings-3.tres
-          echo "rcedit_path=\"/usr/local/bin/rcedit-x64.exe\"" >> $HOME/.config/godot/editor_settings-3.tres
-          
       - name: Windows Build
         run: |
           mkdir -v -p $EXPORT_PATH
@@ -48,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: windows
-          path: $EXPORT_PATH
+          path: ${{ env.EXPORT_PATH }}
