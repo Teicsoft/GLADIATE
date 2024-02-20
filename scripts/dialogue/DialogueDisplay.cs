@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.dialogue;
+namespace GLADIATE.scripts.dialogue;
 
 public partial class DialogueDisplay : Control
 {

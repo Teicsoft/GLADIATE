@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics;
-using TeicsoftSpectacleCards.scripts.battle.target;
+using GLADIATE.scripts.battle.target;
 
-namespace TeicsoftSpectacleCards.scripts.battle.card;
+namespace GLADIATE.scripts.battle.card;
 
 public partial class ModifierCard : Card
 {

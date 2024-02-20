@@ -1,8 +1,8 @@
 using Godot;
 using System;
 using System.IO;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.autoloads;
+using GLADIATE.scripts.audio;
+using GLADIATE.scripts.autoloads;
 using FileAccess = Godot.FileAccess;
 
 public partial class Lore : Control
@@ -23,7 +23,7 @@ public partial class Lore : Control
     
     private void OnButtonPressed()
     {
-        var sceneLoader = GetNode<TeicsoftSpectacleCards.scripts.autoloads.SceneLoader>("/root/scene_loader");
+        var sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/scene_loader");
         sceneLoader.GoToScene("res://scenes/main/Deck Select.tscn");
         audioEngine.PlayMusic("fuckaroundandfindout.wav");
     }

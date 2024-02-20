@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GLADIATE.scripts.battle.card;
+using GLADIATE.scripts.battle.target;
+using GLADIATE.scripts.XmlParsing;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle.card;
-using TeicsoftSpectacleCards.scripts.battle.target;
-using TeicsoftSpectacleCards.scripts.XmlParsing;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public class GameState {
     public event EventHandler MultiplierChangedCustomEvent;

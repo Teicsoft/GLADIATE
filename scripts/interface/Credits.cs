@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using GLADIATE.scripts.audio;
 using Godot;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.autoloads;
+using GLADIATE.scripts.autoloads;
 
-namespace TeicsoftSpectacleCards.scripts;
+namespace GLADIATE.scripts;
 
 public partial class Credits : Control
 {

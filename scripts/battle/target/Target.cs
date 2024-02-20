@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TeicsoftSpectacleCards.scripts.battle.target;
+namespace GLADIATE.scripts.battle.target;
 
 public interface ITarget {
     public string Name { get; set; }

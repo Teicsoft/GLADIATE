@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GLADIATE.scripts.battle.card;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle.card;
 
-namespace TeicsoftSpectacleCards.scripts.battle.target;
+namespace GLADIATE.scripts.battle.target;
 
 public partial class Enemy : Node2D, ITarget {
     [Signal] public delegate void EnemySelectedEventHandler(Enemy enemy);

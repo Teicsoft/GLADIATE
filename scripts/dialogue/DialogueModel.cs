@@ -1,4 +1,4 @@
-namespace TeicsoftSpectacleCards.scripts.dialogue;
+namespace GLADIATE.scripts.dialogue;
 
 public class DialogueModel
 {

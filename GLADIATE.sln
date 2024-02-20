@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeicsoftSpectacleCards", "TeicsoftSpectacleCards.csproj", "{422BEEF4-4152-449B-826D-9527736F4469}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLADIATE", "GLADIATE.csproj", "{422BEEF4-4152-449B-826D-9527736F4469}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

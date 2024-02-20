@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Xml;
 using System;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle.target;
+using GLADIATE.scripts.battle.target;
 
-namespace TeicsoftSpectacleCards.scripts.XmlParsing;
+namespace GLADIATE.scripts.XmlParsing;
 
 public class BattleXmlParser {
     public static Dictionary<string, dynamic> ParseBattleFromXml(string filePath) {

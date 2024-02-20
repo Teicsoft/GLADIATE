@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GLADIATE.scripts.customresource;
 using Godot;
-using TeicsoftSpectacleCards.scripts.customresource;
 
-namespace TeicsoftSpectacleCards.scripts.audio;
+namespace GLADIATE.scripts.audio;
 
 public partial class AudioEngine : Node
 {

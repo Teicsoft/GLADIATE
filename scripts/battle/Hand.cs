@@ -3,7 +3,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TeicsoftSpectacleCards.scripts.battle.card;
+using GLADIATE.scripts.battle.card;
 
 public partial class Hand : Path2D {
     private const int MAX_HAND_SIZE = 10;

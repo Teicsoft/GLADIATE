@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public class InciteRiot : Combo {
     public override void Play(GameState gameState) {

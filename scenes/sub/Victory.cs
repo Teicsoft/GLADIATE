@@ -1,12 +1,12 @@
 using Godot;
 using System;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.autoloads;
+using GLADIATE.scripts.audio;
+using GLADIATE.scripts.autoloads;
 
 public partial class Victory : Control
 {
     private AudioEngine audioEngine;
-    private TeicsoftSpectacleCards.scripts.autoloads.SceneLoader sceneLoader;
+    private GLADIATE.scripts.autoloads.SceneLoader sceneLoader;
     
     Label label;
     
@@ -15,7 +15,7 @@ public partial class Victory : Control
     public override void _Ready()
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        sceneLoader = GetNode<TeicsoftSpectacleCards.scripts.autoloads.SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/scene_loader");
         
         label = GetNode<Label>("ColorRect/ColorRect/VBoxContainer/Spectacle Points");
         label.Text = sceneLoader.SpectaclePoints + " Spectacle Points!";

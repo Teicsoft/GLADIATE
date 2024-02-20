@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="TeicsoftSpectacleCards"
+config/name="GLADIATE"
 run/main_scene="res://scenes/title_screen.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://assets/images/icon.png"
@@ -28,7 +28,7 @@ window/size/viewport_height=1080
 
 [dotnet]
 
-project/assembly_name="TeicsoftSpectacleCards"
+project/assembly_name="GLADIATE"
 
 [input]
 

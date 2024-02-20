@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using GLADIATE.scripts.audio;
+using GLADIATE.scripts.XmlParsing;
 using Godot;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.XmlParsing;
 
-namespace TeicsoftSpectacleCards.scripts.autoloads;
+namespace GLADIATE.scripts.autoloads;
 
 public partial class SceneLoader : Node
 {

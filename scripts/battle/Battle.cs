@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GLADIATE.scripts.audio;
+using GLADIATE.scripts.battle.card;
+using GLADIATE.scripts.battle.target;
+using GLADIATE.scripts.XmlParsing;
 using Godot;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.autoloads;
-using TeicsoftSpectacleCards.scripts.battle.card;
-using TeicsoftSpectacleCards.scripts.battle.target;
-using TeicsoftSpectacleCards.scripts.XmlParsing;
+using GLADIATE.scripts.autoloads;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public partial class Battle : Node2D {
     [Signal] public delegate void BattleLostEventHandler();

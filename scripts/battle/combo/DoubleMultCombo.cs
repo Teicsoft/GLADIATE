@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle.card;
+using GLADIATE.scripts.battle.card;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public class DoubleMultCombo : Combo {
     public override void Play(GameState gameState) {

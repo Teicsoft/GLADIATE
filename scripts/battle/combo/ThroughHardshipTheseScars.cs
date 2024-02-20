@@ -1,4 +1,4 @@
-﻿namespace TeicsoftSpectacleCards.scripts.battle;
+﻿namespace GLADIATE.scripts.battle;
 
 public class ThroughHardshipTheseScars : Combo {
     public override void Play(GameState gameState) {

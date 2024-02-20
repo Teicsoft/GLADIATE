@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Xml;
 using System;
+using GLADIATE.scripts.battle.target;
 using Godot;
-using TeicsoftSpectacleCards.scripts.autoloads;
-using TeicsoftSpectacleCards.scripts.battle.target;
+using GLADIATE.scripts.autoloads;
 
-namespace TeicsoftSpectacleCards.scripts.XmlParsing;
+namespace GLADIATE.scripts.XmlParsing;
 
 public class EnemyXmlParser {
     public static Enemy ParseEnemyFromXml(string filePath) {

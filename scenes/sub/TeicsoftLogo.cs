@@ -1,7 +1,7 @@
 using Godot;
-using TeicsoftSpectacleCards.scripts.autoloads;
+using GLADIATE.scripts.autoloads;
 
-namespace TeicsoftSpectacleCards.scenes.sub;
+namespace GLADIATE.scenes.sub;
 
 public partial class TeicsoftLogo : Control
 {
