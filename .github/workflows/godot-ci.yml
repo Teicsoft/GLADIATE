@@ -27,7 +27,7 @@ jobs:
         with:
           dotnet-version: "6.0.x"
       - name: Create Directory
-        run: mkdir -p /tmp/godot-publish-dotnet/
+        run: mkdir -p build/windows/
       - name: Windows Build
         run: |
           mkdir -v -p build/windows
