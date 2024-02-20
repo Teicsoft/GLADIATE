@@ -5,6 +5,7 @@ env:
   GODOT_VERSION: 4.2.1
   EXPORT_NAME: test-project
   PROJECT_PATH: test-project
+  EXPORT_PATH: ~/build/windows/
 
 jobs:
   export-windows:
@@ -27,13 +28,13 @@ jobs:
         with:
           dotnet-version: "6.0.x"
       - name: Create Directory
-        run: mkdir -p build/windows/
+        run: mkdir -p $EXPORT_PATH
       - name: Windows Build
         run: |
-          mkdir -v -p build/windows
-          godot --headless --verbose --export-release "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
+          mkdir -v -p $EXPORT_PATH
+          godot --headless --verbose --export-release "Windows Desktop" ../$EXPORT_PATH/$EXPORT_NAME.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: windows
-          path: build/windows
+          path: $EXPORT_PATH
