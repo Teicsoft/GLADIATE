@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvhwr6ftrwrw7"
-path="res://.godot/imported/GoonOriginal.png-42f066dad05161a252b45b9bb139c834.ctex"
+uid="uid://c7q2iudbjo1m8"
+path="res://.godot/imported/Remus2.png-88ed1c2950f27504e1e77f0788434786.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Goon/GoonOriginal.png"
-dest_files=["res://.godot/imported/GoonOriginal.png-42f066dad05161a252b45b9bb139c834.ctex"]
+source_file="res://assets/sprites/Joy/Remus2.png"
+dest_files=["res://.godot/imported/Remus2.png-88ed1c2950f27504e1e77f0788434786.ctex"]
 
 [params]
 
