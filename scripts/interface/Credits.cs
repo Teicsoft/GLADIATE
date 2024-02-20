@@ -26,7 +26,7 @@ public partial class Credits : Control
         LoadTexture("res://assets/sprites/Dave/Eagle.png");
         LoadTexture("res://assets/sprites/Dave/Gladiate.png");
         
-        sceneLoader = GetNode<autoloads.SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
 
         var audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         
@@ -88,7 +88,7 @@ public partial class Credits : Control
 
         if (counter == (_lines.Count + 15))
         {
-            sceneLoader = GetNode<autoloads.SceneLoader>("/root/scene_loader");
+            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
             sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
         }
 

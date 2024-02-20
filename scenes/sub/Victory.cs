@@ -15,7 +15,7 @@ public partial class Victory : Control
     public override void _Ready()
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/SceneLoader");
         
         label = GetNode<Label>("ColorRect/ColorRect/VBoxContainer/Spectacle Points");
         label.Text = sceneLoader.SpectaclePoints + " Spectacle Points!";

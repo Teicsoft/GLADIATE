@@ -32,7 +32,7 @@ public partial class Battle : Node2D {
 
     public override void _Ready() {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        sceneLoader = GetNode<autoloads.SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
 
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
@@ -148,7 +148,7 @@ public partial class Battle : Node2D {
         if (playerObject.Health <= 0) {
             EmitSignal(Battle.SignalName.BattleLost);
 
-            sceneLoader = GetNode<autoloads.SceneLoader>("/root/scene_loader");
+            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
             audioEngine.PlayMusic("Lil_tune.wav");
             sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
         }

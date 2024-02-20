@@ -18,7 +18,7 @@ public partial class DeckSelect : Control
         {
             if (mouseButton.Pressed)
             {
-                var sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/scene_loader");
+                var sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/SceneLoader");
                 
                 sceneLoader.DeckSelected = deckId;
                 audioEngine.PlayMusic("venividivichy.wav");
