@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=24 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scenes/battle/Toggle Sound.gd" id="11_mow0b"]
 [ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
 [ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
+[ext_resource type="Texture2D" uid="uid://di6jj3qkji1wr" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Down.png" id="12_a85jt"]
 [ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
 [ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
 
@@ -268,8 +269,23 @@ grow_vertical = 2
 rotation = 0.785398
 scale = Vector2(0.242236, 0.242236)
 pivot_offset = Vector2(20, 20)
-color = Color(1, 0, 0, 0.188235)
+color = Color(1, 0, 0, 0)
 metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="HUD/SelectedIndicator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.4335
+offset_top = 122.168
+offset_right = 112.433
+offset_bottom = 194.168
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.785398
+scale = Vector2(4, 4)
+texture = ExtResource("12_a85jt")
 
 [node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
 visible = false

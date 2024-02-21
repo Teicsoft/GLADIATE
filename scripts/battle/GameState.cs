@@ -14,6 +14,7 @@ public class GameState {
     public event EventHandler AllEnemiesDefeatedCustomEvent;
     public event EventHandler ComboStackChangedCustomEvent;
     public event EventHandler<ComboEventArgs> ComboPlayedCustomEvent;
+    public event EventHandler SelectedEnemyIndexChangedCustomEvent;
 
     private List<Combo> AllCombos;
     public Player Player;
@@ -231,6 +232,7 @@ public class GameState {
         if (enemy.Health > 0) {
             int enemyIndex = Enemies.IndexOf(enemy);
             _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
+            SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 
