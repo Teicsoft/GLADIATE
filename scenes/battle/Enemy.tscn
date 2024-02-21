@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://rocmwsrfn6p7"]
+[gd_scene load_steps=8 format=3 uid="uid://rocmwsrfn6p7"]
 
 [ext_resource type="Script" path="res://scripts/battle/target/Enemy.cs" id="1_nns8m"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="2_ggci3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="3_df0w2"]
 [ext_resource type="Texture2D" uid="uid://c2ui510hlcb4m" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
 [ext_resource type="Texture2D" uid="uid://bs6on0sod5l28" path="res://assets/ui/Armor.png" id="6_aa264"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mxw43"]
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_nns8m")
@@ -36,6 +38,7 @@ offset_top = -115.0
 offset_right = 59.0
 offset_bottom = 110.0
 theme = ExtResource("3_df0w2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mxw43")
 flat = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]
