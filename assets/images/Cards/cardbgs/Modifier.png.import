@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr3q8tq77engu"
-path="res://.godot/imported/Goon_updated_clipped.png-a60f2f1fae793b6ae664c93cd84b630e.ctex"
+uid="uid://ysaiuc6nkpyh"
+path="res://.godot/imported/Modifier.png-7089b8b3bddcfdfffb367a757eb83fd0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://test/Goon_updated_clipped.png"
-dest_files=["res://.godot/imported/Goon_updated_clipped.png-a60f2f1fae793b6ae664c93cd84b630e.ctex"]
+source_file="res://assets/images/Cards/cardbgs/Modifier.png"
+dest_files=["res://.godot/imported/Modifier.png-7089b8b3bddcfdfffb367a757eb83fd0.ctex"]
 
 [params]
 
