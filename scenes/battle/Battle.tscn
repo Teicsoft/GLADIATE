@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
 [ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
-[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="7_bj4ys"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="7_bj4ys"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="8_d7wxd"]
 [ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="9_6h2s6"]
@@ -278,10 +278,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 40.4335
-offset_top = 122.168
-offset_right = 112.433
-offset_bottom = 194.168
+offset_left = -1153.47
+offset_top = -756.476
+offset_right = -1081.47
+offset_bottom = -684.476
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.785398
@@ -353,6 +353,7 @@ vertical_alignment = 1
 wait_time = 3.0
 
 [node name="Hand" type="Path2D" parent="."]
+z_index = 1
 curve = SubResource("Curve2D_xvv15")
 script = ExtResource("4_swwjy")
 

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_14m68"]
 [ext_resource type="Texture2D" uid="uid://c6idlull35fp4" path="res://assets/sprites/Dave/Gladiate.png" id="2_j5550"]
 [ext_resource type="Texture2D" uid="uid://c0r8l4fbcihi" path="res://assets/sprites/Dave/Eagle.png" id="3_csqvs"]
-[ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://Nimbus.tres" id="5_r1hdo"]
+[ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="5_r1hdo"]
 [ext_resource type="FontFile" uid="uid://cnq0lsjurchca" path="res://assets/fonts/nimbus-roman-no9-l.regular/nimbus-roman-no9-l.regular.otf" id="5_shiaa"]
 
 [node name="Title Screen" type="Control"]

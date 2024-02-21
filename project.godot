@@ -15,9 +15,13 @@ run/main_scene="res://scenes/title_screen.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://assets/images/icon.png"
 
+[audio]
+
+buses/default_bus_layout="res://styles/default_bus_layout.tres"
+
 [autoload]
 
-SceneLoader="*res://SceneLoader.tscn"
+SceneLoader="*res://scenes/SceneLoader.tscn"
 audio_engine="*res://scenes/main/audio_engine.tscn"
 
 [display]
