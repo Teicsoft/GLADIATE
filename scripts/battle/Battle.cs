@@ -58,6 +58,7 @@ public partial class Battle : Node2D {
         _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
         _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
         _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
+        _gameState.SelectedEnemyIndexChangedCustomEvent += MoveSelectedIndicator;
         _gameState.MultiplierChangedCustomEvent += OnMultiplierChanged;
         _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
         _gameState.DiscardStateChangedCustomEvent += OnDiscardStateChanged;
@@ -68,7 +69,6 @@ public partial class Battle : Node2D {
         if (sceneLoader.Health != 0) { _gameState.Player.Health = sceneLoader.Health; }
         sceneLoader.i += 1;
     }
-
     private List<Enemy> CreateEnemies(List<string> enemyIds) {
         int idsCount = enemyIds.Count;
         List<Enemy> enemies = new();
@@ -138,6 +138,12 @@ public partial class Battle : Node2D {
     }
 
     private void MoveSelectedIndicator(Enemy enemy) {
+        GetNode<ColorRect>("HUD/SelectedIndicator").Position =
+            _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
+    }
+    
+    private void MoveSelectedIndicator(object sender, EventArgs e)
+    {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
             _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
     }
