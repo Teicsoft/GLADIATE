@@ -342,10 +342,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ComboDisplay" type="Label" parent="HUD"]
-offset_left = 558.0
-offset_top = 410.0
-offset_right = 916.0
-offset_bottom = 560.0
+offset_left = 820.0
+offset_top = 134.0
+offset_right = 1166.0
+offset_bottom = 188.0
+theme = ExtResource("7_bj4ys")
+theme_override_font_sizes/font_size = 20
+text = "Com"
 horizontal_alignment = 1
 vertical_alignment = 1
 
