@@ -1,6 +1,6 @@
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle;
-using TeicsoftSpectacleCards.scripts.battle.card;
+using GLADIATE.scripts.battle;
+using GLADIATE.scripts.battle.card;
 
 public partial class CardSleeve : Control {
     [Signal] public delegate void CardSelectedEventHandler(CardSleeve cardSleeve);

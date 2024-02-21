@@ -1,9 +1,8 @@
 using System.Collections.Generic;
+using GLADIATE.scripts.audio;
 using Godot;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.autoloads;
 
-namespace TeicsoftSpectacleCards.scripts;
+namespace GLADIATE.scripts;
 
 public partial class Credits : Control
 {
@@ -13,7 +12,7 @@ public partial class Credits : Control
     private int counter = 0;
     private Timer _timer;
 
-    private SceneLoader sceneLoader;
+    private autoloads.SceneLoader sceneLoader;
 
     public override void _Ready()
     {
@@ -26,12 +25,12 @@ public partial class Credits : Control
         LoadTexture("res://assets/sprites/Dave/Eagle.png");
         LoadTexture("res://assets/sprites/Dave/Gladiate.png");
         
-        sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+        sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
 
         var audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         
         sceneLoader.i = 0;
-        sceneLoader.health = 0;
+        sceneLoader.Health = 0;
         sceneLoader.SpectaclePoints = 0;
     }
 
@@ -88,7 +87,7 @@ public partial class Credits : Control
 
         if (counter == (_lines.Count + 15))
         {
-            sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
             sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
         }
 

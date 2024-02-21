@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using TeicsoftSpectacleCards.scripts.battle.card;
-using TeicsoftSpectacleCards.scripts.battle.target;
+using GLADIATE.scripts.battle.card;
+using GLADIATE.scripts.battle.target;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public class Footwork : Combo {
     public override void Play(GameState gameState) {

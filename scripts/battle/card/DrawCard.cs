@@ -1,4 +1,4 @@
-namespace TeicsoftSpectacleCards.scripts.battle.card;
+namespace GLADIATE.scripts.battle.card;
 
 public partial class DrawCard : Card
 {

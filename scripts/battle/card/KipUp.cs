@@ -1,6 +1,6 @@
-﻿using TeicsoftSpectacleCards.scripts.battle.target;
+﻿using GLADIATE.scripts.battle.target;
 
-namespace TeicsoftSpectacleCards.scripts.battle.card;
+namespace GLADIATE.scripts.battle.card;
 
 public class KipUp : Card {
     public override void Play(GameState gameState, ITarget target, ITarget player) {

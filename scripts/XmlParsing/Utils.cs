@@ -1,7 +1,6 @@
-﻿using System;
-using System.Xml;
+﻿using System.Xml;
 
-namespace TeicsoftSpectacleCards.scripts.XmlParsing;
+namespace GLADIATE.scripts.XmlParsing;
 
 public static class Utils
 {

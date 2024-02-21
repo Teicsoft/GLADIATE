@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.battle.target;
+namespace GLADIATE.scripts.battle.target;
 
 public partial class Player : Node2D, ITarget {
     public event EventHandler PlayerHealthChangedCustomEvent;

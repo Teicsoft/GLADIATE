@@ -1,50 +1,50 @@
 using System.Collections.Generic;
+using GLADIATE.scripts.audio;
+using GLADIATE.scripts.XmlParsing;
 using Godot;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.XmlParsing;
 
-namespace TeicsoftSpectacleCards.scripts.autoloads;
+namespace GLADIATE.scripts.autoloads;
 
-public partial class SceneLoader : Node
+public partial class SceneLoader : Godot.Node
 {
-    private AudioEngine audioEngine;
+    private AudioEngine _audioEngine;
     public Node CurrentScene { get; set; }
-    public List<Dictionary<string, dynamic>> battles;
-    public int i {get; set;}
+    public List<Dictionary<string, dynamic>> Battles;
+    public int i { get; set; }
     public int SpectaclePoints { get; set; }
-    public string deckSelected { get; set; }
-    public int health { get; set; }
+    public string DeckSelected { get; set; }
+    public int Health { get; set; }
 
     public override void _Ready()
     {
-        audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
 
         i = 0;
-        
+
         Viewport root = GetTree().Root;
         CurrentScene = root.GetChild(root.GetChildCount() - 1);
-        battles = BattleXmlParser.ParseAllBattles();
-        deckSelected = "deck_Player1";
+        Battles = BattleXmlParser.ParseAllBattles();
+        DeckSelected = "deck_Player1";
         SpectaclePoints = 0;
     }
-    
+
     public void GoToScene(string path)
     {
         CallDeferred(MethodName.DeferredGotoScene, path);
     }
-    
+
     public void DeferredGotoScene(string path)
     {
         CurrentScene.Free();
-        var nextScene = (PackedScene) GD.Load<PackedScene>(path);
+        var nextScene = GD.Load<PackedScene>(path);
         CurrentScene = nextScene.Instantiate();
         GetTree().Root.AddChild(CurrentScene);
         GetTree().CurrentScene = CurrentScene;
     }
 
     public void GoToNextBattle()
-    { 
-        if (i < battles.Count)
+    {
+        if (i < Battles.Count)
         {
             GD.Print("GotoNextBattle");
             CallDeferred("DeferredGotoScene", "res://scenes/battle/Battle.tscn");
@@ -53,10 +53,13 @@ public partial class SceneLoader : Node
         {
             GD.Print("GotoVictory");
             CallDeferred("DeferredGotoScene", "res://scenes/sub/Victory.tscn");
-            audioEngine.PlayMusic("fuck_around_and_find_out_2_electric_boogaloo.mp3");
+            _audioEngine.PlayMusic("fuck_around_and_find_out_2_electric_boogaloo.mp3");
         }
     }
-    
-    
-    public Dictionary<string, dynamic> getCurrentBattleData() { return battles[i]; }
+
+
+    public Dictionary<string, dynamic> GetCurrentBattleData()
+    {
+        return Battles[i];
+    }
 }

@@ -1,7 +1,7 @@
-﻿using Godot;
-using TeicsoftSpectacleCards.scripts.battle.target;
+﻿using GLADIATE.scripts.battle.target;
+using Godot;
 
-namespace TeicsoftSpectacleCards.scripts.battle;
+namespace GLADIATE.scripts.battle;
 
 public class GetPolitical : Combo {
     public override void Play(GameState gameState) {

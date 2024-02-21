@@ -1,8 +1,8 @@
 using System;
+using GLADIATE.scripts.battle.target;
 using Godot;
-using TeicsoftSpectacleCards.scripts.battle.target;
 
-namespace TeicsoftSpectacleCards.scripts.battle.card;
+namespace GLADIATE.scripts.battle.card;
 
 public class Card {
     public Color color { get; set; }

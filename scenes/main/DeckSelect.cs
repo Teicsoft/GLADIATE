@@ -1,7 +1,5 @@
 using Godot;
-using System;
-using TeicsoftSpectacleCards.scripts.audio;
-using TeicsoftSpectacleCards.scripts.autoloads;
+using GLADIATE.scripts.audio;
 
 public partial class DeckSelect : Control
 {
@@ -18,9 +16,9 @@ public partial class DeckSelect : Control
         {
             if (mouseButton.Pressed)
             {
-                var sceneLoader = GetNode<SceneLoader>("/root/scene_loader");
+                var sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/SceneLoader");
                 
-                sceneLoader.deckSelected = deckId;
+                sceneLoader.DeckSelected = deckId;
                 audioEngine.PlayMusic("venividivichy.wav");
                 sceneLoader.GoToNextBattle();
             }
