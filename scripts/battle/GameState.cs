@@ -69,8 +69,6 @@ public class GameState {
     }
 
     public void StartTurn() {
-        DeselectDeadEnemy();
-        HideDeadEnemies();
         GD.Print(" ==== ==== START TURN ==== ====");
         _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
         SpectacleBuffer = 0;
@@ -184,6 +182,9 @@ public class GameState {
         Utils.RemoveEndTurnStatuses(Player);
 
         GD.Print(" ==== ====  END TURN  ==== ====");
+        
+        DeselectDeadEnemy();
+        HideDeadEnemies();
         StartTurn();
     }
 
