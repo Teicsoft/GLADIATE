@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<card id="card_Throw" type="Modifier" modifier="Juggled" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
+<card id="card_Throw" type="Modifier" modifier="Juggled" position ="Upper"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
        
     <stats>
         <attack>0</attack> <!--int-->
