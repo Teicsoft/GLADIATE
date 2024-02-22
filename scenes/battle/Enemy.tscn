@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://rocmwsrfn6p7"]
+[gd_scene load_steps=8 format=3 uid="uid://rocmwsrfn6p7"]
 
 [ext_resource type="Script" path="res://scripts/battle/target/Enemy.cs" id="1_nns8m"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="2_ggci3"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="2_mb0el"]
-[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://Bigtext.tres" id="3_df0w2"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="3_df0w2"]
 [ext_resource type="Texture2D" uid="uid://c2ui510hlcb4m" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
+[ext_resource type="Texture2D" uid="uid://bs6on0sod5l28" path="res://assets/ui/Armor.png" id="6_aa264"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mxw43"]
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_nns8m")
@@ -29,20 +32,21 @@ position = Vector2(-2.50005, -14.5)
 scale = Vector2(0.524038, 0.535354)
 texture = ExtResource("2_mb0el")
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-offset_left = -101.0
-offset_top = -157.0
-offset_right = 98.0
-offset_bottom = -117.0
-color = Color(0, 0, 0, 0.670588)
-
 [node name="SelectButton" type="Button" parent="."]
 offset_left = -60.0
 offset_top = -115.0
 offset_right = 59.0
 offset_bottom = 110.0
 theme = ExtResource("3_df0w2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mxw43")
 flat = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = -101.0
+offset_top = -198.0
+offset_right = 98.0
+offset_bottom = -158.0
+color = Color(0, 0, 0, 0.670588)
 
 [node name="HealthLabel" type="Label" parent="."]
 visible = false
@@ -56,26 +60,35 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="EneemyHealthbar" type="Sprite2D" parent="."]
-position = Vector2(-1.5, -138)
+position = Vector2(-1.5, -179)
 texture = ExtResource("4_e4ref")
 
 [node name="HealthProgressBar" type="ProgressBar" parent="."]
 offset_left = -102.5
-offset_top = -159.0
+offset_top = -200.0
 offset_right = 99.5
-offset_bottom = -116.0
+offset_bottom = -157.0
 step = 1.0
 rounded = true
 show_percentage = false
 
 [node name="HealthDisplay" type="Label" parent="."]
-offset_left = -97.0
-offset_top = -169.0
-offset_right = 3.0
-offset_bottom = -109.0
+offset_left = -74.0
+offset_top = -209.0
+offset_right = 26.0
+offset_bottom = -149.0
 theme = ExtResource("3_df0w2")
 text = "1"
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -144.0
+offset_top = -216.0
+offset_right = -41.0
+offset_bottom = -88.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_aa264")
+stretch_mode = 4
 
 [node name="UpperBlockRect" type="ColorRect" parent="."]
 visible = false
@@ -87,9 +100,9 @@ color = Color(0, 0, 1, 1)
 
 [node name="UpperBlockDisplay" type="Label" parent="."]
 offset_left = -133.0
-offset_top = -162.0
+offset_top = -209.0
 offset_right = -93.0
-offset_bottom = -131.0
+offset_bottom = -178.0
 theme = ExtResource("3_df0w2")
 theme_override_font_sizes/font_size = 28
 text = "1"
@@ -106,9 +119,9 @@ color = Color(0, 0, 1, 1)
 
 [node name="LowerBlockDisplay" type="Label" parent="."]
 offset_left = -132.0
-offset_top = -142.0
+offset_top = -180.0
 offset_right = -92.0
-offset_bottom = -112.0
+offset_bottom = -149.0
 theme = ExtResource("3_df0w2")
 theme_override_font_sizes/font_size = 28
 text = "1"
@@ -120,11 +133,12 @@ visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -105.0
-offset_top = -202.0
-offset_right = 92.0
-offset_bottom = -172.0
+offset_left = -136.0
+offset_top = -250.0
+offset_right = 123.0
+offset_bottom = -210.0
 grow_horizontal = 2
+theme = ExtResource("3_df0w2")
 text = "Card Played"
 horizontal_alignment = 1
 vertical_alignment = 1
