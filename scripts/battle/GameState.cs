@@ -70,6 +70,7 @@ public class GameState {
 
     public void StartTurn() {
         DeselectDeadEnemy();
+        HideDeadEnemies();
         GD.Print(" ==== ==== START TURN ==== ====");
         _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
         SpectacleBuffer = 0;
@@ -99,10 +100,20 @@ public class GameState {
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
         DeselectDeadEnemy();
+        HideDeadEnemies();
     }
 
     private void DeselectDeadEnemy() {
         if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
+    }
+
+    private void HideDeadEnemies()
+    {
+        List<Enemy> deadEnemies = Enemies.FindAll(enemy => enemy.Health <= 0);
+        foreach (Enemy deadEnemy in deadEnemies)
+        {
+            deadEnemy.Visible = false;
+        }
     }
 
     public void PushCardStack(Card card) { ComboStack.Add(card); }
