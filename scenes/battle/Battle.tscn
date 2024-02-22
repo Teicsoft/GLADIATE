@@ -433,52 +433,52 @@ scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 flip_v = true
 
-[node name="Discard Area2" type="CanvasGroup" parent="."]
+[node name="Deck Area" type="CanvasGroup" parent="."]
 position = Vector2(1720, 1)
 
-[node name="Card-back-blood-spatter" type="Sprite2D" parent="Discard Area2"]
+[node name="Card-back-blood-spatter" type="Sprite2D" parent="Deck Area"]
 position = Vector2(101, 942)
 scale = Vector2(0.277017, 0.285396)
 texture = ExtResource("4_u6rcd")
 
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Deck Area"]
 position = Vector2(188, 818)
 texture = ExtResource("16_o3gvq")
 
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Deck Area"]
 position = Vector2(13, 818)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Deck Area"]
 position = Vector2(100.375, 811)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Deck Area"]
 position = Vector2(195, 941.366)
 rotation = 1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Deck Area"]
 position = Vector2(6, 942)
 rotation = -1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Deck Area"]
 position = Vector2(188, 1065)
 texture = ExtResource("16_o3gvq")
 flip_v = true
 
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Deck Area"]
 position = Vector2(13, 1065)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 flip_v = true
 
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Deck Area"]
 position = Vector2(100.375, 1072)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
