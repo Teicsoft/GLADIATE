@@ -110,8 +110,7 @@ public class GameState {
 
     private void HideDeadEnemies()
     {
-        List<Enemy> deadEnemies = Enemies.FindAll(enemy => enemy.Health <= 0);
-        foreach (Enemy deadEnemy in deadEnemies)
+        foreach (Enemy deadEnemy in Enemies.FindAll(enemy => enemy.Health <= 0))
         {
             deadEnemy.Visible = false;
         }
