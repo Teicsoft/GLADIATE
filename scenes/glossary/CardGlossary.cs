@@ -29,7 +29,7 @@ public partial class CardGlossary : Control
             packedScene.GetNode<Label>(statsPathPrefix + "6/VBoxContainer/Discard").Text = card.Discard.ToString();
             packedScene.GetNode<Label>(statsPathPrefix + "7/VBoxContainer/Spectacle").Text = card.SpectaclePoints.ToString();
 
-            // text
+            //text
             packedScene.GetNode<Label>(
                     "VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer/VBoxContainer/Description")
                 .Text = card.Description;
