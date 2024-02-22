@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://87kw3tjkavuh"]
+[gd_scene load_steps=2 format=3 uid="uid://87kw3tjkavuh"]
 
 [ext_resource type="Script" path="res://scenes/glossary/CardGlossary.cs" id="1_58lte"]
-[ext_resource type="PackedScene" uid="uid://517fbrq52blj" path="res://scenes/glossary/card_glossary_item.tscn" id="1_subpl"]
 
 [node name="CardGlossary" type="Control"]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,22 +25,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 columns = 3
 
-[node name="GlossaryItem" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
-visible = false
-layout_mode = 2
+[node name="CardGlossaryButton" type="Button" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = 1739.0
+offset_top = 10.0
+offset_right = 1900.0
+offset_bottom = 68.0
+text = "Close Card Glossary"
 
-[node name="GlossaryItem2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
-visible = false
-layout_mode = 2
-
-[node name="GlossaryItem3" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
-visible = false
-layout_mode = 2
-
-[node name="GlossaryItem4" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
-visible = false
-layout_mode = 2
-
-[node name="GlossaryItem5" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
-visible = false
-layout_mode = 2
+[connection signal="pressed" from="CardGlossaryButton" to="." method="OnCloseCardGlossarySelected"]

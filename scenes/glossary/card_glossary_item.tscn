@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://517fbrq52blj"]
+[gd_scene load_steps=6 format=3 uid="uid://517fbrq52blj"]
 
 [ext_resource type="Texture2D" uid="uid://bqelqsritcoiy" path="res://assets/images/Cards/CardArt/dropkick.png" id="1_7qbpl"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="2_vx2rf"]
 [ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="3_snjjf"]
 [ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_rk27n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udkd7"]
+bg_color = Color(0.0431373, 0.0431373, 0.0431373, 0.815686)
 
 [node name="GlossaryItem" type="PanelContainer"]
 custom_minimum_size = Vector2(600, 600)
@@ -14,6 +17,7 @@ offset_right = -1320.0
 offset_bottom = -180.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_udkd7")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

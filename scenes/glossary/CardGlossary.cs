@@ -30,21 +30,32 @@ public partial class CardGlossary : Control
             packedScene.GetNode<Label>(statsPathPrefix + "7/VBoxContainer/Spectacle").Text = card.SpectaclePoints.ToString();
 
             //text
-            packedScene.GetNode<Label>(
-                    "VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer/VBoxContainer/Description")
-                .Text = card.Description;
-            packedScene.GetNode<Label>(
-                    "VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer2/VBoxContainer/Lore")
-                .Text = card.Lore;
+            string textPathPrefix = "VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer";
+            packedScene.GetNode<Label>(textPathPrefix + "/VBoxContainer/Description").Text = card.Description;
+            packedScene.GetNode<Label>(textPathPrefix + "2/VBoxContainer/Lore").Text = card.Lore;
 
-
-
+            //pos/mod/type/target
+            packedScene.GetNode<Label>("VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer/PosHBoxContainer/Position").Text = card.TargetPosition.ToString();
+            packedScene.GetNode<Label>("VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer2/ModHBoxContainer2/Modifier").Text = card.Modifier.ToString();
+            packedScene.GetNode<Label>("VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer4/ModHBoxContainer2/Type").Text = card.CardType;
+            packedScene.GetNode<Label>("VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer3/ModHBoxContainer2/TargetRequired").Text = card.TargetRequired.ToString();
+            
+            
             VBoxContainer.AddChild(packedScene);
         }
     }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    
+    private void OnCardGlossaryPressed()
     {
+        GetTree().Paused = true;
+        Show();
+    }
+    private void OnCloseCardGlossarySelected()
+    {
+        GD.Print("hiding");
+        Hide();
+        GD.Print("hidden");
+        GetTree().Paused = false;
+        GD.Print(GetTree().Paused.ToString());
     }
 }
