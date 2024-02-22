@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=25 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
 [ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
 [ext_resource type="Texture2D" uid="uid://di6jj3qkji1wr" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Down.png" id="12_a85jt"]
+[ext_resource type="PackedScene" uid="uid://87kw3tjkavuh" path="res://scenes/glossary/card_glossary.tscn" id="13_mwfol"]
 [ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
 [ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
 
@@ -354,6 +355,32 @@ vertical_alignment = 1
 [node name="ComboDisplayTimer" type="Timer" parent="HUD/ComboDisplay"]
 wait_time = 3.0
 
+[node name="CardGlossaryButton" type="TextureButton" parent="HUD"]
+process_mode = 1
+offset_left = 1.0
+offset_top = 5.0
+offset_right = 102.0
+offset_bottom = 42.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+
+[node name="Label" type="Label" parent="HUD/CardGlossaryButton"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 98.0
+offset_bottom = 25.0
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
+theme_override_font_sizes/font_size = 19
+text = "Card Glossary"
+horizontal_alignment = 1
+
+[node name="CardGlossary" parent="HUD" instance=ExtResource("13_mwfol")]
+visible = false
+
 [node name="Hand" type="Path2D" parent="."]
 z_index = 1
 curve = SubResource("Curve2D_xvv15")
@@ -488,4 +515,5 @@ flip_v = true
 [connection signal="pressed" from="HUD/TextureButton2" to="." method="EndTurn"]
 [connection signal="pressed" from="HUD/End Turn Button" to="." method="EndTurn"]
 [connection signal="timeout" from="HUD/ComboDisplay/ComboDisplayTimer" to="." method="OnComboDisplayTimeout"]
+[connection signal="pressed" from="HUD/CardGlossaryButton" to="HUD/CardGlossary" method="OnCardGlossaryPressed"]
 [connection signal="pressed" from="Toggle Sound" to="Toggle Sound" method="_on_TextureButton_pressed"]

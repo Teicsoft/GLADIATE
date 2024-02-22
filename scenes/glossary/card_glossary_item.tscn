@@ -1,0 +1,431 @@
+[gd_scene load_steps=6 format=3 uid="uid://517fbrq52blj"]
+
+[ext_resource type="Texture2D" uid="uid://bqelqsritcoiy" path="res://assets/images/Cards/CardArt/dropkick.png" id="1_7qbpl"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="2_vx2rf"]
+[ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="3_snjjf"]
+[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_rk27n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udkd7"]
+bg_color = Color(0.0431373, 0.0431373, 0.0431373, 0.815686)
+
+[node name="GlossaryItem" type="PanelContainer"]
+custom_minimum_size = Vector2(600, 600)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1320.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_udkd7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+color = Color(0, 0, 0, 0.482353)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ImageMargin" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CardImage" type="TextureRect" parent="VBoxContainer/ImageMargin"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_7qbpl")
+expand_mode = 5
+
+[node name="ContentMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin"]
+layout_mode = 2
+
+[node name="CardNameMargin" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CardName" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/CardNameMargin"]
+layout_mode = 2
+theme = ExtResource("2_vx2rf")
+theme_override_font_sizes/font_size = 75
+text = "Card Name"
+horizontal_alignment = 1
+
+[node name="StatsGridItemMargin" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin"]
+layout_mode = 2
+
+[node name="MarginContainer1" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer1"]
+layout_mode = 2
+
+[node name="AttackLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer1/VBoxContainer"]
+layout_mode = 2
+text = "Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Attack" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer1/VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="DefLLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Def. Low
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefL" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+
+[node name="DefHLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3/VBoxContainer"]
+layout_mode = 2
+text = "Def. High"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DefH" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3/VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4"]
+layout_mode = 2
+
+[node name="HealLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4/VBoxContainer"]
+layout_mode = 2
+text = "Heal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Heal" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4/VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5"]
+layout_mode = 2
+
+[node name="DrawLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5/VBoxContainer"]
+layout_mode = 2
+text = "Draw"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Draw" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5/VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6"]
+layout_mode = 2
+
+[node name="DiscardLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6/VBoxContainer"]
+layout_mode = 2
+text = "Discard"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Discard" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6/VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer7" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7"]
+layout_mode = 2
+
+[node name="SpectacleLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7/VBoxContainer"]
+layout_mode = 2
+text = "Spectacle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spectacle" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7/VBoxContainer"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PosModMargin" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin"]
+layout_mode = 2
+
+[node name="TRTHBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ModHBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TargetRequiredLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer3/ModHBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
+text = "Target Required: "
+
+[node name="TargetRequired" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer3/ModHBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
+text = "Yes"
+vertical_alignment = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ModHBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TypeLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer4/ModHBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
+text = "Type: "
+
+[node name="Type" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer4/ModHBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
+text = "Attack"
+vertical_alignment = 2
+
+[node name="POSMODHBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PosHBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer/PosHBoxContainer"]
+layout_mode = 2
+
+[node name="PositionLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer/PosHBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
+text = "Positon: "
+
+[node name="Position" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer/PosHBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
+text = "Upper
+"
+vertical_alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ModHBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ModifierLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer2/ModHBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
+text = "Modifier: "
+
+[node name="Modifier" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer2/ModHBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
+text = "Grounded"
+vertical_alignment = 2
+
+[node name="DescriptionGridItemMargin2" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 30
+text = "Description:
+"
+
+[node name="Description" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 20
+text = "Deal 3 damage. Grounds an enemy"
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="LoreLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 30
+text = "Lore:
+"
+
+[node name="Lore" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 20
+text = "Deal 3 damage. Grounds an enemy"
+autowrap_mode = 2
