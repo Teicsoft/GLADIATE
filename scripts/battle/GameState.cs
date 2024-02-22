@@ -87,6 +87,8 @@ public class GameState {
             if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
+            DeselectDeadEnemy();
+            HideDeadEnemies();
         }
     }
 
@@ -99,8 +101,6 @@ public class GameState {
             ComboPlayedCustomEvent?.Invoke(this, new ComboEventArgs(matchingCombo));
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
-        DeselectDeadEnemy();
-        HideDeadEnemies();
     }
 
     private void DeselectDeadEnemy() {
