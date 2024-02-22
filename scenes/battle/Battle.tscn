@@ -355,13 +355,28 @@ vertical_alignment = 1
 [node name="ComboDisplayTimer" type="Timer" parent="HUD/ComboDisplay"]
 wait_time = 3.0
 
-[node name="CardGlossaryButton" type="Button" parent="HUD"]
+[node name="CardGlossaryButton" type="TextureButton" parent="HUD"]
 process_mode = 1
-offset_left = 24.0
-offset_top = 10.0
-offset_right = 109.0
-offset_bottom = 68.0
-text = "Open Card Glossary"
+offset_left = 1.0
+offset_top = 5.0
+offset_right = 102.0
+offset_bottom = 42.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+
+[node name="Label" type="Label" parent="HUD/CardGlossaryButton"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 98.0
+offset_bottom = 25.0
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
+theme_override_font_sizes/font_size = 19
+text = "Card Glossary"
+horizontal_alignment = 1
 
 [node name="CardGlossary" parent="HUD" instance=ExtResource("13_mwfol")]
 visible = false
