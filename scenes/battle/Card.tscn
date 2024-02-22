@@ -4,8 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://rtyvinj2ys7a" path="res://assets/images/Cards/cardbgs/Attack.png" id="2_csp3y"]
 [ext_resource type="Texture2D" uid="uid://d4jkigkskqd1" path="res://assets/images/Cards/default_card_front.png" id="2_idev5"]
 [ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="3_lpomp"]
-[ext_resource type="Texture2D" uid="uid://c1cxxt7viyyyi" path="res://assets/images/Cards/Type Icons/Attack.png" id="3_ndwgh"]
-[ext_resource type="Texture2D" uid="uid://kfe0haih4mwq" path="res://assets/images/Cards/Positon Icons/Lower.png" id="5_y6dxg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uw168"]
+load_path = "res://.godot/imported/Attack.png-7153668f1d3bf19cff28941adb2047b7.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cwyed"]
+load_path = "res://.godot/imported/Lower.png-7b7bc3392d447914e9f47ae80ec4dd7e.ctex"
 
 [node name="Card" type="Control"]
 layout_mode = 3
@@ -51,7 +55,7 @@ offset_top = 3.0
 offset_right = 55.0
 offset_bottom = 55.0
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("3_ndwgh")
+texture = SubResource("CompressedTexture2D_uw168")
 
 [node name="CardPositionIndicator" type="TextureRect" parent="Background"]
 layout_mode = 0
@@ -60,7 +64,7 @@ offset_top = 5.0
 offset_right = 220.0
 offset_bottom = 55.0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_y6dxg")
+texture = SubResource("CompressedTexture2D_cwyed")
 
 [node name="SpectaclePoints" type="Label" parent="Background"]
 layout_mode = 0
