@@ -87,13 +87,13 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="AttackLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Attack"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Attack" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1
@@ -110,14 +110,14 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="DefLLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Def. Low
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="DefL" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1
@@ -134,13 +134,13 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="DefHLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3/VBoxContainer"]
 layout_mode = 2
 text = "Def. High"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3/VBoxContainer"]
+[node name="DefH" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer3/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1

@@ -26,16 +26,21 @@ size_flags_horizontal = 3
 columns = 3
 
 [node name="GlossaryItem" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+visible = false
 layout_mode = 2
 
 [node name="GlossaryItem2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+visible = false
 layout_mode = 2
 
 [node name="GlossaryItem3" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+visible = false
 layout_mode = 2
 
 [node name="GlossaryItem4" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+visible = false
 layout_mode = 2
 
 [node name="GlossaryItem5" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+visible = false
 layout_mode = 2
