@@ -76,7 +76,7 @@ theme_override_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
+[node name="MarginContainer1" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 5
@@ -84,16 +84,16 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer1"]
 layout_mode = 2
 
-[node name="AttackLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="AttackLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer1/VBoxContainer"]
 layout_mode = 2
 text = "Attack"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Attack" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Attack" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer1/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1
@@ -157,13 +157,13 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4/VBoxContainer"]
+[node name="HealLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4/VBoxContainer"]
 layout_mode = 2
 text = "Heal"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4/VBoxContainer"]
+[node name="Heal" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer4/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1
@@ -180,13 +180,13 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5/VBoxContainer"]
+[node name="DrawLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5/VBoxContainer"]
 layout_mode = 2
 text = "Draw"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5/VBoxContainer"]
+[node name="Draw" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer5/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1
@@ -203,13 +203,13 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6/VBoxContainer"]
+[node name="DiscardLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6/VBoxContainer"]
 layout_mode = 2
 text = "Discard"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6/VBoxContainer"]
+[node name="Discard" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer6/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1
@@ -226,13 +226,13 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7/VBoxContainer"]
+[node name="SpectacleLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 text = "Spectacle"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7/VBoxContainer"]
+[node name="Spectacle" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/StatsGridItemMargin/HBoxContainer/MarginContainer7/VBoxContainer"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 1
@@ -269,11 +269,13 @@ size_flags_horizontal = 4
 [node name="TargetRequiredLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer3/ModHBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
 text = "Target Required: "
 
 [node name="TargetRequired" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer3/ModHBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
 text = "Yes"
 vertical_alignment = 2
 
@@ -293,11 +295,13 @@ size_flags_horizontal = 4
 [node name="TypeLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer4/ModHBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
 text = "Type: "
 
 [node name="Type" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/TRTHBoxContainer2/MarginContainer4/ModHBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
 text = "Attack"
 vertical_alignment = 2
 
@@ -324,11 +328,13 @@ layout_mode = 2
 [node name="PositionLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer/PosHBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
 text = "Positon: "
 
 [node name="Position" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer/PosHBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
 text = "Upper
 "
 vertical_alignment = 2
@@ -349,11 +355,13 @@ size_flags_horizontal = 4
 [node name="ModifierLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer2/ModHBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 25
 text = "Modifier: "
 
 [node name="Modifier" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/PosModMargin/VBoxContainer/POSMODHBoxContainer/MarginContainer2/ModHBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 25
 text = "Grounded"
 vertical_alignment = 2
 
@@ -381,6 +389,7 @@ layout_mode = 2
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 30
 text = "Description:
 "
 
@@ -388,6 +397,7 @@ text = "Description:
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 20
 text = "Deal 3 damage. Grounds an enemy"
 autowrap_mode = 2
 
@@ -404,6 +414,7 @@ layout_mode = 2
 [node name="LoreLabel" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/DescriptionGridItemMargin2/VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_snjjf")
+theme_override_font_sizes/font_size = 30
 text = "Lore:
 "
 
@@ -411,5 +422,6 @@ text = "Lore:
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme = ExtResource("4_rk27n")
+theme_override_font_sizes/font_size = 20
 text = "Deal 3 damage. Grounds an enemy"
 autowrap_mode = 2
