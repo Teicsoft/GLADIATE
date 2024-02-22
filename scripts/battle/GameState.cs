@@ -105,6 +105,7 @@ public class GameState {
 
     private void DeselectDeadEnemy() {
         if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
+        SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
     }
 
     private void HideDeadEnemies()
