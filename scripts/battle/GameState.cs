@@ -69,8 +69,6 @@ public class GameState {
     }
 
     public void StartTurn() {
-        DeselectDeadEnemy();
-        HideDeadEnemies();
         GD.Print(" ==== ==== START TURN ==== ====");
         _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
         SpectacleBuffer = 0;
@@ -87,6 +85,8 @@ public class GameState {
             if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
             Hand.DiscardCard();
+            DeselectDeadEnemy();
+            HideDeadEnemies();
         }
     }
 
@@ -99,8 +99,6 @@ public class GameState {
             ComboPlayedCustomEvent?.Invoke(this, new ComboEventArgs(matchingCombo));
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
-        DeselectDeadEnemy();
-        HideDeadEnemies();
     }
 
     private void DeselectDeadEnemy() {
@@ -110,8 +108,7 @@ public class GameState {
 
     private void HideDeadEnemies()
     {
-        List<Enemy> deadEnemies = Enemies.FindAll(enemy => enemy.Health <= 0);
-        foreach (Enemy deadEnemy in deadEnemies)
+        foreach (Enemy deadEnemy in Enemies.FindAll(enemy => enemy.Health <= 0))
         {
             deadEnemy.Visible = false;
         }
@@ -185,6 +182,9 @@ public class GameState {
         Utils.RemoveEndTurnStatuses(Player);
 
         GD.Print(" ==== ====  END TURN  ==== ====");
+        
+        DeselectDeadEnemy();
+        HideDeadEnemies();
         StartTurn();
     }
 
