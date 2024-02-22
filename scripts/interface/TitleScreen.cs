@@ -49,16 +49,15 @@ public partial class TitleScreen : Control
         }
     }
 
-    private void OnGuiInput(InputEvent @event)
+    private void _on_start_button_pressed()
     {
-        if (@event is InputEventMouseButton mouseButton)
-        {
-            if (mouseButton.Pressed)
-            {
-                var sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
+        var sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
                 sceneLoader.GoToScene("res://scenes/Lore.tscn");
                 audioEngine.PlayMusic("whatdidtheromanseverdoforme.wav");
-            }
-        }
+    }
+    
+    private void _on_quit_button_pressed()
+    {
+    GetTree().Quit();
     }
 }
