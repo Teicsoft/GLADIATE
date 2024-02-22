@@ -9,7 +9,7 @@
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
         <draw>3</draw> <!--int-->
-        <discard>-3</discard> <!--int-->
+        <discard>3</discard> <!--int-->
         <spectacle_points>5</spectacle_points> <!--int-->
         <target_required>true</target_required> <!--true/false-->
     </stats>
