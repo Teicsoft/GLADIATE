@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://87kw3tjkavuh"]
+
+[ext_resource type="PackedScene" uid="uid://517fbrq52blj" path="res://scenes/glossary/card_glossary_item.tscn" id="1_subpl"]
+
+[node name="Glossary" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 3
+
+[node name="GlossaryItem" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+layout_mode = 2
+
+[node name="GlossaryItem2" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+layout_mode = 2
+
+[node name="GlossaryItem3" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+layout_mode = 2
+
+[node name="GlossaryItem4" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+layout_mode = 2
+
+[node name="GlossaryItem5" parent="ScrollContainer/VBoxContainer" instance=ExtResource("1_subpl")]
+layout_mode = 2
