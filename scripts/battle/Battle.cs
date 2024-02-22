@@ -68,6 +68,7 @@ public partial class Battle : Node2D {
         _gameState.Draw(4);
         if (sceneLoader.Health != 0) { _gameState.Player.Health = sceneLoader.Health; }
         sceneLoader.i += 1;
+        if (sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = sceneLoader.SpectaclePoints; }
     }
     private List<Enemy> CreateEnemies(List<string> enemyIds) {
         int idsCount = enemyIds.Count;
