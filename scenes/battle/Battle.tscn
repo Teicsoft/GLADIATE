@@ -79,7 +79,7 @@ offset_left = 860.0
 offset_top = 1.0
 offset_right = 1120.0
 offset_bottom = 65.0
-color = Color(0, 0, 0, 0.388235)
+color = Color(0, 0, 0, 0.698039)
 
 [node name="Healthbar Background" type="ColorRect" parent="HUD"]
 offset_left = 709.0
@@ -204,6 +204,7 @@ offset_top = 25.0
 offset_right = 986.0
 offset_bottom = 75.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 text = "Multiplier"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -214,6 +215,7 @@ offset_top = -8.0
 offset_right = 1085.0
 offset_bottom = 42.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 text = "SP"
 vertical_alignment = 1
 
@@ -232,6 +234,7 @@ offset_top = 32.0
 offset_right = 1100.0
 offset_bottom = 72.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.768627, 0.847059, 0.807843, 1)
 text = "1"
 vertical_alignment = 1
 
@@ -241,6 +244,7 @@ offset_top = -4.0
 offset_right = 1008.0
 offset_bottom = 36.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 text = "0"
 vertical_alignment = 1
 
@@ -250,6 +254,7 @@ offset_top = 69.0
 offset_right = 826.0
 offset_bottom = 109.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.776471, 0.854902, 0.811765, 1)
 text = "1"
 vertical_alignment = 1
 
@@ -369,14 +374,15 @@ texture_pressed = ExtResource("9_x3afa")
 
 [node name="Label" type="Label" parent="HUD/VBoxContainer/CardGlossaryButton"]
 layout_mode = 0
-offset_left = 4.0
+offset_left = 5.5
 offset_top = 2.0
-offset_right = 98.0
-offset_bottom = 25.0
+offset_right = 185.5
+offset_bottom = 44.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("7_bj4ys")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
-theme_override_font_sizes/font_size = 17
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
 text = "Card Glossary"
 horizontal_alignment = 1
 
@@ -388,14 +394,15 @@ texture_pressed = ExtResource("9_x3afa")
 
 [node name="Label" type="Label" parent="HUD/VBoxContainer/ComboGlossaryButton"]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 2.0
-offset_right = 98.0
-offset_bottom = 25.0
+offset_left = 5.5
+offset_top = 4.0
+offset_right = 209.5
+offset_bottom = 46.0
+scale = Vector2(0.45, 0.45)
 theme = ExtResource("7_bj4ys")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
-theme_override_font_sizes/font_size = 17
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
 text = "Combo Glossary"
 horizontal_alignment = 1
 
@@ -484,52 +491,52 @@ scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 flip_v = true
 
-[node name="Discard Area2" type="CanvasGroup" parent="."]
+[node name="Deck Area" type="CanvasGroup" parent="."]
 position = Vector2(1720, 1)
 
-[node name="Card-back-blood-spatter" type="Sprite2D" parent="Discard Area2"]
+[node name="Card-back-blood-spatter" type="Sprite2D" parent="Deck Area"]
 position = Vector2(101, 942)
 scale = Vector2(0.277017, 0.285396)
 texture = ExtResource("4_u6rcd")
 
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Deck Area"]
 position = Vector2(188, 818)
 texture = ExtResource("16_o3gvq")
 
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Deck Area"]
 position = Vector2(13, 818)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Deck Area"]
 position = Vector2(100.375, 811)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Deck Area"]
 position = Vector2(195, 941.366)
 rotation = 1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Deck Area"]
 position = Vector2(6, 942)
 rotation = -1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Deck Area"]
 position = Vector2(188, 1065)
 texture = ExtResource("16_o3gvq")
 flip_v = true
 
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Deck Area"]
 position = Vector2(13, 1065)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 flip_v = true
 
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Deck Area"]
 position = Vector2(100.375, 1072)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
