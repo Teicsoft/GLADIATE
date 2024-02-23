@@ -198,11 +198,25 @@ public class GameState {
     }
 
     private void CrowdPleasedCheck(int aliveEnemiesCount) {
+        GD.Print("");
+        GD.Print("v CrowdPleasedCheck v");
+        GD.Print("");
+
+        GD.Print("CrowdPleased: " + Player.Statuses.Contains(Utils.StatusEnum.CrowdPleased));
+        GD.Print("_turnStartEnemyCount");
+        GD.Print(_turnStartEnemyCount);
+        GD.Print("aliveEnemiesCount");
+        GD.Print(aliveEnemiesCount);
         if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemiesCount > _turnStartEnemyCount) {
             int enemiesDefeated = _turnStartEnemyCount - aliveEnemiesCount;
-            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
+            GD.Print("enemiesDefeated");
+            GD.Print(enemiesDefeated);
             Draw(enemiesDefeated * 2);
+            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
         }
+        GD.Print("");
+        GD.Print("^ CrowdPleasedCheck ^");
+        GD.Print("");
     }
 
     public void StartDiscarding() {

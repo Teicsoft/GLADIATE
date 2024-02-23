@@ -141,7 +141,7 @@ public partial class Battle : Node2D {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =
             _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
     }
-    
+
     private void MoveSelectedIndicator(object sender, EventArgs e)
     {
         GetNode<ColorRect>("HUD/SelectedIndicator").Position =

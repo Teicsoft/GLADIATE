@@ -23,7 +23,7 @@
 
     <text>
         <name>Calling Card</name> <!--string-->
-        <description> Draw 1. If this card kills an enemy, it permanantly gainss +1 atk/+5 SP </description> <!--string-->
+        <description>Draw 1. Attack 1. If this card kills an enemy, it permanantly gainss +1 atk/+5 SP </description> <!--string-->
         <lore>Signed with a fist</lore> <!--string-->
         <tooltip_text>Calling Card</tooltip_text> <!--string-->
         <onscreen_text>Calling Card</onscreen_text> <!--string-->
