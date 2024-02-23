@@ -102,6 +102,16 @@ public partial class Battle : Node2D {
             enemy.Deck = GetEnemyDeck(enemy.DeckId);
             enemy.Position = GetEnemyPosition(i, idsCount);
             enemy.EnemySelected += MoveSelectedIndicator;
+            
+            if (GD.Randi() % 2 % 2 == 0) {
+                GD.Print(i.ToString());
+                enemy.GetNode<Sprite2D>("EnemySprite").FlipH = false;
+            }
+            else
+            {
+                GD.Print(i.ToString());
+            }
+            
             AddChild(enemy);
             enemies.Add(enemy);
         }
