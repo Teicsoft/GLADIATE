@@ -74,6 +74,7 @@ public partial class Battle : Node2D {
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Hand.Deck.DeckShuffledCustomEvent += OnDeckShuffled;
+        _gameState.Player.PlayerModifierChangedCustomEvent += OnPlayerMofifierChanged;
         
         
         _gameState.Draw(4);
@@ -81,7 +82,21 @@ public partial class Battle : Node2D {
         sceneLoader.i += 1;
         if (sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = sceneLoader.SpectaclePoints; }
     }
-    
+
+    private void OnPlayerMofifierChanged(object sender, EventArgs e)
+    {
+        TextureRect PlayerModifierIcon = GetNode<TextureRect>("HUD/PlayerModifierIcon");
+        if (_gameState.Player.Modifier == Utils.ModifierEnum.None)
+        {
+            PlayerModifierIcon.Visible = false;
+        }
+        else
+        {
+            PlayerModifierIcon.Texture = (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_gameState.Player.Modifier}.png");
+            PlayerModifierIcon.Visible = true;
+        }
+    }
+
     private List<Enemy> CreateEnemies(List<string> enemyIds) {
         int idsCount = enemyIds.Count;
         List<Enemy> enemies = new();
