@@ -7,7 +7,7 @@ namespace GLADIATE.scripts.battle.target;
 
 public partial class Enemy : Node2D, ITarget {
     [Signal] public delegate void EnemySelectedEventHandler(Enemy enemy);
-    
+
     public event EventHandler EnemyHealthChangedCustomEvent;
     public event EventHandler EnemyDefenseLowerChangedCustomEvent;
     public event EventHandler EnemyDefenseUpperChangedCustomEvent;
@@ -19,7 +19,7 @@ public partial class Enemy : Node2D, ITarget {
     public string Lore { get; set; }
     public string DeckId { get; set; }
     private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
-    
+
     public Color Color;
     public Deck<Card> Deck;
     private int _health;
@@ -28,27 +28,19 @@ public partial class Enemy : Node2D, ITarget {
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
 
-    public Utils.ModifierEnum Modifier
-    {
+    public Utils.ModifierEnum Modifier {
         get => _modifier;
-        set
-        {
+        set {
             _modifier = value;
 
             TextureRect icon = GetNode<TextureRect>("ModifierIcon");
-            if (value == Utils.ModifierEnum.None)
-            {
-                icon.Visible = false;
-            }
-            else
-            {
+            if (value == Utils.ModifierEnum.None) { icon.Visible = false; } else {
                 icon.Visible = true;
                 icon.Texture = (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_modifier}.png");
             }
-
         }
-    } 
-    
+    }
+
     public int Health {
         get => _health;
         set {
