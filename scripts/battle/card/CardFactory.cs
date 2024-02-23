@@ -88,7 +88,7 @@ public static class CardFactory {
     private static Dictionary<string, Func<Card>> TypeDictionary = new() {
         { "card_reckless", () => new StunCard() },
         { "card_Spartackle", () => new Spartackle() },
-        { "card_BloodOnTheSand", () => new SelfDamageCard() },
+        { "card_BloodOnTheSand", () => new BloodOnSand() },
         { "card_gladius", () => new Gladius() },
         { "card_Grapple", () => new ModifierCard() },
         { "card_FlyingCrossBody", () => new FlyingCrossBody() },
