@@ -66,7 +66,7 @@ public partial class Enemy : Node2D, ITarget {
             
             _defenseUpper = value;
             UpdateDefenseUpperDisplay();
-            EnemyDefenseUpperChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            EnemyDefenseUpperChangedCustomEvent?.Invoke(this, args);
         }
     }
 
