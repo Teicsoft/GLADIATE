@@ -246,9 +246,29 @@ public partial class Battle : Node2D {
 
     private void OnComboDisplayTimeout() { GetNode<Label>("HUD/ComboDisplay").Text = ""; }
 
-    private void OnPlayerHealthChanged(object sender, EventArgs e) { OnPlayerHealthChanged(); }
-    private void OnPlayerDefenseUpperChanged(object sender, EventArgs e) { OnPlayerDefenseUpperChanged(); }
-    private void OnPlayerDefenseLowerChanged(object sender, EventArgs e) { OnPlayerDefenseLowerChanged(); }
+    private void OnPlayerHealthChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        GD.Print("Player health went " + directionEventArgs.Direction);
+        
+        OnPlayerHealthChanged();
+    }
+
+    private void OnPlayerDefenseUpperChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        GD.Print("Player Upper Defense value went " + directionEventArgs.Direction);
+        
+        OnPlayerDefenseUpperChanged();
+    }
+
+    private void OnPlayerDefenseLowerChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        GD.Print("Player Lower Defense value went " + directionEventArgs.Direction);
+        
+        OnPlayerDefenseLowerChanged();
+    }
     private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
     private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }

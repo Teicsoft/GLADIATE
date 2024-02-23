@@ -20,24 +20,39 @@ public partial class Player : Node2D, ITarget {
     public int Health {
         get => _health;
         set {
+            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
+            if (_health > value) { args.Direction = "down"; }
+            else if (_health < value) { args.Direction = "up"; }
+            else { args.Direction = "none"; }
+            
             _health = value;
-            PlayerHealthChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerHealthChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseLower {
         get => _defenseLower;
         set {
+            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
+            if (_defenseLower > value) { args.Direction = "down"; }
+            else if (_defenseLower < value) { args.Direction = "up"; }
+            else { args.Direction = "none"; }
+            
             _defenseLower = value;
-            PlayerDefenseLowerChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerDefenseLowerChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseUpper {
         get => _defenseUpper;
         set {
+            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
+            if (_defenseUpper > value) { args.Direction = "down"; }
+            else if (_defenseUpper < value) { args.Direction = "up"; }
+            else { args.Direction = "none"; }
+            
             _defenseUpper = value;
-            PlayerDefenseUpperChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerDefenseUpperChangedCustomEvent?.Invoke(this, args);
         }
     }
 

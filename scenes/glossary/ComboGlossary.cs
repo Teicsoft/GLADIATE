@@ -42,7 +42,6 @@ public partial class ComboGlossary : Control
             {
                 Label label = new Godot.Label();
                 label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[card.Id].CardName;
-                GD.Print("Card name: " + CardPrototypes.cardPrototypeDict[card.Id].CardName);
                 cardList.AddChild(label);
                 i++;
             }
@@ -53,7 +52,6 @@ public partial class ComboGlossary : Control
     
     private void OnComboGlossaryButtonPressed()
     {
-        GD.Print("test");
         GetTree().Paused = true;
         Show();
     }
