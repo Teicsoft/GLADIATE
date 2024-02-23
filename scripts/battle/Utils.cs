@@ -65,4 +65,12 @@ public static class Utils {
     public class DirectionEventArgs : EventArgs {
         public string Direction { get; set; }
     }
+    
+    public static DirectionEventArgs CheckDirection (int oldValue, int newValue){
+        DirectionEventArgs args = new DirectionEventArgs();
+        if (oldValue > newValue) { args.Direction = "down"; }
+        else if (oldValue < newValue) { args.Direction = "up"; }
+        else { args.Direction = "none"; }
+        return args;
+    }
 }

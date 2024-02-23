@@ -31,11 +31,7 @@ public partial class Enemy : Node2D, ITarget {
     public int Health {
         get => _health;
         set {
-            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
-            if (_health > value) { args.Direction = "down"; }
-            else if (_health < value) { args.Direction = "up"; }
-            else { args.Direction = "none"; }
-            
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_health, value);
             _health = value;
             UpdateHealthBar();
             EnemyHealthChangedCustomEvent?.Invoke(this, args);
@@ -45,11 +41,7 @@ public partial class Enemy : Node2D, ITarget {
     public int DefenseLower {
         get => _defenseLower;
         set {
-            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
-            if (_defenseLower > value) { args.Direction = "down"; }
-            else if (_defenseLower < value) { args.Direction = "up"; }
-            else { args.Direction = "none"; }
-            
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseLower, value);
             _defenseLower = value;
             UpdateDefenseLowerDisplay();
             EnemyDefenseLowerChangedCustomEvent?.Invoke(this, args);
@@ -59,11 +51,7 @@ public partial class Enemy : Node2D, ITarget {
     public int DefenseUpper {
         get => _defenseUpper;
         set {
-            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
-            if (_defenseUpper > value) { args.Direction = "down"; }
-            else if (_defenseUpper < value) { args.Direction = "up"; }
-            else { args.Direction = "none"; }
-            
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseUpper, value);
             _defenseUpper = value;
             UpdateDefenseUpperDisplay();
             EnemyDefenseUpperChangedCustomEvent?.Invoke(this, args);

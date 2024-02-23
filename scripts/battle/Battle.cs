@@ -73,6 +73,9 @@ public partial class Battle : Node2D {
         _gameState.ComboStackChangedCustomEvent += OnComboStackChanged;
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
+        _gameState.Hand.Deck.DeckShuffledCustomEvent += OnDeckShuffled;
+        
+        
         _gameState.Draw(4);
         if (sceneLoader.Health != 0) { _gameState.Player.Health = sceneLoader.Health; }
         sceneLoader.i += 1;
@@ -188,21 +191,21 @@ public partial class Battle : Node2D {
     {
         //todo Particle effect control here
         Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
-        GD.Print("Enemy health went " + directionEventArgs.Direction);
+        // GD.Print("Enemy health went " + directionEventArgs.Direction);
     }
     
     private void OnEnemyDefenseUpperChanged(object sender, EventArgs e)
     {
         //todo Particle effect control here
         Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
-        GD.Print("Enemy Upper Defense value went " + directionEventArgs.Direction);
+        // GD.Print("Enemy Upper Defense value went " + directionEventArgs.Direction);
     }
 
     private void OnEnemyDefenseLowerChanged(object sender, EventArgs e)
     {
         //todo Particle effect control here
         Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
-        GD.Print("Enemy Lower Defense value went " + directionEventArgs.Direction);
+        // GD.Print("Enemy Lower Defense value went " + directionEventArgs.Direction);
     }
     
     
@@ -249,7 +252,7 @@ public partial class Battle : Node2D {
     private void OnPlayerHealthChanged(object sender, EventArgs e)
     {
         Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
-        GD.Print("Player health went " + directionEventArgs.Direction);
+        // GD.Print("Player health went " + directionEventArgs.Direction);
         
         OnPlayerHealthChanged();
     }
@@ -257,7 +260,7 @@ public partial class Battle : Node2D {
     private void OnPlayerDefenseUpperChanged(object sender, EventArgs e)
     {
         Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
-        GD.Print("Player Upper Defense value went " + directionEventArgs.Direction);
+        // GD.Print("Player Upper Defense value went " + directionEventArgs.Direction);
         
         OnPlayerDefenseUpperChanged();
     }
@@ -265,13 +268,28 @@ public partial class Battle : Node2D {
     private void OnPlayerDefenseLowerChanged(object sender, EventArgs e)
     {
         Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
-        GD.Print("Player Lower Defense value went " + directionEventArgs.Direction);
+        // GD.Print("Player Lower Defense value went " + directionEventArgs.Direction);
         
         OnPlayerDefenseLowerChanged();
     }
-    private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
-    private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
+
+    private void OnMultiplierChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Multiplier value went " + directionEventArgs.Direction);
+        
+        OnMultiplierChanged();
+    }
+
+    private void OnSpectacleChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Spectacle Points value went " + directionEventArgs.Direction);
+        
+        OnSpectacleChanged();
+    }
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
 
+    private void OnDeckShuffled(object sender, EventArgs e) { GD.Print(" Deck Shuffled "); }
     public override string ToString() { return $"Battle: {BattleName}({Id})"; }
 }
