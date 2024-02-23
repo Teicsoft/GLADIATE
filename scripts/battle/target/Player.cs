@@ -8,11 +8,22 @@ public partial class Player : Node2D, ITarget {
     public event EventHandler PlayerHealthChangedCustomEvent;
     public event EventHandler PlayerDefenseLowerChangedCustomEvent;
     public event EventHandler PlayerDefenseUpperChangedCustomEvent;
+    public event EventHandler PlayerModifierChangedCustomEvent;
 
     public string Name { get; set; }
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
-    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
+    
+    private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
+    public Utils.ModifierEnum Modifier
+    {
+        get => _modifier;
+        set {
+            _modifier = value;
+            PlayerModifierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        }
+    } 
+    
     private int _health;
     private int _defenseLower = 0;
     private int _defenseUpper = 1;

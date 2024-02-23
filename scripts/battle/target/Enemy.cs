@@ -18,8 +18,8 @@ public partial class Enemy : Node2D, ITarget {
     public string SoundEffect { get; set; }
     public string Lore { get; set; }
     public string DeckId { get; set; }
-
-    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
+    private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
+    
     public Color Color;
     public Deck<Card> Deck;
     private int _health;
@@ -28,6 +28,27 @@ public partial class Enemy : Node2D, ITarget {
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
 
+    public Utils.ModifierEnum Modifier
+    {
+        get => _modifier;
+        set
+        {
+            _modifier = value;
+
+            TextureRect icon = GetNode<TextureRect>("ModifierIcon");
+            if (value == Utils.ModifierEnum.None)
+            {
+                icon.Visible = false;
+            }
+            else
+            {
+                icon.Visible = true;
+                icon.Texture = (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_modifier}.png");
+            }
+
+        }
+    } 
+    
     public int Health {
         get => _health;
         set {
