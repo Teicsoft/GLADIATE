@@ -198,6 +198,7 @@ public class GameState {
     }
 
     private void CrowdPleasedCheck(int aliveEnemiesCount) {
+        if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemiesCount < _turnStartEnemyCount) {
             int enemiesDefeated = _turnStartEnemyCount - aliveEnemiesCount;
             Draw(enemiesDefeated * 2);
             SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
