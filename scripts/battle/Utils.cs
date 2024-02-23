@@ -60,6 +60,7 @@ public static class Utils {
         DoubleDamage,
         StayJuggled,
         GetScars,
+        OpenedRecklessly,
     }
     
     public class DirectionEventArgs : EventArgs {

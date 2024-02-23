@@ -2,7 +2,9 @@
 
 public class GratuitousBackflip : Combo {
     public override void Play(GameState gameState) {
-        // TODO: if Reckless Open (last card in combo) blocked, player stunned
+        if (gameState.Player.Statuses.Contains(Utils.StatusEnum.OpenedRecklessly)) {
+            gameState.Player.Stun();
+        }
         base.Play(gameState);
     }
 }

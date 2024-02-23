@@ -88,6 +88,7 @@ public class GameState {
             cardSleeve.Card.Play(this, selectedEnemy, Player);
             if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
+            Player.Statuses.Remove(Utils.StatusEnum.OpenedRecklessly);
             Hand.DiscardCard();
             DeselectDeadEnemy();
             HideDeadEnemies();
