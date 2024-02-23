@@ -23,7 +23,7 @@ public partial class CardSleeve : Control {
         GetNode<Label>("Background/SpectaclePoints").Text = Card.SpectaclePoints.ToString();
         GetNode<TextureRect>("Background/CardTypeIndicator").Texture =
             (Texture2D)GD.Load($"res://assets/images/Cards/Type Icons/{Card.CardType}.png");
-        
+
         GetNode<TextureRect>("Background/CardPositionIndicator").Texture =
             (Texture2D)GD.Load($"res://assets/images/Cards/Positon Icons/{Card.TargetPosition}.png");
 

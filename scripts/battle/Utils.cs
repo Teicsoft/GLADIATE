@@ -60,6 +60,7 @@ public static class Utils {
         DoubleDamage,
         StayJuggled,
         GetScars,
+        OpenedRecklessly,
     }
     
     public class DirectionEventArgs : EventArgs {
@@ -72,5 +73,10 @@ public static class Utils {
         else if (oldValue < newValue) { args.Direction = "up"; }
         else { args.Direction = "none"; }
         return args;
+    }
+
+    public static PositionEnum GetRandomPosition() {
+        Array values = Enum.GetValues(typeof(PositionEnum));
+        return (PositionEnum)values.GetValue(GD.Randi() % values.Length);
     }
 }
