@@ -1,4 +1,5 @@
-﻿using GLADIATE.scripts.battle.card;
+﻿using System;
+using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.battle.target;
 using Godot;
 
@@ -59,5 +60,9 @@ public static class Utils {
         DoubleDamage,
         StayJuggled,
         GetScars,
+    }
+    
+    public class DirectionEventArgs : EventArgs {
+        public string Direction { get; set; }
     }
 }

@@ -187,21 +187,21 @@ public partial class Battle : Node2D {
     private void OnEnemyHealthChanged(object sender, EventArgs e)
     {
         //todo Particle effect control here
-        DirectionEventArgs directionEventArgs = (DirectionEventArgs) e;
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
         GD.Print("Enemy health went " + directionEventArgs.Direction);
     }
     
     private void OnEnemyDefenseUpperChanged(object sender, EventArgs e)
     {
         //todo Particle effect control here
-        DirectionEventArgs directionEventArgs = (DirectionEventArgs) e;
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
         GD.Print("Enemy Upper Defense value went " + directionEventArgs.Direction);
     }
 
     private void OnEnemyDefenseLowerChanged(object sender, EventArgs e)
     {
         //todo Particle effect control here
-        DirectionEventArgs directionEventArgs = (DirectionEventArgs) e;
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
         GD.Print("Enemy Lower Defense value went " + directionEventArgs.Direction);
     }
     

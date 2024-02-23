@@ -31,7 +31,7 @@ public partial class Enemy : Node2D, ITarget {
     public int Health {
         get => _health;
         set {
-            DirectionEventArgs args = new DirectionEventArgs();
+            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
             if (_health > value) { args.Direction = "down"; }
             else if (_health < value) { args.Direction = "up"; }
             else { args.Direction = "none"; }
@@ -45,7 +45,7 @@ public partial class Enemy : Node2D, ITarget {
     public int DefenseLower {
         get => _defenseLower;
         set {
-            DirectionEventArgs args = new DirectionEventArgs();
+            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
             if (_defenseLower > value) { args.Direction = "down"; }
             else if (_defenseLower < value) { args.Direction = "up"; }
             else { args.Direction = "none"; }
@@ -59,7 +59,7 @@ public partial class Enemy : Node2D, ITarget {
     public int DefenseUpper {
         get => _defenseUpper;
         set {
-            DirectionEventArgs args = new DirectionEventArgs();
+            Utils.DirectionEventArgs args = new Utils.DirectionEventArgs();
             if (_defenseUpper > value) { args.Direction = "down"; }
             else if (_defenseUpper < value) { args.Direction = "up"; }
             else { args.Direction = "none"; }
@@ -196,9 +196,4 @@ public partial class Enemy : Node2D, ITarget {
         Label cardPlayedLabel = GetNode<Label>("CardPlayed");
         cardPlayedLabel.Visible = false;
     }
-}
-
-
-public class DirectionEventArgs : EventArgs {
-    public string Direction { get; set; }
 }
