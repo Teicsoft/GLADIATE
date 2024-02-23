@@ -5,8 +5,6 @@ using Godot;
 namespace GLADIATE.scripts.battle.card;
 
 public class Card {
-    public Color color { get; set; }
-
     public string Id { get; set; } // card_id
     public string CardType { get; set; } // card_type
     public bool TargetRequired { get; set; }
@@ -63,10 +61,6 @@ public class Card {
         AnimationPath = animationPath;
         SoundPath = soundPath;
 
-        // todo this section is just for testing, remove later
-        // Colour is a test feature, to help with debugging
-        color = new Color(1, 1, 1);
-
         return this;
     }
 
@@ -106,7 +100,6 @@ public class Card {
             CardDraw, Discard, SpectaclePoints, CardName, Description, Lore, Tooltip, ImagePath, AnimationPath,
             SoundPath
         );
-        card.color = new Color(color.R, color.G, color.B);
         return card;
     }
 

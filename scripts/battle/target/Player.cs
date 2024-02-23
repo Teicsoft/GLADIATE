@@ -106,8 +106,7 @@ public partial class Player : Node2D, ITarget {
             DefenseUpper = 0;
             DefenseLower = 0;
         } else {
-            // TODO: Figure this out.
-            // End turn immediately?
+            Statuses.Add(Utils.StatusEnum.Stunned);
         }
     }
 
