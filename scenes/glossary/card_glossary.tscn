@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://87kw3tjkavuh"]
 
 [ext_resource type="Script" path="res://scenes/glossary/CardGlossary.cs" id="1_58lte"]
-[ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="2_vsixs"]
-[ext_resource type="Texture2D" uid="uid://c3i31cb0fpl1w" path="res://assets/ui/large_button_pressed.png" id="3_1nqo2"]
+[ext_resource type="Texture2D" uid="uid://heqmjxxmnfht" path="res://assets/ui/small_button.png" id="2_kkd06"]
+[ext_resource type="Texture2D" uid="uid://cap1fcxrq5a15" path="res://assets/ui/small_button_pressed.png" id="3_ngsd7"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="4_3434f"]
 
 [node name="CardGlossary" type="Control"]
@@ -36,19 +36,20 @@ offset_top = 9.0
 offset_right = 110.0
 offset_bottom = 46.0
 scale = Vector2(2, 2)
-texture_normal = ExtResource("2_vsixs")
-texture_pressed = ExtResource("3_1nqo2")
+texture_normal = ExtResource("2_kkd06")
+texture_pressed = ExtResource("3_ngsd7")
 
 [node name="Label" type="Label" parent="CardGlossaryButton"]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 2.0
-offset_right = 97.0
-offset_bottom = 25.0
+offset_left = 10.5
+offset_top = -1.0
+offset_right = 58.5
+offset_bottom = 41.0
+scale = Vector2(0.7, 0.7)
 theme = ExtResource("4_3434f")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
 text = "Exit"
 horizontal_alignment = 1
 vertical_alignment = 1

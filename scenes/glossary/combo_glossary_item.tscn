@@ -42,7 +42,8 @@ theme_override_constants/margin_bottom = 55
 [node name="ComboName" type="Label" parent="VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin"]
 layout_mode = 2
 theme = ExtResource("1_jfqnu")
-theme_override_font_sizes/font_size = 50
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 56
 text = "Combo Name"
 horizontal_alignment = 1
 
