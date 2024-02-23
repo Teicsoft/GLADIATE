@@ -7,6 +7,10 @@ namespace GLADIATE.scripts.battle.target;
 
 public partial class Enemy : Node2D, ITarget {
     [Signal] public delegate void EnemySelectedEventHandler(Enemy enemy);
+    
+    public event EventHandler EnemyHealthChangedCustomEvent;
+    public event EventHandler EnemyDefenseLowerChangedCustomEvent;
+    public event EventHandler EnemyDefenseUpperChangedCustomEvent;
 
     public string Id { get; set; }
     public string Name { get; set; }
@@ -27,24 +31,42 @@ public partial class Enemy : Node2D, ITarget {
     public int Health {
         get => _health;
         set {
+            DirectionEventArgs args = new DirectionEventArgs();
+            if (_health > value) { args.Direction = "down"; }
+            else if (_health < value) { args.Direction = "up"; }
+            else { args.Direction = "none"; }
+            
             _health = value;
             UpdateHealthBar();
+            EnemyHealthChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseLower {
         get => _defenseLower;
         set {
+            DirectionEventArgs args = new DirectionEventArgs();
+            if (_defenseLower > value) { args.Direction = "down"; }
+            else if (_defenseLower < value) { args.Direction = "up"; }
+            else { args.Direction = "none"; }
+            
             _defenseLower = value;
             UpdateDefenseLowerDisplay();
+            EnemyDefenseLowerChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseUpper {
         get => _defenseUpper;
         set {
+            DirectionEventArgs args = new DirectionEventArgs();
+            if (_defenseUpper > value) { args.Direction = "down"; }
+            else if (_defenseUpper < value) { args.Direction = "up"; }
+            else { args.Direction = "none"; }
+            
             _defenseUpper = value;
             UpdateDefenseUpperDisplay();
+            EnemyDefenseUpperChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -174,4 +196,9 @@ public partial class Enemy : Node2D, ITarget {
         Label cardPlayedLabel = GetNode<Label>("CardPlayed");
         cardPlayedLabel.Visible = false;
     }
+}
+
+
+public class DirectionEventArgs : EventArgs {
+    public string Direction { get; set; }
 }

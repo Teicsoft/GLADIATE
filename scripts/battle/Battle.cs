@@ -58,6 +58,14 @@ public partial class Battle : Node2D {
         _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
         _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
         _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
+
+        foreach (Enemy enemy in _gameState.Enemies)
+        {
+            enemy.EnemyHealthChangedCustomEvent += OnEnemyHealthChanged;
+            enemy.EnemyDefenseLowerChangedCustomEvent += OnEnemyDefenseLowerChanged;
+            enemy.EnemyDefenseUpperChangedCustomEvent += OnEnemyDefenseUpperChanged;
+        }
+        
         _gameState.SelectedEnemyIndexChangedCustomEvent += MoveSelectedIndicator;
         _gameState.MultiplierChangedCustomEvent += OnMultiplierChanged;
         _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
@@ -70,6 +78,7 @@ public partial class Battle : Node2D {
         sceneLoader.i += 1;
         if (sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = sceneLoader.SpectaclePoints; }
     }
+    
     private List<Enemy> CreateEnemies(List<string> enemyIds) {
         int idsCount = enemyIds.Count;
         List<Enemy> enemies = new();
@@ -175,6 +184,28 @@ public partial class Battle : Node2D {
         GetNode<Label>("HUD/PlayerLowerBlockDisplay").Text = _gameState.Player.DefenseLower.ToString();
     }
 
+    private void OnEnemyHealthChanged(object sender, EventArgs e)
+    {
+        //todo Particle effect control here
+        DirectionEventArgs directionEventArgs = (DirectionEventArgs) e;
+        GD.Print("Enemy health went " + directionEventArgs.Direction);
+    }
+    
+    private void OnEnemyDefenseUpperChanged(object sender, EventArgs e)
+    {
+        //todo Particle effect control here
+        DirectionEventArgs directionEventArgs = (DirectionEventArgs) e;
+        GD.Print("Enemy Upper Defense value went " + directionEventArgs.Direction);
+    }
+
+    private void OnEnemyDefenseLowerChanged(object sender, EventArgs e)
+    {
+        //todo Particle effect control here
+        DirectionEventArgs directionEventArgs = (DirectionEventArgs) e;
+        GD.Print("Enemy Lower Defense value went " + directionEventArgs.Direction);
+    }
+    
+    
     private void OnMultiplierChanged() {
         GetNode<Label>("HUD/MultiplierDisplay").Text = _gameState.Multiplier.ToString();
     }
