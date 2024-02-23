@@ -7,7 +7,7 @@ namespace GLADIATE.scripts.battle.card;
 public class FlyingCrossBody : Card {
     public override void Play(GameState gameState, ITarget target, ITarget player) {
         if (player is not Enemy) {
-            List<Enemy> aliveEnemies = gameState.Enemies.FindAll(e => e.Health > 0);
+            List<Enemy> aliveEnemies = gameState.GetAliveEnemies();
             foreach (Enemy enemy in aliveEnemies) {
                 enemy.Damage((int)Math.Floor((double)Attack / aliveEnemies.Count), TargetPosition);
             }

@@ -72,7 +72,7 @@ public class GameState {
 
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
-        _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
+        _turnStartEnemyCount = GetAliveEnemies().Count;
         SpectacleBuffer = 0;
         if (Player.IsStunned()) { EndTurn(); } else { Draw(); }
     }
@@ -101,19 +101,6 @@ public class GameState {
             ComboPlayedCustomEvent?.Invoke(this, new ComboEventArgs(matchingCombo));
             ProcessCombo(matchingCombo);
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
-    }
-
-    private void DeselectDeadEnemy() {
-        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
-        SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void HideDeadEnemies()
-    {
-        foreach (Enemy deadEnemy in Enemies.FindAll(enemy => enemy.Health <= 0))
-        {
-            deadEnemy.Visible = false;
-        }
     }
 
     public void PushCardStack(Card card) { ComboStack.Add(card); }
@@ -176,17 +163,16 @@ public class GameState {
         }
 
         ProcessCombo(null);
-        List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
-        CrowdPleasedCheck(aliveEnemies.Count);
-        if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
-            TakeEnemyTurns(aliveEnemies);
+        CrowdPleasedCheck(GetAliveEnemies().Count);
+        if (GetAliveEnemies().Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
+            TakeEnemyTurns(GetAliveEnemies());
         }
         Utils.RemoveEndTurnStatuses(Player);
 
-        GD.Print(" ==== ====  END TURN  ==== ====");
-        
         DeselectDeadEnemy();
         HideDeadEnemies();
+
+        GD.Print(" ==== ====  END TURN  ==== ====");
         StartTurn();
     }
 
@@ -262,6 +248,19 @@ public class GameState {
             _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
             SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public List<Enemy> GetAliveEnemies() { return Enemies.FindAll(e => e.Health > 0); }
+
+    public List<Enemy> GetDeadEnemies() { return Enemies.FindAll(e => e.Health <= 0); }
+
+    private void DeselectDeadEnemy() {
+        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
+        SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void HideDeadEnemies() {
+        foreach (Enemy deadEnemy in GetDeadEnemies()) { deadEnemy.Visible = false; }
     }
 
     public override string ToString() {
