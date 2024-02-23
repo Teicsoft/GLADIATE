@@ -93,7 +93,7 @@ public static class CardFactory {
         { "card_Grapple", () => new ModifierCard() },
         { "card_FlyingCrossBody", () => new FlyingCrossBody() },
         { "card_DropKick", () => new Dropkick() },
-        { "card_headbutt", () => new SelfDamageCard() },
+        { "card_headbutt", () => new Headbutt() },
         { "card_JudoThrow", () => new JudoThrow() },
         { "card_KipUp", () => new KipUp() },
         { "card_Throw", () => new ModifierCard() },
