@@ -73,4 +73,9 @@ public static class Utils {
         else { args.Direction = "none"; }
         return args;
     }
+
+    public static PositionEnum GetRandomPosition() {
+        Array values = Enum.GetValues(typeof(PositionEnum));
+        return (PositionEnum)values.GetValue(GD.Randi() % values.Length);
+    }
 }
