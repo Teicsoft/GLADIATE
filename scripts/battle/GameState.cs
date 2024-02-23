@@ -115,10 +115,6 @@ public class GameState {
 
     public Combo ComboCompare() {
         List<string> _blockCards = CardPrototypes.cardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block").Select(kvp => kvp.Value.Id).ToList();
-        foreach (string blockCard in _blockCards)
-        {
-            GD.Print("Block card: " + blockCard);
-        }
         
         foreach (Combo combo in AllCombos) {
             int count = combo.CardList.Count;

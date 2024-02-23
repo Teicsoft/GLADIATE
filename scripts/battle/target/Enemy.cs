@@ -105,6 +105,7 @@ public partial class Enemy : Node2D, ITarget {
         UpdateHealthBar();
         UpdateDefenseUpperDisplay();
         UpdateDefenseLowerDisplay();
+        GetNode<Label>("EnemyName").Text = Name;
 
         GetNode<Sprite2D>("EnemySprite").Texture = (Texture2D)GD.Load(Image);
     }
