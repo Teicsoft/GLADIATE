@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.battle.target;
 using GLADIATE.scripts.XmlParsing;
@@ -118,9 +119,14 @@ public class GameState {
 
     public void PushCardStack(Card card) { ComboStack.Add(card); }
     
-    private List<string> _blockCards = new List<string> { "card_LowerBlock", "card_UpperBlock", "card_FullBlock" };
 
     public Combo ComboCompare() {
+        List<string> _blockCards = CardPrototypes.cardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block").Select(kvp => kvp.Value.Id).ToList();
+        foreach (string blockCard in _blockCards)
+        {
+            GD.Print("Block card: " + blockCard);
+        }
+        
         foreach (Combo combo in AllCombos) {
             int count = combo.CardList.Count;
             if (ComboStack.Count < count) { continue; }
