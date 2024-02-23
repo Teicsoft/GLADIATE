@@ -46,8 +46,10 @@ public partial class Hand : Path2D {
     public void DiscardCard(CardSleeve cardSleeve) {
         cardSleeve.CardSelected -= SelectCard;
         Discard.AddCard(cardSleeve);
-        Cards.RemoveAt(_selectedCardIndex);
-        _selectedCardIndex = -1;
+        if (_selectedCardIndex == -1) { Cards.Remove(cardSleeve); } else {
+            Cards.RemoveAt(_selectedCardIndex);
+            _selectedCardIndex = -1;
+        }
         RemoveChild(cardSleeve);
         UpdateCardPositions();
     }
