@@ -27,6 +27,7 @@ public class GameState {
     private int _discards;
     private int _turnStartEnemyCount;
     private int _selectedEnemyIndex = -1;
+    public int TurnDamageCount;
 
     public int Discards {
         get => _discards;
@@ -73,6 +74,7 @@ public class GameState {
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
         _turnStartEnemyCount = GetAliveEnemies().Count;
+        TurnDamageCount = 0;
         SpectacleBuffer = 0;
         if (Player.IsStunned()) { EndTurn(); } else { Draw(); }
     }
