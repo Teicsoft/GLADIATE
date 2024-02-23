@@ -92,6 +92,9 @@ public class GameState {
             Hand.DiscardCard();
             DeselectDeadEnemy();
             HideDeadEnemies();
+            if (Hand.Cards.Count == 0) {
+                EndTurn();
+            }
         }
     }
 
@@ -226,6 +229,9 @@ public class GameState {
     private void SelectedDiscard(CardSleeve sleeve) {
         Discards--;
         Hand.DiscardCard(sleeve);
+        if (Hand.Cards.Count == 0) {
+            EndTurn();
+        }
     }
 
     // Enemy methods
