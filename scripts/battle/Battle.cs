@@ -58,6 +58,14 @@ public partial class Battle : Node2D {
         _gameState.Player.PlayerHealthChangedCustomEvent += OnPlayerHealthChanged;
         _gameState.Player.PlayerDefenseLowerChangedCustomEvent += OnPlayerDefenseLowerChanged;
         _gameState.Player.PlayerDefenseUpperChangedCustomEvent += OnPlayerDefenseUpperChanged;
+
+        foreach (Enemy enemy in _gameState.Enemies)
+        {
+            enemy.EnemyHealthChangedCustomEvent += OnEnemyHealthChanged;
+            enemy.EnemyDefenseLowerChangedCustomEvent += OnEnemyDefenseLowerChanged;
+            enemy.EnemyDefenseUpperChangedCustomEvent += OnEnemyDefenseUpperChanged;
+        }
+        
         _gameState.SelectedEnemyIndexChangedCustomEvent += MoveSelectedIndicator;
         _gameState.MultiplierChangedCustomEvent += OnMultiplierChanged;
         _gameState.SpectacleChangedCustomEvent += OnSpectacleChanged;
@@ -65,10 +73,30 @@ public partial class Battle : Node2D {
         _gameState.ComboStackChangedCustomEvent += OnComboStackChanged;
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
+        _gameState.Hand.Deck.DeckShuffledCustomEvent += OnDeckShuffled;
+        _gameState.Player.PlayerModifierChangedCustomEvent += OnPlayerMofifierChanged;
+        
+        
         _gameState.Draw(4);
         if (sceneLoader.Health != 0) { _gameState.Player.Health = sceneLoader.Health; }
         sceneLoader.i += 1;
+        if (sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = sceneLoader.SpectaclePoints; }
     }
+
+    private void OnPlayerMofifierChanged(object sender, EventArgs e)
+    {
+        TextureRect PlayerModifierIcon = GetNode<TextureRect>("HUD/PlayerModifierIcon");
+        if (_gameState.Player.Modifier == Utils.ModifierEnum.None)
+        {
+            PlayerModifierIcon.Visible = false;
+        }
+        else
+        {
+            PlayerModifierIcon.Texture = (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_gameState.Player.Modifier}.png");
+            PlayerModifierIcon.Visible = true;
+        }
+    }
+
     private List<Enemy> CreateEnemies(List<string> enemyIds) {
         int idsCount = enemyIds.Count;
         List<Enemy> enemies = new();
@@ -174,6 +202,28 @@ public partial class Battle : Node2D {
         GetNode<Label>("HUD/PlayerLowerBlockDisplay").Text = _gameState.Player.DefenseLower.ToString();
     }
 
+    private void OnEnemyHealthChanged(object sender, EventArgs e)
+    {
+        //todo Particle effect control here
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Enemy health went " + directionEventArgs.Direction);
+    }
+    
+    private void OnEnemyDefenseUpperChanged(object sender, EventArgs e)
+    {
+        //todo Particle effect control here
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Enemy Upper Defense value went " + directionEventArgs.Direction);
+    }
+
+    private void OnEnemyDefenseLowerChanged(object sender, EventArgs e)
+    {
+        //todo Particle effect control here
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Enemy Lower Defense value went " + directionEventArgs.Direction);
+    }
+    
+    
     private void OnMultiplierChanged() {
         GetNode<Label>("HUD/MultiplierDisplay").Text = _gameState.Multiplier.ToString();
     }
@@ -214,12 +264,47 @@ public partial class Battle : Node2D {
 
     private void OnComboDisplayTimeout() { GetNode<Label>("HUD/ComboDisplay").Text = ""; }
 
-    private void OnPlayerHealthChanged(object sender, EventArgs e) { OnPlayerHealthChanged(); }
-    private void OnPlayerDefenseUpperChanged(object sender, EventArgs e) { OnPlayerDefenseUpperChanged(); }
-    private void OnPlayerDefenseLowerChanged(object sender, EventArgs e) { OnPlayerDefenseLowerChanged(); }
-    private void OnMultiplierChanged(object sender, EventArgs e) { OnMultiplierChanged(); }
-    private void OnSpectacleChanged(object sender, EventArgs e) { OnSpectacleChanged(); }
+    private void OnPlayerHealthChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Player health went " + directionEventArgs.Direction);
+        
+        OnPlayerHealthChanged();
+    }
+
+    private void OnPlayerDefenseUpperChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Player Upper Defense value went " + directionEventArgs.Direction);
+        
+        OnPlayerDefenseUpperChanged();
+    }
+
+    private void OnPlayerDefenseLowerChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Player Lower Defense value went " + directionEventArgs.Direction);
+        
+        OnPlayerDefenseLowerChanged();
+    }
+
+    private void OnMultiplierChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Multiplier value went " + directionEventArgs.Direction);
+        
+        OnMultiplierChanged();
+    }
+
+    private void OnSpectacleChanged(object sender, EventArgs e)
+    {
+        Utils.DirectionEventArgs directionEventArgs = (Utils.DirectionEventArgs) e;
+        // GD.Print("Spectacle Points value went " + directionEventArgs.Direction);
+        
+        OnSpectacleChanged();
+    }
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
 
+    private void OnDeckShuffled(object sender, EventArgs e) { GD.Print(" Deck Shuffled "); }
     public override string ToString() { return $"Battle: {BattleName}({Id})"; }
 }

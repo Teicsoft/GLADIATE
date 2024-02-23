@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4xgv5uc44j8k"
-path="res://.godot/imported/Attack.png-7153668f1d3bf19cff28941adb2047b7.ctex"
+uid="uid://cmbv54laolg7j"
+path="res://.godot/imported/paletteswap.png-dd9b1db947694ce70ae1a90facedf8ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/Cards/Type Icons/Attack.png"
-dest_files=["res://.godot/imported/Attack.png-7153668f1d3bf19cff28941adb2047b7.ctex"]
+source_file="res://assets/images/AJ/paletteswap.png"
+dest_files=["res://.godot/imported/paletteswap.png-dd9b1db947694ce70ae1a90facedf8ef.ctex"]
 
 [params]
 

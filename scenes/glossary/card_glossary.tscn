@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://87kw3tjkavuh"]
+
+[ext_resource type="Script" path="res://scenes/glossary/CardGlossary.cs" id="1_58lte"]
+[ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="2_vsixs"]
+[ext_resource type="Texture2D" uid="uid://c3i31cb0fpl1w" path="res://assets/ui/large_button_pressed.png" id="3_1nqo2"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="4_3434f"]
+
+[node name="CardGlossary" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_58lte")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 3
+
+[node name="CardGlossaryButton" type="TextureButton" parent="."]
+process_mode = 2
+layout_mode = 0
+offset_left = 6.0
+offset_top = 9.0
+offset_right = 110.0
+offset_bottom = 46.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("2_vsixs")
+texture_pressed = ExtResource("3_1nqo2")
+
+[node name="Label" type="Label" parent="CardGlossaryButton"]
+layout_mode = 0
+offset_left = 5.5
+offset_top = -0.5
+offset_right = 135.5
+offset_bottom = 41.5
+scale = Vector2(0.7, 0.7)
+theme = ExtResource("4_3434f")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
+text = "Exit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="CardGlossaryButton" to="." method="OnCloseCardGlossarySelected"]

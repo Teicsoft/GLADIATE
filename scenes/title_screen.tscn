@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_14m68"]
 [ext_resource type="Texture2D" uid="uid://c6idlull35fp4" path="res://assets/sprites/Dave/Gladiate.png" id="2_j5550"]
 [ext_resource type="Texture2D" uid="uid://c0r8l4fbcihi" path="res://assets/sprites/Dave/Eagle.png" id="3_csqvs"]
-[ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://Nimbus.tres" id="5_r1hdo"]
-[ext_resource type="FontFile" uid="uid://cnq0lsjurchca" path="res://assets/fonts/nimbus-roman-no9-l.regular/nimbus-roman-no9-l.regular.otf" id="5_shiaa"]
+[ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="7_k4tbm"]
+[ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="8_0xat7"]
 
 [node name="Title Screen" type="Control"]
 layout_mode = 3
@@ -80,27 +80,57 @@ layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("2_j5550")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-offset_left = 715.5
-offset_top = 767.0
-offset_right = 1204.5
-offset_bottom = 798.0
-theme = ExtResource("5_r1hdo")
-theme_override_fonts/font = ExtResource("5_shiaa")
-theme_override_font_sizes/font_size = 30
-text = "Click the eagle to start!"
-horizontal_alignment = 1
-
 [node name="StartMusic" type="Timer" parent="."]
 one_shot = true
 autostart = true
 
-[node name="InstructionTimer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 826.0
+offset_top = 797.0
+offset_right = 927.0
+offset_bottom = 871.0
+scale = Vector2(2.84908, 2.84908)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Start Button" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_k4tbm")
+
+[node name="Start" type="Label" parent="MarginContainer/VBoxContainer/Start Button"]
+layout_mode = 0
+offset_left = 28.0914
+offset_top = -1.75571
+offset_right = 122.091
+offset_bottom = 45.2443
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_fonts/font = ExtResource("8_0xat7")
+theme_override_font_sizes/font_size = 38
+text = "Start"
+
+[node name="Quit Button" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_k4tbm")
+
+[node name="Quit" type="Label" parent="MarginContainer/VBoxContainer/Quit Button"]
+layout_mode = 0
+offset_left = 34.6753
+offset_top = -3.0079
+offset_right = 84.6753
+offset_bottom = 38.9921
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_fonts/font = ExtResource("8_0xat7")
+theme_override_font_sizes/font_size = 38
+text = "Quit"
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]
-[connection signal="gui_input" from="Label" to="." method="_on_gui_input"]
 [connection signal="timeout" from="StartMusic" to="." method="OnStartMusicTimeout"]
-[connection signal="timeout" from="InstructionTimer" to="." method="OnInstructionTimerTimeout"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Start Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit Button" to="." method="_on_quit_button_pressed"]

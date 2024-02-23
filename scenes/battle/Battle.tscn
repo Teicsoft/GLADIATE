@@ -1,13 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=27 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
 [ext_resource type="PackedScene" uid="uid://4lar8gsflwru" path="res://scenes/battle/Card.tscn" id="3_citfa"]
-[ext_resource type="Texture2D" uid="uid://biqdpl7e2d8hc" path="res://assets/ui/background.png" id="4_87dpu"]
+[ext_resource type="Texture2D" uid="uid://cmbv54laolg7j" path="res://assets/images/AJ/paletteswap.png" id="4_ft1ua"]
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
-[ext_resource type="Theme" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
-[ext_resource type="Theme" path="res://Bigtext.tres" id="7_bj4ys"]
+[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="7_bj4ys"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="8_d7wxd"]
 [ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="9_6h2s6"]
@@ -17,6 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
 [ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
 [ext_resource type="Texture2D" uid="uid://di6jj3qkji1wr" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Down.png" id="12_a85jt"]
+[ext_resource type="Texture2D" uid="uid://bf1b4q7nrb1ka" path="res://assets/images/ModifierIcons/Grappled.png" id="13_25d22"]
+[ext_resource type="PackedScene" uid="uid://87kw3tjkavuh" path="res://scenes/glossary/card_glossary.tscn" id="13_mwfol"]
+[ext_resource type="PackedScene" uid="uid://vjrk3p65fmid" path="res://scenes/glossary/combo_glossary.tscn" id="14_fhiga"]
 [ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
 [ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
 
@@ -66,7 +69,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_87dpu")
+texture = ExtResource("4_ft1ua")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -76,7 +80,7 @@ offset_left = 860.0
 offset_top = 1.0
 offset_right = 1120.0
 offset_bottom = 65.0
-color = Color(0, 0, 0, 0.388235)
+color = Color(0, 0, 0, 0.698039)
 
 [node name="Healthbar Background" type="ColorRect" parent="HUD"]
 offset_left = 709.0
@@ -201,6 +205,7 @@ offset_top = 25.0
 offset_right = 986.0
 offset_bottom = 75.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 text = "Multiplier"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -211,6 +216,7 @@ offset_top = -8.0
 offset_right = 1085.0
 offset_bottom = 42.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 text = "SP"
 vertical_alignment = 1
 
@@ -229,6 +235,7 @@ offset_top = 32.0
 offset_right = 1100.0
 offset_bottom = 72.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.768627, 0.847059, 0.807843, 1)
 text = "1"
 vertical_alignment = 1
 
@@ -238,6 +245,7 @@ offset_top = -4.0
 offset_right = 1008.0
 offset_bottom = 36.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 text = "0"
 vertical_alignment = 1
 
@@ -247,6 +255,7 @@ offset_top = 69.0
 offset_right = 826.0
 offset_bottom = 109.0
 theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0.776471, 0.854902, 0.811765, 1)
 text = "1"
 vertical_alignment = 1
 
@@ -277,15 +286,23 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 40.4335
-offset_top = 122.168
-offset_right = 112.433
-offset_bottom = 194.168
+offset_left = -1153.47
+offset_top = -756.476
+offset_right = -1081.47
+offset_bottom = -684.476
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.785398
 scale = Vector2(4, 4)
 texture = ExtResource("12_a85jt")
+
+[node name="PlayerModifierIcon" type="TextureRect" parent="HUD"]
+visible = false
+offset_left = 1391.0
+offset_top = 63.0
+offset_right = 1441.0
+offset_bottom = 113.0
+texture = ExtResource("13_25d22")
 
 [node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
 visible = false
@@ -341,17 +358,71 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ComboDisplay" type="Label" parent="HUD"]
-offset_left = 558.0
-offset_top = 410.0
-offset_right = 916.0
-offset_bottom = 560.0
+offset_left = 820.0
+offset_top = 134.0
+offset_right = 1166.0
+offset_bottom = 188.0
+theme = ExtResource("7_bj4ys")
+theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ComboDisplayTimer" type="Timer" parent="HUD/ComboDisplay"]
 wait_time = 3.0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+offset_right = 101.0
+offset_bottom = 74.0
+scale = Vector2(2, 2)
+
+[node name="CardGlossaryButton" type="TextureButton" parent="HUD/VBoxContainer"]
+process_mode = 1
+layout_mode = 2
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/CardGlossaryButton"]
+layout_mode = 0
+offset_left = 5.5
+offset_top = 2.0
+offset_right = 185.5
+offset_bottom = 44.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
+text = "Card Glossary"
+horizontal_alignment = 1
+
+[node name="ComboGlossaryButton" type="TextureButton" parent="HUD/VBoxContainer"]
+process_mode = 1
+layout_mode = 2
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/ComboGlossaryButton"]
+layout_mode = 0
+offset_left = 5.5
+offset_top = 4.0
+offset_right = 209.5
+offset_bottom = 46.0
+scale = Vector2(0.45, 0.45)
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
+text = "Combo Glossary"
+horizontal_alignment = 1
+
+[node name="CardGlossary" parent="HUD" instance=ExtResource("13_mwfol")]
+visible = false
+
+[node name="ComboGlossary" parent="HUD" instance=ExtResource("14_fhiga")]
+visible = false
+
 [node name="Hand" type="Path2D" parent="."]
+z_index = 1
 curve = SubResource("Curve2D_xvv15")
 script = ExtResource("4_swwjy")
 
@@ -429,52 +500,52 @@ scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 flip_v = true
 
-[node name="Discard Area2" type="CanvasGroup" parent="."]
+[node name="Deck Area" type="CanvasGroup" parent="."]
 position = Vector2(1720, 1)
 
-[node name="Card-back-blood-spatter" type="Sprite2D" parent="Discard Area2"]
+[node name="Card-back-blood-spatter" type="Sprite2D" parent="Deck Area"]
 position = Vector2(101, 942)
 scale = Vector2(0.277017, 0.285396)
 texture = ExtResource("4_u6rcd")
 
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Deck Area"]
 position = Vector2(188, 818)
 texture = ExtResource("16_o3gvq")
 
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Deck Area"]
 position = Vector2(13, 818)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Deck Area"]
 position = Vector2(100.375, 811)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Deck Area"]
 position = Vector2(195, 941.366)
 rotation = 1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Deck Area"]
 position = Vector2(6, 942)
 rotation = -1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Deck Area"]
 position = Vector2(188, 1065)
 texture = ExtResource("16_o3gvq")
 flip_v = true
 
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Deck Area"]
 position = Vector2(13, 1065)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 flip_v = true
 
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Discard Area2"]
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Deck Area"]
 position = Vector2(100.375, 1072)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
@@ -484,4 +555,6 @@ flip_v = true
 [connection signal="pressed" from="HUD/TextureButton2" to="." method="EndTurn"]
 [connection signal="pressed" from="HUD/End Turn Button" to="." method="EndTurn"]
 [connection signal="timeout" from="HUD/ComboDisplay/ComboDisplayTimer" to="." method="OnComboDisplayTimeout"]
+[connection signal="pressed" from="HUD/VBoxContainer/CardGlossaryButton" to="HUD/CardGlossary" method="OnCardGlossaryPressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/ComboGlossaryButton" to="HUD/ComboGlossary" method="OnComboGlossaryButtonPressed"]
 [connection signal="pressed" from="Toggle Sound" to="Toggle Sound" method="_on_TextureButton_pressed"]
