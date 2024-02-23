@@ -117,6 +117,8 @@ public class GameState {
     }
 
     public void PushCardStack(Card card) { ComboStack.Add(card); }
+    
+    private List<string> _blockCards = new List<string> { "card_LowerBlock", "card_UpperBlock", "card_FullBlock" };
 
     public Combo ComboCompare() {
         foreach (Combo combo in AllCombos) {
@@ -125,6 +127,10 @@ public class GameState {
 
             bool match = true;
             for (int i = 1; i <= count; i++) {
+                if (_blockCards.Contains(ComboStack[^i].Id) && "card_FullBlock" == combo.CardList[^i].Id)
+                {
+                    continue;
+                }
                 if (ComboStack[^i].Id != combo.CardList[^i].Id) {
                     match = false;
                     break;
