@@ -20,24 +20,27 @@ public partial class Player : Node2D, ITarget {
     public int Health {
         get => _health;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_health, value);
             _health = value;
-            PlayerHealthChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerHealthChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseLower {
         get => _defenseLower;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseLower, value);
             _defenseLower = value;
-            PlayerDefenseLowerChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerDefenseLowerChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseUpper {
         get => _defenseUpper;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseUpper, value);
             _defenseUpper = value;
-            PlayerDefenseUpperChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerDefenseUpperChangedCustomEvent?.Invoke(this, args);
         }
     }
 

@@ -51,10 +51,7 @@ public partial class CardGlossary : Control
     }
     private void OnCloseCardGlossarySelected()
     {
-        GD.Print("hiding");
         Hide();
-        GD.Print("hidden");
         GetTree().Paused = false;
-        GD.Print(GetTree().Paused.ToString());
     }
 }

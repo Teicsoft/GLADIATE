@@ -41,14 +41,17 @@ texture_pressed = ExtResource("2_my1fe")
 
 [node name="Label" type="Label" parent="CardGlossaryButton"]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 2.0
-offset_right = 97.0
-offset_bottom = 25.0
+offset_left = 4.0
+offset_top = -1.5
+offset_right = 138.0
+offset_bottom = 40.5
+scale = Vector2(0.7, 0.7)
 theme = ExtResource("3_rhcvf")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_outline_size = 2
+theme_override_font_sizes/font_size = 38
 text = "Exit"
 horizontal_alignment = 1
 vertical_alignment = 1

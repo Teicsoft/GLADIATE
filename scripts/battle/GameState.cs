@@ -43,16 +43,18 @@ public class GameState {
     public int Multiplier {
         get => _multiplier;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_multiplier, value);
             _multiplier = value;
-            MultiplierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            MultiplierChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int SpectaclePoints {
         get => _spectaclePoints;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_spectaclePoints, value);
             _spectaclePoints = value;
-            SpectacleChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            SpectacleChangedCustomEvent?.Invoke(this, args);
         }
     }
 
