@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GLADIATE.scripts.battle;
 using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.XmlParsing;
@@ -38,10 +39,21 @@ public partial class ComboGlossary : Control
             //cardList
             VBoxContainer cardList = packedScene.GetNode<VBoxContainer>("VBoxContainer/ContentMargin/VBoxContainer/CardList/VBoxContainer");
             int i = 0;
+            List<string> _blockCards = CardPrototypes.cardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block").Select(kvp => kvp.Value.Id).ToList();
+
             foreach (Card card in combo.CardList)
             {
                 Label label = new Godot.Label();
-                label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[card.Id].CardName;
+
+                if (_blockCards.Contains(card.Id))
+                {
+                    label.Text = (i+1).ToString() + ": " + "Any Block Card";
+                }
+                else
+                {
+                    label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[card.Id].CardName;
+                }
+                
                 cardList.AddChild(label);
                 i++;
             }
