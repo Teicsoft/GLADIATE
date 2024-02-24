@@ -39,7 +39,7 @@ public partial class ComboGlossary : Control
             //cardList
             VBoxContainer cardList = packedScene.GetNode<VBoxContainer>("VBoxContainer/ContentMargin/VBoxContainer/CardList/VBoxContainer");
             int i = 0;
-            List<string> _blockCards = CardPrototypes.cardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block").Select(kvp => kvp.Value.Id).ToList();
+            List<string> _blockCards = CardFactory.CardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block").Select(kvp => kvp.Value.Id).ToList();
 
             foreach (Card card in combo.CardList)
             {
@@ -51,7 +51,7 @@ public partial class ComboGlossary : Control
                 }
                 else
                 {
-                    label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[card.Id].CardName;
+                    label.Text = (i+1).ToString() + ": " + CardFactory.CardPrototypeDict[card.Id].CardName;
                 }
                 
                 cardList.AddChild(label);
