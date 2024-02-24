@@ -70,6 +70,8 @@ public class GameState {
         Hand = hand;
         Enemies = enemies;
         Enemies.ForEach(enemy => enemy.EnemySelected += SelectEnemy);
+        _blockCards = CardFactory.CardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block")
+            .Select(kvp => kvp.Value.Id).ToList();
     }
 
     public void StartTurn() {
@@ -111,17 +113,14 @@ public class GameState {
     public void PushCardStack(Card card) { ComboStack.Add(card); }
 
     public Combo ComboCompare() {
-        List<string> _blockCards = CardFactory.CardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block")
-            .Select(kvp => kvp.Value.Id).ToList();
-
         foreach (Combo combo in AllCombos) {
-            int count = combo.CardList.Count;
-            if (ComboStack.Count < count) { continue; }
-
+            if (ComboStack.Count < combo.CardList.Count) { continue; }
             bool match = true;
-            for (int i = 1; i <= count; i++) {
-                if (_blockCards.Contains(ComboStack[^i].Id) && "card_FullBlock" == combo.CardList[^i].Id) { continue; }
-                if (ComboStack[^i].Id != combo.CardList[^i].Id) {
+            for (int i = 1; i <= combo.CardList.Count; i++) {
+                Card playedCard = ComboStack[^i];
+                Card comboCard = combo.CardList[^i];
+                if (playedCard.CardType == "Block" && comboCard.Id == "card_FullBlock") { continue; }
+                if (playedCard.Id != comboCard.Id) {
                     match = false;
                     break;
                 }
