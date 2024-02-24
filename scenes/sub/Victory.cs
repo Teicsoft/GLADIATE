@@ -1,3 +1,4 @@
+using GLADIATE.scenes.sub;
 using Godot;
 using GLADIATE.scripts.audio;
 
@@ -17,12 +18,12 @@ public partial class Victory : Control
         
         label = GetNode<Label>("ColorRect/ColorRect/VBoxContainer/Spectacle Points");
         label.Text = sceneLoader.SpectaclePoints + " Spectacle Points!";
+        
+        saveData.WriteScoretoJSON( sceneLoader.DeckSelected, sceneLoader.SpectaclePoints);
     }
     
     private void OnTimerTimeout()
     {
-        
-        
         sceneLoader.GoToScene("res://scenes/main/Credits.tscn");
         audioEngine.PlayMusic("Shop_loop_audio.wav");
     }
