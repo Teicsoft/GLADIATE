@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://r58mdc5njm8"]
+[gd_scene load_steps=11 format=3 uid="uid://r58mdc5njm8"]
 
 [ext_resource type="Script" path="res://scenes/main/DeckSelect.cs" id="1_q7d5k"]
 [ext_resource type="Texture2D" uid="uid://biqdpl7e2d8hc" path="res://assets/ui/background.png" id="2_74v4t"]
 [ext_resource type="Texture2D" uid="uid://ckgiwbyy3dr18" path="res://assets/images/Cards/CardArt/punch.png" id="3_emu57"]
 [ext_resource type="Texture2D" uid="uid://do8alsk3n50wg" path="res://assets/images/Cards/CardArt/gladius.png" id="4_4aqnq"]
+[ext_resource type="Texture2D" uid="uid://b6l772dpx2bgq" path="res://assets/ui/9patchBorder.png" id="4_4ng7w"]
 [ext_resource type="Texture2D" uid="uid://mrglu2pncgy8" path="res://assets/images/Cards/CardArt/bloodOnSand.png" id="5_i4uhb"]
 [ext_resource type="Texture2D" uid="uid://bqelqsritcoiy" path="res://assets/images/Cards/CardArt/dropkick.png" id="6_eosr2"]
 [ext_resource type="Texture2D" uid="uid://cktlhhgeejedm" path="res://assets/images/Cards/CardArt/headbutt.png" id="7_m0ur3"]
@@ -53,11 +54,31 @@ texture = ExtResource("3_emu57")
 expand_mode = 2
 stretch_mode = 4
 
+[node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck1"]
+offset_top = -8.0
+offset_right = 305.0
+offset_bottom = 179.0
+texture = ExtResource("4_4ng7w")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
 [node name="Deck2" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("4_4aqnq")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck2"]
+offset_top = -8.0
+offset_right = 305.0
+offset_bottom = 179.0
+texture = ExtResource("4_4ng7w")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
 
 [node name="Deck3" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -65,11 +86,31 @@ texture = ExtResource("5_i4uhb")
 expand_mode = 2
 stretch_mode = 4
 
+[node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck3"]
+offset_top = -8.0
+offset_right = 305.0
+offset_bottom = 179.0
+texture = ExtResource("4_4ng7w")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
 [node name="Deck4" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("6_eosr2")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck4"]
+offset_top = -8.0
+offset_right = 305.0
+offset_bottom = 179.0
+texture = ExtResource("4_4ng7w")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
 
 [node name="Deck5" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -77,11 +118,31 @@ texture = ExtResource("7_m0ur3")
 expand_mode = 2
 stretch_mode = 4
 
+[node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck5"]
+offset_top = -8.0
+offset_right = 305.0
+offset_bottom = 179.0
+texture = ExtResource("4_4ng7w")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
 [node name="Deck6" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("8_nvasl")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck6"]
+offset_top = -8.0
+offset_right = 305.0
+offset_bottom = 179.0
+texture = ExtResource("4_4ng7w")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 1
@@ -115,6 +176,17 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("9_pjf3d")
 theme_override_font_sizes/font_size = 84
 text = "Choose Your Deck"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ColorRect2"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 704.0
+offset_bottom = 156.0
+texture = ExtResource("4_4ng7w")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
 
 [connection signal="gui_input" from="TextureRect/HBoxContainer/Deck1" to="." method="OnDeck1GuiInput"]
 [connection signal="gui_input" from="TextureRect/HBoxContainer/Deck2" to="." method="OnDeck2GuiInput"]

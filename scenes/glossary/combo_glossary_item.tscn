@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://h3gjvvvksjfo"]
+[gd_scene load_steps=6 format=3 uid="uid://h3gjvvvksjfo"]
 
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="1_jfqnu"]
 [ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="2_866jv"]
 [ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="3_tngxl"]
+[ext_resource type="Texture2D" uid="uid://b6l772dpx2bgq" path="res://assets/ui/9patchBorder.png" id="4_0jqwi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kler"]
 bg_color = Color(0.0431373, 0.0431373, 0.0431373, 0.815686)
@@ -305,3 +306,11 @@ theme = ExtResource("3_tngxl")
 theme_override_font_sizes/font_size = 20
 text = "Deal 3 damage. Grounds an enemy"
 autowrap_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("4_0jqwi")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
