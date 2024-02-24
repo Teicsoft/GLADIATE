@@ -9,14 +9,21 @@ using GLADIATE.scripts.XmlParsing;
 public partial class ComboGlossary : Control
 {
     private List<Combo> AllCombos;
+    private Node VBoxContainer;
     
     public override void _Ready()
     {
-        Node VBoxContainer = GetNode<Node>("ScrollContainer/VBoxContainer");
-        
+        VBoxContainer = GetNode<Node>("ScrollContainer/VBoxContainer");
+    }
+
+    public void Initialize(Deck<CardSleeve> deck)
+    {
         AllCombos = ComboXmlParser.ParseAllCombos();
+        List<Node> combosNotInDeck = new();
+        
         foreach (Combo combo in AllCombos)
         {
+            bool inDeck = true;
             Node packedScene = ResourceLoader.Load<PackedScene>("res://scenes/glossary/combo_glossary_item.tscn").Instantiate();
             packedScene.GetNode<Label>("VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin/ComboName").Text = combo.Name;
             
@@ -54,11 +61,29 @@ public partial class ComboGlossary : Control
                     label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[card.Id].CardName;
                 }
                 
+                if ((deck.Cards.Any(c => c.Card.Id == card.Id) == false)  && inDeck)
+                {
+                    combosNotInDeck.Add(packedScene);
+                    inDeck = false;
+                    GD.Print("Combo not in deck: " + combo.Name + " due to " + card.Id);
+                }
+                
                 cardList.AddChild(label);
                 i++;
             }
-            
-            VBoxContainer.AddChild(packedScene);
+
+            if (inDeck)
+            {
+                
+                GD.Print("Combo in deck: " + combo.Name);
+                packedScene.GetNode<TextureRect>("VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin/ComboName/ThumbsUp").Show();
+                VBoxContainer.AddChild(packedScene);
+            }
+        }
+
+        foreach (Node comboNotInDeck in combosNotInDeck)
+        {
+            VBoxContainer.AddChild(comboNotInDeck);
         }
     }
     

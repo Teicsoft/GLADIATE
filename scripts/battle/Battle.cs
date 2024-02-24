@@ -45,6 +45,9 @@ public partial class Battle : Node2D {
 
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
+        
+        ComboGlossary comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
+        comboGlossary.Initialize(_gameState.Hand.Deck);
 
         GD.Print(" ==== ==== START GAME ==== ====");
     }

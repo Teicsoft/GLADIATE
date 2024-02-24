@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://h3gjvvvksjfo"]
+[gd_scene load_steps=7 format=3 uid="uid://h3gjvvvksjfo"]
 
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="1_jfqnu"]
 [ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="2_866jv"]
 [ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="3_tngxl"]
+[ext_resource type="Texture2D" uid="uid://diq0l8bgyca73" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Up.png" id="3_yi1ca"]
 [ext_resource type="Texture2D" uid="uid://b6l772dpx2bgq" path="res://assets/ui/9patchBorder.png" id="4_0jqwi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kler"]
@@ -61,6 +62,18 @@ patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
+
+[node name="ThumbsUp" type="TextureRect" parent="VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin/ComboName"]
+visible = false
+layout_mode = 2
+offset_left = 451.0
+offset_top = -24.0
+offset_right = 563.0
+offset_bottom = 88.0
+rotation = -0.596903
+size_flags_horizontal = 8
+texture = ExtResource("3_yi1ca")
+stretch_mode = 4
 
 [node name="StatsGridItemMargin" type="MarginContainer" parent="VBoxContainer/ContentMargin/VBoxContainer"]
 layout_mode = 2
