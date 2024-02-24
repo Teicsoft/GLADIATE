@@ -70,8 +70,6 @@ public class GameState {
         Hand = hand;
         Enemies = enemies;
         Enemies.ForEach(enemy => enemy.EnemySelected += SelectEnemy);
-        _blockCards = CardFactory.CardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block")
-            .Select(kvp => kvp.Value.Id).ToList();
     }
 
     public void StartTurn() {
