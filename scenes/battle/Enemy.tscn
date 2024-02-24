@@ -174,5 +174,10 @@ text = "Enemy Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="JigglePhysicsTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]
 [connection signal="timeout" from="CardPlayedTimer" to="." method="OnCardPlayedTimer"]
+[connection signal="timeout" from="JigglePhysicsTimer" to="." method="OnJigglePhysicsTimerTimeout"]

@@ -307,7 +307,6 @@ public partial class Battle : Node2D {
     }
 
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
-
     private void OnDeckShuffled(object sender, EventArgs e) { GD.Print(" Deck Shuffled "); }
     public override string ToString() { return $"Battle: {BattleName}({Id})"; }
 }
