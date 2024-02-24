@@ -102,6 +102,16 @@ public partial class Battle : Node2D {
             enemy.Deck = GetEnemyDeck(enemy.DeckId);
             enemy.Position = GetEnemyPosition(i, idsCount);
             enemy.EnemySelected += MoveSelectedIndicator;
+            
+            if (GD.Randi() % 2 == 0) {
+                GD.Print(i.ToString());
+                enemy.GetNode<Sprite2D>("EnemySprite").FlipH = false;
+            }
+            else
+            {
+                GD.Print(i.ToString());
+            }
+            
             AddChild(enemy);
             enemies.Add(enemy);
         }
@@ -297,7 +307,6 @@ public partial class Battle : Node2D {
     }
 
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
-
     private void OnDeckShuffled(object sender, EventArgs e) { GD.Print(" Deck Shuffled "); }
     public override string ToString() { return $"Battle: {BattleName}({Id})"; }
 }
