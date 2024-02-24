@@ -45,6 +45,9 @@ public partial class Battle : Node2D {
 
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
+        
+        ComboGlossary comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
+        comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
 
         GD.Print(" ==== ==== START GAME ==== ====");
     }
@@ -104,12 +107,7 @@ public partial class Battle : Node2D {
             enemy.EnemySelected += MoveSelectedIndicator;
             
             if (GD.Randi() % 2 == 0) {
-                GD.Print(i.ToString());
                 enemy.GetNode<Sprite2D>("EnemySprite").FlipH = false;
-            }
-            else
-            {
-                GD.Print(i.ToString());
             }
             
             AddChild(enemy);

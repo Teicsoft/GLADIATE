@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://517fbrq52blj"]
+[gd_scene load_steps=7 format=3 uid="uid://517fbrq52blj"]
 
 [ext_resource type="Texture2D" uid="uid://bqelqsritcoiy" path="res://assets/images/Cards/CardArt/dropkick.png" id="1_7qbpl"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="2_vx2rf"]
 [ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="3_snjjf"]
 [ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_rk27n"]
+[ext_resource type="Texture2D" uid="uid://b6l772dpx2bgq" path="res://assets/ui/9patchBorder.png" id="5_ple64"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udkd7"]
 bg_color = Color(0.0431373, 0.0431373, 0.0431373, 0.815686)
@@ -22,6 +23,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_udkd7")
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 color = Color(0, 0, 0, 0.482353)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -43,6 +46,23 @@ layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("1_7qbpl")
 expand_mode = 5
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/ImageMargin/CardImage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 7.75
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_ple64")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
 
 [node name="ContentMargin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -429,3 +449,11 @@ theme = ExtResource("4_rk27n")
 theme_override_font_sizes/font_size = 20
 text = "Deal 3 damage. Grounds an enemy"
 autowrap_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("5_ple64")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
