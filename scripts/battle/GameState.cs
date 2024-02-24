@@ -17,7 +17,7 @@ public class GameState {
     public event EventHandler<ComboEventArgs> ComboPlayedCustomEvent;
     public event EventHandler SelectedEnemyIndexChangedCustomEvent;
 
-    private List<Combo> AllCombos;
+    public List<Combo> AllCombos;
     public Player Player;
     public Hand Hand;
     public List<Enemy> Enemies;

@@ -6,11 +6,11 @@
         <card card_id="card_punch"/>  
         <card card_id="card_kick"/>  
         <card card_id="card_kick"/>  
+        <card card_id="card_kick"/>  
         <card card_id="card_gladius"/>  
         <card card_id="card_gladius"/>  
         <card card_id="card_Throw"/>  
         <card card_id="card_Throw"/>  
-        <card card_id="card_Lariat"/>  
         <card card_id="card_Lariat"/>
         <card card_id="card_LowerBlock"/>
         <card card_id="card_UpperBlock"/>
