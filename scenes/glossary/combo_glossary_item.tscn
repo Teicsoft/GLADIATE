@@ -66,11 +66,12 @@ patch_margin_bottom = 24
 [node name="ThumbsUp" type="TextureRect" parent="VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin/ComboName"]
 visible = false
 layout_mode = 2
-offset_left = 451.0
-offset_top = -24.0
-offset_right = 563.0
-offset_bottom = 88.0
+offset_left = 478.0
+offset_top = -33.0
+offset_right = 590.0
+offset_bottom = 79.0
 rotation = -0.596903
+scale = Vector2(0.8, 0.8)
 size_flags_horizontal = 8
 texture = ExtResource("3_yi1ca")
 stretch_mode = 4

@@ -48,24 +48,24 @@ public partial class ComboGlossary : Control
             int i = 0;
             List<string> _blockCards = CardPrototypes.cardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block").Select(kvp => kvp.Value.Id).ToList();
 
-            foreach (Card card in combo.CardList)
+            foreach (Card comboCard in combo.CardList)
             {
                 Label label = new Godot.Label();
 
-                if (_blockCards.Contains(card.Id))
+                if (comboCard.Id == "card_FullBlock")
                 {
                     label.Text = (i+1).ToString() + ": " + "Any Block Card";
                 }
                 else
                 {
-                    label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[card.Id].CardName;
+                    label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[comboCard.Id].CardName;
                 }
                 
-                if ((deck.Cards.Any(c => c.Card.Id == card.Id) == false)  && inDeck)
+                if ((deck.Cards.Any(deckCard => (deckCard.Card.Id == comboCard.Id) || (_blockCards.Contains(deckCard.Card.Id) && "card_FullBlock" == comboCard.Id) ) == false) && inDeck)
                 {
                     combosNotInDeck.Add(packedScene);
                     inDeck = false;
-                    GD.Print("Combo not in deck: " + combo.Name + " due to " + card.Id);
+                    GD.Print("Combo not in deck: " + combo.Name + " due to " + comboCard.Id);
                 }
                 
                 cardList.AddChild(label);
