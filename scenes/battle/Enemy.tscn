@@ -129,21 +129,6 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CardPlayed" type="Label" parent="."]
-visible = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -136.0
-offset_top = -250.0
-offset_right = 123.0
-offset_bottom = -210.0
-grow_horizontal = 2
-theme = ExtResource("3_df0w2")
-text = "Card Played"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="CardPlayedTimer" type="Timer" parent="."]
 wait_time = 2.0
 
@@ -156,5 +141,43 @@ offset_bottom = -159.0
 texture = ExtResource("7_3j0ii")
 expand_mode = 3
 
+[node name="CardPlayed" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -136.0
+offset_top = 109.0
+offset_right = 123.0
+offset_bottom = 149.0
+grow_horizontal = 2
+theme = ExtResource("3_df0w2")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_outline_size = 10
+text = "Card Played"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyName" type="Label" parent="."]
+offset_left = -212.0
+offset_top = -251.0
+offset_right = 213.0
+offset_bottom = -207.0
+theme = ExtResource("3_df0w2")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_outline_size = 10
+text = "Enemy Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JigglePhysicsTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]
 [connection signal="timeout" from="CardPlayedTimer" to="." method="OnCardPlayedTimer"]
+[connection signal="timeout" from="JigglePhysicsTimer" to="." method="OnJigglePhysicsTimerTimeout"]
