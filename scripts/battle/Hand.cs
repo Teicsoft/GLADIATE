@@ -22,7 +22,7 @@ public partial class Hand : Path2D {
     }
 
     public void InitialiseDeck(List<string> cardIds) {
-        Deck.AddCards(Deck<CardSleeve>.SleeveCards(cardIds.Select(CardPrototypes.CloneCard).ToList()));
+        Deck.AddCards(Deck<CardSleeve>.SleeveCards(cardIds.Select(CardFactory.CloneCard).ToList()));
         Deck.Shuffle();
     }
 

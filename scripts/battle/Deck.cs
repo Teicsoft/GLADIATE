@@ -53,8 +53,7 @@ public class Deck<T> {
 
     public bool IsEmpty() { return Cards.Count == 0; }
 
-    public void Shuffle()
-    {
+    public void Shuffle() {
         Cards = Shuffle(Cards);
         DeckShuffledCustomEvent?.Invoke(this, EventArgs.Empty);
     }

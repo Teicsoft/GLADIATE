@@ -111,23 +111,13 @@ public partial class Enemy : Node2D, ITarget {
     }
 
     public override void _Process(double delta) { }
-    
-    private void OnJigglePhysicsTimerTimeout()
-    {
-        GD.RandRange(-5, 5);
-        GetNode<Sprite2D>("EnemySprite").Skew = (float)GD.RandRange(-0.05f, 0.05f);
-        
-        if (GD.Randi() % 10 == 0)
-        {
-            
-            if (GetNode<Sprite2D>("EnemySprite").FlipH)
-            {
-                GetNode<Sprite2D>("EnemySprite").FlipH = false;
-            }
-            else
-            {
-                GetNode<Sprite2D>("EnemySprite").FlipH = true;
-            }
+
+    private void OnJigglePhysicsTimerTimeout() {
+        Sprite2D sprite = GetNode<Sprite2D>("EnemySprite");
+        sprite.Skew = (float)GD.RandRange(-0.05f, 0.05f);
+
+        if (GD.Randi() % 10 == 0) {
+            if (sprite.FlipH) { sprite.FlipH = false; } else { sprite.FlipH = true; }
         }
     }
 
@@ -208,14 +198,12 @@ public partial class Enemy : Node2D, ITarget {
         GetNode<Label>("LowerBlockDisplay").Text = DefenseLower.ToString();
     }
 
+    private void OnCardPlayedTimer() {
+        GetNode<Label>("CardPlayed").Visible = false;
+    }
+
     public override string ToString() {
         return
             $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
     }
-
-    private void OnCardPlayedTimer() {
-        Label cardPlayedLabel = GetNode<Label>("CardPlayed");
-        cardPlayedLabel.Visible = false;
-    }
 }
-
