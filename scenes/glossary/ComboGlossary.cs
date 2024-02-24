@@ -8,20 +8,18 @@ using GLADIATE.scripts.XmlParsing;
 
 public partial class ComboGlossary : Control
 {
-    private List<Combo> AllCombos;
-    private Node VBoxContainer;
+    private Node _vBoxContainer;
     
     public override void _Ready()
     {
-        VBoxContainer = GetNode<Node>("ScrollContainer/VBoxContainer");
+        _vBoxContainer = GetNode<Node>("ScrollContainer/VBoxContainer");
     }
 
-    public void Initialize(Deck<CardSleeve> deck)
+    public void Initialize(Deck<CardSleeve> deck, List<Combo> allCombos)
     {
-        AllCombos = ComboXmlParser.ParseAllCombos();
         List<Node> combosNotInDeck = new();
         
-        foreach (Combo combo in AllCombos)
+        foreach (Combo combo in allCombos)
         {
             bool inDeck = true;
             Node packedScene = ResourceLoader.Load<PackedScene>("res://scenes/glossary/combo_glossary_item.tscn").Instantiate();
@@ -65,7 +63,6 @@ public partial class ComboGlossary : Control
                 {
                     combosNotInDeck.Add(packedScene);
                     inDeck = false;
-                    GD.Print("Combo not in deck: " + combo.Name + " due to " + comboCard.Id);
                 }
                 
                 cardList.AddChild(label);
@@ -74,16 +71,14 @@ public partial class ComboGlossary : Control
 
             if (inDeck)
             {
-                
-                GD.Print("Combo in deck: " + combo.Name);
                 packedScene.GetNode<TextureRect>("VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin/ComboName/ThumbsUp").Show();
-                VBoxContainer.AddChild(packedScene);
+                _vBoxContainer.AddChild(packedScene);
             }
         }
 
         foreach (Node comboNotInDeck in combosNotInDeck)
         {
-            VBoxContainer.AddChild(comboNotInDeck);
+            _vBoxContainer.AddChild(comboNotInDeck);
         }
     }
     
