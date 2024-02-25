@@ -11,7 +11,7 @@ public partial class Enemy : Node2D, ITarget {
     public event EventHandler EnemyHealthChangedCustomEvent;
     public event EventHandler EnemyDefenseLowerChangedCustomEvent;
     public event EventHandler EnemyDefenseUpperChangedCustomEvent;
-
+    
     public string Id { get; set; }
     public string Name { get; set; }
     public string Image { get; set; }
