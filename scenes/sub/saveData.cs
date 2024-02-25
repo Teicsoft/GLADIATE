@@ -5,22 +5,21 @@ using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 namespace GLADIATE.scenes.sub;
 
-public static class saveData
+public static class SaveData
 {
     public static List<ScoreObject> Scores;
-    private static string filePath = "user://save_game.json";
+    private static string _filePath = "user://save_game.json";
     public static void ParseJson()
     {
-        if (FileAccess.FileExists(filePath))
+        if (FileAccess.FileExists(_filePath))
         {
-            using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
+            using var file = FileAccess.Open(_filePath, FileAccess.ModeFlags.Read);
             var jsonContent = file.GetAsText();
             Scores = JsonSerializer.Deserialize<List<ScoreObject>>(jsonContent);
         } else { Scores = new List<ScoreObject>(); }
-
     }
     
-    public static void WriteScoretoJSON(string deckId, int score)
+    public static void WriteScoretoJson(string deckId, int score)
     {
         ParseJson();
         Scores.Add(new ScoreObject
@@ -31,7 +30,7 @@ public static class saveData
         });
 
         string jsonContent = JsonSerializer.Serialize(Scores);
-        using var file = FileAccess.Open(filePath, FileAccess.ModeFlags.Write);
+        using var file = FileAccess.Open(_filePath, FileAccess.ModeFlags.Write);
         file.StoreString(jsonContent);
     }
     
