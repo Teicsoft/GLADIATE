@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=29 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -39,11 +39,19 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Curve2D" id="Curve2D_1fx2k"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 978, 351, 0, 0, 0, 0, 964, 575, 0, 0, 0, 0, 1273, 376, 0, 0, 0, 0, 1123, 752, 0, 0, 0, 0, 800, 749, 0, 0, 0, 0, 664, 378)
+}
+point_count = 6
+
 [sub_resource type="Curve2D" id="Curve2D_r0y7a"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 1740, 675, 0, 0, 0, 0, 1740, 5)
 }
 point_count = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k87rm"]
 
 [node name="Battle" type="Node2D"]
 script = ExtResource("1_bmdek")
@@ -434,8 +442,19 @@ rotation = -0.785398
 curve = SubResource("Curve2D_e410o")
 
 [node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
+visible = false
 position = Vector2(1421, 578)
 rotation = -3.08365
+
+[node name="BossNode" type="Node" parent="."]
+
+[node name="BossBattle" type="Path2D" parent="BossNode"]
+position = Vector2(0, -1)
+curve = SubResource("Curve2D_1fx2k")
+
+[node name="BossLocation" type="PathFollow2D" parent="BossNode/BossBattle"]
+position = Vector2(978, 351)
+rotation = 1.63322
 
 [node name="ComboStack" type="Path2D" parent="."]
 curve = SubResource("Curve2D_r0y7a")
@@ -550,6 +569,19 @@ position = Vector2(100.375, 1072)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 flip_v = true
+
+[node name="BossHealthBarsPanel" type="PanelContainer" parent="."]
+visible = false
+offset_top = 158.0
+offset_right = 571.0
+offset_bottom = 707.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k87rm")
+
+[node name="BossHealthBarsVBoxContainer" type="VBoxContainer" parent="BossHealthBarsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
 
 [connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]
 [connection signal="pressed" from="HUD/TextureButton2" to="." method="EndTurn"]

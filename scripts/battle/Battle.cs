@@ -25,6 +25,8 @@ public partial class Battle : Node2D {
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
+    
+    private const string BossBattleId = "battle_1";
 
     AudioEngine audioEngine;
     autoloads.SceneLoader sceneLoader;
@@ -42,6 +44,8 @@ public partial class Battle : Node2D {
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
+        
+        
 
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
@@ -113,6 +117,20 @@ public partial class Battle : Node2D {
             AddChild(enemy);
             enemies.Add(enemy);
         }
+        
+        
+        if (Id == BossBattleId) {
+            GetNode<PanelContainer>("BossHealthBarsPanel").Visible = true;
+            
+            foreach (Enemy enemy in enemies) {
+                enemy.GetNode<Control>("HealthBar").Visible = false;
+                
+                PanelContainer bossScene = GD.Load<PackedScene>("res://scenes/battle/boss_health_bars.tscn").Instantiate<PanelContainer>();
+                GetNode<VBoxContainer>("BossHealthBarsPanel/BossHealthBarsVBoxContainer").AddChild(bossScene);
+                
+                enemy.BossHealthBar = bossScene;
+            }
+        }
         return enemies;
     }
 
@@ -141,6 +159,13 @@ public partial class Battle : Node2D {
     }
 
     private Vector2 GetEnemyPosition(int index, int count) {
+        if (Id == BossBattleId)
+        {
+            PathFollow2D bossLocation = GetNode<PathFollow2D>("BossNode/BossBattle/BossLocation");
+            bossLocation.ProgressRatio = (float)index / (count - 1);
+            GetNode<PanelContainer>("BossHealthBarsPanel").Visible = true;
+            return bossLocation.Position;
+        }
         PathFollow2D enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
         enemiesLocation.ProgressRatio = (float)index / (count - 1);
         return enemiesLocation.Position;

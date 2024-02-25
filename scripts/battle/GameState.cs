@@ -196,8 +196,8 @@ public class GameState {
                 // Update HUD
                 continue;
             }
-            Label cardPlayedLabel = enemy.GetNode<Label>("CardPlayed");
-            Timer cardPlayedTimer = enemy.GetNode<Timer>("CardPlayedTimer");
+            Label cardPlayedLabel = enemy.GetNode<Label>("HealthBar/CardPlayed");
+            Timer cardPlayedTimer = enemy.GetNode<Timer>("HealthBar/CardPlayedTimer");
 
             Card card = enemy.DrawCard();
             card.Play(this, Player, enemy);

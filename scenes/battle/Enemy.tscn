@@ -13,19 +13,117 @@
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_nns8m")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
-color = Color(0.533333, 0.533333, 0.533333, 0)
+[node name="HealthBar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -101.0
+offset_top = -198.0
+offset_right = -61.0
+offset_bottom = -158.0
 
-[node name="EnemySprite" type="Sprite2D" parent="."]
-position = Vector2(-3.99998, -8.99999)
-scale = Vector2(0.546429, 0.546429)
-texture = ExtResource("2_ggci3")
-flip_h = true
+[node name="ColorRect2" type="ColorRect" parent="HealthBar"]
+offset_right = 199.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 0.670588)
+
+[node name="EneemyHealthbar" type="Sprite2D" parent="HealthBar"]
+position = Vector2(99.5, 19)
+texture = ExtResource("4_e4ref")
+
+[node name="HealthProgressBar" type="ProgressBar" parent="HealthBar"]
+offset_left = -1.5
+offset_top = -2.0
+offset_right = 200.5
+offset_bottom = 41.0
+step = 1.0
+rounded = true
+show_percentage = false
+
+[node name="HealthDisplay" type="Label" parent="HealthBar"]
+offset_left = 27.0
+offset_top = -11.0
+offset_right = 127.0
+offset_bottom = 49.0
+theme = ExtResource("3_df0w2")
+text = "1"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HealthBar"]
+offset_left = -43.0
+offset_top = -18.0
+offset_right = 60.0
+offset_bottom = 110.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_aa264")
+stretch_mode = 4
+
+[node name="UpperBlockDisplay" type="Label" parent="HealthBar"]
+offset_left = -32.0
+offset_top = -11.0
+offset_right = 8.0
+offset_bottom = 20.0
+theme = ExtResource("3_df0w2")
+theme_override_font_sizes/font_size = 28
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LowerBlockDisplay" type="Label" parent="HealthBar"]
+offset_left = -31.0
+offset_top = 18.0
+offset_right = 9.0
+offset_bottom = 49.0
+theme = ExtResource("3_df0w2")
+theme_override_font_sizes/font_size = 28
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardPlayedTimer" type="Timer" parent="HealthBar"]
+wait_time = 2.0
+
+[node name="ModifierIcon" type="TextureRect" parent="HealthBar"]
+visible = false
+offset_left = 159.0
+offset_top = -1.0
+offset_right = 199.0
+offset_bottom = 39.0
+texture = ExtResource("7_3j0ii")
+expand_mode = 3
+
+[node name="CardPlayed" type="Label" parent="HealthBar"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.0
+offset_top = 307.0
+offset_right = 204.0
+offset_bottom = 347.0
+grow_horizontal = 2
+theme = ExtResource("3_df0w2")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_outline_size = 10
+text = "Card Played"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyName" type="Label" parent="HealthBar"]
+offset_left = -111.0
+offset_top = -53.0
+offset_right = 314.0
+offset_bottom = -9.0
+theme = ExtResource("3_df0w2")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_outline_size = 10
+text = "Enemy Name"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Button" type="Sprite2D" parent="."]
 visible = false
@@ -42,142 +140,17 @@ theme = ExtResource("3_df0w2")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mxw43")
 flat = true
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-offset_left = -101.0
-offset_top = -198.0
-offset_right = 98.0
-offset_bottom = -158.0
-color = Color(0, 0, 0, 0.670588)
-
-[node name="HealthLabel" type="Label" parent="."]
-visible = false
-offset_left = -102.5
-offset_top = -169.0
-offset_right = -77.5
-offset_bottom = -109.0
-theme = ExtResource("3_df0w2")
-text = "HP"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="EneemyHealthbar" type="Sprite2D" parent="."]
-position = Vector2(-1.5, -179)
-texture = ExtResource("4_e4ref")
-
-[node name="HealthProgressBar" type="ProgressBar" parent="."]
-offset_left = -102.5
-offset_top = -200.0
-offset_right = 99.5
-offset_bottom = -157.0
-step = 1.0
-rounded = true
-show_percentage = false
-
-[node name="HealthDisplay" type="Label" parent="."]
-offset_left = -74.0
-offset_top = -209.0
-offset_right = 26.0
-offset_bottom = -149.0
-theme = ExtResource("3_df0w2")
-text = "1"
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -144.0
-offset_top = -216.0
-offset_right = -41.0
-offset_bottom = -88.0
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("6_aa264")
-stretch_mode = 4
-
-[node name="UpperBlockRect" type="ColorRect" parent="."]
-visible = false
-offset_left = -195.0
-offset_top = -172.0
-offset_right = -155.0
-offset_bottom = -142.0
-color = Color(0, 0, 1, 1)
-
-[node name="UpperBlockDisplay" type="Label" parent="."]
-offset_left = -133.0
-offset_top = -209.0
-offset_right = -93.0
-offset_bottom = -178.0
-theme = ExtResource("3_df0w2")
-theme_override_font_sizes/font_size = 28
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LowerBlockRect" type="ColorRect" parent="."]
-visible = false
-offset_left = -195.0
-offset_top = -139.0
-offset_right = -155.0
-offset_bottom = -109.0
-color = Color(0, 0, 1, 1)
-
-[node name="LowerBlockDisplay" type="Label" parent="."]
-offset_left = -132.0
-offset_top = -180.0
-offset_right = -92.0
-offset_bottom = -149.0
-theme = ExtResource("3_df0w2")
-theme_override_font_sizes/font_size = 28
-text = "1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CardPlayedTimer" type="Timer" parent="."]
-wait_time = 2.0
-
-[node name="ModifierIcon" type="TextureRect" parent="."]
-visible = false
-offset_left = 58.0
-offset_top = -199.0
-offset_right = 98.0
-offset_bottom = -159.0
-texture = ExtResource("7_3j0ii")
-expand_mode = 3
-
-[node name="CardPlayed" type="Label" parent="."]
-visible = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -136.0
-offset_top = 109.0
-offset_right = 123.0
-offset_bottom = 149.0
-grow_horizontal = 2
-theme = ExtResource("3_df0w2")
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 4
-theme_override_constants/shadow_outline_size = 10
-text = "Card Played"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EnemyName" type="Label" parent="."]
-offset_left = -212.0
-offset_top = -251.0
-offset_right = 213.0
-offset_bottom = -207.0
-theme = ExtResource("3_df0w2")
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_outline_size = 10
-text = "Enemy Name"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="JigglePhysicsTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
+[node name="EnemySprite" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(-4, -9)
+scale = Vector2(0.546429, 0.546429)
+texture = ExtResource("2_ggci3")
+flip_h = true
+
+[connection signal="timeout" from="HealthBar/CardPlayedTimer" to="." method="OnCardPlayedTimer"]
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]
-[connection signal="timeout" from="CardPlayedTimer" to="." method="OnCardPlayedTimer"]
 [connection signal="timeout" from="JigglePhysicsTimer" to="." method="OnJigglePhysicsTimerTimeout"]
