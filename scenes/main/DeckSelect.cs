@@ -8,22 +8,14 @@ public partial class DeckSelect : Control
     public override void _Ready()
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        
         saveData.ParseJson();
-        for (int i = 1; i <= 6; i++)
-        {
-            ReadHighScore(i);
-        }
+        for (int i = 1; i <= 6; i++) { ReadHighScore(i); }
     }
 
     public void ReadHighScore(int deckNumber)
     {
-        
         var highScore = saveData.GetHighScoreByDeck("deck_Player" + deckNumber);
-        if (highScore == null)
-        {
-            return;
-        }
+        if (highScore == null) { return; }
 
         Label label = GetNode<Label>("TextureRect/HBoxContainer/Deck" + deckNumber + "/High Score");
         label.Text = "High Score: " + highScore.Score;
@@ -39,7 +31,6 @@ public partial class DeckSelect : Control
             if (mouseButton.Pressed)
             {
                 var sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/SceneLoader");
-                
                 sceneLoader.DeckSelected = deckId;
                 audioEngine.PlayMusic("venividivichy.wav");
                 sceneLoader.GoToNextBattle();
