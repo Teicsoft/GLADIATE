@@ -3,7 +3,9 @@
 <enemy id="enemy_CyberGaius" name ="Cyber Gaius Genericus"> <!--id: string--> <!--name: string-->
     <image>res://assets/sprites/Drew/Sprite-0006.png</image> <!--path: string-->
     <sound_effect>male-hurt-1.ogg</sound_effect> <!--string for audioengine sfx-->
-    <lore>I swear I've seen him somewhere before...</lore>
+    <lore>I swear 
+I've seen him somewhere before...
+    </lore>
     
     <deck_id>deck_Enemy3</deck_id> <!--deck_id: string-->
     <max_health>30</max_health> <!--health: int-->

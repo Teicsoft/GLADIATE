@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<deck id="deck_GoonArm" name ="Goon Arm"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_Lariat"/>  <!--card_id: string-->
+        <card card_id="card_Grapple"/>
+        <card card_id="card_Throw"/>
+        <card card_id="card_punch"/>
+        <card card_id="card_punch"/>
+        <card card_id="card_Showoff"/>
+        <card card_id="card_UpperBlock"/>
+        <card card_id="card_UpperBlock"/>
+    </cards>
+</deck>

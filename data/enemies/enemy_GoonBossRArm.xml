@@ -10,8 +10,8 @@
     <sound_effect>soundeffect</sound_effect> <!--string for audioengine sfx-->
     <lore>lore</lore>
 
-    <deck_id>deck_enemy</deck_id> <!--deck_id: string-->
-    <max_health>20</max_health> <!--health: int-->
-    <starting_block_upper>0</starting_block_upper> <!-- int -->
-    <starting_block_lower>0</starting_block_lower> <!-- int -->
+    <deck_id>deck_GoonArm</deck_id> <!--deck_id: string-->
+    <max_health>30</max_health> <!--health: int-->
+    <starting_block_upper>2</starting_block_upper> <!-- int -->
+    <starting_block_lower>1</starting_block_lower> <!-- int -->
 </enemy>

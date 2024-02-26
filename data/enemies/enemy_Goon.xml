@@ -3,10 +3,13 @@
 <enemy id="enemy_Goon" name ="Goon"> <!--id: string--> <!--name: string-->
     <image>res://assets/sprites/Goon/GoonOriginal.png</image> <!--path: string-->
     <sound_effect>soundeffect</sound_effect> <!--string for audioengine sfx-->
-    <lore>lore</lore>
+    <lore>Win:Loss | 0:98
+"Nobody beats Goon 100 times 
+and gets away with it". 
+    </lore>
 
-    <deck_id>deck_Enemy1</deck_id> <!--deck_id: string-->
-    <max_health>20</max_health> <!--health: int-->
-    <starting_block_upper>0</starting_block_upper> <!-- int -->
-    <starting_block_lower>0</starting_block_lower> <!-- int -->
+    <deck_id>deck_goon</deck_id> <!--deck_id: string-->
+    <max_health>40</max_health> <!--health: int-->
+    <starting_block_upper>2</starting_block_upper> <!-- int -->
+    <starting_block_lower>2</starting_block_lower> <!-- int -->
 </enemy>

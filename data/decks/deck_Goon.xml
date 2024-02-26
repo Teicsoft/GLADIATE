@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<deck id="deck_goon" name ="Goon"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_punch"/>  <!--card_id: string-->
+        <card card_id="card_kick"/>
+        <card card_id="card_FullBlock"/>
+        <card card_id="card_FullBlock"/>
+        <card card_id="card_ShoutYourMoveName"/>
+    </cards>
+</deck>

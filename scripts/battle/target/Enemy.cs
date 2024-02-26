@@ -140,6 +140,7 @@ public partial class Enemy : Node2D, ITarget {
         GetNode<Label>("HealthBar/EnemyName").Text = Name;
 
         GetNode<Sprite2D>("EnemySprite").Texture = (Texture2D)GD.Load(Image);
+        GetNode<Button>("SelectButton").TooltipText = Lore;
     }
 
     public override void _Process(double delta) { }
