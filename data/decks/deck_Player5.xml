@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<deck id="deck_Player5" name ="Deck Name"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+<deck id="deck_Player5" name ="Galaxy Brained"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
     <cards>
         <card card_id="card_headbutt"/>  <!--card_id: string-->
         <card card_id="card_headbutt"/>  

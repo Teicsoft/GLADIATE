@@ -82,7 +82,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
-text = "DeckName"
+text = "Fist full of punches"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -153,7 +153,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
-text = "DeckName"
+text = "Brawling Brutus"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -224,7 +224,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
-text = "DeckName"
+text = "Evolution"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -295,7 +295,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
-text = "DeckName"
+text = "Take a Bow"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -437,7 +437,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
-text = "DeckName"
+text = "The Kitchen Sink"
 horizontal_alignment = 1
 vertical_alignment = 1
 
