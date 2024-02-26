@@ -26,7 +26,7 @@ public partial class Enemy : Node2D, ITarget {
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
     public int MaxHealth { get; set; }
-    public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
+    public Utils.StatusesDecorator Statuses { get; set; } = new();
     
     private PanelContainer _bossHealthBar;
 
@@ -54,6 +54,11 @@ public partial class Enemy : Node2D, ITarget {
             GetNode<TextureRect>("HealthBar/ModifierIcon").Texture;
         _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Visible = 
             GetNode<TextureRect>("HealthBar/ModifierIcon").Visible;
+    }
+    
+    private  void UpdateStatusesToolTip()
+    {
+        GetNode<ColorRect>("HealthBar/ColorRect2").TooltipText = Statuses.ToString();
     }
 
     public Utils.ModifierEnum Modifier {
@@ -188,10 +193,17 @@ public partial class Enemy : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
+        } else {
+            Statuses.Add(Utils.StatusEnum.Stunned);
+            UpdateStatusesToolTip();
+        }
     }
 
-    public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }
+    public bool IsStunned() {
+        bool result = Statuses.Remove(Utils.StatusEnum.Stunned);
+        UpdateStatusesToolTip();
+        return result;
+    }
 
     public void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
 
@@ -241,4 +253,3 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 }
-

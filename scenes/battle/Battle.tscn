@@ -376,10 +376,10 @@ vertical_alignment = 1
 wait_time = 3.0
 
 [node name="VsLabel" type="Label" parent="HUD"]
-offset_left = 1159.0
-offset_top = 96.0
-offset_right = 1427.0
-offset_bottom = 132.0
+offset_left = 1160.0
+offset_top = 101.0
+offset_right = 1428.0
+offset_bottom = 141.0
 size_flags_horizontal = 8
 theme = ExtResource("7_bj4ys")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

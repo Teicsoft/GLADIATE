@@ -12,7 +12,7 @@ public partial class Player : Node2D, ITarget {
 
     public string Name { get; set; }
     public int MaxHealth { get; set; }
-    public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
+    public Utils.StatusesDecorator Statuses { get; set; } = new();
 
     private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
     public Utils.ModifierEnum Modifier {
