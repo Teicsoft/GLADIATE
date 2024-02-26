@@ -206,6 +206,13 @@ public class GameState {
 
             cardPlayedLabel.Text = card.CardName;
             cardPlayedLabel.Visible = true;
+            
+            
+            if (enemy.BossHealthBar != null) {
+                Label bossCardPlayedLabel = enemy.BossHealthBar.GetNode<Label>("MarginContainer/Control/CardPlayed");
+                bossCardPlayedLabel.Text = card.CardName;
+                bossCardPlayedLabel.Visible = true;
+            }
 
             cardPlayedTimer.Start();
         }

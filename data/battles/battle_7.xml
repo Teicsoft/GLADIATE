@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Battle Template -->
+<!-- a list of 3 enemies to fight -->
+<!-- To use, copy this file and rename it to battle_name.xml -->
+
+<battle id="battle_7" name ="Vs Ultimate Goon"> <!--id: string--><!--name: string-->
+    <music>song</music> <!-- AudioEngine: string -->
+    <enemies>
+        <enemy enemy_id="enemy_GoonBossHead"/>
+        <enemy enemy_id="enemy_GoonBossLArm"/>
+        <enemy enemy_id="enemy_GoonBossLLeg"/>
+        <enemy enemy_id="enemy_GoonBossRArm"/>
+        <enemy enemy_id="enemy_GoonBossRLeg"/>
+        <enemy enemy_id="enemy_GoonBossTorso"/>
+    </enemies>
+</battle>

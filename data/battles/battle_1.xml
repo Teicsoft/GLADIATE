@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Battle Template -->
-<!-- a list of 3 enemies to fight -->
-<!-- To use, copy this file and rename it to battle_name.xml -->
-
-<battle id="battle_1" name ="Name"> <!--id: string--><!--name: string-->
+<battle id="battle_1" name ="The First Bout"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
     <music>song</music> <!-- AudioEngine: string -->
     <enemies>
-        <enemy enemy_id="enemy_GoonBossHead"/>
-        <enemy enemy_id="enemy_GoonBossTorso"/>
-        <enemy enemy_id="enemy_GoonBossLArm"/>
-        <enemy enemy_id="enemy_GoonBossLLeg"/>
-        <enemy enemy_id="enemy_GoonBossRLeg"/>
-        <enemy enemy_id="enemy_GoonBossRArm"/>
+        <enemy enemy_id="enemy_Loser"/>  <!--enemy_id: string-->
+        <enemy enemy_id="enemy_Loser"/>  
+        <enemy enemy_id="enemy_Loser"/>  
     </enemies>
 </battle>

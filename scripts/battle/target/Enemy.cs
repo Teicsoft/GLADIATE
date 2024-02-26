@@ -28,7 +28,33 @@ public partial class Enemy : Node2D, ITarget {
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
     
-    public PanelContainer BossHealthBar {get; set;}
+    private PanelContainer _bossHealthBar;
+
+    public PanelContainer BossHealthBar
+    {
+        get => _bossHealthBar;
+        set
+        {
+            _bossHealthBar = value;
+            UpdateBossHealthBar();
+        }
+    }
+    public Path2D EnemyPath2D { get; set; }
+    
+    private void UpdateBossHealthBar()
+    {
+        if (_bossHealthBar == null) return;
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/EnemyName").Text = Name;
+        _bossHealthBar.GetNode<ProgressBar>("MarginContainer/Control/Control/HealthProgressBar").Ratio = (double)Health / MaxHealth;
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/HealthDisplay").Text =
+            GetNode<Label>("HealthBar/HealthDisplay").Text;
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/UpperBlockDisplay").Text = DefenseUpper.ToString();
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/LowerBlockDisplay").Text = DefenseLower.ToString();
+        _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Texture =
+            GetNode<TextureRect>("HealthBar/ModifierIcon").Texture;
+        _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Visible = 
+            GetNode<TextureRect>("HealthBar/ModifierIcon").Visible;
+    }
 
     public Utils.ModifierEnum Modifier {
         get => _modifier;
@@ -40,6 +66,8 @@ public partial class Enemy : Node2D, ITarget {
                 icon.Visible = true;
                 icon.Texture = (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_modifier}.png");
             }
+
+            UpdateBossHealthBar();
         }
     }
 
@@ -49,6 +77,7 @@ public partial class Enemy : Node2D, ITarget {
             Utils.DirectionEventArgs args = Utils.CheckDirection(_health, value);
             _health = value;
             UpdateHealthBar();
+            UpdateBossHealthBar();
             EnemyHealthChangedCustomEvent?.Invoke(this, args);
         }
     }
@@ -59,6 +88,7 @@ public partial class Enemy : Node2D, ITarget {
             Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseLower, value);
             _defenseLower = value;
             UpdateDefenseLowerDisplay();
+            UpdateBossHealthBar();
             EnemyDefenseLowerChangedCustomEvent?.Invoke(this, args);
         }
     }
@@ -69,6 +99,7 @@ public partial class Enemy : Node2D, ITarget {
             Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseUpper, value);
             _defenseUpper = value;
             UpdateDefenseUpperDisplay();
+            UpdateBossHealthBar();
             EnemyDefenseUpperChangedCustomEvent?.Invoke(this, args);
         }
     }
@@ -213,8 +244,10 @@ public partial class Enemy : Node2D, ITarget {
     }
 
     private void OnCardPlayedTimer() {
-        Label cardPlayedLabel = GetNode<Label>("HealthBar/CardPlayed");
-        cardPlayedLabel.Visible = false;
+        GetNode<Label>("HealthBar/CardPlayed").Visible = false;
+        if (_bossHealthBar != null){
+            _bossHealthBar.GetNode<Label>("MarginContainer/Control/CardPlayed").Visible = false;
+        }
     }
 }
 

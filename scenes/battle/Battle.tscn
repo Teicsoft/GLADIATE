@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=34 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -41,9 +41,39 @@ point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_1fx2k"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 978, 351, 0, 0, 0, 0, 964, 575, 0, 0, 0, 0, 1273, 376, 0, 0, 0, 0, 1123, 752, 0, 0, 0, 0, 800, 749, 0, 0, 0, 0, 664, 378)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, -360)
 }
-point_count = 6
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rsjld"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 429, -269)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_02fxe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 237, 139)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vobc0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -427, -264)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xn1me"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -238, 152)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ojghp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -70)
+}
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_r0y7a"]
 _data = {
@@ -80,6 +110,16 @@ grow_vertical = 2
 texture = ExtResource("4_ft1ua")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Background/TextureRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0.517647)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -441,20 +481,54 @@ rotation = -0.785398
 [node name="Enemies" type="Path2D" parent="."]
 curve = SubResource("Curve2D_e410o")
 
-[node name="EnemiesLocation" type="PathFollow2D" parent="Enemies"]
+[node name="EnemyLocation" type="PathFollow2D" parent="Enemies"]
 visible = false
 position = Vector2(1421, 578)
 rotation = -3.08365
 
 [node name="BossNode" type="Node" parent="."]
 
-[node name="BossBattle" type="Path2D" parent="BossNode"]
-position = Vector2(0, -1)
+[node name="BossBattle0" type="Path2D" parent="BossNode"]
+position = Vector2(960, 540)
 curve = SubResource("Curve2D_1fx2k")
 
-[node name="BossLocation" type="PathFollow2D" parent="BossNode/BossBattle"]
-position = Vector2(978, 351)
-rotation = 1.63322
+[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle0"]
+rotation = -1.58191
+
+[node name="BossBattle1" type="Path2D" parent="BossNode"]
+position = Vector2(960, 540)
+curve = SubResource("Curve2D_rsjld")
+
+[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle1"]
+rotation = -0.560065
+
+[node name="BossBattle2" type="Path2D" parent="BossNode"]
+position = Vector2(960, 540)
+curve = SubResource("Curve2D_02fxe")
+
+[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle2"]
+rotation = 0.530432
+
+[node name="BossBattle3" type="Path2D" parent="BossNode"]
+position = Vector2(960, 540)
+curve = SubResource("Curve2D_vobc0")
+
+[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle3"]
+rotation = -2.58785
+
+[node name="BossBattle4" type="Path2D" parent="BossNode"]
+position = Vector2(960, 540)
+curve = SubResource("Curve2D_xn1me")
+
+[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle4"]
+rotation = 2.57323
+
+[node name="BossBattle5" type="Path2D" parent="BossNode"]
+position = Vector2(960, 540)
+curve = SubResource("Curve2D_ojghp")
+
+[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle5"]
+rotation = -1.5708
 
 [node name="ComboStack" type="Path2D" parent="."]
 curve = SubResource("Curve2D_r0y7a")
