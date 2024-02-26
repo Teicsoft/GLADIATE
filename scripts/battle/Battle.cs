@@ -312,11 +312,11 @@ public partial class Battle : Node2D {
     }
 
     private void OnMultiplierChanged() {
-        GetNode<Label>("HUD/MultiplierDisplay").Text = _gameState.Multiplier.ToString();
+        GetNode<Label>("HUD/Sp_combo Background/HBoxContainer/MultiplierDisplay").Text = _gameState.Multiplier.ToString();
     }
 
     private void OnSpectacleChanged() {
-        GetNode<Label>("HUD/SpectacleDisplay").Text = _gameState.SpectaclePoints.ToString();
+        GetNode<Label>("HUD/Sp_combo Background/HBoxContainer2/SpectacleDisplay").Text = _gameState.SpectaclePoints.ToString();
     }
 
     private void OnDiscardStateChanged() {
