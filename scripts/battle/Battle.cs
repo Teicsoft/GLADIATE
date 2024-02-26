@@ -51,6 +51,8 @@ public partial class Battle : Node2D {
         ComboGlossary comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
         comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
         
+        GetNode<Label>("HUD/VsLabel").Text = BattleName;
+        
         if (Id == SceneLoader.BossBattleId) {
             _audioEngine.PlayMusic("Menu_music.wav");
             GD.Print("Boss Battle");
