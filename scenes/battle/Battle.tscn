@@ -389,57 +389,6 @@ theme_override_constants/shadow_outline_size = 10
 text = "VS. Opponent"
 horizontal_alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
-offset_right = 101.0
-offset_bottom = 74.0
-scale = Vector2(2, 2)
-
-[node name="CardGlossaryButton" type="TextureButton" parent="HUD/VBoxContainer"]
-process_mode = 1
-layout_mode = 2
-texture_normal = ExtResource("8_d7wxd")
-texture_pressed = ExtResource("9_x3afa")
-
-[node name="Label" type="Label" parent="HUD/VBoxContainer/CardGlossaryButton"]
-layout_mode = 0
-offset_left = 5.5
-offset_top = 2.0
-offset_right = 185.5
-offset_bottom = 44.0
-scale = Vector2(0.5, 0.5)
-theme = ExtResource("7_bj4ys")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
-theme_override_font_sizes/font_size = 38
-text = "Card Glossary"
-horizontal_alignment = 1
-
-[node name="ComboGlossaryButton" type="TextureButton" parent="HUD/VBoxContainer"]
-process_mode = 1
-layout_mode = 2
-texture_normal = ExtResource("8_d7wxd")
-texture_pressed = ExtResource("9_x3afa")
-
-[node name="Label" type="Label" parent="HUD/VBoxContainer/ComboGlossaryButton"]
-layout_mode = 0
-offset_left = 5.5
-offset_top = 4.0
-offset_right = 209.5
-offset_bottom = 46.0
-scale = Vector2(0.45, 0.45)
-theme = ExtResource("7_bj4ys")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
-theme_override_font_sizes/font_size = 38
-text = "Combo Glossary"
-horizontal_alignment = 1
-
-[node name="CardGlossary" parent="HUD" instance=ExtResource("13_mwfol")]
-visible = false
-
-[node name="ComboGlossary" parent="HUD" instance=ExtResource("14_fhiga")]
-visible = false
-
 [node name="Sp_combo Background" type="PanelContainer" parent="HUD"]
 anchors_preset = 5
 anchor_left = 0.5
@@ -508,6 +457,57 @@ theme_override_font_sizes/font_size = 50
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+offset_right = 101.0
+offset_bottom = 74.0
+scale = Vector2(2, 2)
+
+[node name="CardGlossaryButton" type="TextureButton" parent="HUD/VBoxContainer"]
+process_mode = 1
+layout_mode = 2
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/CardGlossaryButton"]
+layout_mode = 0
+offset_left = 5.5
+offset_top = 2.0
+offset_right = 185.5
+offset_bottom = 44.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
+text = "Card Glossary"
+horizontal_alignment = 1
+
+[node name="ComboGlossaryButton" type="TextureButton" parent="HUD/VBoxContainer"]
+process_mode = 1
+layout_mode = 2
+texture_normal = ExtResource("8_d7wxd")
+texture_pressed = ExtResource("9_x3afa")
+
+[node name="Label" type="Label" parent="HUD/VBoxContainer/ComboGlossaryButton"]
+layout_mode = 0
+offset_left = 5.5
+offset_top = 4.0
+offset_right = 209.5
+offset_bottom = 46.0
+scale = Vector2(0.45, 0.45)
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_font_sizes/font_size = 38
+text = "Combo Glossary"
+horizontal_alignment = 1
+
+[node name="CardGlossary" parent="HUD" instance=ExtResource("13_mwfol")]
+visible = false
+
+[node name="ComboGlossary" parent="HUD" instance=ExtResource("14_fhiga")]
+visible = false
 
 [node name="Hand" type="Path2D" parent="."]
 z_index = 1
