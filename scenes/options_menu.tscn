@@ -1,0 +1,217 @@
+[gd_scene load_steps=13 format=3 uid="uid://ci05wo3p3muho"]
+
+[ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="1_a082y"]
+[ext_resource type="Texture2D" uid="uid://fjpa0e8mdgvg" path="res://assets/ui/thicc_border_top.png" id="1_jv2p2"]
+[ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="2_uvbvf"]
+[ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="3_qqi8i"]
+[ext_resource type="Texture2D" uid="uid://b7otj00lmo7xt" path="res://assets/ui/thicc_border_bottom_corner.png" id="4_v0cl3"]
+[ext_resource type="Texture2D" uid="uid://ct0ob64gqdupj" path="res://assets/ui/thicc_border_bottom_straight.png" id="5_danb2"]
+[ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="7_5wohl"]
+[ext_resource type="Texture2D" uid="uid://c3i31cb0fpl1w" path="res://assets/ui/large_button_pressed.png" id="8_3byp8"]
+[ext_resource type="Texture2D" uid="uid://bpjsfr3rswsjr" path="res://assets/ui/scrollnub.png" id="8_r1c2x"]
+[ext_resource type="Texture2D" uid="uid://dji6dwqh11tuo" path="res://assets/ui/github-mark.png" id="9_srg7x"]
+[ext_resource type="Texture2D" uid="uid://c5w7bux5ksfwl" path="res://assets/ui/toggle_on.png" id="10_q1nov"]
+[ext_resource type="Texture2D" uid="uid://ikg1v46ltoap" path="res://assets/ui/toggle_off.png" id="11_mswe0"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 498.0
+offset_top = 223.0
+offset_right = 1498.0
+offset_bottom = 823.0
+color = Color(0.231373, 0.231373, 0.231373, 0.505882)
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+scale = Vector2(3, 3)
+
+[node name="ThiccBorderTop" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(326.333, 75.3333)
+texture = ExtResource("1_jv2p2")
+
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(244.875, 72.3333)
+scale = Vector2(3.62838, 1)
+texture = ExtResource("2_uvbvf")
+
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopStraight"]
+position = Vector2(46.5658, 2.46366e-06)
+scale = Vector2(1.09994, 1)
+texture = ExtResource("2_uvbvf")
+
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopStraight"]
+position = Vector2(-22.2896, 105.577)
+rotation = 4.71239
+scale = Vector2(5.036, 0.275484)
+texture = ExtResource("2_uvbvf")
+
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopStraight/ThiccBorderTopStraight2"]
+position = Vector2(0.745181, 337.807)
+rotation = 3.14159
+scale = Vector2(0.960208, 0.999318)
+texture = ExtResource("2_uvbvf")
+
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(494.667, 79.3333)
+texture = ExtResource("3_qqi8i")
+
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopCorner"]
+position = Vector2(-323.667, 2.20537e-06)
+texture = ExtResource("3_qqi8i")
+flip_h = true
+
+[node name="ThiccBorderBottomCorner" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(494.667, 270.667)
+scale = Vector2(0.993057, 1)
+texture = ExtResource("4_v0cl3")
+
+[node name="ThiccBorderBottomCorner" type="Sprite2D" parent="CanvasGroup/ThiccBorderBottomCorner"]
+position = Vector2(-325.93, -3.27826e-07)
+texture = ExtResource("4_v0cl3")
+flip_h = true
+
+[node name="ThiccBorderBottomStraight" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(332.833, 277.667)
+scale = Vector2(8.63964, 1)
+texture = ExtResource("5_danb2")
+
+[node name="Options Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 40.0
+offset_top = 237.0
+offset_right = 1936.0
+offset_bottom = 317.0
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_fonts/font = ExtResource("1_a082y")
+theme_override_font_sizes/font_size = 74
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back Button" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 525.0
+offset_top = 769.0
+offset_right = 626.0
+offset_bottom = 804.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture_normal = ExtResource("7_5wohl")
+texture_pressed = ExtResource("8_3byp8")
+stretch_mode = 3
+
+[node name="Back" type="Label" parent="Back Button"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = -3.0
+offset_right = 75.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_fonts/font = ExtResource("1_a082y")
+theme_override_font_sizes/font_size = 28
+text = "Back"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Credits Button" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 1361.0
+offset_top = 771.0
+offset_right = 1462.0
+offset_bottom = 806.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture_normal = ExtResource("7_5wohl")
+texture_pressed = ExtResource("8_3byp8")
+stretch_mode = 3
+
+[node name="Credits" type="Label" parent="Credits Button"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = -2.0
+offset_right = 90.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_fonts/font = ExtResource("1_a082y")
+theme_override_font_sizes/font_size = 28
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Music Sliider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 661.0
+offset_top = 459.0
+offset_right = 1261.0
+offset_bottom = 495.0
+theme_override_icons/grabber = ExtResource("8_r1c2x")
+theme_override_icons/grabber_highlight = ExtResource("8_r1c2x")
+theme_override_icons/grabber_disabled = ExtResource("8_r1c2x")
+
+[node name="Music" type="Label" parent="Music Sliider"]
+layout_mode = 0
+offset_left = -91.0
+offset_top = -2.0
+offset_right = -22.0
+offset_bottom = 37.0
+theme_override_fonts/font = ExtResource("1_a082y")
+theme_override_font_sizes/font_size = 36
+text = "Music"
+
+[node name="SFX Slider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 660.0
+offset_top = 533.0
+offset_right = 1260.0
+offset_bottom = 569.0
+theme_override_icons/grabber = ExtResource("8_r1c2x")
+theme_override_icons/grabber_highlight = ExtResource("8_r1c2x")
+theme_override_icons/grabber_disabled = ExtResource("8_r1c2x")
+
+[node name="SFX" type="Label" parent="SFX Slider"]
+layout_mode = 0
+offset_left = -80.0
+offset_top = -1.0
+offset_right = -36.0
+offset_bottom = 38.0
+theme_override_fonts/font = ExtResource("1_a082y")
+theme_override_font_sizes/font_size = 36
+text = "SFX"
+
+[node name="Music Mute Button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1278.0
+offset_top = 464.0
+offset_right = 1318.0
+offset_bottom = 504.0
+toggle_mode = true
+texture_normal = ExtResource("10_q1nov")
+texture_pressed = ExtResource("11_mswe0")
+
+[node name="SFX Mute Button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1278.0
+offset_top = 540.0
+offset_right = 1318.0
+offset_bottom = 580.0
+toggle_mode = true
+texture_normal = ExtResource("10_q1nov")
+texture_pressed = ExtResource("11_mswe0")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 1323.0
+offset_top = 775.0
+offset_right = 1563.0
+offset_bottom = 1015.0
+scale = Vector2(0.117246, 0.117246)
+texture_normal = ExtResource("9_srg7x")
