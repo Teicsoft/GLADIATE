@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using GLADIATE.scripts.audio;
 using GLADIATE.scripts.autoloads;
 using GLADIATE.scripts.battle.card;
@@ -74,9 +75,6 @@ public partial class Battle : Node2D {
 
                     enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
                     
-                    // GD.Print("ProgressRatio: " +
-                    //          enemy.EnemyPath2D.GetNode<PathFollow2D>("EnemyLocation").ProgressRatio);
-
                 }
                 else if (enemyPathFollow2D.ProgressRatio > 0.7f && enemyPathFollow2D.ProgressRatio <= 1.0f)
                 {
@@ -156,6 +154,15 @@ public partial class Battle : Node2D {
 
             if (GD.Randi() % 2 == 0) { enemy.GetNode<Sprite2D>("EnemySprite").FlipH = false; }
 
+            if (Id == "battle_6" && enemy.Id == "enemy_Goon") {
+                enemy.GetNode<Sprite2D>("EnemySprite").Hide();
+                AnimatedSprite2D goon = enemy.GetNode<AnimatedSprite2D>("Goon");
+                goon.Show();
+                goon.Play("Idle");
+                enemy.Scale = new Vector2(1.7f, 1.7f);
+                enemy.GetNode<Label>("HealthBar/CardPlayed").Position = new Vector2(100, 0);
+            }
+            
             AddChild(enemy);
             enemies.Add(enemy);
         }
@@ -239,7 +246,19 @@ public partial class Battle : Node2D {
     private void WinBattle(object sender, EventArgs eventArgs) {
         EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
 
-        _audioEngine.PlaySoundFx("victory-jingle.wav");
+        if (Id != "battle_6")
+        {_audioEngine.PlaySoundFx("victory-jingle.wav"); }
+        else {
+            _audioEngine.PlaySoundFx("male-hurt-1.ogg");
+            Task.Delay(10).Wait();
+            _audioEngine.PlaySoundFx("male-hurt-2.ogg");
+            Task.Delay(10).Wait();
+            _audioEngine.PlaySoundFx("male-hurt-3.ogg");
+            Task.Delay(10).Wait();
+            _audioEngine.PlaySoundFx("male-hurt-4.ogg");
+            Task.Delay(10).Wait();
+        }
+
         GD.Print(" ==== ====  WIN BATTLE  ==== ====");
         _sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
         _sceneLoader.Health = _gameState.Player.Health;

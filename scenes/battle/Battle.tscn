@@ -35,7 +35,7 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_e410o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1421, 578, 0, 0, 0, 0, 990, 553, 0, 0, 0, 0, 569, 578)
+"points": PackedVector2Array(0, 0, 0, 0, 1521, 578, 0, 0, 0, 0, 990, 553, 0, 0, 0, 0, 469, 578)
 }
 point_count = 3
 
@@ -483,8 +483,8 @@ curve = SubResource("Curve2D_e410o")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="Enemies"]
 visible = false
-position = Vector2(1421, 578)
-rotation = -3.08365
+position = Vector2(1521, 578)
+rotation = -3.09455
 
 [node name="BossNode" type="Node" parent="."]
 

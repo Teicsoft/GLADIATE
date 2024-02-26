@@ -260,7 +260,9 @@ public class GameState {
     }
 
     private void HideDeadEnemies() {
-        foreach (Enemy deadEnemy in GetDeadEnemies()) { deadEnemy.Visible = false; }
+        foreach (Enemy deadEnemy in GetDeadEnemies()) {
+            if (deadEnemy.Id != "enemy_Goon"){ deadEnemy.Visible = false; }
+        }
     }
 
     public override string ToString() {
