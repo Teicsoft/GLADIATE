@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://r58mdc5njm8"]
+[gd_scene load_steps=13 format=3 uid="uid://r58mdc5njm8"]
 
 [ext_resource type="Script" path="res://scenes/main/DeckSelect.cs" id="1_q7d5k"]
 [ext_resource type="Texture2D" uid="uid://biqdpl7e2d8hc" path="res://assets/ui/background.png" id="2_74v4t"]
 [ext_resource type="Texture2D" uid="uid://ckgiwbyy3dr18" path="res://assets/images/Cards/CardArt/punch.png" id="3_emu57"]
 [ext_resource type="Texture2D" uid="uid://do8alsk3n50wg" path="res://assets/images/Cards/CardArt/gladius.png" id="4_4aqnq"]
 [ext_resource type="Texture2D" uid="uid://b6l772dpx2bgq" path="res://assets/ui/9patchBorder.png" id="4_4ng7w"]
+[ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="5_578yg"]
 [ext_resource type="Texture2D" uid="uid://mrglu2pncgy8" path="res://assets/images/Cards/CardArt/bloodOnSand.png" id="5_i4uhb"]
 [ext_resource type="Texture2D" uid="uid://bqelqsritcoiy" path="res://assets/images/Cards/CardArt/dropkick.png" id="6_eosr2"]
+[ext_resource type="Texture2D" uid="uid://diq0l8bgyca73" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Up.png" id="6_vkael"]
 [ext_resource type="Texture2D" uid="uid://cktlhhgeejedm" path="res://assets/images/Cards/CardArt/headbutt.png" id="7_m0ur3"]
 [ext_resource type="Texture2D" uid="uid://bcs6e5j2h08f0" path="res://assets/images/Cards/CardArt/spartackle.png" id="8_nvasl"]
 [ext_resource type="FontFile" uid="uid://cnq0lsjurchca" path="res://assets/fonts/nimbus-roman-no9-l.regular/nimbus-roman-no9-l.regular.otf" id="9_pjf3d"]
@@ -55,6 +57,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck1"]
+layout_mode = 0
 offset_top = -8.0
 offset_right = 305.0
 offset_bottom = 179.0
@@ -63,6 +66,60 @@ patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
+
+[node name="Deck Name" type="Label" parent="TextureRect/HBoxContainer/Deck1"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = -63.0
+offset_right = 142.5
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "DeckName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="High Score" type="Label" parent="TextureRect/HBoxContainer/Deck1"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = 186.0
+offset_right = 142.5
+offset_bottom = 232.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "High Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Thumbsup" type="TextureRect" parent="TextureRect/HBoxContainer/Deck1"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = -69.0
+offset_right = 55.0
+offset_bottom = 43.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_vkael")
 
 [node name="Deck2" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -71,6 +128,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck2"]
+layout_mode = 0
 offset_top = -8.0
 offset_right = 305.0
 offset_bottom = 179.0
@@ -79,6 +137,60 @@ patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
+
+[node name="Deck Name" type="Label" parent="TextureRect/HBoxContainer/Deck2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = -63.0
+offset_right = 142.5
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "DeckName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="High Score" type="Label" parent="TextureRect/HBoxContainer/Deck2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = 186.0
+offset_right = 142.5
+offset_bottom = 232.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "High Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Thumbsup" type="TextureRect" parent="TextureRect/HBoxContainer/Deck2"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = -69.0
+offset_right = 55.0
+offset_bottom = 43.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_vkael")
 
 [node name="Deck3" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -87,6 +199,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck3"]
+layout_mode = 0
 offset_top = -8.0
 offset_right = 305.0
 offset_bottom = 179.0
@@ -95,6 +208,60 @@ patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
+
+[node name="Deck Name" type="Label" parent="TextureRect/HBoxContainer/Deck3"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = -63.0
+offset_right = 142.5
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "DeckName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="High Score" type="Label" parent="TextureRect/HBoxContainer/Deck3"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = 186.0
+offset_right = 142.5
+offset_bottom = 232.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "High Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Thumbsup" type="TextureRect" parent="TextureRect/HBoxContainer/Deck3"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = -69.0
+offset_right = 55.0
+offset_bottom = 43.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_vkael")
 
 [node name="Deck4" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -103,6 +270,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck4"]
+layout_mode = 0
 offset_top = -8.0
 offset_right = 305.0
 offset_bottom = 179.0
@@ -111,6 +279,60 @@ patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
+
+[node name="Deck Name" type="Label" parent="TextureRect/HBoxContainer/Deck4"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = -63.0
+offset_right = 142.5
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "DeckName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="High Score" type="Label" parent="TextureRect/HBoxContainer/Deck4"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = 186.0
+offset_right = 142.5
+offset_bottom = 232.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "High Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Thumbsup" type="TextureRect" parent="TextureRect/HBoxContainer/Deck4"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = -69.0
+offset_right = 55.0
+offset_bottom = 43.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_vkael")
 
 [node name="Deck5" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -119,6 +341,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck5"]
+layout_mode = 0
 offset_top = -8.0
 offset_right = 305.0
 offset_bottom = 179.0
@@ -127,6 +350,60 @@ patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
+
+[node name="Deck Name" type="Label" parent="TextureRect/HBoxContainer/Deck5"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = -63.0
+offset_right = 142.5
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "DeckName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="High Score" type="Label" parent="TextureRect/HBoxContainer/Deck5"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = 186.0
+offset_right = 142.5
+offset_bottom = 232.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "High Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Thumbsup" type="TextureRect" parent="TextureRect/HBoxContainer/Deck5"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = -69.0
+offset_right = 55.0
+offset_bottom = 43.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_vkael")
 
 [node name="Deck6" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
@@ -135,6 +412,7 @@ expand_mode = 2
 stretch_mode = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="TextureRect/HBoxContainer/Deck6"]
+layout_mode = 0
 offset_top = -8.0
 offset_right = 305.0
 offset_bottom = 179.0
@@ -143,6 +421,60 @@ patch_margin_left = 24
 patch_margin_top = 24
 patch_margin_right = 24
 patch_margin_bottom = 24
+
+[node name="Deck Name" type="Label" parent="TextureRect/HBoxContainer/Deck6"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = -63.0
+offset_right = 142.5
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "DeckName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="High Score" type="Label" parent="TextureRect/HBoxContainer/Deck6"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -142.5
+offset_top = 186.0
+offset_right = 142.5
+offset_bottom = 232.0
+grow_horizontal = 2
+theme = ExtResource("5_578yg")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+text = "High Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Thumbsup" type="TextureRect" parent="TextureRect/HBoxContainer/Deck6"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = -69.0
+offset_right = 55.0
+offset_bottom = 43.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_vkael")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 1
@@ -152,9 +484,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -348.0
-offset_top = -88.0
+offset_top = -293.0
 offset_right = 348.0
-offset_bottom = 60.0
+offset_bottom = -145.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
@@ -178,6 +510,7 @@ theme_override_font_sizes/font_size = 84
 text = "Choose Your Deck"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ColorRect2"]
+layout_mode = 0
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 704.0

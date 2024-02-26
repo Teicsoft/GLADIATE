@@ -1,3 +1,4 @@
+using GLADIATE.scenes.sub;
 using Godot;
 using GLADIATE.scripts.audio;
 
@@ -7,8 +8,21 @@ public partial class DeckSelect : Control
     public override void _Ready()
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        SaveData.ParseJson();
+        for (int i = 1; i <= 6; i++) { ReadHighScore(i); }
     }
 
+    public void ReadHighScore(int deckNumber)
+    {
+        var highScore = SaveData.GetHighScoreByDeck("deck_Player" + deckNumber);
+        if (highScore == null) { return; }
+
+        Label label = GetNode<Label>("TextureRect/HBoxContainer/Deck" + deckNumber + "/High Score");
+        label.Text = "High Score: " + highScore.Score;
+        label.Show();
+        
+        GetNode<TextureRect>($"TextureRect/HBoxContainer/Deck{deckNumber}/Thumbsup").Show();
+    }
 
     public void handleClickEvent(InputEvent @event, string deckId)
     {
@@ -17,7 +31,6 @@ public partial class DeckSelect : Control
             if (mouseButton.Pressed)
             {
                 var sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/SceneLoader");
-                
                 sceneLoader.DeckSelected = deckId;
                 audioEngine.PlayMusic("venividivichy.wav");
                 sceneLoader.GoToNextBattle();

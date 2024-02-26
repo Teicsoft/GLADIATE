@@ -1,30 +1,28 @@
-using Godot;
 using GLADIATE.scripts.audio;
+using Godot;
+
+namespace GLADIATE.scenes.sub;
 
 public partial class Victory : Control
 {
-    private AudioEngine audioEngine;
-    private GLADIATE.scripts.autoloads.SceneLoader sceneLoader;
+    private AudioEngine _audioEngine;
+    private scripts.autoloads.SceneLoader _sceneLoader;
     
-    Label label;
-    
-    
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/SceneLoader");
+        _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        _sceneLoader = GetNode<GLADIATE.scripts.autoloads.SceneLoader>("/root/SceneLoader");
         
-        label = GetNode<Label>("ColorRect/ColorRect/VBoxContainer/Spectacle Points");
-        label.Text = sceneLoader.SpectaclePoints + " Spectacle Points!";
+        Label label = GetNode<Label>("ColorRect/ColorRect/VBoxContainer/Spectacle Points");
+        label.Text = _sceneLoader.SpectaclePoints + " Spectacle Points!";
+        
+        SaveData.WriteScoretoJson( _sceneLoader.DeckSelected, _sceneLoader.SpectaclePoints);
     }
     
     private void OnTimerTimeout()
     {
-        
-        
-        sceneLoader.GoToScene("res://scenes/main/Credits.tscn");
-        audioEngine.PlayMusic("Shop_loop_audio.wav");
+        _sceneLoader.GoToScene("res://scenes/main/Credits.tscn");
+        _audioEngine.PlayMusic("Shop_loop_audio.wav");
     }
     
 }
