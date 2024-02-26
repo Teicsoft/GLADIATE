@@ -25,7 +25,7 @@
 
     <text>
         <name>Pummel</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
+        <description>Draw 1 Card, +10 SP</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>

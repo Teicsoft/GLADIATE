@@ -26,7 +26,7 @@
 
     <text>
         <name>Handspring</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
+        <description>Very Cool! + 100SP</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>

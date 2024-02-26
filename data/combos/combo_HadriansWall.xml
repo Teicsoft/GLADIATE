@@ -27,7 +27,7 @@
 
     <text>
         <name>HadriansWall</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
+        <description>Draw 2 cards, +20 SP</description> <!--string-->
         <lore>Deep Lore</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
