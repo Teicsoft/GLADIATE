@@ -1,6 +1,119 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4axnn7o5qu5n"]
+[gd_scene load_steps=9 format=3 uid="uid://d4axnn7o5qu5n"]
 
 [ext_resource type="Script" path="res://scripts/interface/Credits.cs" id="1_c1sde"]
+[ext_resource type="Texture2D" uid="uid://c0r8l4fbcihi" path="res://assets/sprites/Dave/Eagle.png" id="2_jgnwj"]
+[ext_resource type="Texture2D" uid="uid://c6idlull35fp4" path="res://assets/sprites/Dave/Gladiate.png" id="3_51qg3"]
+[ext_resource type="Texture2D" uid="uid://dloh8iw8m83cw" path="res://assets/images/teicsoft/blue.png" id="4_58t6j"]
+[ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="4_iqkss"]
+
+[sub_resource type="Animation" id="Animation_5fsrg"]
+resource_name = "Credits Roll"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect2/MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2212)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/ColorRect2/Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(207, 749), Vector2(207, -1463)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/ColorRect2/Teicsoft:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/ColorRect2/TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_dkvfk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect2/MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer/ColorRect2/Label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(207, 749)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationPlayer/ColorRect2/Teicsoft:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer/ColorRect2/TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4rx7n"]
+_data = {
+"Credits Roll": SubResource("Animation_5fsrg"),
+"RESET": SubResource("Animation_dkvfk")
+}
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -12,6 +125,7 @@ grow_vertical = 2
 script = ExtResource("1_c1sde")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +135,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,12 +146,14 @@ theme_override_constants/margin_left = 200
 theme_override_constants/margin_right = 200
 
 [node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/MarginContainer"]
+visible = false
 layout_mode = 2
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer/ScrollContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
@@ -45,5 +162,90 @@ alignment = 1
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_method = 1
+libraries = {
+"": SubResource("AnimationLibrary_4rx7n")
+}
+
+[node name="ColorRect2" type="ColorRect" parent="AnimationPlayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="AnimationPlayer/ColorRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AnimationPlayer/ColorRect2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="AnimationPlayer/ColorRect2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_jgnwj")
+stretch_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="AnimationPlayer/ColorRect2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_51qg3")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="AnimationPlayer/ColorRect2"]
+layout_mode = 2
+offset_left = 207.0
+offset_top = 749.0
+offset_right = 1727.0
+offset_bottom = 2208.0
+theme_override_font_sizes/font_size = 60
+text = "Adrian O Grady
+Aidan Kelly
+Cara McGrath
+Catherine Dawson
+Dara McGeough
+Dave O'Mahony
+Drew O Sullivan 
+Emmett Fitzharris
+Graham O Halloran
+James Keane
+Joy Rowan Casey
+Michéal Murphy
+Nick Meade 
+Nena de Vries
+Robert \"Nash\" Nash
+Sinéad Walsh
+Zael Dempsey"
+horizontal_alignment = 1
+
+[node name="Teicsoft" type="Label" parent="AnimationPlayer/ColorRect2"]
+visible = false
+layout_mode = 0
+offset_left = 819.0
+offset_top = 820.0
+offset_right = 1205.0
+offset_bottom = 930.0
+theme_override_fonts/font = ExtResource("4_iqkss")
+theme_override_font_sizes/font_size = 102
+text = "TEICSOFT"
+
+[node name="TextureRect" type="TextureRect" parent="AnimationPlayer/ColorRect2"]
+visible = false
+offset_left = 614.0
+offset_top = 421.0
+offset_right = 1324.0
+offset_bottom = 821.0
+texture = ExtResource("4_58t6j")
 
 [connection signal="timeout" from="Timer" to="." method="_OnTimerTimeout"]
