@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=27 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
 [ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
 [ext_resource type="Texture2D" uid="uid://di6jj3qkji1wr" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Down.png" id="12_a85jt"]
+[ext_resource type="Texture2D" uid="uid://bf1b4q7nrb1ka" path="res://assets/images/ModifierIcons/Grappled.png" id="13_25d22"]
 [ext_resource type="PackedScene" uid="uid://87kw3tjkavuh" path="res://scenes/glossary/card_glossary.tscn" id="13_mwfol"]
 [ext_resource type="PackedScene" uid="uid://vjrk3p65fmid" path="res://scenes/glossary/combo_glossary.tscn" id="14_fhiga"]
 [ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
@@ -294,6 +295,14 @@ grow_vertical = 2
 rotation = -0.785398
 scale = Vector2(4, 4)
 texture = ExtResource("12_a85jt")
+
+[node name="PlayerModifierIcon" type="TextureRect" parent="HUD"]
+visible = false
+offset_left = 1391.0
+offset_top = 63.0
+offset_right = 1441.0
+offset_bottom = 113.0
+texture = ExtResource("13_25d22")
 
 [node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
 visible = false

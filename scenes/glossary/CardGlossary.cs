@@ -10,9 +10,9 @@ public partial class CardGlossary : Control
 
         Node VBoxContainer = GetNode("ScrollContainer/VBoxContainer");
         
-        foreach (string cardId in CardPrototypes.cardPrototypeDict.Keys)
+        foreach (string cardId in CardFactory.CardPrototypeDict.Keys)
         {
-            Card card = CardPrototypes.cardPrototypeDict[cardId];
+            Card card = CardFactory.CardPrototypeDict[cardId];
             
             Node packedScene = ResourceLoader.Load<PackedScene>("res://scenes/glossary/card_glossary_item.tscn").Instantiate();
             packedScene.GetNode<Label>("VBoxContainer/ContentMargin/VBoxContainer/CardNameMargin/CardName").Text = card.CardName;
@@ -51,10 +51,7 @@ public partial class CardGlossary : Control
     }
     private void OnCloseCardGlossarySelected()
     {
-        GD.Print("hiding");
         Hide();
-        GD.Print("hidden");
         GetTree().Paused = false;
-        GD.Print(GetTree().Paused.ToString());
     }
 }

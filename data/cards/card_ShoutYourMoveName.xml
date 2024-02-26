@@ -2,7 +2,7 @@
 
 <card id="card_ShoutYourMoveName" type="Modifier" modifier="None" position ="None"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
     
-    <!-- All enemies gain 1 block. Gain 10 SP on subsequent cards played this turn. -->
+    <!-- All enemies gain 1 random block. Gain 10 SP on subsequent cards played this turn. -->
     <stats>
         <attack>0</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
@@ -22,7 +22,7 @@
 
     <text>
         <name>Shout Your Move Name</name> <!--string-->
-        <description>Shout Your Move Name</description> <!--string-->
+        <description>+10 SP to all cards for remainder of turn. All Enemies gain 1 Block.</description> <!--string-->
         <lore>"JUDO CHOP"</lore> <!--string-->
         <tooltip_text>Shout Your Move Name</tooltip_text> <!--string-->
         <onscreen_text>Shout Your Move Name</onscreen_text> <!--string-->

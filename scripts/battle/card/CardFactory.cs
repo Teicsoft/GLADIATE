@@ -5,8 +5,73 @@ using Godot;
 
 namespace GLADIATE.scripts.battle.card;
 
-public static class CardXmlParser {
-    public static Card ParseCardsFromXml(string filePath) {
+
+public static class CardFactory {
+    private const string CARD_FILE_PATH = "res://data/cards/";
+    private static readonly Dictionary<string, Func<Card>> TYPE_DICTIONARY = new() {
+        { "card_reckless", () => new StunCard() },
+        { "card_Spartackle", () => new Spartackle() },
+        { "card_BloodOnTheSand", () => new BloodOnSand() },
+        { "card_gladius", () => new Gladius() },
+        { "card_Grapple", () => new ModifierCard() },
+        { "card_FlyingCrossBody", () => new FlyingCrossBody() },
+        { "card_DropKick", () => new Dropkick() },
+        { "card_headbutt", () => new Headbutt() },
+        { "card_JudoThrow", () => new JudoThrow() },
+        { "card_KipUp", () => new KipUp() },
+        { "card_Throw", () => new ModifierCard() },
+        { "card_Trip", () => new ModifierCard() },
+        { "card_Showoff", () => new ShowOff() },
+        { "card_PleaseTheCrowd", () => new PleaseTheCrowd() },
+        { "card_DramaticTattooReveal", () => new DramaticTattooReveal() },
+        { "card_GallicSuplex", () => new GallicSuplex() },
+        { "card_ComeCloser", () => new ComeCloser() },
+        { "card_ShoutYourMoveName", () => new ShoutYourMoveName() },
+        { "card_Lariat", () => new Lariat() },
+    };
+    public static Dictionary<string, Card> CardPrototypeDict = ParseAllCards();
+
+    private static Dictionary<string, Card> ParseAllCards() {
+        Dictionary<string, Card> cardList = new();
+        foreach (string fileName in DirAccess.GetFilesAt(CARD_FILE_PATH)) {
+            if (fileName.EndsWith(".xml") && fileName != "card_template.xml") {
+                Card card = ParseCardsFromXml(CARD_FILE_PATH + fileName);
+                cardList.Add(card.Id, card);
+            }
+        }
+
+        return cardList;
+    }
+
+    public static Card CloneCard(string cardId) { return CardPrototypeDict[cardId].Clone(); }
+
+    public static void ReloadCardFactory() { CardPrototypeDict = ParseAllCards(); }
+
+    public static Card ConstructCard(string cardId) {
+        return TYPE_DICTIONARY.GetValueOrDefault(cardId, () => new Card()).Invoke();
+    }
+
+    public static Card MakeBlankCard(string cardId) {
+        Card card = ConstructCard(cardId);
+        card.Id = cardId;
+        return card;
+    }
+
+    private static Card MakeCard(
+        string type, string cardId, Utils.ModifierEnum modifier, Utils.PositionEnum position, int attack,
+        int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, string name,
+        string description, string lore, string tooltip, string imagePath, string animationPath, string soundPath,
+        bool targetRequired
+    ) {
+        Card card = ConstructCard(cardId);
+
+        return card.Initialize(
+            type, cardId, modifier, position, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard,
+            spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath
+        );
+    }
+
+    private static Card ParseCardsFromXml(string filePath) {
         using FileAccess file = FileAccess.Open(filePath, FileAccess.ModeFlags.Read);
         string content = file.GetAsText();
 
@@ -22,11 +87,11 @@ public static class CardXmlParser {
         string position = cardNode.Attributes["position"].Value;
 
 
-        if (!Enum.TryParse(modifier, out battle.Utils.ModifierEnum parsedModifier)) {
+        if (!Enum.TryParse(modifier, out Utils.ModifierEnum parsedModifier)) {
             GD.Print("Failed to parse modifier: " + modifier);
         }
 
-        if (!Enum.TryParse(position, out battle.Utils.PositionEnum parsedPosition)) {
+        if (!Enum.TryParse(position, out Utils.PositionEnum parsedPosition)) {
             GD.Print("Failed to parse position: " + position);
         }
 
@@ -52,82 +117,9 @@ public static class CardXmlParser {
         string lore = XmlParsing.Utils.ParseTextNode(textNode, "lore");
         string tooltip = XmlParsing.Utils.ParseTextNode(textNode, "tooltip_text");
 
-        return CardFactory.MakeCard(
+        return MakeCard(
             cardType, cardId, parsedModifier, parsedPosition, attack, defenseLower, defenseUpper, health, draw, discard,
             spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath, targetRequired
-        );
-    }
-
-    public static Dictionary<string, Card> ParseAllCards() {
-        string cardFilePath = "res://data/cards/";
-
-        string[] filesAtPath = DirAccess.GetFilesAt(cardFilePath);
-
-
-        Dictionary<string, Card> cardList = new Dictionary<string, Card>();
-        foreach (string fileName in filesAtPath) {
-            if (fileName.EndsWith(".xml") && fileName != "card_template.xml") {
-                Card card = ParseCardsFromXml(cardFilePath + fileName);
-                cardList.Add(card.Id, card);
-            }
-        }
-
-        return cardList;
-    }
-}
-
-public static class CardPrototypes {
-    public static Dictionary<string, Card> cardPrototypeDict = CardXmlParser.ParseAllCards();
-
-    public static Card CloneCard(string cardId) { return cardPrototypeDict[cardId].Clone(); }
-
-    public static void ReloadCardPrototypes() { cardPrototypeDict = CardXmlParser.ParseAllCards(); }
-}
-
-public static class CardFactory {
-    private static Dictionary<string, Func<Card>> TypeDictionary = new() {
-        { "card_reckless", () => new StunCard() },
-        { "card_Spartackle", () => new Spartackle() },
-        { "card_BloodOnTheSand", () => new SelfDamageCard() },
-        { "card_gladius", () => new Gladius() },
-        { "card_Grapple", () => new ModifierCard() },
-        { "card_FlyingCrossBody", () => new FlyingCrossBody() },
-        { "card_DropKick", () => new Dropkick() },
-        { "card_headbutt", () => new SelfDamageCard() },
-        { "card_JudoThrow", () => new JudoThrow() },
-        { "card_KipUp", () => new KipUp() },
-        { "card_Throw", () => new ModifierCard() },
-        { "card_Trip", () => new ModifierCard() },
-        { "card_Showoff", () => new ShowOff() },
-        { "card_PleaseTheCrowd", () => new PleaseTheCrowd() },
-        { "card_DramaticTattooReveal", () => new DramaticTattooReveal() },
-        { "card_GallicSuplex", () => new GallicSuplex() },
-        { "card_ComeCloser", () => new ComeCloser() },
-        { "card_ShoutYourMoveName", () => new ShoutYourMoveName() },
-        { "card_Lariat", () => new Lariat() },
-    };
-
-    public static Card ConstructCard(string cardId) {
-        return TypeDictionary.GetValueOrDefault(cardId, () => new Card()).Invoke();
-    }
-
-    public static Card MakeBlankCard(string cardId) {
-        Card card = ConstructCard(cardId);
-        card.Id = cardId;
-        return card;
-    }
-
-    public static Card MakeCard(
-        string type, string cardId, Utils.ModifierEnum modifier, Utils.PositionEnum position, int attack,
-        int defenseLower, int defenseUpper, int health, int draw, int discard, int spectaclePoints, string name,
-        string description, string lore, string tooltip, string imagePath, string animationPath, string soundPath,
-        bool targetRequired
-    ) {
-        Card card = ConstructCard(cardId);
-
-        return card.Initialize(
-            type, cardId, modifier, position, targetRequired, attack, defenseLower, defenseUpper, health, draw, discard,
-            spectaclePoints, name, description, lore, tooltip, imagePath, animationPath, soundPath
         );
     }
 }

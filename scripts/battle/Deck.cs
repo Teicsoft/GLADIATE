@@ -1,8 +1,11 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using GLADIATE.scripts.battle.card;
 
 public class Deck<T> {
+    public event EventHandler DeckShuffledCustomEvent;
+
     public string Id { get; set; }
     public string Name { get; set; }
 
@@ -50,7 +53,10 @@ public class Deck<T> {
 
     public bool IsEmpty() { return Cards.Count == 0; }
 
-    public void Shuffle() { Cards = Shuffle(Cards); }
+    public void Shuffle() {
+        Cards = Shuffle(Cards);
+        DeckShuffledCustomEvent?.Invoke(this, EventArgs.Empty);
+    }
 
     public List<T> DrawCards(int amount) {
         List<T> draw = new();
@@ -63,7 +69,6 @@ public class Deck<T> {
                 draw.AddRange(DrawCards(amount - 1));
             }
         }
-
         return draw;
     }
 

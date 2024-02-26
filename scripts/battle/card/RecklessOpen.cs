@@ -2,9 +2,10 @@
 
 namespace GLADIATE.scripts.battle.card;
 
-public class SelfDamageCard : Card {
+public class RecklessOpen :Card {
     public override void Play(GameState gameState, ITarget target, ITarget player) {
-        player.DirectDamage(5);
+        player.Statuses.Add(Utils.StatusEnum.OpenedRecklessly);
         base.Play(gameState, target, player);
     }
+    
 }

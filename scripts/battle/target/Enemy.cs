@@ -8,14 +8,18 @@ namespace GLADIATE.scripts.battle.target;
 public partial class Enemy : Node2D, ITarget {
     [Signal] public delegate void EnemySelectedEventHandler(Enemy enemy);
 
+    public event EventHandler EnemyHealthChangedCustomEvent;
+    public event EventHandler EnemyDefenseLowerChangedCustomEvent;
+    public event EventHandler EnemyDefenseUpperChangedCustomEvent;
+
     public string Id { get; set; }
     public string Name { get; set; }
     public string Image { get; set; }
     public string SoundEffect { get; set; }
     public string Lore { get; set; }
     public string DeckId { get; set; }
+    private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
 
-    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
     public Color Color;
     public Deck<Card> Deck;
     private int _health;
@@ -24,27 +28,46 @@ public partial class Enemy : Node2D, ITarget {
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
 
+    public Utils.ModifierEnum Modifier {
+        get => _modifier;
+        set {
+            _modifier = value;
+
+            TextureRect icon = GetNode<TextureRect>("ModifierIcon");
+            if (value == Utils.ModifierEnum.None) { icon.Visible = false; } else {
+                icon.Visible = true;
+                icon.Texture = (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_modifier}.png");
+            }
+        }
+    }
+
     public int Health {
         get => _health;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_health, value);
             _health = value;
             UpdateHealthBar();
+            EnemyHealthChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseLower {
         get => _defenseLower;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseLower, value);
             _defenseLower = value;
             UpdateDefenseLowerDisplay();
+            EnemyDefenseLowerChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseUpper {
         get => _defenseUpper;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseUpper, value);
             _defenseUpper = value;
             UpdateDefenseUpperDisplay();
+            EnemyDefenseUpperChangedCustomEvent?.Invoke(this, args);
         }
     }
 
@@ -82,11 +105,21 @@ public partial class Enemy : Node2D, ITarget {
         UpdateHealthBar();
         UpdateDefenseUpperDisplay();
         UpdateDefenseLowerDisplay();
+        GetNode<Label>("EnemyName").Text = Name;
 
         GetNode<Sprite2D>("EnemySprite").Texture = (Texture2D)GD.Load(Image);
     }
 
     public override void _Process(double delta) { }
+
+    private void OnJigglePhysicsTimerTimeout() {
+        Sprite2D sprite = GetNode<Sprite2D>("EnemySprite");
+        sprite.Skew = (float)GD.RandRange(-0.05f, 0.05f);
+
+        if (GD.Randi() % 10 == 0) {
+            if (sprite.FlipH) { sprite.FlipH = false; } else { sprite.FlipH = true; }
+        }
+    }
 
     private void OnPress() { EmitSignal(SignalName.EnemySelected, this); }
 
@@ -165,13 +198,12 @@ public partial class Enemy : Node2D, ITarget {
         GetNode<Label>("LowerBlockDisplay").Text = DefenseLower.ToString();
     }
 
+    private void OnCardPlayedTimer() {
+        GetNode<Label>("CardPlayed").Visible = false;
+    }
+
     public override string ToString() {
         return
             $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
-    }
-
-    private void OnCardPlayedTimer() {
-        Label cardPlayedLabel = GetNode<Label>("CardPlayed");
-        cardPlayedLabel.Visible = false;
     }
 }

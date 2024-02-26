@@ -8,11 +8,21 @@ public partial class Player : Node2D, ITarget {
     public event EventHandler PlayerHealthChangedCustomEvent;
     public event EventHandler PlayerDefenseLowerChangedCustomEvent;
     public event EventHandler PlayerDefenseUpperChangedCustomEvent;
+    public event EventHandler PlayerModifierChangedCustomEvent;
 
     public string Name { get; set; }
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
-    public Utils.ModifierEnum Modifier { get; set; } = Utils.ModifierEnum.None;
+
+    private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
+    public Utils.ModifierEnum Modifier {
+        get => _modifier;
+        set {
+            _modifier = value;
+            PlayerModifierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     private int _health;
     private int _defenseLower = 0;
     private int _defenseUpper = 1;
@@ -20,24 +30,27 @@ public partial class Player : Node2D, ITarget {
     public int Health {
         get => _health;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_health, value);
             _health = value;
-            PlayerHealthChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerHealthChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseLower {
         get => _defenseLower;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseLower, value);
             _defenseLower = value;
-            PlayerDefenseLowerChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerDefenseLowerChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int DefenseUpper {
         get => _defenseUpper;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseUpper, value);
             _defenseUpper = value;
-            PlayerDefenseUpperChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            PlayerDefenseUpperChangedCustomEvent?.Invoke(this, args);
         }
     }
 
@@ -91,10 +104,7 @@ public partial class Player : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else {
-            // TODO: Figure this out.
-            // End turn immediately?
-        }
+        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
     }
 
     public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }

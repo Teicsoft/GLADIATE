@@ -1,21 +1,27 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GLADIATE.scripts.battle;
 using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.XmlParsing;
 
 public partial class ComboGlossary : Control
 {
-    private List<Combo> AllCombos;
+    private Node _vBoxContainer;
     
     public override void _Ready()
     {
-        Node VBoxContainer = GetNode<Node>("ScrollContainer/VBoxContainer");
+        _vBoxContainer = GetNode<Node>("ScrollContainer/VBoxContainer");
+    }
+
+    public void Initialize(Deck<CardSleeve> deck, List<Combo> allCombos)
+    {
+        List<Node> combosNotInDeck = new();
         
-        AllCombos = ComboXmlParser.ParseAllCombos();
-        foreach (Combo combo in AllCombos)
+        foreach (Combo combo in allCombos)
         {
+            bool inDeck = true;
             Node packedScene = ResourceLoader.Load<PackedScene>("res://scenes/glossary/combo_glossary_item.tscn").Instantiate();
             packedScene.GetNode<Label>("VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin/ComboName").Text = combo.Name;
             
@@ -38,22 +44,46 @@ public partial class ComboGlossary : Control
             //cardList
             VBoxContainer cardList = packedScene.GetNode<VBoxContainer>("VBoxContainer/ContentMargin/VBoxContainer/CardList/VBoxContainer");
             int i = 0;
-            foreach (Card card in combo.CardList)
+            List<string> _blockCards = CardFactory.CardPrototypeDict.Where(kvp => kvp.Value.CardType == "Block").Select(kvp => kvp.Value.Id).ToList();
+
+            foreach (Card comboCard in combo.CardList)
             {
                 Label label = new Godot.Label();
-                label.Text = (i+1).ToString() + ": " + CardPrototypes.cardPrototypeDict[card.Id].CardName;
-                GD.Print("Card name: " + CardPrototypes.cardPrototypeDict[card.Id].CardName);
+
+                if (comboCard.Id == "card_FullBlock")
+                {
+                    label.Text = (i+1).ToString() + ": " + "Any Block Card";
+                }
+                else
+                {
+                    label.Text = (i+1).ToString() + ": " + CardFactory.CardPrototypeDict[comboCard.Id].CardName;
+                }
+                
+                if ((deck.Cards.Any(deckCard => (deckCard.Card.Id == comboCard.Id) || (_blockCards.Contains(deckCard.Card.Id) && "card_FullBlock" == comboCard.Id) ) == false) && inDeck)
+                {
+                    combosNotInDeck.Add(packedScene);
+                    inDeck = false;
+                }
+                
                 cardList.AddChild(label);
                 i++;
             }
-            
-            VBoxContainer.AddChild(packedScene);
+
+            if (inDeck)
+            {
+                packedScene.GetNode<TextureRect>("VBoxContainer/ContentMargin/VBoxContainer/ComboNameMargin/ComboName/ThumbsUp").Show();
+                _vBoxContainer.AddChild(packedScene);
+            }
+        }
+
+        foreach (Node comboNotInDeck in combosNotInDeck)
+        {
+            _vBoxContainer.AddChild(comboNotInDeck);
         }
     }
     
     private void OnComboGlossaryButtonPressed()
     {
-        GD.Print("test");
         GetTree().Paused = true;
         Show();
     }

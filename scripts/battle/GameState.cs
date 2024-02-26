@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.battle.target;
 using GLADIATE.scripts.XmlParsing;
@@ -16,7 +17,7 @@ public class GameState {
     public event EventHandler<ComboEventArgs> ComboPlayedCustomEvent;
     public event EventHandler SelectedEnemyIndexChangedCustomEvent;
 
-    private List<Combo> AllCombos;
+    public List<Combo> AllCombos;
     public Player Player;
     public Hand Hand;
     public List<Enemy> Enemies;
@@ -27,6 +28,7 @@ public class GameState {
     private int _discards;
     private int _turnStartEnemyCount;
     private int _selectedEnemyIndex = -1;
+    public int TurnDamageCount;
 
     public int Discards {
         get => _discards;
@@ -43,16 +45,18 @@ public class GameState {
     public int Multiplier {
         get => _multiplier;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_multiplier, value);
             _multiplier = value;
-            MultiplierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            MultiplierChangedCustomEvent?.Invoke(this, args);
         }
     }
 
     public int SpectaclePoints {
         get => _spectaclePoints;
         set {
+            Utils.DirectionEventArgs args = Utils.CheckDirection(_spectaclePoints, value);
             _spectaclePoints = value;
-            SpectacleChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+            SpectacleChangedCustomEvent?.Invoke(this, args);
         }
     }
 
@@ -70,7 +74,8 @@ public class GameState {
 
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
-        _turnStartEnemyCount = Enemies.FindAll(enemy => enemy.Health > 0).Count;
+        _turnStartEnemyCount = GetAliveEnemies().Count;
+        TurnDamageCount = 0;
         SpectacleBuffer = 0;
         if (Player.IsStunned()) { EndTurn(); } else { Draw(); }
     }
@@ -84,9 +89,11 @@ public class GameState {
             cardSleeve.Card.Play(this, selectedEnemy, Player);
             if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
+            Player.Statuses.Remove(Utils.StatusEnum.OpenedRecklessly);
             Hand.DiscardCard();
             DeselectDeadEnemy();
             HideDeadEnemies();
+            if (Hand.Cards.Count == 0) { EndTurn(); }
         }
     }
 
@@ -101,29 +108,17 @@ public class GameState {
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
     }
 
-    private void DeselectDeadEnemy() {
-        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
-        SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
-    }
-
-    private void HideDeadEnemies()
-    {
-        foreach (Enemy deadEnemy in Enemies.FindAll(enemy => enemy.Health <= 0))
-        {
-            deadEnemy.Visible = false;
-        }
-    }
-
     public void PushCardStack(Card card) { ComboStack.Add(card); }
 
     public Combo ComboCompare() {
         foreach (Combo combo in AllCombos) {
-            int count = combo.CardList.Count;
-            if (ComboStack.Count < count) { continue; }
-
+            if (ComboStack.Count < combo.CardList.Count) { continue; }
             bool match = true;
-            for (int i = 1; i <= count; i++) {
-                if (ComboStack[^i].Id != combo.CardList[^i].Id) {
+            for (int i = 1; i <= combo.CardList.Count; i++) {
+                Card playedCard = ComboStack[^i];
+                Card comboCard = combo.CardList[^i];
+                if (playedCard.CardType == "Block" && comboCard.Id == "card_FullBlock") { continue; }
+                if (playedCard.Id != comboCard.Id) {
                     match = false;
                     break;
                 }
@@ -174,17 +169,16 @@ public class GameState {
         }
 
         ProcessCombo(null);
-        List<Enemy> aliveEnemies = Enemies.FindAll(enemy => enemy.Health > 0);
-        CrowdPleasedCheck(aliveEnemies.Count);
-        if (aliveEnemies.Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
-            TakeEnemyTurns(aliveEnemies);
+        CrowdPleasedCheck(GetAliveEnemies().Count);
+        if (GetAliveEnemies().Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
+            TakeEnemyTurns(GetAliveEnemies());
         }
         Utils.RemoveEndTurnStatuses(Player);
 
-        GD.Print(" ==== ====  END TURN  ==== ====");
-        
         DeselectDeadEnemy();
         HideDeadEnemies();
+
+        GD.Print(" ==== ====  END TURN  ==== ====");
         StartTurn();
     }
 
@@ -210,10 +204,10 @@ public class GameState {
     }
 
     private void CrowdPleasedCheck(int aliveEnemiesCount) {
-        if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemiesCount > _turnStartEnemyCount) {
+        if (Player.Statuses.Remove(Utils.StatusEnum.CrowdPleased) && aliveEnemiesCount < _turnStartEnemyCount) {
             int enemiesDefeated = _turnStartEnemyCount - aliveEnemiesCount;
-            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
             Draw(enemiesDefeated * 2);
+            SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
         }
     }
 
@@ -235,6 +229,7 @@ public class GameState {
     private void SelectedDiscard(CardSleeve sleeve) {
         Discards--;
         Hand.DiscardCard(sleeve);
+        if (Hand.Cards.Count == 0) { EndTurn(); }
     }
 
     // Enemy methods
@@ -246,6 +241,19 @@ public class GameState {
             _selectedEnemyIndex = _selectedEnemyIndex != enemyIndex ? enemyIndex : -1;
             SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public List<Enemy> GetAliveEnemies() { return Enemies.FindAll(e => e.Health > 0); }
+
+    public List<Enemy> GetDeadEnemies() { return Enemies.FindAll(e => e.Health <= 0); }
+
+    private void DeselectDeadEnemy() {
+        if ((GetSelectedEnemy()?.Health ?? -1) <= 0) { _selectedEnemyIndex = -1; }
+        SelectedEnemyIndexChangedCustomEvent?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void HideDeadEnemies() {
+        foreach (Enemy deadEnemy in GetDeadEnemies()) { deadEnemy.Visible = false; }
     }
 
     public override string ToString() {
