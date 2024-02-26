@@ -84,8 +84,6 @@ public partial class AudioEngine : Node
 					player.Stop();
 					_isFadingOut = false;
 				}
-
-				if (!_isFadingOut) { break; }
 			}
 		}
 		else
