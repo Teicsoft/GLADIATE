@@ -23,7 +23,7 @@
     <text>
         <name>DropKick</name> <!--string-->
         <description>Deal 3 damage. Grounds an enemy</description> <!--string-->
-        <lore>DropKick</lore> <!--string-->
+        <lore>Perfect extension on those legs</lore> <!--string-->
         <tooltip_text>DropKick</tooltip_text> <!--string-->
         <onscreen_text>DropKick</onscreen_text> <!--string-->
     </text>
