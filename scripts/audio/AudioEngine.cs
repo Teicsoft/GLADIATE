@@ -22,6 +22,7 @@ public partial class AudioEngine : Node
 
 	// one channel for voice acting as there should only be one voice line at a time for clarity
 	private AudioStreamPlayer _voiceLinePlayer;
+	private bool _isFadingOut = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -48,15 +49,14 @@ public partial class AudioEngine : Node
 		else if (!_musicPlayer1.Playing) // if channel 1 is not playing, but 2 is, cross fade to channel 1
 		{
 			_musicPlayer1.Stream = audioStream;
-			_ = FadeInTrack(_musicPlayer1); // assigning Task to discard to make rider happy, as I'm not awaiting async
 			_ = FadeOutTrack(_musicPlayer2);
-
+			_ = FadeInTrack(_musicPlayer1); // assigning Task to discard to make rider happy, as I'm not awaiting async
 		}
 		else if (!_musicPlayer2.Playing) // if channel 1 is playing, but not 2, cross fade to channel 2
 		{
 			_musicPlayer2.Stream = audioStream;
-			_ = FadeInTrack(_musicPlayer2);
 			_ = FadeOutTrack(_musicPlayer1);
+			_ = FadeInTrack(_musicPlayer2);
 		}
 		else // if both channels are playing, just stop all music and play on channel 1
 		{
@@ -69,17 +69,28 @@ public partial class AudioEngine : Node
 
 	private async Task FadeOutTrack(AudioStreamPlayer player) // -80 is the lowest volume, 0 is the highest
 	{
-		float vol = player.VolumeDb;
-		while (vol > -80)
+		if (!_isFadingOut)
 		{
-			vol -= 0.1f;
-			player.VolumeDb = vol;
-
-			await Task.Delay(15);
-			if (vol <= -80)
+			_isFadingOut = true;
+			float vol = player.VolumeDb;
+			while (vol > -80 && _isFadingOut)
 			{
-				player.Stop();
+				vol -= 0.1f;
+				player.VolumeDb = vol;
+
+				await Task.Delay(5);
+				if (vol <= -80)
+				{
+					player.Stop();
+					_isFadingOut = false;
+				}
+
+				if (!_isFadingOut) { break; }
 			}
+		}
+		else
+		{
+			player.Stop();
 		}
 	}
 
