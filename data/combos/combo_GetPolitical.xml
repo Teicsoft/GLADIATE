@@ -30,7 +30,7 @@
     <text>
         <name>Get Political</name> <!--string-->
         <description>Removes 1 random block from 1 Target</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>Nobody liked that</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

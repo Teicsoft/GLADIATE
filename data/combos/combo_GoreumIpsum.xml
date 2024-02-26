@@ -28,7 +28,7 @@
     <text>
         <name>Goreum Ipsum</name> <!--string-->
         <description>Deal 5 Damage, Draw 1 Card, +50 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>Dolor sit amet, consectetur adipiscing elit</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

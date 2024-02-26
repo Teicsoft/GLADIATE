@@ -26,7 +26,7 @@
     <text>
         <name>Pummel</name> <!--string-->
         <description>Draw 1 Card, +10 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>When one punch isn't enough, try two!</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

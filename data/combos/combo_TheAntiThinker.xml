@@ -30,7 +30,7 @@
     <text>
         <name>The Anti-thinker</name> <!--string-->
         <description>Deal 10 Damage, End your turn, Discard all Block cards, +20 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>Ow</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

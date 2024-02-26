@@ -30,7 +30,7 @@
     <text>
         <name>Et Tu Brutal</name> <!--string-->
         <description>Take 5 Damage, Damage 9 all Enemies, +50 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>Sick! ... Semper Tyrannis</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

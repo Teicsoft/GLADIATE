@@ -31,7 +31,7 @@
     <text>
         <name>Swear Vengeance</name> <!--string-->
         <description>if Enemy health &lt; 20%, enemy dies. If player Health &lt; 20%, +50 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>KHAAAAAAANNNN!</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

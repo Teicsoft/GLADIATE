@@ -30,7 +30,7 @@
     <text>
         <name>And Stay There</name> <!--string-->
         <description>Opponent doesn't land on their turn, +20 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>Cede no ground</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

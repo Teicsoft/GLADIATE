@@ -31,7 +31,7 @@
     <text>
         <name>Footwork</name> <!--string-->
         <description>4X Card Damage, +100 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>He dropped his shoulder and left him for dead</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

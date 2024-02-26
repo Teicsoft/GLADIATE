@@ -28,7 +28,7 @@
     <text>
         <name>Gladiate</name> <!--string-->
         <description>Deal 5 Damage, +20 SP</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <lore>They said the thing!</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

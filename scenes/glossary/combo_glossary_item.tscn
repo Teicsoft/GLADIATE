@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b6l772dpx2bgq" path="res://assets/ui/9patchBorder.png" id="4_0jqwi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kler"]
-bg_color = Color(0.0431373, 0.0431373, 0.0431373, 0.815686)
+bg_color = Color(0.0431373, 0.0431373, 0.0431373, 0.964706)
 
 [node name="ComboGlossaryItem" type="PanelContainer"]
 custom_minimum_size = Vector2(600, 600)
