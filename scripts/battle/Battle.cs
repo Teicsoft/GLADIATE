@@ -152,7 +152,13 @@ public partial class Battle : Node2D {
         OnSpectacleChanged();
     }
 
-    private void OnPlayButtonPressed() { _gameState.PlaySelectedCard(); }
+    private void OnPlayButtonPressed() { 
+        
+        _gameState.PlaySelectedCard(); 
+        audioEngine.PlaySoundFx("drawn-card.ogg");
+    }
+
+
     private void EndTurn() { _gameState.EndTurn(); }
 
     private void WinBattle(object sender, EventArgs eventArgs) {

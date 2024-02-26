@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://vjrk3p65fmid"]
 
 [ext_resource type="Script" path="res://scenes/glossary/ComboGlossary.cs" id="1_htb0h"]
-[ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="1_uyirc"]
-[ext_resource type="Texture2D" uid="uid://c3i31cb0fpl1w" path="res://assets/ui/large_button_pressed.png" id="2_my1fe"]
+[ext_resource type="Texture2D" uid="uid://heqmjxxmnfht" path="res://assets/ui/small_button.png" id="2_kannq"]
+[ext_resource type="Texture2D" uid="uid://cap1fcxrq5a15" path="res://assets/ui/small_button_pressed.png" id="3_ndmfx"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="3_rhcvf"]
 
 [node name="ComboGlossary" type="Control"]
@@ -14,15 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_htb0h")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.745098)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -45,21 +36,19 @@ offset_top = 9.0
 offset_right = 110.0
 offset_bottom = 46.0
 scale = Vector2(2, 2)
-texture_normal = ExtResource("1_uyirc")
-texture_pressed = ExtResource("2_my1fe")
+texture_normal = ExtResource("2_kannq")
+texture_pressed = ExtResource("3_ndmfx")
 
 [node name="Label" type="Label" parent="CardGlossaryButton"]
 layout_mode = 0
-offset_left = 4.0
-offset_top = -1.5
-offset_right = 138.0
-offset_bottom = 40.5
+offset_left = -4.5
+offset_top = -1.0
+offset_right = 87.5
+offset_bottom = 41.0
 scale = Vector2(0.7, 0.7)
 theme = ExtResource("3_rhcvf")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_outline_size = 2
 theme_override_font_sizes/font_size = 38
 text = "Exit"
 horizontal_alignment = 1

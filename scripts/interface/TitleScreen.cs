@@ -19,7 +19,9 @@ public partial class TitleScreen : Control
         { "fuckaroundandfindout.wav", AudioEngine.AudioType.Music },
         { "fuck_around_and_find_out_2_electric_boogaloo.mp3", AudioEngine.AudioType.Music },
         { "testsound1.ogg", AudioEngine.AudioType.SoundFx },
-        { "victory-jingle.wav", AudioEngine.AudioType.SoundFx }
+        { "victory-jingle.wav", AudioEngine.AudioType.SoundFx },
+        { "menu-accept.wav", AudioEngine.AudioType.SoundFx },
+        { "drawn-card.ogg", AudioEngine.AudioType.SoundFx },
     };
 
 
@@ -51,13 +53,14 @@ public partial class TitleScreen : Control
 
     private void _on_start_button_pressed()
     {
+        audioEngine.PlaySoundFx("menu-accept.wav");
         var sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
-                sceneLoader.GoToScene("res://scenes/Lore.tscn");
-                audioEngine.PlayMusic("whatdidtheromanseverdoforme.wav");
+        sceneLoader.GoToScene("res://scenes/Lore.tscn");
+        audioEngine.PlayMusic("whatdidtheromanseverdoforme.wav");
     }
     
     private void _on_quit_button_pressed()
     {
-    GetTree().Quit();
+        GetTree().Quit();
     }
 }
