@@ -13,17 +13,16 @@ public partial class Player : Node2D, ITarget {
     public string Name { get; set; }
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
-    
+
     private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
-    public Utils.ModifierEnum Modifier
-    {
+    public Utils.ModifierEnum Modifier {
         get => _modifier;
         set {
             _modifier = value;
             PlayerModifierChangedCustomEvent?.Invoke(this, EventArgs.Empty);
         }
-    } 
-    
+    }
+
     private int _health;
     private int _defenseLower = 0;
     private int _defenseUpper = 1;
@@ -105,9 +104,7 @@ public partial class Player : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else {
-            Statuses.Add(Utils.StatusEnum.Stunned);
-        }
+        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
     }
 
     public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }

@@ -11,7 +11,7 @@ public partial class Enemy : Node2D, ITarget {
     public event EventHandler EnemyHealthChangedCustomEvent;
     public event EventHandler EnemyDefenseLowerChangedCustomEvent;
     public event EventHandler EnemyDefenseUpperChangedCustomEvent;
-    
+
     public string Id { get; set; }
     public string Name { get; set; }
     public string Image { get; set; }
@@ -143,23 +143,13 @@ public partial class Enemy : Node2D, ITarget {
     }
 
     public override void _Process(double delta) { }
-    
-    private void OnJigglePhysicsTimerTimeout()
-    {
-        GD.RandRange(-5, 5);
-        GetNode<Sprite2D>("EnemySprite").Skew = (float)GD.RandRange(-0.05f, 0.05f);
-        
-        if (GD.Randi() % 10 == 0)
-        {
-            
-            if (GetNode<Sprite2D>("EnemySprite").FlipH)
-            {
-                GetNode<Sprite2D>("EnemySprite").FlipH = false;
-            }
-            else
-            {
-                GetNode<Sprite2D>("EnemySprite").FlipH = true;
-            }
+
+    private void OnJigglePhysicsTimerTimeout() {
+        Sprite2D sprite = GetNode<Sprite2D>("EnemySprite");
+        sprite.Skew = (float)GD.RandRange(-0.05f, 0.05f);
+
+        if (GD.Randi() % 10 == 0) {
+            if (sprite.FlipH) { sprite.FlipH = false; } else { sprite.FlipH = true; }
         }
     }
 

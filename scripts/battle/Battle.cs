@@ -46,7 +46,7 @@ public partial class Battle : Node2D {
         
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
-        
+
         ComboGlossary comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
         comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
         
@@ -153,11 +153,9 @@ public partial class Battle : Node2D {
             enemy.Position = enemyPathFollow2d.Position;
             enemy.EnemyPath2D = enemyPath2d;
             enemy.EnemySelected += MoveSelectedIndicator;
-            
-            if (GD.Randi() % 2 == 0) {
-                enemy.GetNode<Sprite2D>("EnemySprite").FlipH = false;
-            }
-            
+
+            if (GD.Randi() % 2 == 0) { enemy.GetNode<Sprite2D>("EnemySprite").FlipH = false; }
+
             AddChild(enemy);
             enemies.Add(enemy);
         }
@@ -197,7 +195,7 @@ public partial class Battle : Node2D {
 
         // _allDecks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
         _allDecks.TryGetValue(deckId, out List<string> enemyCardIds);
-        enemyDeck.AddCards(enemyCardIds.Select(CardPrototypes.CloneCard).ToList());
+        enemyDeck.AddCards(enemyCardIds.Select(CardFactory.CloneCard).ToList());
         enemyDeck.Shuffle();
         return enemyDeck;
     }
