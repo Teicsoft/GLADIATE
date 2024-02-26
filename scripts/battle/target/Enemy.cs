@@ -27,17 +27,47 @@ public partial class Enemy : Node2D, ITarget {
     private int _defenseLower = 0;
     public int MaxHealth { get; set; }
     public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
+    
+    private PanelContainer _bossHealthBar;
+
+    public PanelContainer BossHealthBar
+    {
+        get => _bossHealthBar;
+        set
+        {
+            _bossHealthBar = value;
+            UpdateBossHealthBar();
+        }
+    }
+    public Path2D EnemyPath2D { get; set; }
+    
+    private void UpdateBossHealthBar()
+    {
+        if (_bossHealthBar == null) return;
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/EnemyName").Text = Name;
+        _bossHealthBar.GetNode<ProgressBar>("MarginContainer/Control/Control/HealthProgressBar").Ratio = (double)Health / MaxHealth;
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/HealthDisplay").Text =
+            GetNode<Label>("HealthBar/HealthDisplay").Text;
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/UpperBlockDisplay").Text = DefenseUpper.ToString();
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/LowerBlockDisplay").Text = DefenseLower.ToString();
+        _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Texture =
+            GetNode<TextureRect>("HealthBar/ModifierIcon").Texture;
+        _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Visible = 
+            GetNode<TextureRect>("HealthBar/ModifierIcon").Visible;
+    }
 
     public Utils.ModifierEnum Modifier {
         get => _modifier;
         set {
             _modifier = value;
 
-            TextureRect icon = GetNode<TextureRect>("ModifierIcon");
+            TextureRect icon = GetNode<TextureRect>("HealthBar/ModifierIcon");
             if (value == Utils.ModifierEnum.None) { icon.Visible = false; } else {
                 icon.Visible = true;
                 icon.Texture = (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_modifier}.png");
             }
+
+            UpdateBossHealthBar();
         }
     }
 
@@ -47,6 +77,7 @@ public partial class Enemy : Node2D, ITarget {
             Utils.DirectionEventArgs args = Utils.CheckDirection(_health, value);
             _health = value;
             UpdateHealthBar();
+            UpdateBossHealthBar();
             EnemyHealthChangedCustomEvent?.Invoke(this, args);
         }
     }
@@ -57,6 +88,7 @@ public partial class Enemy : Node2D, ITarget {
             Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseLower, value);
             _defenseLower = value;
             UpdateDefenseLowerDisplay();
+            UpdateBossHealthBar();
             EnemyDefenseLowerChangedCustomEvent?.Invoke(this, args);
         }
     }
@@ -67,6 +99,7 @@ public partial class Enemy : Node2D, ITarget {
             Utils.DirectionEventArgs args = Utils.CheckDirection(_defenseUpper, value);
             _defenseUpper = value;
             UpdateDefenseUpperDisplay();
+            UpdateBossHealthBar();
             EnemyDefenseUpperChangedCustomEvent?.Invoke(this, args);
         }
     }
@@ -101,11 +134,10 @@ public partial class Enemy : Node2D, ITarget {
     }
 
     public override void _Ready() {
-        GetNode<ColorRect>("ColorRect").Color = Color;
         UpdateHealthBar();
         UpdateDefenseUpperDisplay();
         UpdateDefenseLowerDisplay();
-        GetNode<Label>("EnemyName").Text = Name;
+        GetNode<Label>("HealthBar/EnemyName").Text = Name;
 
         GetNode<Sprite2D>("EnemySprite").Texture = (Texture2D)GD.Load(Image);
     }
@@ -184,26 +216,28 @@ public partial class Enemy : Node2D, ITarget {
     }
 
     private void UpdateHealthBar() {
-        GetNode<Label>("HealthDisplay").Text = Health + "/" + MaxHealth;
-        GetNode<ProgressBar>("HealthProgressBar").Ratio = (double)Health / MaxHealth;
+        GetNode<Label>("HealthBar/HealthDisplay").Text = Health + "/" + MaxHealth;
+        GetNode<ProgressBar>("HealthBar/HealthProgressBar").Ratio = (double)Health / MaxHealth;
     }
 
     private void UpdateDefenseUpperDisplay() {
-        GetNode<ColorRect>("UpperBlockRect").Color = new Color(0, 0, DefenseUpper > 0 ? 1 : 0);
-        GetNode<Label>("UpperBlockDisplay").Text = DefenseUpper.ToString();
+        GetNode<Label>("HealthBar/UpperBlockDisplay").Text = DefenseUpper.ToString();
     }
 
     private void UpdateDefenseLowerDisplay() {
-        GetNode<ColorRect>("LowerBlockRect").Color = new Color(0, 0, DefenseLower > 0 ? 1 : 0);
-        GetNode<Label>("LowerBlockDisplay").Text = DefenseLower.ToString();
-    }
-
-    private void OnCardPlayedTimer() {
-        GetNode<Label>("CardPlayed").Visible = false;
+        GetNode<Label>("HealthBar/LowerBlockDisplay").Text = DefenseLower.ToString();
     }
 
     public override string ToString() {
         return
             $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}, {nameof(Image)}: {Image}, {nameof(SoundEffect)}: {SoundEffect}, {nameof(Lore)}: {Lore}, {nameof(DeckId)}: {DeckId}, {nameof(Modifier)}: {Modifier}, {nameof(Color)}: {Color}, {nameof(Deck)}: {Deck}, {nameof(_health)}: {_health}, {nameof(_defenseUpper)}: {_defenseUpper}, {nameof(_defenseLower)}: {_defenseLower}, {nameof(MaxHealth)}: {MaxHealth}, {nameof(Statuses)}: {Statuses}";
     }
+
+    private void OnCardPlayedTimer() {
+        GetNode<Label>("HealthBar/CardPlayed").Visible = false;
+        if (_bossHealthBar != null){
+            _bossHealthBar.GetNode<Label>("MarginContainer/Control/CardPlayed").Visible = false;
+        }
+    }
 }
+

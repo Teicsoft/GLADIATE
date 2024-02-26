@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using GLADIATE.scripts.audio;
+using GLADIATE.scripts.autoloads;
 using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.battle.target;
 using GLADIATE.scripts.XmlParsing;
@@ -25,34 +27,64 @@ public partial class Battle : Node2D {
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
-
-    AudioEngine audioEngine;
-    autoloads.SceneLoader sceneLoader;
+    
+    AudioEngine _audioEngine;
+    autoloads.SceneLoader _sceneLoader;
 
     public override void _Ready() {
-        audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
-
+        _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
+        _sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
+        
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
-        _allDecks.TryGetValue(sceneLoader.DeckSelected, out List<string> playerCardIds);
+        _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
 
-        Dictionary<string, dynamic> battleData = sceneLoader.GetCurrentBattleData();
+        Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-
+        
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
 
         ComboGlossary comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
         comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
-
+        
+        if (Id == SceneLoader.BossBattleId) {
+            _audioEngine.PlayMusic("Menu_music.wav");
+            GD.Print("Boss Battle");
+            
+            GetNode<ColorRect>("Background/TextureRect/ColorRect").Show();
+        }
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
-    public override void _Process(double delta) { }
+    public override void _Process(double delta) {
+        if (SceneLoader.BossBattleId == Id) {
+            foreach (Enemy enemy in _gameState.Enemies) {
+                PathFollow2D enemyPathFollow2D = enemy.EnemyPath2D.GetNode<PathFollow2D>("EnemyLocation");
+                
+                if (enemyPathFollow2D.ProgressRatio <= 0.7f) {
+                    enemyPathFollow2D.ProgressRatio += 0.5f * (float)delta;
+
+                    enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                    
+                }
+                else if (enemyPathFollow2D.ProgressRatio > 0.7f && enemyPathFollow2D.ProgressRatio <= 1.0f) {
+                    if (GD.Randi() % 100 == 0)
+                    {
+                        enemyPathFollow2D.ProgressRatio += (float)GD.RandRange(-0.3f, 0.3f) * (float)delta*5;
+                        enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                    }
+                }
+                else {
+                    enemyPathFollow2D.ProgressRatio = 1.0f;
+                    enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                }
+            }
+        }
+    }
 
     private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
         Hand hand = GetNode<Hand>("Hand");
@@ -80,9 +112,9 @@ public partial class Battle : Node2D {
 
 
         _gameState.Draw(4);
-        if (sceneLoader.Health != 0) { _gameState.Player.Health = sceneLoader.Health; }
-        sceneLoader.i += 1;
-        if (sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = sceneLoader.SpectaclePoints; }
+        if (_sceneLoader.Health != 0) { _gameState.Player.Health = _sceneLoader.Health; }
+        _sceneLoader.i += 1;
+        if (_sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = _sceneLoader.SpectaclePoints; }
     }
 
     private void OnPlayerMofifierChanged(object sender, EventArgs e) {
@@ -103,13 +135,39 @@ public partial class Battle : Node2D {
 
             AssignRandomColorDEBUG(enemy);
             enemy.Deck = GetEnemyDeck(enemy.DeckId);
-            enemy.Position = GetEnemyPosition(i, idsCount);
+            
+            Path2D enemyPath2d = GetEnemyPosition(i, idsCount);
+            PathFollow2D enemyPathFollow2d = enemyPath2d.GetNode<PathFollow2D>("EnemyLocation");
+            enemy.Position = enemyPathFollow2d.Position;
+            enemy.EnemyPath2D = enemyPath2d;
             enemy.EnemySelected += MoveSelectedIndicator;
 
             if (GD.Randi() % 2 == 0) { enemy.GetNode<Sprite2D>("EnemySprite").FlipH = false; }
 
+            if (Id == SceneLoader.PreBossBattleId && enemy.Id == "enemy_Goon") {
+                enemy.GetNode<Sprite2D>("EnemySprite").Hide();
+                AnimatedSprite2D goon = enemy.GetNode<AnimatedSprite2D>("Goon");
+                goon.Show();
+                goon.Play("Idle");
+                enemy.Scale = new Vector2(1.7f, 1.7f);
+                enemy.GetNode<Label>("HealthBar/CardPlayed").Position = new Vector2(100, 0);
+            }
+            
             AddChild(enemy);
             enemies.Add(enemy);
+        }
+        
+        
+        if (Id == SceneLoader.BossBattleId) {
+            GetNode<PanelContainer>("BossHealthBarsPanel").Visible = true;
+            
+            foreach (Enemy enemy in enemies) {
+                enemy.GetNode<Control>("HealthBar").Visible = false;
+                
+                PanelContainer bossScene = GD.Load<PackedScene>("res://scenes/battle/boss_health_bars.tscn").Instantiate<PanelContainer>();
+                GetNode<VBoxContainer>("BossHealthBarsPanel/BossHealthBarsVBoxContainer").AddChild(bossScene);
+                enemy.BossHealthBar = bossScene;
+            }
         }
         return enemies;
     }
@@ -130,18 +188,29 @@ public partial class Battle : Node2D {
 
     private Deck<Card> GetEnemyDeck(string deckId) {
         Deck<Card> enemyDeck = new(new());
-
-        // _allDecks.TryGetValue("deck_enemy", out List<string> enemyCardIds);
         _allDecks.TryGetValue(deckId, out List<string> enemyCardIds);
         enemyDeck.AddCards(enemyCardIds.Select(CardFactory.CloneCard).ToList());
         enemyDeck.Shuffle();
         return enemyDeck;
     }
 
-    private Vector2 GetEnemyPosition(int index, int count) {
-        PathFollow2D enemiesLocation = GetNode<PathFollow2D>("Enemies/EnemiesLocation");
-        enemiesLocation.ProgressRatio = (float)index / (count - 1);
-        return enemiesLocation.Position;
+    private Path2D GetEnemyPosition(int index, int count) {
+        if (Id == SceneLoader.BossBattleId)
+        {
+            GetNode<PanelContainer>("BossHealthBarsPanel").Visible = true;
+            
+            Path2D BossPath2D = GetNode<Path2D>("BossNode/BossBattle" + index);
+            PathFollow2D bossLocation = BossPath2D.GetNode<PathFollow2D>("EnemyLocation");
+
+            bossLocation.ProgressRatio = 0;
+            bossLocation.Transform = BossPath2D.Transform;
+            
+            return BossPath2D;
+        }
+        Path2D enemyNode = GetNode<Path2D>("Enemies");
+        PathFollow2D enemyLocation = enemyNode.GetNode<PathFollow2D>("EnemyLocation");
+        enemyLocation.ProgressRatio = (float)index / (count - 1);
+        return enemyNode;
     }
 
     private void InitialiseHud() {
@@ -155,7 +224,7 @@ public partial class Battle : Node2D {
     private void OnPlayButtonPressed() { 
         
         _gameState.PlaySelectedCard(); 
-        audioEngine.PlaySoundFx("drawn-card.ogg");
+        _audioEngine.PlaySoundFx("drawn-card.ogg");
     }
 
 
@@ -164,11 +233,23 @@ public partial class Battle : Node2D {
     private void WinBattle(object sender, EventArgs eventArgs) {
         EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
 
-        audioEngine.PlaySoundFx("victory-jingle.wav");
+        if (Id != SceneLoader.PreBossBattleId)
+        {_audioEngine.PlaySoundFx("victory-jingle.wav"); }
+        else {
+            _audioEngine.PlaySoundFx("male-hurt-1.ogg");
+            Task.Delay(10).Wait();
+            _audioEngine.PlaySoundFx("male-hurt-2.ogg");
+            Task.Delay(10).Wait();
+            _audioEngine.PlaySoundFx("male-hurt-3.ogg");
+            Task.Delay(10).Wait();
+            _audioEngine.PlaySoundFx("male-hurt-4.ogg");
+            Task.Delay(10).Wait();
+        }
+
         GD.Print(" ==== ====  WIN BATTLE  ==== ====");
-        sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
-        sceneLoader.Health = _gameState.Player.Health;
-        sceneLoader.GoToNextBattle();
+        _sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
+        _sceneLoader.Health = _gameState.Player.Health;
+        _sceneLoader.GoToNextBattle();
     }
 
     private void MoveSelectedIndicator(Enemy enemy) {
@@ -186,9 +267,9 @@ public partial class Battle : Node2D {
         if (playerObject.Health <= 0) {
             EmitSignal(Battle.SignalName.BattleLost);
 
-            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
-            audioEngine.PlayMusic("Lil_tune.wav");
-            sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
+            _sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
+            _audioEngine.PlayMusic("Lil_tune.wav");
+            _sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
         }
         GetNode<Label>("HUD/PlayerHealthDisplay").Text = playerObject.Health + "/" + playerObject.MaxHealth;
         GetNode<ProgressBar>("HUD/PlayerHealthProgressBar").Ratio =

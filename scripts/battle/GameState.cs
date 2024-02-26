@@ -188,8 +188,8 @@ public class GameState {
                 // Update HUD
                 continue;
             }
-            Label cardPlayedLabel = enemy.GetNode<Label>("CardPlayed");
-            Timer cardPlayedTimer = enemy.GetNode<Timer>("CardPlayedTimer");
+            Label cardPlayedLabel = enemy.GetNode<Label>("HealthBar/CardPlayed");
+            Timer cardPlayedTimer = enemy.GetNode<Timer>("HealthBar/CardPlayedTimer");
 
             Card card = enemy.DrawCard();
             card.Play(this, Player, enemy);
@@ -198,6 +198,13 @@ public class GameState {
 
             cardPlayedLabel.Text = card.CardName;
             cardPlayedLabel.Visible = true;
+            
+            
+            if (enemy.BossHealthBar != null) {
+                Label bossCardPlayedLabel = enemy.BossHealthBar.GetNode<Label>("MarginContainer/Control/CardPlayed");
+                bossCardPlayedLabel.Text = card.CardName;
+                bossCardPlayedLabel.Visible = true;
+            }
 
             cardPlayedTimer.Start();
         }
@@ -253,7 +260,9 @@ public class GameState {
     }
 
     private void HideDeadEnemies() {
-        foreach (Enemy deadEnemy in GetDeadEnemies()) { deadEnemy.Visible = false; }
+        foreach (Enemy deadEnemy in GetDeadEnemies()) {
+            if (deadEnemy.Id != "enemy_Goon"){ deadEnemy.Visible = false; }
+        }
     }
 
     public override string ToString() {

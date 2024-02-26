@@ -22,6 +22,10 @@ public partial class TitleScreen : Control
         { "victory-jingle.wav", AudioEngine.AudioType.SoundFx },
         { "menu-accept.wav", AudioEngine.AudioType.SoundFx },
         { "drawn-card.ogg", AudioEngine.AudioType.SoundFx },
+        { "male-hurt-1.ogg", AudioEngine.AudioType.SoundFx },
+        { "male-hurt-2.ogg", AudioEngine.AudioType.SoundFx },
+        { "male-hurt-3.ogg", AudioEngine.AudioType.SoundFx },
+        { "male-hurt-4.ogg", AudioEngine.AudioType.SoundFx }
     };
 
 
