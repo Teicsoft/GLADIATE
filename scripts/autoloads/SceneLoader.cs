@@ -14,6 +14,7 @@ public partial class SceneLoader : Godot.Node
     public int SpectaclePoints { get; set; }
     public string DeckSelected { get; set; }
     public int Health { get; set; }
+    public const string PreBossBattleId = "battle_6";
     public const string BossBattleId = "battle_7";
 
 
