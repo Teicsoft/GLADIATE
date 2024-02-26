@@ -22,7 +22,7 @@ public partial class AudioEngine : Node
 
 	// one channel for voice acting as there should only be one voice line at a time for clarity
 	private AudioStreamPlayer _voiceLinePlayer;
-	private bool _isFadingOut = false;
+	private bool _isFadingOut;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -62,7 +62,9 @@ public partial class AudioEngine : Node
 		{
 			_musicPlayer1.Stop();
 			_musicPlayer2.Stop();
+			_isFadingOut = false;
 			_musicPlayer1.Stream = audioStream;
+			_musicPlayer1.VolumeDb = 0;
 			_musicPlayer1.Play();
 		}
 	}
@@ -81,8 +83,9 @@ public partial class AudioEngine : Node
 				await Task.Delay(5);
 				if (vol <= -80)
 				{
-					player.Stop();
 					_isFadingOut = false;
+					player.Stop();
+					break;
 				}
 			}
 		}
@@ -95,7 +98,7 @@ public partial class AudioEngine : Node
 	private async Task FadeInTrack(AudioStreamPlayer player)
 	{
 		float vol = player.VolumeDb;
-		vol -= 80f;
+		vol = -80f;
 		player.VolumeDb = vol;
 		player.Play();
 

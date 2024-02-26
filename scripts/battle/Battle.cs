@@ -230,7 +230,7 @@ public partial class Battle : Node2D {
     private void OnPlayButtonPressed() { 
         
         _gameState.PlaySelectedCard(); 
-        audioEngine.PlaySoundFx("drawn-card.ogg");
+        _audioEngine.PlaySoundFx("drawn-card.ogg");
     }
 
 
