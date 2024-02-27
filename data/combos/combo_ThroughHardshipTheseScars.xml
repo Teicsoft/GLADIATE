@@ -29,8 +29,8 @@
 
     <text>
         <name>Through Hardship, These Scars</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>Gain 1 Upper Block and 1 Lower Block next turn, + SP equal to damage taken this turn. +20 SP </description> <!--string-->
+        <lore>No pain, no gain.</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

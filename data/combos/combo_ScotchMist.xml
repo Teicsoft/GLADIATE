@@ -29,8 +29,8 @@
 
     <text>
         <name>ScotchMist</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>Deal 5 Damage to all Targets, +40 SP</description> <!--string-->
+        <lore>You and he were, buddies, weren't you?</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

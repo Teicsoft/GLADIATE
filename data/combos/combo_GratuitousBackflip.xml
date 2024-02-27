@@ -29,8 +29,8 @@
 
     <text>
         <name>Gratuitous Backflip</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>if Reckless open blocked, user stunned + 50SP</description> <!--string-->
+        <lore>Form over function</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

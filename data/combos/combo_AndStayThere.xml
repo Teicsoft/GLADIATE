@@ -29,8 +29,8 @@
 
     <text>
         <name>And Stay There</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>Opponent doesn't land on their turn, +20 SP</description> <!--string-->
+        <lore>Cede no ground</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

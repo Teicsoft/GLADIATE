@@ -29,8 +29,8 @@
 
     <text>
         <name>Machine Gun Kicks</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>Deal 10 Damage, Combo Multiplier X2, +20 SP</description> <!--string-->
+        <lore>Simple but effective</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

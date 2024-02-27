@@ -29,8 +29,8 @@
 
     <text>
         <name>Incite Riot</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>Restore 20 HP, Deal 10 damage to random enemy</description> <!--string-->
+        <lore>We need a distraction</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

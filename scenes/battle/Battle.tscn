@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=35 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -26,6 +26,8 @@
 [sub_resource type="Theme" id="Theme_gua0v"]
 default_font = ExtResource("9_6h2s6")
 default_font_size = 37
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_62pqw"]
 
 [sub_resource type="Curve2D" id="Curve2D_xvv15"]
 _data = {
@@ -123,18 +125,11 @@ color = Color(1, 0, 0, 0.517647)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Sp_combo Background" type="ColorRect" parent="HUD"]
-offset_left = 860.0
-offset_top = 1.0
-offset_right = 1120.0
-offset_bottom = 65.0
-color = Color(0, 0, 0, 0.698039)
-
 [node name="Healthbar Background" type="ColorRect" parent="HUD"]
 offset_left = 709.0
-offset_top = 69.0
+offset_top = 77.0
 offset_right = 1435.0
-offset_bottom = 109.0
+offset_bottom = 117.0
 color = Color(0, 0, 0, 0.811765)
 
 [node name="Button Asset" type="Sprite2D" parent="HUD"]
@@ -149,9 +144,9 @@ texture = ExtResource("8_2vyy3")
 
 [node name="TextureButton" type="TextureButton" parent="HUD"]
 offset_left = -1.0
-offset_top = 641.0
+offset_top = 649.0
 offset_right = 204.0
-offset_bottom = 722.0
+offset_bottom = 730.0
 texture_normal = ExtResource("8_d7wxd")
 texture_pressed = ExtResource("9_x3afa")
 stretch_mode = 0
@@ -169,9 +164,9 @@ text = "Play"
 
 [node name="TextureButton2" type="TextureButton" parent="HUD"]
 offset_left = -1.0
-offset_top = 719.0
+offset_top = 727.0
 offset_right = 204.0
-offset_bottom = 800.0
+offset_bottom = 808.0
 texture_normal = ExtResource("8_d7wxd")
 texture_pressed = ExtResource("9_x3afa")
 stretch_mode = 0
@@ -230,9 +225,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 9.0
-offset_top = -266.0
+offset_top = -258.0
 offset_right = 192.0
-offset_bottom = -11.0
+offset_bottom = -3.0
 grow_vertical = 0
 color = Color(0, 0, 0, 0.231373)
 
@@ -247,68 +242,30 @@ text = "Player"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MultiplierLabel" type="Label" parent="HUD"]
-offset_left = 868.0
-offset_top = 25.0
-offset_right = 986.0
-offset_bottom = 75.0
-theme = ExtResource("7_bj4ys")
-theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
-text = "Multiplier"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="SpectacleLabel" type="Label" parent="HUD"]
-offset_left = 867.0
-offset_top = -8.0
-offset_right = 1085.0
-offset_bottom = 42.0
-theme = ExtResource("7_bj4ys")
-theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
-text = "SP"
-vertical_alignment = 1
-
 [node name="PlayerHealthProgressBar" type="ProgressBar" parent="HUD"]
 offset_left = 709.0
-offset_top = 68.0
+offset_top = 76.0
 offset_right = 1436.0
-offset_bottom = 108.0
+offset_bottom = 116.0
 step = 1.0
 rounded = true
 show_percentage = false
 
-[node name="MultiplierDisplay" type="Label" parent="HUD"]
-offset_left = 1000.0
-offset_top = 32.0
-offset_right = 1100.0
-offset_bottom = 72.0
-theme = ExtResource("7_bj4ys")
-theme_override_colors/font_shadow_color = Color(0.768627, 0.847059, 0.807843, 1)
-text = "1"
-vertical_alignment = 1
-
-[node name="SpectacleDisplay" type="Label" parent="HUD"]
-offset_left = 908.0
-offset_top = -4.0
-offset_right = 1008.0
-offset_bottom = 36.0
-theme = ExtResource("7_bj4ys")
-theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
-text = "0"
-vertical_alignment = 1
-
 [node name="PlayerHealthDisplay" type="Label" parent="HUD"]
 offset_left = 726.0
-offset_top = 69.0
+offset_top = 77.0
 offset_right = 826.0
-offset_bottom = 109.0
+offset_bottom = 117.0
 theme = ExtResource("7_bj4ys")
-theme_override_colors/font_shadow_color = Color(0.776471, 0.854902, 0.811765, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 5
 text = "1"
 vertical_alignment = 1
 
 [node name="HealthArmorBar" type="Sprite2D" parent="HUD"]
-position = Vector2(999, 92)
+position = Vector2(999, 100)
 texture = ExtResource("9_i3lvk")
 
 [node name="SelectedIndicator" type="ColorRect" parent="HUD"]
@@ -318,9 +275,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -1060.0
-offset_top = -20.0
+offset_top = -12.0
 offset_right = -1020.0
-offset_bottom = 20.0
+offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.785398
@@ -362,9 +319,9 @@ color = Color(0, 0, 1, 1)
 
 [node name="PlayerUpperBlockDisplay" type="Label" parent="HUD"]
 offset_left = 585.0
-offset_top = 45.0
+offset_top = 53.0
 offset_right = 635.0
-offset_bottom = 85.0
+offset_bottom = 93.0
 theme = ExtResource("7_bj4ys")
 text = "1"
 horizontal_alignment = 1
@@ -380,9 +337,9 @@ color = Color(0, 0, 1, 1)
 
 [node name="PlayerLowerBlockDisplay" type="Label" parent="HUD"]
 offset_left = 586.0
-offset_top = 95.0
+offset_top = 103.0
 offset_right = 636.0
-offset_bottom = 135.0
+offset_bottom = 143.0
 theme = ExtResource("7_bj4ys")
 text = "1"
 horizontal_alignment = 1
@@ -394,9 +351,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -160.0
-offset_top = -500.0
+offset_top = -492.0
 offset_right = 160.0
-offset_bottom = -378.0
+offset_bottom = -370.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("7_bj4ys")
@@ -417,6 +374,89 @@ vertical_alignment = 1
 
 [node name="ComboDisplayTimer" type="Timer" parent="HUD/ComboDisplay"]
 wait_time = 3.0
+
+[node name="VsLabel" type="Label" parent="HUD"]
+offset_left = 1159.0
+offset_top = 96.0
+offset_right = 1427.0
+offset_bottom = 132.0
+size_flags_horizontal = 8
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 10
+text = "VS. Opponent"
+horizontal_alignment = 2
+
+[node name="Sp_combo Background" type="PanelContainer" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -228.0
+offset_top = 34.0
+offset_right = 470.0
+offset_bottom = 89.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_62pqw")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/Sp_combo Background"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="SpectacleLabel" type="Label" parent="HUD/Sp_combo Background/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "Spectacle Points:"
+vertical_alignment = 1
+
+[node name="SpectacleDisplay" type="Label" parent="HUD/Sp_combo Background/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "0"
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Sp_combo Background"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="MultiplierLabel" type="Label" parent="HUD/Sp_combo Background/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "Multiplier:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MultiplierDisplay" type="Label" parent="HUD/Sp_combo Background/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_bj4ys")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
 offset_right = 101.0

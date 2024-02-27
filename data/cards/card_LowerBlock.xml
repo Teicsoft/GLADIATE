@@ -22,7 +22,7 @@
     <text>
         <name>Lower Block</name> <!--string-->
         <description>Discard 1. Gain 1 lower block</description> <!--string-->
-        <lore>Maybe a smaller turtle like a terapin</lore> <!--string-->
+        <lore>This could be your "Evo 34 Moment"</lore> <!--string-->
         <tooltip_text>Lower Block</tooltip_text> <!--string-->
         <onscreen_text>Lower Block</onscreen_text> <!--string-->
     </text>

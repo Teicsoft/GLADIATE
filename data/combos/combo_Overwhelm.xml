@@ -30,8 +30,8 @@
 
     <text>
         <name>Overwhelm</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>Stuns Enemy, +20 SP</description> <!--string-->
+        <lore>Don't let up for a second</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

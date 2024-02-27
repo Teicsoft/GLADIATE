@@ -27,8 +27,8 @@
 
     <text>
         <name>Another Day Another Denari</name> <!--string-->
-        <description>Combo Description</description> <!--string-->
-        <lore>Deep Lore</lore> <!--string-->
+        <description>Draw 1 card, Discard 1 card, +10 SP</description> <!--string-->
+        <lore>Nothing fancy, just paying the bills</lore> <!--string-->
         <onscreen_text>Hover Text</onscreen_text> <!--string-->
     </text>
 </combo>

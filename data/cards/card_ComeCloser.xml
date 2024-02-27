@@ -23,7 +23,7 @@
     <text>
         <name>Come Closer</name> <!--string-->
         <description>If an enemy attacks you this turn, deal 5 damage to that enemy and gain 10sp</description> <!--string-->
-        <lore>I've got a secret for you.</lore> <!--string-->
+        <lore>Oh, You're approaching me?</lore> <!--string-->
         <tooltip_text>Hover Text</tooltip_text> <!--string-->
         <onscreen_text>Shown When card played</onscreen_text> <!--string-->
     </text>

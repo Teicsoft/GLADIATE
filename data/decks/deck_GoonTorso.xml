@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<deck id="deck_GoonTorso" name ="Goon Torso"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_FlyingCrossBody"/>  <!--card_id: string-->
+        <card card_id="card_FlyingCrossBody"/>  
+        <card card_id="card_FlyingCrossBody"/>  
+        <card card_id="card_Showoff"/>  
+        <card card_id="card_Showoff"/>  
+        <card card_id="card_FullBlock"/>  
+        <card card_id="card_FullBlock"/>
+    </cards>
+</deck>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<deck id="deck_GoonOG" name ="GoonOG"> <!--id: string--> <!--used_by: string (player/enemy)--> <!--name: string-->
+    <cards>
+        <card card_id="card_headbutt"/>  <!--card_id: string-->
+        <card card_id="card_BloodOnTheSand"/>
+        <card card_id="card_Showoff"/>
+    </cards>
+</deck>

@@ -8,10 +8,11 @@
 <enemy id="enemy_GoonBossTorso" name ="Goon Boss Torso"> <!--id: string--> <!--name: string-->
     <image>res://assets/sprites/GoonBoss/Torso.png</image> <!--path: string-->
     <sound_effect>soundeffect</sound_effect> <!--string for audioengine sfx-->
-    <lore>lore</lore>
+    <lore>That's impossible!
+Nobody has ever been able to call him!</lore>
 
-    <deck_id>deck_enemy</deck_id> <!--deck_id: string-->
-    <max_health>20</max_health> <!--health: int-->
-    <starting_block_upper>0</starting_block_upper> <!-- int -->
-    <starting_block_lower>0</starting_block_lower> <!-- int -->
+    <deck_id>deck_GoonTorso</deck_id> <!--deck_id: string-->
+    <max_health>40</max_health> <!--health: int-->
+    <starting_block_upper>2</starting_block_upper> <!-- int -->
+    <starting_block_lower>3</starting_block_lower> <!-- int -->
 </enemy>

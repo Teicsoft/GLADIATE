@@ -22,7 +22,7 @@
     <text>
         <name>Throw</name> <!--string-->
         <description>Juggles an enemy</description> <!--string-->
-        <lore>Rimshot</lore> <!--string-->
+        <lore>The riper the tomato, the better...</lore> <!--string-->
         <tooltip_text>Throw</tooltip_text> <!--string-->
         <onscreen_text>Throw</onscreen_text> <!--string-->
     </text>

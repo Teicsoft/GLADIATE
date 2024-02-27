@@ -8,10 +8,10 @@
 <enemy id="enemy_GoonBossHead" name ="Goon Boss Head"> <!--id: string--> <!--name: string-->
     <image>res://assets/sprites/GoonBoss/Head.png</image> <!--path: string-->
     <sound_effect>soundeffect</sound_effect> <!--string for audioengine sfx-->
-    <lore>lore</lore>
+    <lore>Draw Your Last Pathetic Card!</lore>
 
-    <deck_id>deck_enemy</deck_id> <!--deck_id: string-->
-    <max_health>20</max_health> <!--health: int-->
-    <starting_block_upper>0</starting_block_upper> <!-- int -->
-    <starting_block_lower>0</starting_block_lower> <!-- int -->
+    <deck_id>deck_goonHead</deck_id> <!--deck_id: string-->
+    <max_health>40</max_health> <!--health: int-->
+    <starting_block_upper>3</starting_block_upper> <!-- int -->
+    <starting_block_lower>2</starting_block_lower> <!-- int -->
 </enemy>
