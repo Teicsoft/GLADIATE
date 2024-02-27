@@ -58,7 +58,13 @@ public partial class Enemy : Node2D, ITarget {
     
     private  void UpdateStatusesToolTip()
     {
-        GetNode<ColorRect>("HealthBar/ColorRect2").TooltipText = Statuses.ToString();
+        string statusString = "";
+        foreach (Utils.StatusEnum status in Statuses)
+        {
+            statusString += status + "\n";
+        }
+        
+        GetNode<TextureRect>("HealthBar/StatusIndicator").TooltipText = Statuses.ToString();
     }
 
     public Utils.ModifierEnum Modifier {
