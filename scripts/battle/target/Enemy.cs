@@ -58,13 +58,14 @@ public partial class Enemy : Node2D, ITarget {
     
     private  void UpdateStatusesToolTip()
     {
+        TextureRect statusIndicator = GetNode<TextureRect>("HealthBar/StatusIndicator");
         string statusString = "";
-        foreach (Utils.StatusEnum status in Statuses)
-        {
-            statusString += status + "\n";
-        }
+        foreach (Utils.StatusEnum status in Statuses) { statusString += status + "\n"; }
         
-        GetNode<TextureRect>("HealthBar/StatusIndicator").TooltipText = Statuses.ToString();
+        statusIndicator.TooltipText = statusString;
+        GD.Print(statusString);
+
+        if (statusString.Length > 0) {statusIndicator.Show();} else { statusIndicator.Hide();}
     }
 
     public Utils.ModifierEnum Modifier {
@@ -199,7 +200,9 @@ public partial class Enemy : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else {
+        } else
+        {
+            GD.Print("trying to stun Enemy");
             Statuses.Add(Utils.StatusEnum.Stunned);
             UpdateStatusesToolTip();
         }

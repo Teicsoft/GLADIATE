@@ -104,7 +104,12 @@ public partial class Player : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
+        }
+        else
+        {
+            GD.Print("Trying to stun player");
+            Statuses.Add(Utils.StatusEnum.Stunned);
+        }
     }
 
     public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }

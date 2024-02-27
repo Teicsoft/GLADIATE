@@ -82,18 +82,28 @@ public static class Utils {
     
     public class StatusesDecorator : HashSet<Utils.StatusEnum>
     {
-        protected HashSet<Utils.StatusEnum> _Statuses;
-        public StatusesDecorator(HashSet<Utils.StatusEnum> statuses) { _Statuses = statuses; }
+        protected HashSet<StatusEnum> _Statuses;
+        public StatusesDecorator(HashSet<Utils.StatusEnum> statuses) { 
+            _Statuses = statuses;
+        }
 
         public StatusesDecorator()
         {
             _Statuses = new HashSet<Utils.StatusEnum>();
+            GD.Print("StatusesDecorator created");
         }
         
         public new bool Add(StatusEnum item)
         {
             GD.Print("Add: " + item);
+            GD.Print("Status Count: " + _Statuses.Count);
             return _Statuses.Add(item);
         }
+        
+        public new HashSet<StatusEnum> Get()
+        {
+            return _Statuses;
+        }
+        
     }
 }
