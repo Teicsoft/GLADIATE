@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GLADIATE.scripts.battle.card;
 using Godot;
 
@@ -26,9 +27,15 @@ public partial class Enemy : Node2D, ITarget {
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
     public int MaxHealth { get; set; }
-    public Utils.StatusesDecorator Statuses { get; set; } = new();
     
     private PanelContainer _bossHealthBar;
+    public StatusesDecorator Statuses { get; set; }
+
+    public Enemy() { 
+        Statuses = new StatusesDecorator();
+        Statuses.Enemy = this;
+    }
+    
 
     public PanelContainer BossHealthBar
     {
@@ -55,15 +62,18 @@ public partial class Enemy : Node2D, ITarget {
         _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Visible = 
             GetNode<TextureRect>("HealthBar/ModifierIcon").Visible;
     }
-    
-    private  void UpdateStatusesToolTip()
+
+    public void UpdateStatusesToolTip()
     {
         TextureRect statusIndicator = GetNode<TextureRect>("HealthBar/StatusIndicator");
         string statusString = "";
-        foreach (Utils.StatusEnum status in Statuses) { statusString += status + "\n"; }
+        
+        foreach (Utils.StatusEnum status in Statuses)
+        {
+            statusString += status + "\n";
+        }
         
         statusIndicator.TooltipText = statusString;
-        GD.Print(statusString);
 
         if (statusString.Length > 0) {statusIndicator.Show();} else { statusIndicator.Hide();}
     }
@@ -131,7 +141,7 @@ public partial class Enemy : Node2D, ITarget {
         _defenseUpper = defenseUpper;
         _defenseLower = defenseLower;
     }
-
+    
     public void CloneTo(Enemy enemy) {
         enemy.Id = Id;
         enemy.Name = Name;
@@ -202,15 +212,12 @@ public partial class Enemy : Node2D, ITarget {
             DefenseLower = 0;
         } else
         {
-            GD.Print("trying to stun Enemy");
             Statuses.Add(Utils.StatusEnum.Stunned);
-            UpdateStatusesToolTip();
         }
     }
 
     public bool IsStunned() {
         bool result = Statuses.Remove(Utils.StatusEnum.Stunned);
-        UpdateStatusesToolTip();
         return result;
     }
 

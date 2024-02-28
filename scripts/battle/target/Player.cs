@@ -12,7 +12,7 @@ public partial class Player : Node2D, ITarget {
 
     public string Name { get; set; }
     public int MaxHealth { get; set; }
-    public Utils.StatusesDecorator Statuses { get; set; } = new();
+    public StatusesDecorator Statuses { get; set; }
 
     private Utils.ModifierEnum _modifier = Utils.ModifierEnum.None;
     public Utils.ModifierEnum Modifier {
@@ -60,6 +60,9 @@ public partial class Player : Node2D, ITarget {
         DefenseLower = defenseLower;
         DefenseUpper = defenseUpper;
         Name = "Player";
+        
+        Statuses = new StatusesDecorator();
+        Statuses.Player = this;
     }
 
     public void Damage(int damage, Utils.PositionEnum position) {
@@ -105,11 +108,7 @@ public partial class Player : Node2D, ITarget {
             DefenseUpper = 0;
             DefenseLower = 0;
         }
-        else
-        {
-            GD.Print("Trying to stun player");
-            Statuses.Add(Utils.StatusEnum.Stunned);
-        }
+        else { Statuses.Add(Utils.StatusEnum.Stunned); }
     }
 
     public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }

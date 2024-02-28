@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.battle.target;
 using Godot;
@@ -78,32 +77,5 @@ public static class Utils {
     public static PositionEnum GetRandomPosition() {
         Array values = Enum.GetValues(typeof(PositionEnum));
         return (PositionEnum)values.GetValue(GD.Randi() % values.Length);
-    }
-    
-    public class StatusesDecorator : HashSet<Utils.StatusEnum>
-    {
-        protected HashSet<StatusEnum> _Statuses;
-        public StatusesDecorator(HashSet<Utils.StatusEnum> statuses) { 
-            _Statuses = statuses;
-        }
-
-        public StatusesDecorator()
-        {
-            _Statuses = new HashSet<Utils.StatusEnum>();
-            GD.Print("StatusesDecorator created");
-        }
-        
-        public new bool Add(StatusEnum item)
-        {
-            GD.Print("Add: " + item);
-            GD.Print("Status Count: " + _Statuses.Count);
-            return _Statuses.Add(item);
-        }
-        
-        public new HashSet<StatusEnum> Get()
-        {
-            return _Statuses;
-        }
-        
     }
 }

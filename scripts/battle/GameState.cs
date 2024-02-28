@@ -62,8 +62,8 @@ public class GameState {
 
     // Constructor
     public GameState(Hand hand, List<Enemy> enemies) {
-        AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
         Player = new Player(500, 0, 0);
+        AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
@@ -132,9 +132,7 @@ public class GameState {
 
     private void ProcessCombo(Combo combo) {
         ProcessMultiplier(combo?.CardList.Count ?? 0);
-
         combo?.Play(this);
-
         ShowOffCheck();
 
         SpectaclePoints += Math.Abs(SpectacleBuffer * Multiplier);
