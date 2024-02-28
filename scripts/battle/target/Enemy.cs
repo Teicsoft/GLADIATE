@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GLADIATE.scripts.battle.card;
 using Godot;
 
@@ -26,9 +27,15 @@ public partial class Enemy : Node2D, ITarget {
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
     public int MaxHealth { get; set; }
-    public HashSet<Utils.StatusEnum> Statuses { get; set; } = new();
     
     private PanelContainer _bossHealthBar;
+    public StatusesDecorator Statuses { get; set; }
+
+    public Enemy() { 
+        Statuses = new StatusesDecorator();
+        Statuses.Enemy = this;
+    }
+    
 
     public PanelContainer BossHealthBar
     {
@@ -54,6 +61,21 @@ public partial class Enemy : Node2D, ITarget {
             GetNode<TextureRect>("HealthBar/ModifierIcon").Texture;
         _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Visible = 
             GetNode<TextureRect>("HealthBar/ModifierIcon").Visible;
+    }
+
+    public void UpdateStatusesToolTip()
+    {
+        TextureRect statusIndicator = GetNode<TextureRect>("HealthBar/StatusIndicator");
+        string statusString = "";
+        
+        foreach (Utils.StatusEnum status in Statuses)
+        {
+            statusString += status + "\n";
+        }
+        
+        statusIndicator.TooltipText = statusString;
+
+        if (statusString.Length > 0) {statusIndicator.Show();} else { statusIndicator.Hide();}
     }
 
     public Utils.ModifierEnum Modifier {
@@ -119,7 +141,7 @@ public partial class Enemy : Node2D, ITarget {
         _defenseUpper = defenseUpper;
         _defenseLower = defenseLower;
     }
-
+    
     public void CloneTo(Enemy enemy) {
         enemy.Id = Id;
         enemy.Name = Name;
@@ -188,10 +210,16 @@ public partial class Enemy : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
+        } else
+        {
+            Statuses.Add(Utils.StatusEnum.Stunned);
+        }
     }
 
-    public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }
+    public bool IsStunned() {
+        bool result = Statuses.Remove(Utils.StatusEnum.Stunned);
+        return result;
+    }
 
     public void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
 
@@ -241,4 +269,3 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
 }
-

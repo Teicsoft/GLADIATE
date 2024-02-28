@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=36 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bf1b4q7nrb1ka" path="res://assets/images/ModifierIcons/Grappled.png" id="13_25d22"]
 [ext_resource type="PackedScene" uid="uid://87kw3tjkavuh" path="res://scenes/glossary/card_glossary.tscn" id="13_mwfol"]
 [ext_resource type="PackedScene" uid="uid://vjrk3p65fmid" path="res://scenes/glossary/combo_glossary.tscn" id="14_fhiga"]
+[ext_resource type="Texture2D" uid="uid://f5om8k5bo8r2" path="res://assets/sprites/Drew/Cyber-Denarius.png" id="15_6sdaq"]
 [ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
 [ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
 
@@ -301,14 +302,6 @@ rotation = -0.785398
 scale = Vector2(4, 4)
 texture = ExtResource("12_a85jt")
 
-[node name="PlayerModifierIcon" type="TextureRect" parent="HUD"]
-visible = false
-offset_left = 1391.0
-offset_top = 63.0
-offset_right = 1441.0
-offset_bottom = 113.0
-texture = ExtResource("13_25d22")
-
 [node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
 visible = false
 offset_left = 301.0
@@ -376,10 +369,10 @@ vertical_alignment = 1
 wait_time = 3.0
 
 [node name="VsLabel" type="Label" parent="HUD"]
-offset_left = 1159.0
-offset_top = 96.0
-offset_right = 1427.0
-offset_bottom = 132.0
+offset_left = 1160.0
+offset_top = 101.0
+offset_right = 1428.0
+offset_bottom = 141.0
 size_flags_horizontal = 8
 theme = ExtResource("7_bj4ys")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -508,6 +501,23 @@ visible = false
 
 [node name="ComboGlossary" parent="HUD" instance=ExtResource("14_fhiga")]
 visible = false
+
+[node name="StatusIndicator" type="TextureRect" parent="HUD"]
+visible = false
+offset_left = 1440.0
+offset_top = 62.0
+offset_right = 1568.0
+offset_bottom = 190.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_6sdaq")
+
+[node name="PlayerModifierIcon" type="TextureRect" parent="HUD"]
+visible = false
+offset_left = 1391.0
+offset_top = 63.0
+offset_right = 1441.0
+offset_bottom = 113.0
+texture = ExtResource("13_25d22")
 
 [node name="Hand" type="Path2D" parent="."]
 z_index = 1

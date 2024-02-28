@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://r58mdc5njm8"]
+[gd_scene load_steps=12 format=3 uid="uid://r58mdc5njm8"]
 
 [ext_resource type="Script" path="res://scenes/main/DeckSelect.cs" id="1_q7d5k"]
 [ext_resource type="Texture2D" uid="uid://biqdpl7e2d8hc" path="res://assets/ui/background.png" id="2_74v4t"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://diq0l8bgyca73" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Up.png" id="6_vkael"]
 [ext_resource type="Texture2D" uid="uid://cktlhhgeejedm" path="res://assets/images/Cards/CardArt/headbutt.png" id="7_m0ur3"]
 [ext_resource type="Texture2D" uid="uid://bcs6e5j2h08f0" path="res://assets/images/Cards/CardArt/spartackle.png" id="8_nvasl"]
-[ext_resource type="FontFile" uid="uid://cnq0lsjurchca" path="res://assets/fonts/nimbus-roman-no9-l.regular/nimbus-roman-no9-l.regular.otf" id="9_pjf3d"]
 
 [node name="DeckSelect" type="Control"]
 layout_mode = 3
@@ -366,7 +365,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/shadow_outline_size = 10
-text = "DeckName"
+text = "Galaxy Brained"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -498,16 +497,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -317.0
-offset_top = -34.0
-offset_right = 317.0
-offset_bottom = 51.0
+offset_left = -350.0
+offset_top = -75.0
+offset_right = 348.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("5_578yg")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("9_pjf3d")
-theme_override_font_sizes/font_size = 84
+theme_override_font_sizes/font_size = 103
 text = "Choose Your Deck"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ColorRect2"]
 layout_mode = 0

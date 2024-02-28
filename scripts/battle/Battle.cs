@@ -111,12 +111,24 @@ public partial class Battle : Node2D {
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Hand.Deck.DeckShuffledCustomEvent += OnDeckShuffled;
         _gameState.Player.PlayerModifierChangedCustomEvent += OnPlayerMofifierChanged;
+        _gameState.Player.Statuses.PlayerStatusesChangedCustomEvent += UpdateStatusesToolTip;
 
 
         _gameState.Draw(4);
         if (_sceneLoader.Health != 0) { _gameState.Player.Health = _sceneLoader.Health; }
         _sceneLoader.i += 1;
         if (_sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = _sceneLoader.SpectaclePoints; }
+    }
+    
+    public void UpdateStatusesToolTip(object sender, EventArgs e)
+    {
+           
+        TextureRect statusIndicator = GetNode<TextureRect>("HUD/StatusIndicator");
+        string statusString = "";
+        
+        foreach (Utils.StatusEnum status in _gameState.Player.Statuses) { statusString += status + "\n"; }
+        statusIndicator.TooltipText = statusString;
+        if (statusString.Length > 0) {statusIndicator.Show();} else { statusIndicator.Hide();}
     }
 
     private void OnPlayerMofifierChanged(object sender, EventArgs e) {
