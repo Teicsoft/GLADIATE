@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bb1d3xonqkrdt"]
+[gd_scene load_steps=4 format=3 uid="uid://bb1d3xonqkrdt"]
 
+[ext_resource type="Script" path="res://scripts/pause_menu.cs" id="1_fj32d"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="1_xsn3c"]
 [ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="2_7uwpo"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_fj32d")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -67,3 +69,5 @@ theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 theme_override_fonts/font = ExtResource("2_7uwpo")
 theme_override_font_sizes/font_size = 28
 text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit Button" to="." method="_on_quit_button_pressed"]
