@@ -384,6 +384,7 @@ position = Vector2(999, 100)
 texture = ExtResource("9_i3lvk")
 
 [node name="SelectedIndicator" type="ColorRect" parent="HUD"]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -406,10 +407,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -10888.6
-offset_top = 921.994
-offset_right = -10816.6
-offset_bottom = 993.994
+offset_left = -1153.47
+offset_top = -756.476
+offset_right = -1081.47
+offset_bottom = -684.476
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.785398
@@ -646,7 +647,6 @@ rotation = -0.785398
 curve = SubResource("Curve2D_e410o")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="Enemies"]
-visible = false
 position = Vector2(1521, 578)
 rotation = -3.09455
 

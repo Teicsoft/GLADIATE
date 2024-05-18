@@ -41,6 +41,9 @@ public partial class Battle : Control {
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
 
+        //UIScaling();
+        UIScaling();
+        
         System.Collections.Generic.Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
@@ -62,13 +65,12 @@ public partial class Battle : Control {
             GetNode<ColorRect>("Background/TextureRect/ColorRect").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
-        
-        
-        //UIScaling();
-        UIScaling();
     }
 
     public override void _Process(double delta) {
+        //UIScaling();
+        UIScaling();
+        
         if (SceneLoader.BossBattleId == Id) {
             foreach (Enemy enemy in _gameState.Enemies) {
                 PathFollow2D enemyPathFollow2D = enemy.EnemyPath2D.GetNode<PathFollow2D>("EnemyLocation");
@@ -93,8 +95,6 @@ public partial class Battle : Control {
             }
         }
         
-        //UIScaling();
-        UIScaling();
     }
 
     private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
@@ -176,7 +176,7 @@ public partial class Battle : Control {
                 enemy.GetNode<Label>("HealthBar/CardPlayed").Position = new Vector2(100, 0);
             }
             
-            AddChild(enemy);
+            enemyPath2d.AddChild(enemy);
             enemies.Add(enemy);
         }
         
@@ -276,12 +276,17 @@ public partial class Battle : Control {
     }
 
     private void MoveSelectedIndicator(Enemy enemy) {
-        GetNode<ColorRect>("HUD/SelectedIndicator").Position =
+        ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
+        selectedIndicator.Visible = true;
+        selectedIndicator.Position =
             _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
     }
 
     private void MoveSelectedIndicator(object sender, EventArgs e) {
-        GetNode<ColorRect>("HUD/SelectedIndicator").Position =
+        ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
+        selectedIndicator.Visible = true;
+        
+        selectedIndicator.Position =
             _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
     }
 
@@ -437,9 +442,9 @@ public partial class Battle : Control {
         // hand.Position = new Vector2(hand.Position.X - offsetFactor.X, hand.Position.Y - offsetFactor.Y);
         Path2D enemies = GetNode<Path2D>("Enemies");
         enemies.Scale = scaleFactor;
-        Path2D comboStack = GetNode<Path2D>("ComboStack");
-        comboStack.Scale = scaleFactor;
-        comboStack.Position = new Vector2(comboStack.Position.X - offsetFactor.X, comboStack.Position.Y - offsetFactor.Y);
+        // Path2D comboStack = GetNode<Path2D>("ComboStack");
+        // comboStack.Scale = scaleFactor;
+        // comboStack.Position = new Vector2(comboStack.Position.X - offsetFactor.X, comboStack.Position.Y - offsetFactor.Y);
         // Path2D bossNode = GetNode<Path2D>("BossNode");
         // bossNode.Scale = scaleFactor;
         
