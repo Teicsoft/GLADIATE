@@ -182,13 +182,13 @@ public partial class Battle : Control {
         
         
         if (Id == SceneLoader.BossBattleId) {
-            GetNode<PanelContainer>("BossHealthBarsPanel").Visible = true;
+            GetNode<PanelContainer>("HUD/BossHealthBarsPanel").Visible = true;
             
             foreach (Enemy enemy in enemies) {
                 enemy.GetNode<Control>("HealthBar").Visible = false;
                 
                 PanelContainer bossScene = GD.Load<PackedScene>("res://scenes/battle/boss_health_bars.tscn").Instantiate<PanelContainer>();
-                GetNode<VBoxContainer>("BossHealthBarsPanel/BossHealthBarsVBoxContainer").AddChild(bossScene);
+                GetNode<VBoxContainer>("HUD/BossHealthBarsPanel/BossHealthBarsVBoxContainer").AddChild(bossScene);
                 enemy.BossHealthBar = bossScene;
             }
         }
@@ -220,7 +220,7 @@ public partial class Battle : Control {
     private Path2D GetEnemyPosition(int index, int count) {
         if (Id == SceneLoader.BossBattleId)
         {
-            GetNode<PanelContainer>("BossHealthBarsPanel").Visible = true;
+            GetNode<PanelContainer>("HUD/BossHealthBarsPanel").Visible = true;
             
             Path2D BossPath2D = GetNode<Path2D>("BossNode/BossBattle" + index);
             PathFollow2D bossLocation = BossPath2D.GetNode<PathFollow2D>("EnemyLocation");
@@ -449,7 +449,8 @@ public partial class Battle : Control {
         Label discardDisplay = GetNode<Label>("DiscardDisplay");
         discardDisplay.Scale = scaleFactor;
         
-        // Path2D bossNode = GetNode<Path2D>("BossNode");
-        // bossNode.Scale = scaleFactor;
+        Node2D bossNode = GetNode<Node2D>("BossNode");
+        bossNode.Scale = scaleFactor;
+        bossNode.Position = new Vector2(0, 0);
     }
 }
