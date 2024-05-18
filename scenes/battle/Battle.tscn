@@ -25,29 +25,19 @@
 [ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
 [ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k87rm"]
+
 [sub_resource type="Theme" id="Theme_gua0v"]
 default_font = ExtResource("9_6h2s6")
 default_font_size = 37
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_62pqw"]
 
-[sub_resource type="Curve2D" id="Curve2D_xvv15"]
-_data = {
-"points": PackedVector2Array(0, 0, 100, -100, 270, 975, -100, -100, 0, 0, 1650, 975)
-}
-point_count = 2
-
 [sub_resource type="Curve2D" id="Curve2D_e410o"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 1521, 578, 0, 0, 0, 0, 990, 553, 0, 0, 0, 0, 469, 578)
 }
 point_count = 3
-
-[sub_resource type="Curve2D" id="Curve2D_1fx2k"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, -360)
-}
-point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_rsjld"]
 _data = {
@@ -79,13 +69,23 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Curve2D" id="Curve2D_1fx2k"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4, -360)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xvv15"]
+_data = {
+"points": PackedVector2Array(0, 0, 100, -100, 270, 975, -100, -100, 0, 0, 1650, 975)
+}
+point_count = 2
+
 [sub_resource type="Curve2D" id="Curve2D_r0y7a"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 1740, 675, 0, 0, 0, 0, 1740, 5)
 }
 point_count = 2
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k87rm"]
 
 [node name="Battle" type="Control"]
 layout_mode = 3
@@ -159,6 +159,19 @@ texture = ExtResource("8_2vyy3")
 visible = false
 position = Vector2(103, 657)
 texture = ExtResource("8_2vyy3")
+
+[node name="BossHealthBarsPanel" type="PanelContainer" parent="HUD"]
+visible = false
+offset_top = 158.0
+offset_right = 571.0
+offset_bottom = 707.0
+scale = Vector2(0.8, 0.8)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_k87rm")
+
+[node name="BossHealthBarsVBoxContainer" type="VBoxContainer" parent="HUD/BossHealthBarsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="HUD"]
 offset_left = -1.0
@@ -284,63 +297,6 @@ flip_h = true
 flip_v = true
 
 [node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(100.375, 1072)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-flip_v = true
-
-[node name="Discard" type="ColorRect" parent="HUD"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 9.0
-offset_top = -268.0
-offset_right = 192.0
-offset_bottom = -7.0
-grow_vertical = 0
-color = Color(0, 0, 0, 0.231373)
-
-[node name="Discard Area" type="CanvasGroup" parent="HUD/Discard"]
-position = Vector2(-9, -812)
-
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="HUD/Discard/Discard Area"]
-position = Vector2(188, 818)
-texture = ExtResource("16_o3gvq")
-
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="HUD/Discard/Discard Area"]
-position = Vector2(13, 818)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="HUD/Discard/Discard Area"]
-position = Vector2(100.375, 811)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="HUD/Discard/Discard Area"]
-position = Vector2(195, 941.366)
-rotation = 1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="HUD/Discard/Discard Area"]
-position = Vector2(6, 942)
-rotation = -1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="HUD/Discard/Discard Area"]
-position = Vector2(188, 1065)
-texture = ExtResource("16_o3gvq")
-flip_v = true
-
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="HUD/Discard/Discard Area"]
-position = Vector2(13, 1065)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-flip_v = true
-
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/Discard/Discard Area"]
 position = Vector2(100.375, 1072)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
@@ -616,14 +572,63 @@ offset_right = 1441.0
 offset_bottom = 113.0
 texture = ExtResource("13_25d22")
 
-[node name="Hand" type="Path2D" parent="."]
-z_index = 1
-curve = SubResource("Curve2D_xvv15")
-script = ExtResource("4_swwjy")
+[node name="Discard" type="ColorRect" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -271.0
+offset_right = 193.0
+offset_bottom = -10.0
+grow_vertical = 0
+size_flags_horizontal = 0
+color = Color(0, 0, 0, 0.231373)
 
-[node name="HandCardLocation" type="PathFollow2D" parent="Hand"]
-position = Vector2(270, 975)
-rotation = -0.785398
+[node name="Discard Area" type="CanvasGroup" parent="HUD/Discard"]
+position = Vector2(-9, -812)
+
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(188, 818)
+texture = ExtResource("16_o3gvq")
+
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(13, 818)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(100.375, 811)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(195, 941.366)
+rotation = 1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(6, 942)
+rotation = -1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(188, 1065)
+texture = ExtResource("16_o3gvq")
+flip_v = true
+
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(13, 1065)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+flip_v = true
+
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/Discard/Discard Area"]
+position = Vector2(100.375, 1072)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+flip_v = true
 
 [node name="Enemies" type="Path2D" parent="."]
 curve = SubResource("Curve2D_e410o")
@@ -632,49 +637,52 @@ curve = SubResource("Curve2D_e410o")
 position = Vector2(1521, 578)
 rotation = -3.09455
 
-[node name="BossNode" type="Node" parent="."]
-
-[node name="BossBattle0" type="Path2D" parent="BossNode"]
-position = Vector2(960, 540)
-curve = SubResource("Curve2D_1fx2k")
-
-[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle0"]
-rotation = -1.58191
+[node name="BossNode" type="Node2D" parent="."]
 
 [node name="BossBattle1" type="Path2D" parent="BossNode"]
-position = Vector2(960, 540)
 curve = SubResource("Curve2D_rsjld")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle1"]
 rotation = -0.560065
 
 [node name="BossBattle2" type="Path2D" parent="BossNode"]
-position = Vector2(960, 540)
 curve = SubResource("Curve2D_02fxe")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle2"]
 rotation = 0.530432
 
 [node name="BossBattle3" type="Path2D" parent="BossNode"]
-position = Vector2(960, 540)
 curve = SubResource("Curve2D_vobc0")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle3"]
 rotation = -2.58785
 
 [node name="BossBattle4" type="Path2D" parent="BossNode"]
-position = Vector2(960, 540)
 curve = SubResource("Curve2D_xn1me")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle4"]
 rotation = 2.57323
 
 [node name="BossBattle5" type="Path2D" parent="BossNode"]
-position = Vector2(960, 540)
 curve = SubResource("Curve2D_ojghp")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle5"]
 rotation = -1.5708
+
+[node name="BossBattle0" type="Path2D" parent="BossNode"]
+curve = SubResource("Curve2D_1fx2k")
+
+[node name="EnemyLocation" type="PathFollow2D" parent="BossNode/BossBattle0"]
+rotation = -1.58191
+
+[node name="Hand" type="Path2D" parent="."]
+z_index = 100
+curve = SubResource("Curve2D_xvv15")
+script = ExtResource("4_swwjy")
+
+[node name="HandCardLocation" type="PathFollow2D" parent="Hand"]
+position = Vector2(270, 975)
+rotation = -0.785398
 
 [node name="ComboStack" type="Path2D" parent="."]
 curve = SubResource("Curve2D_r0y7a")
@@ -684,19 +692,6 @@ position = Vector2(1740, 675)
 rotation = -1.5708
 loop = false
 
-[node name="BossHealthBarsPanel" type="PanelContainer" parent="."]
-visible = false
-offset_top = 158.0
-offset_right = 571.0
-offset_bottom = 707.0
-scale = Vector2(0.8, 0.8)
-theme_override_styles/panel = SubResource("StyleBoxEmpty_k87rm")
-
-[node name="BossHealthBarsVBoxContainer" type="VBoxContainer" parent="BossHealthBarsPanel"]
-layout_mode = 2
-theme_override_constants/separation = 5
-alignment = 1
-
 [node name="DiscardDisplay" type="Label" parent="."]
 z_index = 100
 layout_mode = 1
@@ -705,10 +700,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -477.0
-offset_top = 144.0
-offset_right = 473.0
-offset_bottom = 226.0
+offset_left = -475.0
+offset_top = 143.0
+offset_right = 328.0
+offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
