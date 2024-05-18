@@ -22,7 +22,7 @@ public partial class SceneLoader : Godot.Node
     {
         _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
 
-        i = 6;
+        i = 0;
 
         Viewport root = GetTree().Root;
         CurrentScene = root.GetChild(root.GetChildCount() - 1);

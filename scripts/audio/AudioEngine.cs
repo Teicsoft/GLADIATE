@@ -7,6 +7,10 @@ namespace GLADIATE.scripts.audio;
 
 public partial class AudioEngine : Node
 {
+	private int _sfxAudioServerIndex = AudioServer.GetBusIndex("SFX");
+	private int _musicAudioServerIndex = AudioServer.GetBusIndex("Music");
+	private int _peaceAudioServerIndex = AudioServer.GetBusIndex("Voice");
+	
 	//preloaded audio to avoid stuttering when playing audio for the first time
 	private Dictionary<string, AudioStream> _preLoadedMusic = new Dictionary<string, AudioStream>();
 	private Dictionary<string, AudioStream> _preLoadedSoundFx = new Dictionary<string, AudioStream>();
@@ -287,4 +291,17 @@ public partial class AudioEngine : Node
 		SoundFx,
 		VoiceLine
 	}
+	
+	public float GetMusicVolume()
+	{ return AudioServer.GetBusVolumeDb(_musicAudioServerIndex); }
+	public float GetSfxVolume()
+	{ return AudioServer.GetBusVolumeDb(_sfxAudioServerIndex); }
+	public void SetMusicVolume(float volume)
+	{ AudioServer.SetBusVolumeDb(_musicAudioServerIndex, volume); }
+	public void SetSfxVolume(float volume)
+	{ AudioServer.SetBusVolumeDb(_sfxAudioServerIndex, volume); }
+	public void MuteMusic()
+	{ AudioServer.SetBusVolumeDb(_musicAudioServerIndex, -80); }
+	public void MuteSfx()
+	{ AudioServer.SetBusVolumeDb(_sfxAudioServerIndex, -80); }
 }

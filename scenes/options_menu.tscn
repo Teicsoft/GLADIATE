@@ -168,6 +168,9 @@ offset_bottom = 495.0
 theme_override_icons/grabber = ExtResource("8_r1c2x")
 theme_override_icons/grabber_highlight = ExtResource("8_r1c2x")
 theme_override_icons/grabber_disabled = ExtResource("8_r1c2x")
+min_value = -50.0
+max_value = 10.0
+step = 5.0
 
 [node name="Music" type="Label" parent="Control/Music Sliider"]
 layout_mode = 0
@@ -188,6 +191,10 @@ offset_bottom = 569.0
 theme_override_icons/grabber = ExtResource("8_r1c2x")
 theme_override_icons/grabber_highlight = ExtResource("8_r1c2x")
 theme_override_icons/grabber_disabled = ExtResource("8_r1c2x")
+min_value = -50.0
+max_value = 10.0
+step = 5.0
+value = 6.0
 
 [node name="SFX" type="Label" parent="Control/SFX Slider"]
 layout_mode = 0
@@ -232,4 +239,8 @@ texture_normal = ExtResource("9_srg7x")
 
 [connection signal="pressed" from="Control/Back Button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Control/Credits Button" to="." method="_on_credits_button_pressed"]
+[connection signal="value_changed" from="Control/Music Sliider" to="." method="_on_music_sliider_value_changed"]
+[connection signal="value_changed" from="Control/SFX Slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="toggled" from="Control/Music Mute Button" to="." method="_on_music_mute_button_toggled"]
+[connection signal="toggled" from="Control/SFX Mute Button" to="." method="_on_sfx_mute_button_toggled"]
 [connection signal="pressed" from="Control/TextureButton" to="." method="_on_texture_button_pressed"]
