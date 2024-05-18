@@ -453,4 +453,5 @@ public partial class Battle : Control {
         bossNode.Scale = scaleFactor;
         bossNode.Position = new Vector2(0, 0);
     }
+    
 }

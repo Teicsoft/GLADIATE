@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ci05wo3p3muho"]
+[gd_scene load_steps=15 format=3 uid="uid://ci05wo3p3muho"]
 
 [ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="1_a082y"]
 [ext_resource type="Texture2D" uid="uid://fjpa0e8mdgvg" path="res://assets/ui/thicc_border_top.png" id="1_jv2p2"]
@@ -14,87 +14,89 @@
 [ext_resource type="Texture2D" uid="uid://c5w7bux5ksfwl" path="res://assets/ui/toggle_on.png" id="10_q1nov"]
 [ext_resource type="Texture2D" uid="uid://ikg1v46ltoap" path="res://assets/ui/toggle_off.png" id="11_mswe0"]
 
-[node name="Options Menu" type="Control"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -540.0
-offset_right = -960.0
-offset_bottom = -540.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6k2c"]
+bg_color = Color(0.701961, 0.219608, 0.192157, 1)
+
+[node name="Options Menu" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_e6k2c")
 script = ExtResource("1_k7x8a")
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 498.0
-offset_top = 223.0
-offset_right = 1498.0
-offset_bottom = 823.0
-color = Color(0.231373, 0.231373, 0.231373, 0.505882)
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
 
-[node name="CanvasGroup" type="CanvasGroup" parent="."]
+[node name="CanvasGroup" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -35.0
+offset_right = -35.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(3, 3)
 
-[node name="ThiccBorderTop" type="Sprite2D" parent="CanvasGroup"]
+[node name="ThiccBorderTop" type="Sprite2D" parent="Control/CanvasGroup"]
 position = Vector2(326.333, 75.3333)
 texture = ExtResource("1_jv2p2")
 
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="CanvasGroup"]
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Control/CanvasGroup"]
 position = Vector2(244.875, 72.3333)
 scale = Vector2(3.62838, 1)
 texture = ExtResource("2_uvbvf")
 
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopStraight"]
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Control/CanvasGroup/ThiccBorderTopStraight"]
 position = Vector2(46.5658, 2.46366e-06)
 scale = Vector2(1.09994, 1)
 texture = ExtResource("2_uvbvf")
 
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopStraight"]
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Control/CanvasGroup/ThiccBorderTopStraight"]
 position = Vector2(-22.2896, 105.577)
 rotation = 4.71239
 scale = Vector2(5.036, 0.275484)
 texture = ExtResource("2_uvbvf")
 
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopStraight/ThiccBorderTopStraight2"]
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Control/CanvasGroup/ThiccBorderTopStraight/ThiccBorderTopStraight2"]
 position = Vector2(0.745181, 337.807)
 rotation = 3.14159
 scale = Vector2(0.960208, 0.999318)
 texture = ExtResource("2_uvbvf")
 
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="CanvasGroup"]
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Control/CanvasGroup"]
 position = Vector2(494.667, 79.3333)
 texture = ExtResource("3_qqi8i")
 
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="CanvasGroup/ThiccBorderTopCorner"]
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Control/CanvasGroup/ThiccBorderTopCorner"]
 position = Vector2(-323.667, 2.20537e-06)
 texture = ExtResource("3_qqi8i")
 flip_h = true
 
-[node name="ThiccBorderBottomCorner" type="Sprite2D" parent="CanvasGroup"]
+[node name="ThiccBorderBottomCorner" type="Sprite2D" parent="Control/CanvasGroup"]
 position = Vector2(494.667, 270.667)
 scale = Vector2(0.993057, 1)
 texture = ExtResource("4_v0cl3")
 
-[node name="ThiccBorderBottomCorner" type="Sprite2D" parent="CanvasGroup/ThiccBorderBottomCorner"]
+[node name="ThiccBorderBottomCorner" type="Sprite2D" parent="Control/CanvasGroup/ThiccBorderBottomCorner"]
 position = Vector2(-325.93, -3.27826e-07)
 texture = ExtResource("4_v0cl3")
 flip_h = true
 
-[node name="ThiccBorderBottomStraight" type="Sprite2D" parent="CanvasGroup"]
+[node name="ThiccBorderBottomStraight" type="Sprite2D" parent="Control/CanvasGroup"]
 position = Vector2(332.833, 277.667)
 scale = Vector2(8.63964, 1)
 texture = ExtResource("5_danb2")
 
-[node name="Options Label" type="Label" parent="."]
+[node name="Options Label" type="Label" parent="Control"]
 layout_mode = 2
-offset_left = 40.0
+offset_left = 5.0
 offset_top = 237.0
-offset_right = 1936.0
+offset_right = 1901.0
 offset_bottom = 317.0
 theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 theme_override_fonts/font = ExtResource("1_a082y")
@@ -103,19 +105,20 @@ text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back Button" type="TextureButton" parent="."]
+[node name="Back Button" type="TextureButton" parent="Control"]
 layout_mode = 2
-offset_left = 525.0
-offset_top = 769.0
-offset_right = 626.0
-offset_bottom = 804.0
+offset_left = 477.0
+offset_top = 739.0
+offset_right = 578.0
+offset_bottom = 774.0
+scale = Vector2(2, 2)
 size_flags_horizontal = 0
 size_flags_vertical = 8
 texture_normal = ExtResource("7_5wohl")
 texture_pressed = ExtResource("8_3byp8")
 stretch_mode = 3
 
-[node name="Back" type="Label" parent="Back Button"]
+[node name="Back" type="Label" parent="Control/Back Button"]
 layout_mode = 0
 offset_left = 28.0
 offset_top = -3.0
@@ -129,19 +132,20 @@ text = "Back"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Credits Button" type="TextureButton" parent="."]
+[node name="Credits Button" type="TextureButton" parent="Control"]
 layout_mode = 2
-offset_left = 1361.0
-offset_top = 771.0
-offset_right = 1462.0
-offset_bottom = 806.0
+offset_left = 1248.0
+offset_top = 739.0
+offset_right = 1349.0
+offset_bottom = 774.0
+scale = Vector2(2, 2)
 size_flags_horizontal = 0
 size_flags_vertical = 8
 texture_normal = ExtResource("7_5wohl")
 texture_pressed = ExtResource("8_3byp8")
 stretch_mode = 3
 
-[node name="Credits" type="Label" parent="Credits Button"]
+[node name="Credits" type="Label" parent="Control/Credits Button"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = -2.0
@@ -155,17 +159,17 @@ text = "Credits"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Music Sliider" type="HSlider" parent="."]
+[node name="Music Sliider" type="HSlider" parent="Control"]
 layout_mode = 0
-offset_left = 661.0
+offset_left = 626.0
 offset_top = 459.0
-offset_right = 1261.0
+offset_right = 1226.0
 offset_bottom = 495.0
 theme_override_icons/grabber = ExtResource("8_r1c2x")
 theme_override_icons/grabber_highlight = ExtResource("8_r1c2x")
 theme_override_icons/grabber_disabled = ExtResource("8_r1c2x")
 
-[node name="Music" type="Label" parent="Music Sliider"]
+[node name="Music" type="Label" parent="Control/Music Sliider"]
 layout_mode = 0
 offset_left = -91.0
 offset_top = -2.0
@@ -175,17 +179,17 @@ theme_override_fonts/font = ExtResource("1_a082y")
 theme_override_font_sizes/font_size = 36
 text = "Music"
 
-[node name="SFX Slider" type="HSlider" parent="."]
+[node name="SFX Slider" type="HSlider" parent="Control"]
 layout_mode = 0
-offset_left = 660.0
+offset_left = 625.0
 offset_top = 533.0
-offset_right = 1260.0
+offset_right = 1225.0
 offset_bottom = 569.0
 theme_override_icons/grabber = ExtResource("8_r1c2x")
 theme_override_icons/grabber_highlight = ExtResource("8_r1c2x")
 theme_override_icons/grabber_disabled = ExtResource("8_r1c2x")
 
-[node name="SFX" type="Label" parent="SFX Slider"]
+[node name="SFX" type="Label" parent="Control/SFX Slider"]
 layout_mode = 0
 offset_left = -80.0
 offset_top = -1.0
@@ -195,34 +199,37 @@ theme_override_fonts/font = ExtResource("1_a082y")
 theme_override_font_sizes/font_size = 36
 text = "SFX"
 
-[node name="Music Mute Button" type="TextureButton" parent="."]
+[node name="Music Mute Button" type="TextureButton" parent="Control"]
 layout_mode = 0
-offset_left = 1278.0
+offset_left = 1243.0
 offset_top = 464.0
-offset_right = 1318.0
+offset_right = 1283.0
 offset_bottom = 504.0
 toggle_mode = true
 texture_normal = ExtResource("10_q1nov")
 texture_pressed = ExtResource("11_mswe0")
 
-[node name="SFX Mute Button" type="TextureButton" parent="."]
+[node name="SFX Mute Button" type="TextureButton" parent="Control"]
 layout_mode = 0
-offset_left = 1278.0
+offset_left = 1243.0
 offset_top = 540.0
-offset_right = 1318.0
+offset_right = 1283.0
 offset_bottom = 580.0
 toggle_mode = true
 texture_normal = ExtResource("10_q1nov")
 texture_pressed = ExtResource("11_mswe0")
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="TextureButton" type="TextureButton" parent="Control"]
 layout_mode = 0
-offset_left = 1323.0
-offset_top = 775.0
-offset_right = 1563.0
-offset_bottom = 1015.0
-scale = Vector2(0.117246, 0.117246)
+offset_left = 899.0
+offset_top = 667.0
+offset_right = 1139.0
+offset_bottom = 907.0
+scale = Vector2(0.557245, 0.557245)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("9_srg7x")
 
-[connection signal="pressed" from="Credits Button" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="Control/Back Button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Control/Credits Button" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Control/TextureButton" to="." method="_on_texture_button_pressed"]

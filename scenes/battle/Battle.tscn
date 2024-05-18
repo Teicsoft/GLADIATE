@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=38 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://f5om8k5bo8r2" path="res://assets/sprites/Drew/Cyber-Denarius.png" id="15_6sdaq"]
 [ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
 [ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
+[ext_resource type="PackedScene" uid="uid://bb1d3xonqkrdt" path="res://scenes/pause_menu.tscn" id="25_1n752"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k87rm"]
 
@@ -713,6 +714,13 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 75
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("25_1n752")]
+process_mode = 3
+visible = false
+z_index = 4090
 
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]

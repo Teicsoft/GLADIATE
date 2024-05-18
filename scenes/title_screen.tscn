@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbpxaie8y57c2"]
+[gd_scene load_steps=8 format=3 uid="uid://bbpxaie8y57c2"]
 
 [ext_resource type="Script" path="res://scripts/interface/TitleScreen.cs" id="1_sbgjw"]
 [ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="2_14m68"]
 [ext_resource type="Texture2D" uid="uid://c6idlull35fp4" path="res://assets/sprites/Dave/Gladiate.png" id="2_j5550"]
 [ext_resource type="Texture2D" uid="uid://c0r8l4fbcihi" path="res://assets/sprites/Dave/Eagle.png" id="3_csqvs"]
+[ext_resource type="PackedScene" uid="uid://ci05wo3p3muho" path="res://scenes/options_menu.tscn" id="7_5pk6i"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="7_k4tbm"]
 [ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="8_0xat7"]
 
@@ -91,10 +92,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -130.0
-offset_top = -346.0
-offset_right = -28.9999
-offset_bottom = -272.0
+offset_left = -143.0
+offset_top = -355.0
+offset_right = -41.9999
+offset_bottom = -242.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(2.84908, 2.84908)
@@ -108,10 +109,10 @@ texture_normal = ExtResource("7_k4tbm")
 
 [node name="Start" type="Label" parent="MarginContainer/VBoxContainer/Start Button"]
 layout_mode = 0
-offset_left = 28.0914
-offset_top = -1.75571
-offset_right = 122.091
-offset_bottom = 45.2443
+offset_left = 7.0
+offset_top = -2.0
+offset_right = 131.0
+offset_bottom = 45.0
 scale = Vector2(0.7, 0.7)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
@@ -119,6 +120,26 @@ theme_override_constants/shadow_offset_x = 0
 theme_override_fonts/font = ExtResource("8_0xat7")
 theme_override_font_sizes/font_size = 38
 text = "Start"
+horizontal_alignment = 1
+
+[node name="Options Button" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_k4tbm")
+
+[node name="Options" type="Label" parent="MarginContainer/VBoxContainer/Options Button"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = -2.0
+offset_right = 133.0
+offset_bottom = 45.0
+scale = Vector2(0.7, 0.7)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_fonts/font = ExtResource("8_0xat7")
+theme_override_font_sizes/font_size = 38
+text = "Options"
+horizontal_alignment = 1
 
 [node name="Quit Button" type="TextureButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -126,18 +147,24 @@ texture_normal = ExtResource("7_k4tbm")
 
 [node name="Quit" type="Label" parent="MarginContainer/VBoxContainer/Quit Button"]
 layout_mode = 0
-offset_left = 34.6753
-offset_top = -3.0079
-offset_right = 84.6753
-offset_bottom = 38.9921
+offset_left = 8.0
+offset_top = -3.0
+offset_right = 133.0
+offset_bottom = 39.0
 scale = Vector2(0.7, 0.7)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 theme_override_fonts/font = ExtResource("8_0xat7")
 theme_override_font_sizes/font_size = 38
 text = "Quit"
+horizontal_alignment = 1
+
+[node name="Options Menu" parent="." instance=ExtResource("7_5pk6i")]
+visible = false
+layout_mode = 1
 
 [connection signal="gui_input" from="." to="." method="OnGuiInput"]
 [connection signal="timeout" from="StartMusic" to="." method="OnStartMusicTimeout"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Options Button" to="Options Menu" method="_on_options_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit Button" to="." method="_on_quit_button_pressed"]

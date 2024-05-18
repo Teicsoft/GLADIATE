@@ -20,6 +20,13 @@ public partial class options_menu : Control
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        Vector2 originalViewportSize = new Vector2(1920, 1080);
+        Vector2 currentViewportSize = GetViewport().GetVisibleRect().Size;
+        
+        Vector2 scaleFactor = GetViewport().GetVisibleRect().Size / originalViewportSize;
+        Vector2 offsetFactor = originalViewportSize - currentViewportSize;
+
+        Scale = scaleFactor;
     }
     
     private void _on_texture_button_pressed()
@@ -32,8 +39,14 @@ public partial class options_menu : Control
         _sceneLoader.GoToScene("res://scenes/main/Credits.tscn");
         _audioEngine.PlayMusic("Shop_loop_audio.wav");
     }
-   
+    
+    private void _on_options_button_pressed()
+    {
+        Show();
+    }
+    
+    private void _on_back_button_pressed()
+    {
+        Hide();
+    }   
 }
-
-
-
