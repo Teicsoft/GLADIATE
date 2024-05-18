@@ -346,12 +346,13 @@ public partial class Battle : Control {
     }
 
     private void OnDiscardStateChanged() {
-        GetNode<Label>("HUD/DiscardDisplay").Text = _gameState.Discards == 0
+        GetNode<Label>("DiscardDisplay").Text = _gameState.Discards == 0
             ? ""
             : $"You must discard {_gameState.Discards} card{(_gameState.Discards == 1 ? "" : "s")}.";
     }
 
     private void OnComboStackChanged(object sender, EventArgs e) {
+        Path2D comboStack = GetNode<Path2D>("ComboStack");
         PathFollow2D comboStackLocation = GetNode<PathFollow2D>("ComboStack/ComboStackLocation");
 
         _comboArts.ForEach(art => art.QueueFree());
@@ -365,7 +366,7 @@ public partial class Battle : Control {
                 TextureRect art = Utils.LoadCardArt(_gameState.ComboStack[i]);
                 art.Position = comboStackLocation.Position;
                 _comboArts.Add(art);
-                AddChild(art);
+                comboStack.AddChild(art);
             }
         }
     }
@@ -439,15 +440,16 @@ public partial class Battle : Control {
 
         Path2D hand = GetNode<Path2D>("Hand");
         hand.Scale = scaleFactor;
-        // hand.Position = new Vector2(hand.Position.X - offsetFactor.X, hand.Position.Y - offsetFactor.Y);
         Path2D enemies = GetNode<Path2D>("Enemies");
         enemies.Scale = scaleFactor;
-        // Path2D comboStack = GetNode<Path2D>("ComboStack");
-        // comboStack.Scale = scaleFactor;
-        // comboStack.Position = new Vector2(comboStack.Position.X - offsetFactor.X, comboStack.Position.Y - offsetFactor.Y);
+        
+        Path2D comboStack = GetNode<Path2D>("ComboStack");
+        comboStack.Scale = scaleFactor;
+        
+        Label discardDisplay = GetNode<Label>("DiscardDisplay");
+        discardDisplay.Scale = scaleFactor;
+        
         // Path2D bossNode = GetNode<Path2D>("BossNode");
         // bossNode.Scale = scaleFactor;
-        
     }
-    
 }
