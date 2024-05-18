@@ -8,6 +8,8 @@ using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.battle.target;
 using GLADIATE.scripts.XmlParsing;
 using Godot;
+using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 namespace GLADIATE.scripts.battle;
 
@@ -22,7 +24,7 @@ public partial class Battle : Control {
     private List<TextureRect> _comboArts = new();
 
     private List<Enemy> _allEnemies;
-    private Dictionary<string, List<string>> _allDecks;
+    private System.Collections.Generic.Dictionary<string, List<string>> _allDecks;
 
     public string Id { get; set; }
     public string BattleName { get; set; }
@@ -39,7 +41,7 @@ public partial class Battle : Control {
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
 
-        Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
+        System.Collections.Generic.Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
@@ -60,6 +62,10 @@ public partial class Battle : Control {
             GetNode<ColorRect>("Background/TextureRect/ColorRect").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
+        
+        
+        //UIScaling();
+        UIScaling();
     }
 
     public override void _Process(double delta) {
@@ -86,6 +92,9 @@ public partial class Battle : Control {
                 }
             }
         }
+        
+        //UIScaling();
+        UIScaling();
     }
 
     private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
@@ -406,4 +415,34 @@ public partial class Battle : Control {
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
     private void OnDeckShuffled(object sender, EventArgs e) { GD.Print(" Deck Shuffled "); }
     public override string ToString() { return $"Battle: {BattleName}({Id})"; }
+    
+    
+    /// 
+    // This is a quick and dirty patch to give us a scaling UI, also see HUD.cs. 
+    // Ideally I wouldn't want to define all of the UI elements in code, but just want to make the change fast
+    /// 
+    
+
+    
+    private void UIScaling() {
+
+        Vector2 originalViewportSize = new Vector2(1920, 1080);
+        Vector2 currentViewportSize = GetViewport().GetVisibleRect().Size;
+        
+        Vector2 scaleFactor = GetViewport().GetVisibleRect().Size / originalViewportSize;
+        Vector2 offsetFactor = originalViewportSize - currentViewportSize;
+
+        Path2D hand = GetNode<Path2D>("Hand");
+        hand.Scale = scaleFactor;
+        // hand.Position = new Vector2(hand.Position.X - offsetFactor.X, hand.Position.Y - offsetFactor.Y);
+        Path2D enemies = GetNode<Path2D>("Enemies");
+        enemies.Scale = scaleFactor;
+        Path2D comboStack = GetNode<Path2D>("ComboStack");
+        comboStack.Scale = scaleFactor;
+        comboStack.Position = new Vector2(comboStack.Position.X - offsetFactor.X, comboStack.Position.Y - offsetFactor.Y);
+        // Path2D bossNode = GetNode<Path2D>("BossNode");
+        // bossNode.Scale = scaleFactor;
+        
+    }
+    
 }
