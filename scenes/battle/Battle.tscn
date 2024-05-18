@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=37 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
 [ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
+[ext_resource type="Script" path="res://scripts/HUD.cs" id="5_kuu6p"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="7_bj4ys"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="8_d7wxd"]
@@ -86,21 +87,26 @@ point_count = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k87rm"]
 
-[node name="Battle" type="Node2D"]
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_bmdek")
 _cardScene = ExtResource("3_citfa")
 _enemyScene = ExtResource("3_25d28")
 
 [node name="Background" type="ColorRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color(0, 0.376471, 0.752941, 1)
 
 [node name="TextureRect" type="TextureRect" parent="Background"]
@@ -125,6 +131,7 @@ grow_vertical = 2
 color = Color(1, 0, 0, 0.517647)
 
 [node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_kuu6p")
 
 [node name="Healthbar Background" type="ColorRect" parent="HUD"]
 offset_left = 709.0

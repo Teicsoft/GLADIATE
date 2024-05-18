@@ -11,7 +11,7 @@ using Godot;
 
 namespace GLADIATE.scripts.battle;
 
-public partial class Battle : Node2D {
+public partial class Battle : Control {
     [Signal] public delegate void BattleLostEventHandler();
     [Signal] public delegate void BattleWonEventHandler(Player player);
 
