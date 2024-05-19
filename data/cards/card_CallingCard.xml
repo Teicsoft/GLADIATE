@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <card id="card_CallingCard" type="Attack" modifier="None" position ="Lower"> <!--id: string--> <!--type: string (attack/modifier/block/draw)--> <!--modifier: string (grounded/juggled/grappled)--> <!--position: string (Upper/Lower/Both/None)-->
-       
-    <!-- If this attack kills an enemy, the card permanently gains +1 attack and +5SP -->
+    
+    <!--
+    The original concept for this card was:
+    If this attack kills an enemy, the card permanently gains +1 attack and +5SP.  
+    Due to time constraints, this card was not implemented in the final game.
+    
+    For future patches, the main constraint is that decks are not persistent between battles.
+    The deck would need to be moved to the Scene loader, rather than being loaded in each fight. 
+    
+    It is ok to reset the deck between campaigns. 
+    -->
     
     <stats>
-        <attack>1</attack> <!--int-->
+        <attack>2</attack> <!--int-->
         <defense_lower>0</defense_lower> <!--int-->
         <defense_upper>0</defense_upper> <!--int-->
         <heal>0</heal> <!--int-->
-        <draw>1</draw> <!--int-->
-        <discard>0</discard> <!--int-->
-        <spectacle_points>1</spectacle_points> <!--int-->
+        <draw>4</draw> <!--int-->
+        <discard>3</discard> <!--int-->
+        <spectacle_points>20</spectacle_points> <!--int-->
         <target_required>true</target_required> <!--true/false-->
     </stats>
     
@@ -23,7 +32,7 @@
 
     <text>
         <name>Calling Card</name> <!--string-->
-        <description>Draw 1. Attack 1. If this card kills an enemy, it permanantly gainss +1 atk/+5 SP </description> <!--string-->
+        <description> draw 4, discard 3 </description> <!--string-->
         <lore>Signed with a fist</lore> <!--string-->
         <tooltip_text>Calling Card</tooltip_text> <!--string-->
         <onscreen_text>Calling Card</onscreen_text> <!--string-->
