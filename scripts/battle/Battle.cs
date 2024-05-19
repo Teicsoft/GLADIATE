@@ -32,6 +32,10 @@ public partial class Battle : Control {
     
     AudioEngine _audioEngine;
     autoloads.SceneLoader _sceneLoader;
+    
+    Control cardGlossary;
+    ComboGlossary comboGlossary;
+    
 
     public override void _Ready() {
         _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
@@ -53,8 +57,11 @@ public partial class Battle : Control {
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
 
-        ComboGlossary comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
+        comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
         comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
+        
+        cardGlossary = GetNode<Control>("HUD/CardGlossary");
+
         
         GetNode<Label>("HUD/VsLabel").Text = BattleName;
         
@@ -68,8 +75,11 @@ public partial class Battle : Control {
     }
 
     public override void _Process(double delta) {
-        //UIScaling();
         UIScaling();
+        
+        //this line is needed to prevent a lock situation where bote glossaries and escape menu are opended. 
+        // when the pause menu is closed, the pause state is removed, so glossary stop processing and it is impossible to exit. 
+        if (cardGlossary.Visible || comboGlossary.Visible){GetTree().Paused = true;}
         
         if (SceneLoader.BossBattleId == Id) {
             foreach (Enemy enemy in _gameState.Enemies) {
