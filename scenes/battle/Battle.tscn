@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=44 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://g28jv68in5o1" path="res://assets/images/AJ/background-day.png" id="5_ecrvu"]
 [ext_resource type="Script" path="res://scripts/HUD.cs" id="5_kuu6p"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="7_bj4ys"]
+[ext_resource type="Texture2D" uid="uid://cijiyfitx1t8k" path="res://assets/images/AJ/foreground-nightpng.png" id="7_d652m"]
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
+[ext_resource type="Texture2D" uid="uid://mddnb6u8ky2d" path="res://assets/images/AJ/foreground-day.png" id="8_23o5r"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="8_d7wxd"]
 [ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="9_6h2s6"]
 [ext_resource type="Texture2D" uid="uid://cprl4r5lkhx0f" path="res://assets/ui/Health_Armor Bar.png" id="9_i3lvk"]
@@ -32,10 +34,22 @@ length = 240.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Background/TextureRect:modulate")
+tracks/0/path = NodePath("Background/Background-day:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 240),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.950833), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/Foreground-day:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 240),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -48,7 +62,7 @@ length = 120.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Background/TextureRect:modulate")
+tracks/0/path = NodePath("Background/Background-day:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -153,7 +167,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0, 0.376471, 0.752941, 0)
 
-[node name="TextureRect2" type="TextureRect" parent="Background"]
+[node name="Background-night" type="TextureRect" parent="Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -164,7 +178,8 @@ texture = ExtResource("4_p4d4m")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="Background"]
+[node name="Background-day" type="TextureRect" parent="Background"]
+modulate = Color(1, 1, 1, 0.950833)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -175,7 +190,29 @@ texture = ExtResource("5_ecrvu")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="Background"]
+[node name="Foreground-night" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_d652m")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Foreground-day" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_23o5r")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Boss red overlay" type="ColorRect" parent="Background"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
