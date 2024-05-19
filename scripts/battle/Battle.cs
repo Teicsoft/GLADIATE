@@ -445,7 +445,9 @@ public partial class Battle : Control {
         Vector2 originalViewportSize = new Vector2(1920, 1080);
         Vector2 currentViewportSize = GetViewport().GetVisibleRect().Size;
         
-        Vector2 scaleFactor = GetViewport().GetVisibleRect().Size / originalViewportSize;
+        float XScale = GetViewport().GetVisibleRect().Size.X / originalViewportSize.X;
+        // float YScale = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
+        Vector2 scaleFactor = new Vector2(XScale, XScale); // XScale and YScale are the same, because we want to keep the aspect ratio 
         Vector2 offsetFactor = originalViewportSize - currentViewportSize;
 
         Path2D hand = GetNode<Path2D>("Hand");
