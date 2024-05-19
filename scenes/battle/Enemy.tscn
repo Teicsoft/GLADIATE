@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://rocmwsrfn6p7"]
+[gd_scene load_steps=97 format=3 uid="uid://rocmwsrfn6p7"]
 
 [ext_resource type="Script" path="res://scripts/battle/target/Enemy.cs" id="1_nns8m"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="2_ggci3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="3_df0w2"]
 [ext_resource type="Texture2D" uid="uid://c2ui510hlcb4m" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
 [ext_resource type="Texture2D" uid="uid://bs6on0sod5l28" path="res://assets/ui/Armor.png" id="6_aa264"]
+[ext_resource type="Texture2D" uid="uid://f5om8k5bo8r2" path="res://assets/sprites/Drew/Cyber-Denarius.png" id="6_uchq5"]
 [ext_resource type="Texture2D" uid="uid://4k1okc7teid6" path="res://assets/images/ModifierIcons/Juggled.png" id="7_3j0ii"]
 [ext_resource type="Texture2D" uid="uid://b5inj50p30g3o" path="res://assets/sprites/Goon/Goon - template_0_Idle.png" id="8_1fa0j"]
 [ext_resource type="Texture2D" uid="uid://b43wuc42h6hqe" path="res://assets/sprites/Goon/Goon - template_1_Walk.png" id="9_x7m38"]
@@ -747,6 +748,16 @@ theme_override_constants/shadow_outline_size = 10
 text = "Enemy Name"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StatusIndicator" type="TextureRect" parent="HealthBar"]
+visible = false
+layout_mode = 0
+offset_left = -44.0
+offset_top = 55.0
+offset_right = 84.0
+offset_bottom = 183.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_uchq5")
 
 [node name="Button" type="Sprite2D" parent="."]
 visible = false
