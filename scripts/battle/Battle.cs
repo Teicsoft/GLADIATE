@@ -75,7 +75,7 @@ public partial class Battle : Control {
             _audioEngine.PlayMusic("Menu_music.wav");
             GD.Print("Boss Battle");
             
-            GetNode<ColorRect>("Background/TextureRect/ColorRect").Show();
+            GetNode<ColorRect>("Background/ColorRect").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
     }

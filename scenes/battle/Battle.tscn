@@ -27,6 +27,21 @@
 [ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
 [ext_resource type="PackedScene" uid="uid://bb1d3xonqkrdt" path="res://scenes/pause_menu.tscn" id="25_1n752"]
 
+[sub_resource type="Animation" id="Animation_b1rb7"]
+length = 240.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 240),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_eritq"]
 resource_name = "Sky"
 length = 120.0
@@ -41,21 +56,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_b1rb7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Background/TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_caw7b"]
@@ -154,9 +154,12 @@ size_flags_vertical = 3
 color = Color(0, 0.376471, 0.752941, 0)
 
 [node name="TextureRect2" type="TextureRect" parent="Background"]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1095.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_p4d4m")
 expand_mode = 1
 stretch_mode = 4
@@ -172,7 +175,7 @@ texture = ExtResource("5_ecrvu")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ColorRect" type="ColorRect" parent="Background/TextureRect"]
+[node name="ColorRect" type="ColorRect" parent="Background"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -774,6 +777,7 @@ visible = false
 z_index = 4090
 
 [node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 0
 offset_right = 23772.0
 offset_bottom = 736.0
 
