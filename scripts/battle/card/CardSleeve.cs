@@ -17,8 +17,7 @@ public partial class CardSleeve : Control {
         SelectButton = GetNode<Button>("SelectButton");
         _art = GetNode<TextureRect>("Art");
         Utils.LoadCardArt(Card, _art);
-        
-        
+
 
         GetNode<Label>("Name").Text = Card.CardName;
         GetNode<Label>("Description").Text = Card.Description;

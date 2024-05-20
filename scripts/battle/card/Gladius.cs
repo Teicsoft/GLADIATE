@@ -1,4 +1,5 @@
 ﻿using GLADIATE.scripts.battle.target;
+using Godot;
 
 namespace GLADIATE.scripts.battle.card;
 
@@ -9,5 +10,6 @@ public class Gladius : Card {
             gameState.SpectacleBuffer += SpectaclePoints;
         }
         base.Play(gameState, target, player);
+        GD.Print(" * " + "Adding " + SpectaclePoints + " SP to buffer");
     }
 }

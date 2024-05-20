@@ -1,4 +1,5 @@
 ﻿using GLADIATE.scripts.battle.target;
+using Godot;
 
 namespace GLADIATE.scripts.battle.card;
 
@@ -8,5 +9,6 @@ public class DramaticTattooReveal : Card {
             gameState.Enemies.ForEach(e => e.Statuses.Add(Utils.StatusEnum.TattooRevealed));
         } else { target.Statuses.Add(Utils.StatusEnum.TattooRevealed); }
         base.Play(gameState, target, player);
+        GD.Print(" * " + "Reducing Enemy Attack");
     }
 }
