@@ -30,7 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://bb1d3xonqkrdt" path="res://scenes/pause_menu.tscn" id="25_1n752"]
 
 [sub_resource type="Animation" id="Animation_b1rb7"]
-length = 240.0
+length = 600.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -38,10 +39,10 @@ tracks/0/path = NodePath("Background/Background-day:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 240),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(41.2, 242.3, 323, 560),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.950833), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0.950833), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0.950833)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -50,10 +51,10 @@ tracks/1/path = NodePath("Background/Foreground-day:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 240),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(41.8, 242.7, 323.8, 561.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_eritq"]
