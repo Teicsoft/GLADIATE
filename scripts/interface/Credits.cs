@@ -9,8 +9,11 @@ public partial class Credits : Control
     private List<string> _lines;
     private ScrollContainer _scroll;
     private VBoxContainer _vbox;
-    private int counter = 0;
-    private Timer _timer;
+    private VBoxContainer _vbox2;
+    private BoxContainer _box;
+    private BoxContainer _box2;
+    private Label _creditslabel;
+    private AnimationPlayer animation;
 
     private autoloads.SceneLoader sceneLoader;
 
@@ -18,12 +21,9 @@ public partial class Credits : Control
     {
         _lines = Readfile();
         _vbox = GetNode<VBoxContainer>("ColorRect/MarginContainer/ScrollContainer/VBoxContainer");
-        _scroll = GetNode<ScrollContainer>("ColorRect/MarginContainer/ScrollContainer");
-        _timer = GetNode<Timer>("Timer");
+        _vbox2 = GetNode<VBoxContainer>("BoxContainer/VBoxContainer2");
 
-        _vbox.AddChild(new Label());
-        LoadTexture("res://assets/sprites/Dave/Eagle.png");
-        LoadTexture("res://assets/sprites/Dave/Gladiate.png");
+
         
         sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
 
@@ -32,7 +32,33 @@ public partial class Credits : Control
         sceneLoader.i = 0;
         sceneLoader.Health = 0;
         sceneLoader.SpectaclePoints = 0;
+
+        Label label = GetNode<Label>("BoxContainer/VBoxContainer2/creditslabel");
+
+        foreach(string line in _lines)  { 
+        label.Text+= line+"\n";
+         }
+
+
+        label.SizeFlagsHorizontal = SizeFlags.Fill;
+        label.SizeFlagsVertical = SizeFlags.ExpandFill;
+        label.HorizontalAlignment = HorizontalAlignment.Center;
+        label.AddThemeFontSizeOverride("font_size", 75);
+    
+        animation=GetNode<AnimationPlayer>("AnimationPlayer");
+        animation.Play("Credit roll");
+
+
     }
+
+    public override void _Process(double delta){
+                if (animation.CurrentAnimationPosition==(20))
+        {
+            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
+            sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
+        }
+    }
+
 
     public List<string> Readfile()
     {
@@ -60,40 +86,6 @@ public partial class Credits : Control
         _vbox.AddChild(centerContainer);
     }
 
-    private void _OnTimerTimeout()
-    {
-        Label label = new Label();
 
-        if (counter == 0)
-        {
-            _vbox.AddChild(new Label());
-        }
-
-        if (counter >= _lines.Count)
-        {
-            label.Set("text", "\n");
-        }
-        else
-        {
-            label.Set("text", _lines[counter]);
-        }
-
-        label.SizeFlagsHorizontal = SizeFlags.Fill;
-        label.SizeFlagsVertical = SizeFlags.ExpandFill;
-        label.HorizontalAlignment = HorizontalAlignment.Center;
-        label.AddThemeFontSizeOverride("font_size", 75);
-        _vbox.AddChild(label);
-
-
-        if (counter == (_lines.Count + 15))
-        {
-            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
-            sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
-        }
-
-
-        _scroll.ScrollVertical = (int)_scroll.GetVScrollBar().MaxValue;
-        counter++;
-    }
 }
 
