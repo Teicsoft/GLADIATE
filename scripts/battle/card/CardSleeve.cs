@@ -17,6 +17,8 @@ public partial class CardSleeve : Control {
         SelectButton = GetNode<Button>("SelectButton");
         _art = GetNode<TextureRect>("Art");
         Utils.LoadCardArt(Card, _art);
+        
+        
 
         GetNode<Label>("Name").Text = Card.CardName;
         GetNode<Label>("Description").Text = Card.Description;
@@ -29,6 +31,8 @@ public partial class CardSleeve : Control {
 
         GetNode<TextureRect>("Background/cardBG").Texture =
             (Texture2D)GD.Load($"res://assets/images/Cards/cardbgs/{Card.CardType}.png");
+
+        GetNode<Button>("SelectButton").TooltipText = Card.Lore;
     }
 
     public override void _Process(double delta) { }

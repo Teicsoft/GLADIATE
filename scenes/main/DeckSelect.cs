@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using GLADIATE.scenes.sub;
 using Godot;
 using GLADIATE.scripts.audio;
+using static GLADIATE.scripts.XmlParsing.DeckXmlParser;
+using static GLADIATE.scripts.battle.card.CardFactory;
 
 public partial class DeckSelect : Control
 {
@@ -9,7 +12,15 @@ public partial class DeckSelect : Control
     {
         audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         SaveData.ParseJson();
-        for (int i = 1; i <= 6; i++) { ReadHighScore(i); }
+        
+        Dictionary<string, List<string>> _allDecks = ParseAllDecks();
+
+
+        for (int i = 1; i <= 6; i++)
+        {
+            ReadHighScore(i);
+            SetDeckToolTip(i, _allDecks);
+        }
     }
 
     public void ReadHighScore(int deckNumber)
@@ -22,6 +33,15 @@ public partial class DeckSelect : Control
         label.Show();
         
         GetNode<TextureRect>($"TextureRect/HBoxContainer/Deck{deckNumber}/Thumbsup").Show();
+    }
+
+    public void SetDeckToolTip(int deckNumber, Dictionary<string, List<string>> allDecks)
+    {
+        TextureRect deckTextureRect = GetNode<TextureRect>("TextureRect/HBoxContainer/Deck"+deckNumber);
+        foreach (string card_id in allDecks["deck_Player"+deckNumber])
+        {
+            deckTextureRect.TooltipText += CloneCard(card_id).CardName +" \n";
+        }
     }
 
     public void handleClickEvent(InputEvent @event, string deckId)
