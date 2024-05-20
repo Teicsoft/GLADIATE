@@ -10,11 +10,10 @@ public class Deck<T> {
     public string Name { get; set; }
 
     public Discard<T> Discard { get; set; }
-    public List<T> Cards;
+    public List<T> Cards = new();
 
     public Deck(Discard<T> discard) {
         Discard = discard;
-        Cards = new();
     }
 
     public static List<CardSleeve> SleeveCards(List<Card> cards) {
@@ -74,7 +73,6 @@ public class Deck<T> {
 
     private List<T> OnDeckEmptied(int amount) {
         if (Discard.IsEmpty()) { return new(); }
-
         AddCards(Discard.GetCards());
         Shuffle();
         return DrawCards(amount);

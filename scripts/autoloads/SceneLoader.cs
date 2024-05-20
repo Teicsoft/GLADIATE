@@ -5,8 +5,7 @@ using Godot;
 
 namespace GLADIATE.scripts.autoloads;
 
-public partial class SceneLoader : Godot.Node
-{
+public partial class SceneLoader : Godot.Node {
     private AudioEngine _audioEngine;
     public Node CurrentScene { get; set; }
     public List<Dictionary<string, dynamic>> Battles;
@@ -17,9 +16,7 @@ public partial class SceneLoader : Godot.Node
     public const string PreBossBattleId = "battle_6";
     public const string BossBattleId = "battle_7";
 
-
-    public override void _Ready()
-    {
+    public override void _Ready() {
         _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
 
         i = 0;
@@ -31,13 +28,9 @@ public partial class SceneLoader : Godot.Node
         SpectaclePoints = 0;
     }
 
-    public void GoToScene(string path)
-    {
-        CallDeferred(MethodName.DeferredGotoScene, path);
-    }
+    public void GoToScene(string path) { CallDeferred(MethodName.DeferredGotoScene, path); }
 
-    public void DeferredGotoScene(string path)
-    {
+    public void DeferredGotoScene(string path) {
         CurrentScene.Free();
         var nextScene = GD.Load<PackedScene>(path);
         CurrentScene = nextScene.Instantiate();
@@ -45,24 +38,16 @@ public partial class SceneLoader : Godot.Node
         GetTree().CurrentScene = CurrentScene;
     }
 
-    public void GoToNextBattle()
-    {
-        if (i < Battles.Count)
-        {
+    public void GoToNextBattle() {
+        if (i < Battles.Count) {
             GD.Print("GotoNextBattle");
             CallDeferred("DeferredGotoScene", "res://scenes/battle/Battle.tscn");
-        }
-        else
-        {
+        } else {
             GD.Print("GotoVictory");
             CallDeferred("DeferredGotoScene", "res://scenes/sub/Victory.tscn");
             _audioEngine.PlayMusic("fuck_around_and_find_out_2_electric_boogaloo.mp3");
         }
     }
 
-
-    public Dictionary<string, dynamic> GetCurrentBattleData()
-    {
-        return Battles[i];
-    }
+    public Dictionary<string, dynamic> GetCurrentBattleData() { return Battles[i]; }
 }
