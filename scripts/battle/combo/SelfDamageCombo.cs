@@ -7,6 +7,6 @@ public class SelfDamageCombo : Combo {
         int selfDamage = 5;
         gameState.Player.DirectDamage(selfDamage);
         base.Play(gameState);
-        GD.Print(" * " + "Damaging Self for " + selfDamage);
+        GD.Print(" **** " + "Damaging Self for " + selfDamage);
     }
 }
