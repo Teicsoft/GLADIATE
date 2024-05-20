@@ -813,11 +813,6 @@ process_mode = 3
 visible = false
 z_index = 4090
 
-[node name="BoxContainer" type="BoxContainer" parent="."]
-layout_mode = 0
-offset_right = 23772.0
-offset_bottom = 736.0
-
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]
 [connection signal="pressed" from="HUD/TextureButton2" to="." method="EndTurn"]

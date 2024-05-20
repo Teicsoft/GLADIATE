@@ -75,7 +75,7 @@ public partial class Battle : Control {
             _audioEngine.PlayMusic("Menu_music.wav");
             GD.Print("Boss Battle");
             
-            GetNode<ColorRect>("Background/ColorRect").Show();
+            GetNode<ColorRect>("Background/Boss red overlay").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
     }
@@ -288,7 +288,7 @@ public partial class Battle : Control {
         GD.Print(" ==== ====  WIN BATTLE  ==== ====");
         _sceneLoader.SpectaclePoints += _gameState.SpectaclePoints;
         _sceneLoader.Health = _gameState.Player.Health;
-        _sceneLoader.GoToNextBattle();
+        _sceneLoader.GoToScene("res://scenes/sub/transition.tscn");
     }
 
     private void MoveSelectedIndicator(Enemy enemy) {
