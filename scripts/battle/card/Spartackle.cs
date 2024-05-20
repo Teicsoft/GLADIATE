@@ -9,7 +9,7 @@ public class Spartackle : Card {
         GD.Print(" * ");
         int modifiedAttack = target.Modifier.Equals(Utils.ModifierEnum.Grounded) ? Attack * 2 : Attack;
         GD.Print(" * " + "Hit " + target.Name + " for " + modifiedAttack);
-        target.Damage(modifiedAttack, TargetPosition);
+        Utils.DoAttack(gameState, target, player, Attack, TargetPosition);
         if (player is not Enemy) {
             GD.Print(" * " + "Adding " + SpectaclePoints + " SP to buffer");
             gameState.SpectacleBuffer += SpectaclePoints;

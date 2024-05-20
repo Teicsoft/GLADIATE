@@ -9,7 +9,7 @@ public class Footwork : Combo {
     public override void Play(GameState gameState) {
         Enemy selectedEnemy = gameState.GetSelectedEnemy();
         foreach (Card card in CardList.Where(card => card.Attack > 0)) {
-            int modifiedAttack = (int)(card.Attack * Utils.GetDamageMultiplier(gameState.Player));
+            int modifiedAttack = Utils.CalculateDamage(gameState.Player, card.Attack);
             GD.Print(
                 " **** " + "Hitting " + selectedEnemy.Name + " thrice with " + modifiedAttack + " damage from " +
                 card.CardName

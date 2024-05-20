@@ -75,16 +75,20 @@ public class Combo {
         if (Attack != 0) {
             // if the last combo card required a target, then we apply the combo damage to that target.
             if (CardList[^1].TargetRequired) {
-                Enemy selectedEnemy = gameState.GetSelectedEnemy();
-                GD.Print(" **** " + "Hit " + selectedEnemy.Name + " for " + Attack);
-                selectedEnemy.Damage(Attack, Position);
+                Utils.DoAttack(gameState, gameState.GetSelectedEnemy(), gameState.Player, Attack, Position);
+                GD.Print(
+                    " **** " + "Hit " + gameState.GetSelectedEnemy().Name + " for " +
+                    Utils.CalculateDamage(gameState.Player, Attack)
+                );
             }
 
             // Otherwise, we can't assume that an enemy is selected, so damage all of them.
             else {
                 foreach (Enemy enemy in gameState.Enemies) {
-                    GD.Print(" **** " + "Hit " + enemy.Name + " for " + Attack);
-                    enemy.Damage(Attack, Position);
+                    Utils.DoAttack(gameState, enemy, gameState.Player, Attack, Position);
+                    GD.Print(
+                        " **** " + "Hit " + enemy.Name + " for " + Utils.CalculateDamage(gameState.Player, Attack)
+                    );
                 }
             }
         }
