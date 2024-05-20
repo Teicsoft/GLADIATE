@@ -9,7 +9,6 @@ public partial class Credits : Control
     private List<string> _lines;
     private ScrollContainer _scroll;
     private VBoxContainer _vbox;
-    private VBoxContainer _vbox2;
     private BoxContainer _box;
     private BoxContainer _box2;
     private Label _creditslabel;
@@ -21,7 +20,6 @@ public partial class Credits : Control
     {
         _lines = Readfile();
         _vbox = GetNode<VBoxContainer>("ColorRect/MarginContainer/ScrollContainer/VBoxContainer");
-        _vbox2 = GetNode<VBoxContainer>("BoxContainer/VBoxContainer2");
 
 
         
@@ -43,7 +41,7 @@ public partial class Credits : Control
         label.SizeFlagsHorizontal = SizeFlags.Fill;
         label.SizeFlagsVertical = SizeFlags.ExpandFill;
         label.HorizontalAlignment = HorizontalAlignment.Center;
-        label.AddThemeFontSizeOverride("font_size", 75);
+        label.AddThemeFontSizeOverride("font_size", 50);
     
         animation=GetNode<AnimationPlayer>("AnimationPlayer");
         animation.Play("Credit roll");
