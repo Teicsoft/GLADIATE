@@ -8,8 +8,6 @@ using GLADIATE.scripts.battle.card;
 using GLADIATE.scripts.battle.target;
 using GLADIATE.scripts.XmlParsing;
 using Godot;
-using Godot.Collections;
-using Array = Godot.Collections.Array;
 
 namespace GLADIATE.scripts.battle;
 
@@ -24,36 +22,34 @@ public partial class Battle : Control {
     private List<TextureRect> _comboArts = new();
 
     private List<Enemy> _allEnemies;
-    private System.Collections.Generic.Dictionary<string, List<string>> _allDecks;
+    private Dictionary<string, List<string>> _allDecks;
 
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
 
-    AudioEngine _audioEngine;
-    autoloads.SceneLoader _sceneLoader;
+    private AudioEngine _audioEngine;
+    private SceneLoader _sceneLoader;
 
-    Control cardGlossary;
-    ComboGlossary comboGlossary;
+    private Control _cardGlossary;
+    private ComboGlossary _comboGlossary;
 
-    AnimationPlayer animation;
+    private AnimationPlayer _animation;
 
     public override void _Ready() {
         _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        _sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
+        _sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
 
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
 
-
-        //UIScaling();
         UIScaling();
 
-        animation = GetNode<AnimationPlayer>("AnimationPlayer");
-        animation.Play("RESET");
+        _animation = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animation.Play("RESET");
 
-        System.Collections.Generic.Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
+        Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
@@ -62,11 +58,10 @@ public partial class Battle : Control {
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
 
-        comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
-        comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
+        _comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
+        _comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
 
-        cardGlossary = GetNode<Control>("HUD/CardGlossary");
-
+        _cardGlossary = GetNode<Control>("HUD/CardGlossary");
 
         GetNode<Label>("HUD/VsLabel").Text = BattleName;
 
@@ -84,7 +79,7 @@ public partial class Battle : Control {
 
         //this line is needed to prevent a lock situation where bote glossaries and escape menu are opended.
         // when the pause menu is closed, the pause state is removed, so glossary stop processing and it is impossible to exit.
-        if (cardGlossary.Visible || comboGlossary.Visible) { GetTree().Paused = true; }
+        if (_cardGlossary.Visible || _comboGlossary.Visible) { GetTree().Paused = true; }
 
         if (SceneLoader.BossBattleId == Id) {
             foreach (Enemy enemy in _gameState.Enemies) {
@@ -129,7 +124,7 @@ public partial class Battle : Control {
         _gameState.AllEnemiesDefeatedCustomEvent += WinBattle;
         _gameState.ComboPlayedCustomEvent += DisplayPlayedCombo;
         _gameState.Hand.Deck.DeckShuffledCustomEvent += OnDeckShuffled;
-        _gameState.Player.PlayerModifierChangedCustomEvent += OnPlayerMofifierChanged;
+        _gameState.Player.PlayerModifierChangedCustomEvent += OnPlayerModifierChanged;
         _gameState.Player.Statuses.PlayerStatusesChangedCustomEvent += UpdateStatusesToolTip;
 
 
@@ -142,18 +137,17 @@ public partial class Battle : Control {
     public void UpdateStatusesToolTip(object sender, EventArgs e) {
         TextureRect statusIndicator = GetNode<TextureRect>("HUD/StatusIndicator");
         string statusString = "";
-
         foreach (Utils.StatusEnum status in _gameState.Player.Statuses) { statusString += status + "\n"; }
         statusIndicator.TooltipText = statusString;
         if (statusString.Length > 0) { statusIndicator.Show(); } else { statusIndicator.Hide(); }
     }
 
-    private void OnPlayerMofifierChanged(object sender, EventArgs e) {
-        TextureRect PlayerModifierIcon = GetNode<TextureRect>("HUD/PlayerModifierIcon");
-        if (_gameState.Player.Modifier == Utils.ModifierEnum.None) { PlayerModifierIcon.Visible = false; } else {
-            PlayerModifierIcon.Texture =
+    private void OnPlayerModifierChanged(object sender, EventArgs e) {
+        TextureRect playerModifierIcon = GetNode<TextureRect>("HUD/PlayerModifierIcon");
+        if (_gameState.Player.Modifier == Utils.ModifierEnum.None) { playerModifierIcon.Visible = false; } else {
+            playerModifierIcon.Texture =
                 (Texture2D)GD.Load($"res://assets/images/ModifierIcons/{_gameState.Player.Modifier}.png");
-            PlayerModifierIcon.Visible = true;
+            playerModifierIcon.Visible = true;
         }
     }
 
@@ -260,7 +254,7 @@ public partial class Battle : Control {
     private void EndTurn() { _gameState.EndTurn(); }
 
     private void WinBattle(object sender, EventArgs eventArgs) {
-        EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
+        EmitSignal(SignalName.BattleWon, _gameState.Player);
 
         if (Id != SceneLoader.PreBossBattleId) { _audioEngine.PlaySoundFx("victory-jingle.wav"); } else {
             _audioEngine.PlaySoundFx("male-hurt-1.ogg");
@@ -295,9 +289,9 @@ public partial class Battle : Control {
     private void OnPlayerHealthChanged() {
         Player playerObject = _gameState.Player;
         if (playerObject.Health <= 0) {
-            EmitSignal(Battle.SignalName.BattleLost);
+            EmitSignal(SignalName.BattleLost);
 
-            _sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
+            _sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
             _audioEngine.PlayMusic("Lil_tune.wav");
             _sceneLoader.GoToScene("res://scenes/sub/GameOver.tscn");
         }
@@ -444,6 +438,7 @@ public partial class Battle : Control {
 
         Path2D hand = GetNode<Path2D>("Hand");
         hand.Scale = scaleFactor;
+
         Path2D enemies = GetNode<Path2D>("Enemies");
         enemies.Scale = scaleFactor;
 

@@ -31,10 +31,7 @@ public partial class Enemy : Node2D, ITarget {
     private PanelContainer _bossHealthBar;
     public StatusesDecorator Statuses { get; set; }
 
-    public Enemy() {
-        Statuses = new StatusesDecorator();
-        Statuses.Enemy = this;
-    }
+    public Enemy() { Statuses = new StatusesDecorator { Target = this }; }
 
     public PanelContainer BossHealthBar {
         get => _bossHealthBar;
@@ -65,11 +62,8 @@ public partial class Enemy : Node2D, ITarget {
     public void UpdateStatusesToolTip() {
         TextureRect statusIndicator = GetNode<TextureRect>("HealthBar/StatusIndicator");
         string statusString = "";
-
         foreach (Utils.StatusEnum status in Statuses) { statusString += status + "\n"; }
-
         statusIndicator.TooltipText = statusString;
-
         if (statusString.Length > 0) { statusIndicator.Show(); } else { statusIndicator.Hide(); }
     }
 

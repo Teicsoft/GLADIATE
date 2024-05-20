@@ -9,7 +9,6 @@ public class Discard<T> {
     public List<T> GetCards(bool clear = true) {
         List<T> output = new(Cards);
         if (clear) { Cards.Clear(); }
-
         return output;
     }
 }

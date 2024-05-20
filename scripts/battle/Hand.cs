@@ -61,8 +61,7 @@ public partial class Hand : Path2D {
             handCardLocation.ProgressRatio = (i + 1f) / (Cards.Count + 1f);
             Vector2 cardPosition = handCardLocation.Position;
             cardSleeve.ZIndex = i;
-            if (i == _selectedCardIndex)
-            {
+            if (i == _selectedCardIndex) {
                 cardPosition.Y -= 100;
                 cardSleeve.ZIndex = i + 100;
             }

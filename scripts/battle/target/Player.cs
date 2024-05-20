@@ -62,8 +62,7 @@ public partial class Player : Node2D, ITarget {
         DefenseUpper = defenseUpper;
         Name = "Player";
 
-        Statuses = new StatusesDecorator();
-        Statuses.Player = this;
+        Statuses = new StatusesDecorator { Target = this };
     }
 
     public void Damage(int damage, Utils.PositionEnum position) {
