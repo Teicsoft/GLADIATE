@@ -120,7 +120,6 @@ offset_right = 100.0
 offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
-tooltip_text = "test"
 flat = true
 
 [connection signal="pressed" from="SelectButton" to="." method="OnPress"]
