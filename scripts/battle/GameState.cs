@@ -76,6 +76,7 @@ public class GameState {
 
     public void StartTurn() {
         GD.Print(" ==== ==== START TURN ==== ====");
+        GD.Print();
         _turnStartEnemyCount = GetAliveEnemies().Count;
         SpectacleBuffer = 0;
         if (Player.IsStunned()) { EndTurn(); } else { Draw(); }
@@ -87,7 +88,9 @@ public class GameState {
         CardSleeve cardSleeve = Hand.GetSelectedCard();
         Enemy selectedEnemy = GetSelectedEnemy();
         if (cardSleeve != null && cardSleeve.Card.IsPlayable(selectedEnemy)) {
+            GD.Print();
             cardSleeve.Card.Play(this, selectedEnemy, Player);
+            GD.Print();
             if (Player.Statuses.Contains(Utils.StatusEnum.MoveShouted)) { SpectacleBuffer += 10; }
             ComboCheck(cardSleeve.Card);
             Player.Statuses.Remove(Utils.StatusEnum.OpenedRecklessly);
@@ -104,8 +107,13 @@ public class GameState {
         // find a matching combo if it exists, returns null if no match
         Combo matchingCombo = ComboCompare();
         if (matchingCombo != null) {
+            GD.Print();
+            GD.Print(" **** " + "C-C-C-COMBO!!!!" + " **** ");
+            GD.Print(" **** " + Player.Name + " triggered " + matchingCombo.Name);
+            GD.Print(" **** ");
             ComboPlayedCustomEvent?.Invoke(this, new ComboEventArgs(matchingCombo));
             ProcessCombo(matchingCombo);
+            GD.Print();
         } else { ComboStackChangedCustomEvent?.Invoke(this, EventArgs.Empty); }
     }
 
@@ -136,7 +144,9 @@ public class GameState {
         combo?.Play(this);
         ShowOffCheck();
 
-        SpectaclePoints += Math.Abs(SpectacleBuffer * Multiplier);
+        int comboReward = SpectacleBuffer * Multiplier;
+        GD.Print(" **** " + "Awarding " + comboReward + " Points");
+        SpectaclePoints += Math.Abs(comboReward);
         SpectacleBuffer = 0;
 
         ComboStack.Clear();
@@ -158,8 +168,13 @@ public class GameState {
 
         int blunders = ComboStack.Count - comboLength;
         int blunderValue = (int)Math.Floor(Math.Pow(2, blunders - 1));
-
+        GD.Print(" **** " + "MATHS!!!!!");
+        GD.Print(" ** " + "Multiplier was " + Multiplier);
+        GD.Print(" ** " + "Combo was " + comboLength + " cards long, increasing Multiplier by " + comboValue);
+        GD.Print(" ** " + "Stack had " + blunders + " extra cards, decreasing Multiplier by " + blunderValue);
         Multiplier = Math.Max(Multiplier + (comboValue - blunderValue), 1);
+        GD.Print(" ** " + "Multiplier is now " + Multiplier);
+        GD.Print(" **** " + "END MATHS!");
     }
 
     public void EndTurn() {
@@ -168,7 +183,11 @@ public class GameState {
         }
 
         TurnDamageCount = 0;
+        GD.Print();
+        GD.Print(" **** " + "Clearing Combo Stack");
+        GD.Print(" **** ");
         ProcessCombo(null);
+        GD.Print();
         CrowdPleasedCheck(GetAliveEnemies().Count);
         if (GetAliveEnemies().Count == 0) { AllEnemiesDefeatedCustomEvent?.Invoke(this, EventArgs.Empty); } else {
             TakeEnemyTurns(GetAliveEnemies());
@@ -178,6 +197,7 @@ public class GameState {
         DeselectDeadEnemy();
         HideDeadEnemies();
 
+        GD.Print();
         GD.Print(" ==== ====  END TURN  ==== ====");
         StartTurn();
     }
@@ -192,7 +212,9 @@ public class GameState {
             Timer cardPlayedTimer = enemy.GetNode<Timer>("HealthBar/CardPlayedTimer");
 
             Card card = enemy.DrawCard();
+            GD.Print();
             card.Play(this, Player, enemy);
+            GD.Print();
             enemy.TakeCardIntoDiscard(card);
             Utils.RemoveEndTurnStatuses(enemy);
 

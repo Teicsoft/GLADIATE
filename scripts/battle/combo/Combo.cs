@@ -74,25 +74,50 @@ public class Combo {
     public virtual void Play(GameState gameState) {
         if (Attack != 0) {
             // if the last combo card required a target, then we apply the combo damage to that target.
-            if (CardList[^1].TargetRequired) { gameState.GetSelectedEnemy().Damage(Attack, Position); }
+            if (CardList[^1].TargetRequired) {
+                Enemy selectedEnemy = gameState.GetSelectedEnemy();
+                GD.Print(" **** " + "Hit " + selectedEnemy.Name + " for " + Attack);
+                selectedEnemy.Damage(Attack, Position);
+            }
 
             // Otherwise, we can't assume that an enemy is selected, so damage all of them.
             else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(Attack, Position); }
+                foreach (Enemy enemy in gameState.Enemies) {
+                    GD.Print(" **** " + "Hit " + enemy.Name + " for " + Attack);
+                    enemy.Damage(Attack, Position);
+                }
             }
         }
 
-        if (DefenseLower != 0) { gameState.Player.ModifyBlock(DefenseLower, Utils.PositionEnum.Lower); }
+        if (DefenseLower != 0) {
+            GD.Print(" **** " + "Modified Lower Defense by " + DefenseLower);
+            gameState.Player.ModifyBlock(DefenseLower, Utils.PositionEnum.Lower);
+        }
 
-        if (DefenseUpper != 0) { gameState.Player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper); }
+        if (DefenseUpper != 0) {
+            GD.Print(" **** " + "Modified Upper Defense by " + DefenseLower);
+            gameState.Player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper);
+        }
 
-        if (Health != 0) { gameState.Player.Heal(Health); }
+        if (Health != 0) {
+            GD.Print(" **** " + "Healed for " + Health);
+            gameState.Player.Heal(Health);
+        }
 
-        if (CardDraw > 0) { gameState.Draw(CardDraw); }
+        if (CardDraw > 0) {
+            GD.Print(" **** " + "Drawing " + CardDraw + " Cards");
+            gameState.Draw(CardDraw);
+        }
 
-        if (Discard > 0) { gameState.Discards += Discard; }
+        if (Discard > 0) {
+            GD.Print(" **** " + "Discarding " + Discard + " Cards");
+            gameState.Discards += Discard;
+        }
 
-        if (SpectaclePoints > 0) { gameState.SpectacleBuffer += SpectaclePoints; }
+        if (SpectaclePoints > 0) {
+            GD.Print(" **** " + "Adding " + SpectaclePoints + " SP to buffer");
+            gameState.SpectacleBuffer += SpectaclePoints;
+        }
     }
 
     public void LoadAssets() {

@@ -27,55 +27,50 @@ public partial class Enemy : Node2D, ITarget {
     private int _defenseUpper = 1;
     private int _defenseLower = 0;
     public int MaxHealth { get; set; }
-    
+
     private PanelContainer _bossHealthBar;
     public StatusesDecorator Statuses { get; set; }
 
-    public Enemy() { 
+    public Enemy() {
         Statuses = new StatusesDecorator();
         Statuses.Enemy = this;
     }
-    
 
-    public PanelContainer BossHealthBar
-    {
+    public PanelContainer BossHealthBar {
         get => _bossHealthBar;
-        set
-        {
+        set {
             _bossHealthBar = value;
             UpdateBossHealthBar();
         }
     }
     public Path2D EnemyPath2D { get; set; }
-    
-    private void UpdateBossHealthBar()
-    {
+
+    private void UpdateBossHealthBar() {
         if (_bossHealthBar == null) return;
         _bossHealthBar.GetNode<Label>("MarginContainer/Control/EnemyName").Text = Name;
-        _bossHealthBar.GetNode<ProgressBar>("MarginContainer/Control/Control/HealthProgressBar").Ratio = (double)Health / MaxHealth;
+        _bossHealthBar.GetNode<ProgressBar>("MarginContainer/Control/Control/HealthProgressBar").Ratio =
+            (double)Health / MaxHealth;
         _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/HealthDisplay").Text =
             GetNode<Label>("HealthBar/HealthDisplay").Text;
-        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/UpperBlockDisplay").Text = DefenseUpper.ToString();
-        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/LowerBlockDisplay").Text = DefenseLower.ToString();
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/UpperBlockDisplay").Text =
+            DefenseUpper.ToString();
+        _bossHealthBar.GetNode<Label>("MarginContainer/Control/Control/LowerBlockDisplay").Text =
+            DefenseLower.ToString();
         _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Texture =
             GetNode<TextureRect>("HealthBar/ModifierIcon").Texture;
-        _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Visible = 
+        _bossHealthBar.GetNode<TextureRect>("MarginContainer/Control/Control/ModifierIcon").Visible =
             GetNode<TextureRect>("HealthBar/ModifierIcon").Visible;
     }
 
-    public void UpdateStatusesToolTip()
-    {
+    public void UpdateStatusesToolTip() {
         TextureRect statusIndicator = GetNode<TextureRect>("HealthBar/StatusIndicator");
         string statusString = "";
-        
-        foreach (Utils.StatusEnum status in Statuses)
-        {
-            statusString += status + "\n";
-        }
-        
+
+        foreach (Utils.StatusEnum status in Statuses) { statusString += status + "\n"; }
+
         statusIndicator.TooltipText = statusString;
 
-        if (statusString.Length > 0) {statusIndicator.Show();} else { statusIndicator.Hide();}
+        if (statusString.Length > 0) { statusIndicator.Show(); } else { statusIndicator.Hide(); }
     }
 
     public Utils.ModifierEnum Modifier {
@@ -141,7 +136,7 @@ public partial class Enemy : Node2D, ITarget {
         _defenseUpper = defenseUpper;
         _defenseLower = defenseLower;
     }
-    
+
     public void CloneTo(Enemy enemy) {
         enemy.Id = Id;
         enemy.Name = Name;
@@ -210,10 +205,7 @@ public partial class Enemy : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        } else
-        {
-            Statuses.Add(Utils.StatusEnum.Stunned);
-        }
+        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
     }
 
     public bool IsStunned() {
@@ -264,7 +256,7 @@ public partial class Enemy : Node2D, ITarget {
 
     private void OnCardPlayedTimer() {
         GetNode<Label>("HealthBar/CardPlayed").Visible = false;
-        if (_bossHealthBar != null){
+        if (_bossHealthBar != null) {
             _bossHealthBar.GetNode<Label>("MarginContainer/Control/CardPlayed").Visible = false;
         }
     }
