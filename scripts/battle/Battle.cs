@@ -52,7 +52,7 @@ public partial class Battle : Control {
         UIScaling();
         
         animation=GetNode<AnimationPlayer>("AnimationPlayer");
-        animation.Play("Sky");
+        animation.Play("RESET");
         
         System.Collections.Generic.Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
