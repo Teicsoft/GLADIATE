@@ -36,6 +36,8 @@ public partial class Battle : Control {
     Control cardGlossary;
     ComboGlossary comboGlossary;
     
+    AnimationPlayer animation;
+    
 
     public override void _Ready() {
         _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
@@ -44,9 +46,13 @@ public partial class Battle : Control {
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
+        
 
         //UIScaling();
         UIScaling();
+        
+        animation=GetNode<AnimationPlayer>("AnimationPlayer");
+        animation.Play("Sky");
         
         System.Collections.Generic.Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
@@ -69,7 +75,7 @@ public partial class Battle : Control {
             _audioEngine.PlayMusic("Menu_music.wav");
             GD.Print("Boss Battle");
             
-            GetNode<ColorRect>("Background/TextureRect/ColorRect").Show();
+            GetNode<ColorRect>("Background/ColorRect").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
     }
