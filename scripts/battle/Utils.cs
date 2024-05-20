@@ -74,6 +74,10 @@ public static class Utils {
         return args;
     }
 
+    public class DamageEventArgs : EventArgs {
+        public int Damage { get; set; }
+    }
+
     public static PositionEnum GetRandomPosition() {
         Array values = Enum.GetValues(typeof(PositionEnum));
         return (PositionEnum)values.GetValue(GD.Randi() % values.Length);
