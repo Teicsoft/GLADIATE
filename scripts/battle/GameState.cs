@@ -63,10 +63,12 @@ public class GameState {
     // Constructor
     public GameState(Hand hand, List<Enemy> enemies) {
         Player = new Player(500, 0, 0);
+        Player.PlayerDamageTakenCustomEvent += PlayerDamageTaken;
         AllCombos = ComboXmlParser.ParseAllCombos(); // Retrieve a list of all combos as model objects
         ComboStack = new List<Card>();
         Multiplier = 1; // 1 is lowest possible value
         SpectaclePoints = 0;
+        TurnDamageCount = 0;
         Hand = hand;
         Enemies = enemies;
         Enemies.ForEach(enemy => enemy.EnemySelected += SelectEnemy);
@@ -76,7 +78,6 @@ public class GameState {
         GD.Print(" ==== ==== START TURN ==== ====");
         GD.Print();
         _turnStartEnemyCount = GetAliveEnemies().Count;
-        TurnDamageCount = 0;
         SpectacleBuffer = 0;
         if (Player.IsStunned()) { EndTurn(); } else { Draw(); }
     }
@@ -237,6 +238,10 @@ public class GameState {
             Draw(enemiesDefeated * 2);
             SpectaclePoints += (enemiesDefeated * 20) * Multiplier;
         }
+    }
+
+    private void PlayerDamageTaken(object sender, EventArgs args) {
+        TurnDamageCount += ((Utils.DamageEventArgs)args).Damage;
     }
 
     public void StartDiscarding() {
