@@ -1,0 +1,151 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkec4arelvorf"]
+
+[ext_resource type="Script" path="res://scripts/battle/transition.cs" id="1_4yu2e"]
+[ext_resource type="Texture2D" uid="uid://r72uy6270ak6" path="res://assets/sprites/Dave/Trim.png" id="1_b6e3l"]
+[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="2_4hrw0"]
+[ext_resource type="Theme" uid="uid://b4367d11n6l8i" path="res://styles/Nimbus.tres" id="3_p447v"]
+[ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="4_hv6j5"]
+[ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="5_d7tnt"]
+
+[node name="Transition" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.701961, 0.219608, 0.192157, 1)
+script = ExtResource("1_4yu2e")
+
+[node name="Trims" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="TrimRight" type="TextureRect" parent="Trims"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_b6e3l")
+flip_v = true
+
+[node name="TrimLeft" type="TextureRect" parent="Trims"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 52.0
+grow_vertical = 2
+texture = ExtResource("1_b6e3l")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -20.0
+offset_right = 103.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="Title" type="Label" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_4hrw0")
+theme_override_font_sizes/font_size = 85
+text = "FOE VANQUISHED!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Title2" type="Label" parent="VBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme = ExtResource("3_p447v")
+theme_override_font_sizes/font_size = 37
+text = "This round is yours, but Cybigua's Bloodlust has not yet been Sated!
+Will you continue for greater glory, or retreat as a coward?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Continue Button" type="TextureButton" parent="VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_hv6j5")
+stretch_mode = 5
+
+[node name="Continue" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Continue Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -31.5
+offset_right = 57.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_fonts/font = ExtResource("5_d7tnt")
+theme_override_font_sizes/font_size = 38
+text = "Continue"
+horizontal_alignment = 1
+
+[node name="Retreat Button" type="TextureButton" parent="VBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_hv6j5")
+stretch_mode = 5
+
+[node name="Retreat" type="Label" parent="VBoxContainer/MarginContainer2/HBoxContainer/Retreat Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -31.5
+offset_right = 62.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_fonts/font = ExtResource("5_d7tnt")
+theme_override_font_sizes/font_size = 38
+text = "Retreat"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/HBoxContainer/Continue Button" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/HBoxContainer/Retreat Button" to="." method="_on_retreat_button_pressed"]
