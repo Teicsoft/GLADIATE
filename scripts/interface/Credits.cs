@@ -1,89 +1,58 @@
 using System.Collections.Generic;
+using System.Linq;
 using GLADIATE.scripts.audio;
 using Godot;
 
 namespace GLADIATE.scripts;
 
-public partial class Credits : Control
-{
-    private List<string> _lines;
+public partial class Credits : Control {
     private ScrollContainer _scroll;
     private VBoxContainer _vbox;
     private BoxContainer _box;
     private BoxContainer _box2;
-    private Label _creditslabel;
-    private AnimationPlayer animation;
+    private Label _creditsLabel;
+    private AnimationPlayer _animation;
+    private autoloads.SceneLoader _sceneLoader;
 
-    private autoloads.SceneLoader sceneLoader;
-
-    public override void _Ready()
-    {
-        _lines = Readfile();
+    public override void _Ready() {
         _vbox = GetNode<VBoxContainer>("ColorRect/MarginContainer/ScrollContainer/VBoxContainer");
-
-
-        
-        sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
-
-        var audioEngine = GetNode<AudioEngine>("/root/audio_engine");
-        
-        sceneLoader.i = 0;
-        sceneLoader.Health = 0;
-        sceneLoader.SpectaclePoints = 0;
+    
+        _sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
+        _sceneLoader.i = 0;
+        _sceneLoader.Health = 0;
+        _sceneLoader.SpectaclePoints = 0;
 
         Label label = GetNode<Label>("BoxContainer/VBoxContainer2/creditslabel");
-
-        foreach(string line in _lines)  { 
-        label.Text+= line+"\n";
-         }
-
-
+        foreach (string line in ReadFile()) { label.Text += line + "\n"; }
         label.SizeFlagsHorizontal = SizeFlags.Fill;
         label.SizeFlagsVertical = SizeFlags.ExpandFill;
         label.HorizontalAlignment = HorizontalAlignment.Center;
         label.AddThemeFontSizeOverride("font_size", 50);
-    
-        animation=GetNode<AnimationPlayer>("AnimationPlayer");
-        animation.Play("Credit roll");
 
-
+        _animation = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animation.Play("Credit roll");
     }
 
-    public override void _Process(double delta){
-                if (animation.CurrentAnimationPosition==(20))
-        {
-            sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
-            sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
+    public override void _Process(double delta) {
+        if (_animation.CurrentAnimationPosition == 20) {
+            _sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
+            _sceneLoader.GoToScene("res://scenes/sub/TeicsoftLogo.tscn");
         }
     }
 
-
-    public List<string> Readfile()
-    {
-        List<string> lines = new List<string>();
-        using var file = FileAccess.Open("res://data/credits.txt", FileAccess.ModeFlags.Read);
-
-        foreach (string line in file.GetAsText().Split("\n"))
-        {
-            lines.Add(line);
-        }
-
-        return lines;
+    private List<string> ReadFile() {
+        return FileAccess.Open("res://data/credits.txt", FileAccess.ModeFlags.Read).GetAsText().Split("\n").ToList();
     }
 
-    public void LoadTexture(string path)
-    {
-        TextureRect textureRect = new TextureRect();
+    private void LoadTexture(string path) {
+        TextureRect textureRect = new();
         textureRect.Texture = GD.Load<Texture2D>(path);
 
         textureRect.StretchMode = TextureRect.StretchModeEnum.KeepAspect;
         textureRect.SizeFlagsHorizontal = SizeFlags.Fill;
 
-        CenterContainer centerContainer = new CenterContainer();
+        CenterContainer centerContainer = new();
         centerContainer.AddChild(textureRect);
         _vbox.AddChild(centerContainer);
     }
-
-
 }
-
