@@ -69,15 +69,13 @@ public class Card {
         GD.Print(" * " + player.Name + " played " + CardName);
         GD.Print(" * ");
         if (Attack != 0) {
-            Utils.CounterCheck(gameState, target, player);
-            int modifiedAttack = (int)Math.Floor(Attack * Utils.GetDamageMultiplier(player));
             if (TargetRequired || player is Enemy) {
-                GD.Print(" * " + "Hit " + target.Name + " for " + modifiedAttack);
-                target.Damage(modifiedAttack, TargetPosition);
+                Utils.DoAttack(gameState, target, player, Attack, TargetPosition);
+                GD.Print(" * " + "Hit " + target.Name + " for " + Utils.CalculateDamage(player, Attack));
             } else {
                 foreach (Enemy enemy in gameState.Enemies) {
-                    GD.Print(" * " + "Hit " + enemy.Name + " for " + modifiedAttack);
-                    enemy.Damage(modifiedAttack, TargetPosition);
+                    Utils.DoAttack(gameState, target, player, Attack, TargetPosition);
+                    GD.Print(" * " + "Hit " + enemy.Name + " for " + Utils.CalculateDamage(player, Attack));
                 }
             }
         }
@@ -88,28 +86,28 @@ public class Card {
         }
 
         if (DefenseUpper != 0) {
-            GD.Print(" * " + "Modified Upper Defense by "+DefenseLower);
+            GD.Print(" * " + "Modified Upper Defense by " + DefenseLower);
             player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper);
         }
 
         if (Health != 0) {
-            GD.Print(" * " + "Healed for "+Health);
+            GD.Print(" * " + "Healed for " + Health);
             player.Heal(Health);
         }
 
         if (player is not Enemy) {
             if (CardDraw > 0) {
-                GD.Print(" * " + "Drawing "+CardDraw+" Cards");
+                GD.Print(" * " + "Drawing " + CardDraw + " Cards");
                 gameState.Draw(CardDraw);
             }
 
             if (Discard > 0) {
-                GD.Print(" * " + "Discarding "+Discard+" Cards");
+                GD.Print(" * " + "Discarding " + Discard + " Cards");
                 gameState.Discards += Discard;
             }
 
             if (SpectaclePoints > 0) {
-                GD.Print(" * " + "Adding "+SpectaclePoints+" SP to buffer");
+                GD.Print(" * " + "Adding " + SpectaclePoints + " SP to buffer");
                 gameState.SpectacleBuffer += SpectaclePoints;
             }
         }
