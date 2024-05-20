@@ -1,8 +1,7 @@
-[gd_scene load_steps=97 format=3 uid="uid://rocmwsrfn6p7"]
+[gd_scene load_steps=96 format=3 uid="uid://rocmwsrfn6p7"]
 
 [ext_resource type="Script" path="res://scripts/battle/target/Enemy.cs" id="1_nns8m"]
 [ext_resource type="Texture2D" uid="uid://dugrn574r1n0d" path="res://assets/sprites/Z/loser5.png" id="2_ggci3"]
-[ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="2_mb0el"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="3_df0w2"]
 [ext_resource type="Texture2D" uid="uid://c2ui510hlcb4m" path="res://assets/ui/Eneemy Healthbar.png" id="4_e4ref"]
 [ext_resource type="Texture2D" uid="uid://bs6on0sod5l28" path="res://assets/ui/Armor.png" id="6_aa264"]
@@ -10,8 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://4k1okc7teid6" path="res://assets/images/ModifierIcons/Juggled.png" id="7_3j0ii"]
 [ext_resource type="Texture2D" uid="uid://b5inj50p30g3o" path="res://assets/sprites/Goon/Goon - template_0_Idle.png" id="8_1fa0j"]
 [ext_resource type="Texture2D" uid="uid://b43wuc42h6hqe" path="res://assets/sprites/Goon/Goon - template_1_Walk.png" id="9_x7m38"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mxw43"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6q5jw"]
 atlas = ExtResource("8_1fa0j")
@@ -614,6 +611,8 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mxw43"]
+
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_nns8m")
 
@@ -624,6 +623,7 @@ offset_left = -101.0
 offset_top = -198.0
 offset_right = -61.0
 offset_bottom = -158.0
+mouse_filter = 2
 
 [node name="ColorRect2" type="ColorRect" parent="HealthBar"]
 layout_mode = 0
@@ -759,21 +759,6 @@ offset_bottom = 183.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_uchq5")
 
-[node name="Button" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-2.50005, -14.5)
-scale = Vector2(0.524038, 0.535354)
-texture = ExtResource("2_mb0el")
-
-[node name="SelectButton" type="Button" parent="."]
-offset_left = -60.0
-offset_top = -115.0
-offset_right = 59.0
-offset_bottom = 110.0
-theme = ExtResource("3_df0w2")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mxw43")
-flat = true
-
 [node name="JigglePhysicsTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
@@ -794,6 +779,15 @@ animation = &"Idle"
 frame = 16
 frame_progress = 0.593068
 
+[node name="SelectButton" type="Button" parent="."]
+offset_left = -60.0
+offset_top = -115.0
+offset_right = 59.0
+offset_bottom = 110.0
+theme = ExtResource("3_df0w2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mxw43")
+flat = true
+
 [connection signal="timeout" from="HealthBar/CardPlayedTimer" to="." method="OnCardPlayedTimer"]
-[connection signal="pressed" from="SelectButton" to="." method="OnPress"]
 [connection signal="timeout" from="JigglePhysicsTimer" to="." method="OnJigglePhysicsTimerTimeout"]
+[connection signal="pressed" from="SelectButton" to="." method="OnPress"]

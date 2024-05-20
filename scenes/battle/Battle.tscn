@@ -213,7 +213,6 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="Boss red overlay" type="ColorRect" parent="Background"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -812,11 +811,6 @@ vertical_alignment = 1
 process_mode = 3
 visible = false
 z_index = 4090
-
-[node name="BoxContainer" type="BoxContainer" parent="."]
-layout_mode = 0
-offset_right = 23772.0
-offset_bottom = 736.0
 
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]

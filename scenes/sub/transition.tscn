@@ -80,8 +80,8 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme = ExtResource("3_p447v")
 theme_override_font_sizes/font_size = 37
-text = "This round is yours, but Cybigua's Bloodlust has not yet been Sated!
-Will you continue for greater glory, or retreat as a coward?"
+text = "This round is yours, but CYBIGULA'S BLOODLUST has not yet been SATED!
+Will you continue for greater GLORY, or retreat as a COWARD?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
