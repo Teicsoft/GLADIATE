@@ -29,52 +29,51 @@ public partial class Battle : Control {
     public string Id { get; set; }
     public string BattleName { get; set; }
     public string Music { get; set; }
-    
+
     AudioEngine _audioEngine;
     autoloads.SceneLoader _sceneLoader;
-    
+
     Control cardGlossary;
     ComboGlossary comboGlossary;
-    
+
     AnimationPlayer animation;
-    
 
     public override void _Ready() {
         _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         _sceneLoader = GetNode<autoloads.SceneLoader>("/root/SceneLoader");
-        
+
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
-        
+
 
         //UIScaling();
         UIScaling();
-        
-        animation=GetNode<AnimationPlayer>("AnimationPlayer");
+
+        animation = GetNode<AnimationPlayer>("AnimationPlayer");
         animation.Play("RESET");
-        
+
         System.Collections.Generic.Dictionary<string, dynamic> battleData = _sceneLoader.GetCurrentBattleData();
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
-        
+
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
 
         comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
         comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
-        
+
         cardGlossary = GetNode<Control>("HUD/CardGlossary");
 
-        
+
         GetNode<Label>("HUD/VsLabel").Text = BattleName;
-        
+
         if (Id == SceneLoader.BossBattleId) {
             _audioEngine.PlayMusic("Menu_music.wav");
             GD.Print("Boss Battle");
-            
+
             GetNode<ColorRect>("Background/Boss red overlay").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
@@ -82,35 +81,30 @@ public partial class Battle : Control {
 
     public override void _Process(double delta) {
         UIScaling();
-        
-        //this line is needed to prevent a lock situation where bote glossaries and escape menu are opended. 
-        // when the pause menu is closed, the pause state is removed, so glossary stop processing and it is impossible to exit. 
-        if (cardGlossary.Visible || comboGlossary.Visible){GetTree().Paused = true;}
-        
+
+        //this line is needed to prevent a lock situation where bote glossaries and escape menu are opended.
+        // when the pause menu is closed, the pause state is removed, so glossary stop processing and it is impossible to exit.
+        if (cardGlossary.Visible || comboGlossary.Visible) { GetTree().Paused = true; }
+
         if (SceneLoader.BossBattleId == Id) {
             foreach (Enemy enemy in _gameState.Enemies) {
                 PathFollow2D enemyPathFollow2D = enemy.EnemyPath2D.GetNode<PathFollow2D>("EnemyLocation");
-                
+
                 if (enemyPathFollow2D.ProgressRatio <= 0.7f) {
                     enemyPathFollow2D.ProgressRatio += 0.5f * (float)delta;
 
                     enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
-                    
-                }
-                else if (enemyPathFollow2D.ProgressRatio > 0.7f && enemyPathFollow2D.ProgressRatio <= 1.0f) {
-                    if (GD.Randi() % 100 == 0)
-                    {
-                        enemyPathFollow2D.ProgressRatio += (float)GD.RandRange(-0.3f, 0.3f) * (float)delta*5;
+                } else if (enemyPathFollow2D.ProgressRatio > 0.7f && enemyPathFollow2D.ProgressRatio <= 1.0f) {
+                    if (GD.Randi() % 100 == 0) {
+                        enemyPathFollow2D.ProgressRatio += (float)GD.RandRange(-0.3f, 0.3f) * (float)delta * 5;
                         enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
                     }
-                }
-                else {
+                } else {
                     enemyPathFollow2D.ProgressRatio = 1.0f;
                     enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
                 }
             }
         }
-        
     }
 
     private void InitialiseGameState(List<string> playerCardIds, List<Enemy> enemies) {
@@ -144,16 +138,14 @@ public partial class Battle : Control {
         _sceneLoader.i += 1;
         if (_sceneLoader.SpectaclePoints != 0) { _gameState.SpectaclePoints = _sceneLoader.SpectaclePoints; }
     }
-    
-    public void UpdateStatusesToolTip(object sender, EventArgs e)
-    {
-           
+
+    public void UpdateStatusesToolTip(object sender, EventArgs e) {
         TextureRect statusIndicator = GetNode<TextureRect>("HUD/StatusIndicator");
         string statusString = "";
-        
+
         foreach (Utils.StatusEnum status in _gameState.Player.Statuses) { statusString += status + "\n"; }
         statusIndicator.TooltipText = statusString;
-        if (statusString.Length > 0) {statusIndicator.Show();} else { statusIndicator.Hide();}
+        if (statusString.Length > 0) { statusIndicator.Show(); } else { statusIndicator.Hide(); }
     }
 
     private void OnPlayerMofifierChanged(object sender, EventArgs e) {
@@ -174,7 +166,7 @@ public partial class Battle : Control {
 
             AssignRandomColorDEBUG(enemy);
             enemy.Deck = GetEnemyDeck(enemy.DeckId);
-            
+
             Path2D enemyPath2d = GetEnemyPosition(i, idsCount);
             PathFollow2D enemyPathFollow2d = enemyPath2d.GetNode<PathFollow2D>("EnemyLocation");
             enemy.Position = enemyPathFollow2d.Position;
@@ -191,19 +183,20 @@ public partial class Battle : Control {
                 enemy.Scale = new Vector2(1.7f, 1.7f);
                 enemy.GetNode<Label>("HealthBar/CardPlayed").Position = new Vector2(100, 0);
             }
-            
+
             enemyPath2d.AddChild(enemy);
             enemies.Add(enemy);
         }
-        
-        
+
+
         if (Id == SceneLoader.BossBattleId) {
             GetNode<PanelContainer>("HUD/BossHealthBarsPanel").Visible = true;
-            
+
             foreach (Enemy enemy in enemies) {
                 enemy.GetNode<Control>("HealthBar").Visible = false;
-                
-                PanelContainer bossScene = GD.Load<PackedScene>("res://scenes/battle/boss_health_bars.tscn").Instantiate<PanelContainer>();
+
+                PanelContainer bossScene = GD.Load<PackedScene>("res://scenes/battle/boss_health_bars.tscn")
+                    .Instantiate<PanelContainer>();
                 GetNode<VBoxContainer>("HUD/BossHealthBarsPanel/BossHealthBarsVBoxContainer").AddChild(bossScene);
                 enemy.BossHealthBar = bossScene;
             }
@@ -234,16 +227,15 @@ public partial class Battle : Control {
     }
 
     private Path2D GetEnemyPosition(int index, int count) {
-        if (Id == SceneLoader.BossBattleId)
-        {
+        if (Id == SceneLoader.BossBattleId) {
             GetNode<PanelContainer>("HUD/BossHealthBarsPanel").Visible = true;
-            
+
             Path2D BossPath2D = GetNode<Path2D>("BossNode/BossBattle" + index);
             PathFollow2D bossLocation = BossPath2D.GetNode<PathFollow2D>("EnemyLocation");
 
             bossLocation.ProgressRatio = 0;
             bossLocation.Transform = BossPath2D.Transform;
-            
+
             return BossPath2D;
         }
         Path2D enemyNode = GetNode<Path2D>("Enemies");
@@ -260,21 +252,17 @@ public partial class Battle : Control {
         OnSpectacleChanged();
     }
 
-    private void OnPlayButtonPressed() { 
-        
-        _gameState.PlaySelectedCard(); 
+    private void OnPlayButtonPressed() {
+        _gameState.PlaySelectedCard();
         _audioEngine.PlaySoundFx("drawn-card.ogg");
     }
-
 
     private void EndTurn() { _gameState.EndTurn(); }
 
     private void WinBattle(object sender, EventArgs eventArgs) {
         EmitSignal(Battle.SignalName.BattleWon, _gameState.Player);
 
-        if (Id != SceneLoader.PreBossBattleId)
-        {_audioEngine.PlaySoundFx("victory-jingle.wav"); }
-        else {
+        if (Id != SceneLoader.PreBossBattleId) { _audioEngine.PlaySoundFx("victory-jingle.wav"); } else {
             _audioEngine.PlaySoundFx("male-hurt-1.ogg");
             Task.Delay(10).Wait();
             _audioEngine.PlaySoundFx("male-hurt-2.ogg");
@@ -294,16 +282,14 @@ public partial class Battle : Control {
     private void MoveSelectedIndicator(Enemy enemy) {
         ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
         selectedIndicator.Visible = true;
-        selectedIndicator.Position =
-            _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
+        selectedIndicator.Position = _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
     }
 
     private void MoveSelectedIndicator(object sender, EventArgs e) {
         ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
         selectedIndicator.Visible = true;
-        
-        selectedIndicator.Position =
-            _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
+
+        selectedIndicator.Position = _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
     }
 
     private void OnPlayerHealthChanged() {
@@ -354,11 +340,13 @@ public partial class Battle : Control {
     }
 
     private void OnMultiplierChanged() {
-        GetNode<Label>("HUD/Sp_combo Background/HBoxContainer/MultiplierDisplay").Text = _gameState.Multiplier.ToString();
+        GetNode<Label>("HUD/Sp_combo Background/HBoxContainer/MultiplierDisplay").Text =
+            _gameState.Multiplier.ToString();
     }
 
     private void OnSpectacleChanged() {
-        GetNode<Label>("HUD/Sp_combo Background/HBoxContainer2/SpectacleDisplay").Text = _gameState.SpectaclePoints.ToString();
+        GetNode<Label>("HUD/Sp_combo Background/HBoxContainer2/SpectacleDisplay").Text =
+            _gameState.SpectaclePoints.ToString();
     }
 
     private void OnDiscardStateChanged() {
@@ -437,39 +425,36 @@ public partial class Battle : Control {
     private void OnDiscardStateChanged(object sender, EventArgs e) { OnDiscardStateChanged(); }
     private void OnDeckShuffled(object sender, EventArgs e) { GD.Print(" Deck Shuffled "); }
     public override string ToString() { return $"Battle: {BattleName}({Id})"; }
-    
-    
-    /// 
-    // This is a quick and dirty patch to give us a scaling UI, also see HUD.cs. 
+
+    ///
+    // This is a quick and dirty patch to give us a scaling UI, also see HUD.cs.
     // Ideally I wouldn't want to define all of the UI elements in code, but just want to make the change fast
-    /// 
-    
-
-    
+    ///
     private void UIScaling() {
-
         Vector2 originalViewportSize = new Vector2(1920, 1080);
         Vector2 currentViewportSize = GetViewport().GetVisibleRect().Size;
-        
+
         float XScale = GetViewport().GetVisibleRect().Size.X / originalViewportSize.X;
+
         // float YScale = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
-        Vector2 scaleFactor = new Vector2(XScale, XScale); // XScale and YScale are the same, because we want to keep the aspect ratio 
+        Vector2 scaleFactor = new Vector2(
+            XScale, XScale
+        ); // XScale and YScale are the same, because we want to keep the aspect ratio
         Vector2 offsetFactor = originalViewportSize - currentViewportSize;
 
         Path2D hand = GetNode<Path2D>("Hand");
         hand.Scale = scaleFactor;
         Path2D enemies = GetNode<Path2D>("Enemies");
         enemies.Scale = scaleFactor;
-        
+
         Path2D comboStack = GetNode<Path2D>("ComboStack");
         comboStack.Scale = scaleFactor;
-        
+
         Label discardDisplay = GetNode<Label>("DiscardDisplay");
         discardDisplay.Scale = scaleFactor;
-        
+
         Node2D bossNode = GetNode<Node2D>("BossNode");
         bossNode.Scale = scaleFactor;
         bossNode.Position = new Vector2(0, 0);
     }
-    
 }

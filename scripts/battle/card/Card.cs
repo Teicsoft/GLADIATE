@@ -66,27 +66,50 @@ public class Card {
 
     public virtual void Play(GameState gameState, ITarget target, ITarget player) {
         // not the player player, they who played this card
-        GD.Print(player.Name + " played " + CardName);
+        GD.Print(" * " + player.Name + " played " + CardName);
+        GD.Print(" * ");
         if (Attack != 0) {
-            Utils.CounterCheck(gameState, target, player);
-            int modifiedAttack = (int)Math.Floor(Attack * Utils.GetDamageMultiplier(player));
-            if (TargetRequired || player is Enemy) { target.Damage(modifiedAttack, TargetPosition); } else {
-                foreach (Enemy enemy in gameState.Enemies) { enemy.Damage(modifiedAttack, TargetPosition); }
+            if (TargetRequired || player is Enemy) {
+                Utils.DoAttack(gameState, target, player, Attack, TargetPosition);
+                GD.Print(" * " + "Hit " + target.Name + " for " + Utils.CalculateDamage(player, Attack));
+            } else {
+                foreach (Enemy enemy in gameState.Enemies) {
+                    Utils.DoAttack(gameState, target, player, Attack, TargetPosition);
+                    GD.Print(" * " + "Hit " + enemy.Name + " for " + Utils.CalculateDamage(player, Attack));
+                }
             }
         }
 
-        if (DefenseLower != 0) { player.ModifyBlock(DefenseLower, Utils.PositionEnum.Lower); }
+        if (DefenseLower != 0) {
+            GD.Print(" * " + "Modified Lower Defense by " + DefenseLower);
+            player.ModifyBlock(DefenseLower, Utils.PositionEnum.Lower);
+        }
 
-        if (DefenseUpper != 0) { player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper); }
+        if (DefenseUpper != 0) {
+            GD.Print(" * " + "Modified Upper Defense by " + DefenseLower);
+            player.ModifyBlock(DefenseUpper, Utils.PositionEnum.Upper);
+        }
 
-        if (Health != 0) { player.Heal(Health); }
+        if (Health != 0) {
+            GD.Print(" * " + "Healed for " + Health);
+            player.Heal(Health);
+        }
 
         if (player is not Enemy) {
-            if (CardDraw > 0) { gameState.Draw(CardDraw); }
+            if (CardDraw > 0) {
+                GD.Print(" * " + "Drawing " + CardDraw + " Cards");
+                gameState.Draw(CardDraw);
+            }
 
-            if (Discard > 0) { gameState.Discards += Discard; }
+            if (Discard > 0) {
+                GD.Print(" * " + "Discarding " + Discard + " Cards");
+                gameState.Discards += Discard;
+            }
 
-            if (SpectaclePoints > 0) { gameState.SpectacleBuffer += SpectaclePoints; }
+            if (SpectaclePoints > 0) {
+                GD.Print(" * " + "Adding " + SpectaclePoints + " SP to buffer");
+                gameState.SpectacleBuffer += SpectaclePoints;
+            }
         }
     }
 

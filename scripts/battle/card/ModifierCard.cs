@@ -1,8 +1,9 @@
 using GLADIATE.scripts.battle.target;
+using Godot;
 
 namespace GLADIATE.scripts.battle.card;
 
-public partial class ModifierCard : Card
+public class ModifierCard : Card
 {
     public override void Play(GameState gameState, ITarget target, ITarget player) {
         switch (Modifier) {
@@ -17,5 +18,6 @@ public partial class ModifierCard : Card
                 break;
         }
         base.Play(gameState, target, player);
+        GD.Print(" * " + target.Name + " is now " + Modifier.ToString());
     }
 }

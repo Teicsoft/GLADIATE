@@ -8,6 +8,7 @@ public partial class Player : Node2D, ITarget {
     public event EventHandler PlayerHealthChangedCustomEvent;
     public event EventHandler PlayerDefenseLowerChangedCustomEvent;
     public event EventHandler PlayerDefenseUpperChangedCustomEvent;
+    public event EventHandler PlayerDamageTakenCustomEvent;
     public event EventHandler PlayerModifierChangedCustomEvent;
 
     public string Name { get; set; }
@@ -60,13 +61,17 @@ public partial class Player : Node2D, ITarget {
         DefenseLower = defenseLower;
         DefenseUpper = defenseUpper;
         Name = "Player";
-        
+
         Statuses = new StatusesDecorator();
         Statuses.Player = this;
     }
 
     public void Damage(int damage, Utils.PositionEnum position) {
-        if (!CheckBlock(position)) { DirectDamage(damage); }
+        if (!CheckBlock(position)) { DirectDamage(damage); } else {
+            Utils.DamageEventArgs args = new();
+            args.Damage = damage;
+            PlayerDamageTakenCustomEvent?.Invoke(this, args);
+        }
     }
 
     public bool CheckBlock(Utils.PositionEnum position) {
@@ -89,7 +94,12 @@ public partial class Player : Node2D, ITarget {
         return false;
     }
 
-    public void DirectDamage(int damage) { Health = Math.Max(0, Health - damage); }
+    public void DirectDamage(int damage) {
+        Utils.DamageEventArgs args = new();
+        args.Damage = damage;
+        PlayerDamageTakenCustomEvent?.Invoke(this, args);
+        Health = Math.Max(0, Health - damage);
+    }
 
     public void Ground(Utils.PositionEnum position) {
         if (!CheckBlock(position)) { Modifier = Utils.ModifierEnum.Grounded; }
@@ -107,8 +117,7 @@ public partial class Player : Node2D, ITarget {
         if (DefenseUpper > 0 || DefenseLower > 0) {
             DefenseUpper = 0;
             DefenseLower = 0;
-        }
-        else { Statuses.Add(Utils.StatusEnum.Stunned); }
+        } else { Statuses.Add(Utils.StatusEnum.Stunned); }
     }
 
     public bool IsStunned() { return Statuses.Remove(Utils.StatusEnum.Stunned); }

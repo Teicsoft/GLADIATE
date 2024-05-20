@@ -17,13 +17,6 @@ public static class Utils {
         return art;
     }
 
-    public static float GetDamageMultiplier(ITarget player) {
-        float damageMultiplier = 1f;
-        if (player.Statuses.Contains(StatusEnum.TattooRevealed)) { damageMultiplier *= 3f / 4; }
-        if (player.Statuses.Contains(StatusEnum.DoubleDamage)) { damageMultiplier *= 2; }
-        return damageMultiplier;
-    }
-
     public static void RemoveEndTurnStatuses(ITarget target) {
         target.Statuses.Remove(StatusEnum.MoveShouted);
         target.Statuses.Remove(StatusEnum.TattooRevealed);
@@ -38,11 +31,23 @@ public static class Utils {
         }
     }
 
-    public static void CounterCheck(GameState gameState, ITarget target, ITarget player) {
+    public static int CalculateDamage(ITarget player, int attack) {
+        float damageMultiplier = 1f;
+        if (player.Statuses.Contains(StatusEnum.TattooRevealed)) { damageMultiplier *= 3f / 4; }
+        if (player.Statuses.Contains(StatusEnum.DoubleDamage)) { damageMultiplier *= 2; }
+        return (int)Math.Floor(attack * damageMultiplier);
+    }
+
+    private static void CounterCheck(GameState gameState, ITarget target, ITarget player) {
         if (target.Statuses.Contains(StatusEnum.Countering)) {
             player.DirectDamage(5);
             if (player is Enemy) { gameState.SpectaclePoints += 10 * gameState.Multiplier; }
         }
+    }
+
+    public static void DoAttack(GameState gameState, ITarget t, ITarget p, int attack, PositionEnum targetPosition) {
+        CounterCheck(gameState, t, p);
+        t.Damage(CalculateDamage(p, attack), targetPosition);
     }
 
     public enum ModifierEnum { Grappled, Grounded, Juggled, None }
@@ -72,6 +77,10 @@ public static class Utils {
         if (oldValue > newValue) { args.Direction = "down"; } else if
             (oldValue < newValue) { args.Direction = "up"; } else { args.Direction = "none"; }
         return args;
+    }
+
+    public class DamageEventArgs : EventArgs {
+        public int Damage { get; set; }
     }
 
     public static PositionEnum GetRandomPosition() {

@@ -9,5 +9,6 @@ public class GetPolitical : Combo {
             enemy.ModifyBlock(-1, GD.Randi() % 2 == 0 ? Utils.PositionEnum.Upper : Utils.PositionEnum.Lower);
         }
         base.Play(gameState);
+        GD.Print(" **** " + "Removing 1 Random Block from each enemy");
     }
 }

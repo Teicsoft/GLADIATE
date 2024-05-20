@@ -1,8 +1,12 @@
-﻿namespace GLADIATE.scripts.battle;
+﻿using Godot;
+
+namespace GLADIATE.scripts.battle;
 
 public class SelfDamageCombo : Combo {
     public override void Play(GameState gameState) {
-        gameState.Player.DirectDamage(5);
+        int selfDamage = 5;
+        gameState.Player.DirectDamage(selfDamage);
         base.Play(gameState);
+        GD.Print(" **** " + "Damaging Self for " + selfDamage);
     }
 }
