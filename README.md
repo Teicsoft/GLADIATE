@@ -58,3 +58,9 @@ This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareA
 <p align="center">
   <img src="https://github.com/Teicsoft/GLADIATE/blob/main/assets/sprites/Z/senator_horse.png?raw=true" alt="Senator Horse"/></br>
 </p>
+
+<hr>
+
+<p align="center">
+  <img src="https://github.com/Teicsoft/GLADIATE/assets/58735873/4008e368-2c73-4347-bbf9-3df0129c3611" alt="Gladiate_Poster"/><br>
+</p>
