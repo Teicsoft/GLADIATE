@@ -423,16 +423,17 @@ public partial class Battle : Control {
     ///
     // This is a quick and dirty patch to give us a scaling UI, also see HUD.cs.
     // Ideally I wouldn't want to define all of the UI elements in code, but just want to make the change fast
+    // Further edited to scale only on Yaxis for support of extended aspect ratios
     ///
     private void UIScaling() {
         Vector2 originalViewportSize = new Vector2(1920, 1080);
         Vector2 currentViewportSize = GetViewport().GetVisibleRect().Size;
 
-        float XScale = GetViewport().GetVisibleRect().Size.X / originalViewportSize.X;
+        float YSCALE = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
 
         // float YScale = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
         Vector2 scaleFactor = new Vector2(
-            XScale, XScale
+            YSCALE, YSCALE
         ); // XScale and YScale are the same, because we want to keep the aspect ratio
         Vector2 offsetFactor = originalViewportSize - currentViewportSize;
 

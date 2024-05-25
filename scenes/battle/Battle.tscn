@@ -35,7 +35,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Background/Background-day:modulate")
+tracks/0/path = NodePath("AspectRatioContainer/Background-day:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +47,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Background/Foreground-day:modulate")
+tracks/1/path = NodePath("AspectRatioContainer/Foreground-day:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -63,7 +63,7 @@ length = 120.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Background/Background-day:modulate")
+tracks/0/path = NodePath("AspectRatioContainer/Background-day:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -157,70 +157,42 @@ libraries = {
 "": SubResource("AnimationLibrary_caw7b")
 }
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0.376471, 0.752941, 0)
+ratio = 1.7777
 
-[node name="Background-night" type="TextureRect" parent="Background"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Background-night" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
 texture = ExtResource("4_p4d4m")
-expand_mode = 1
+expand_mode = 2
 stretch_mode = 4
 
-[node name="Background-day" type="TextureRect" parent="Background"]
+[node name="Background-day" type="TextureRect" parent="AspectRatioContainer"]
 modulate = Color(1, 1, 1, 0.950833)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 texture = ExtResource("5_ecrvu")
-expand_mode = 1
+expand_mode = 2
 stretch_mode = 4
 
-[node name="Foreground-night" type="TextureRect" parent="Background"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Foreground-night" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
 texture = ExtResource("7_d652m")
-expand_mode = 1
+expand_mode = 2
 stretch_mode = 4
 
-[node name="Foreground-day" type="TextureRect" parent="Background"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Foreground-day" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
 texture = ExtResource("8_23o5r")
-expand_mode = 1
-stretch_mode = 4
+expand_mode = 2
 
-[node name="Boss red overlay" type="ColorRect" parent="Background"]
+[node name="Boss red overlay" type="ColorRect" parent="AspectRatioContainer"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 color = Color(1, 0, 0, 0.517647)
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -813,6 +785,17 @@ vertical_alignment = 1
 process_mode = 3
 visible = false
 z_index = 4090
+
+[node name="Background" type="ColorRect" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 420.0
+offset_right = 1500.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0.376471, 0.752941, 0)
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]
