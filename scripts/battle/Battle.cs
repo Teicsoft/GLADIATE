@@ -36,6 +36,8 @@ public partial class Battle : Control {
 
     private AnimationPlayer _animation;
 
+    private Vector2 _currentViewportSize;
+    
     public override void _Ready() {
         _audioEngine = GetNode<AudioEngine>("/root/audio_engine");
         _sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
@@ -44,6 +46,7 @@ public partial class Battle : Control {
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
 
+        _currentViewportSize = GetViewport().GetVisibleRect().Size;
         UIScaling();
 
         _animation = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -74,8 +77,14 @@ public partial class Battle : Control {
         GD.Print(" ==== ==== START GAME ==== ====");
     }
 
-    public override void _Process(double delta) {
-        UIScaling();
+    public override void _Process(double delta)
+    {
+        Vector2 newViewPortSize = GetViewport().GetVisibleRect().Size;
+        if (newViewPortSize != _currentViewportSize)
+        {
+            UIScaling();
+            _currentViewportSize = newViewPortSize;
+        }
 
         //this line is needed to prevent a lock situation where bote glossaries and escape menu are opended.
         // when the pause menu is closed, the pause state is removed, so glossary stop processing and it is impossible to exit.
@@ -430,6 +439,7 @@ public partial class Battle : Control {
         Vector2 currentViewportSize = GetViewport().GetVisibleRect().Size;
 
         float YSCALE = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
+        float XSCALE = (GetViewport().GetVisibleRect().Size.X / originalViewportSize.X);
 
         // float YScale = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
         Vector2 scaleFactor = new Vector2(
@@ -438,8 +448,26 @@ public partial class Battle : Control {
         Vector2 offsetFactor = originalViewportSize - currentViewportSize;
 
         Path2D hand = GetNode<Path2D>("Hand");
-        hand.Scale = scaleFactor;
-
+        // hand.Scale = scaleFactor;
+        Vector2[] points = hand.Curve.GetBakedPoints();
+        Curve2D newCurve2D = new Curve2D();
+        //
+        // hand.Curve.ClearPoints();
+        // for (int i = 0;i<points.Length; i++)
+        // {
+        //     points[i].X *= XSCALE;
+        //     hand.Curve.AddPoint(points[i]);
+        //     GD.Print(i);
+        // }
+        points[0].X *= XSCALE;
+        newCurve2D.AddPoint(points[0],new Vector2(0,0),new Vector2(100,-100));
+        points[points.Length-1].X *= XSCALE;
+        newCurve2D.AddPoint(points[points.Length-1],new Vector2(-100,-100),new Vector2(0,0));
+        hand.Curve = newCurve2D;
+        
+        GD.Print(points[0].X," ",points[0].Y);
+        
+        
         Path2D enemies = GetNode<Path2D>("Enemies");
         enemies.Scale = scaleFactor;
 
