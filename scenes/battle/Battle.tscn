@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=43 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -25,9 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://87kw3tjkavuh" path="res://scenes/glossary/card_glossary.tscn" id="13_mwfol"]
 [ext_resource type="PackedScene" uid="uid://vjrk3p65fmid" path="res://scenes/glossary/combo_glossary.tscn" id="14_fhiga"]
 [ext_resource type="Texture2D" uid="uid://f5om8k5bo8r2" path="res://assets/sprites/Drew/Cyber-Denarius.png" id="15_6sdaq"]
-[ext_resource type="Texture2D" uid="uid://ifvsgnxfw40l" path="res://assets/ui/thicc_border_top_corner.png" id="16_o3gvq"]
-[ext_resource type="Texture2D" uid="uid://1ms1e7wllbc6" path="res://assets/ui/thicc_border_top_straight.png" id="17_np1jk"]
 [ext_resource type="PackedScene" uid="uid://bb1d3xonqkrdt" path="res://scenes/pause_menu.tscn" id="25_1n752"]
+[ext_resource type="Texture2D" uid="uid://b6l772dpx2bgq" path="res://assets/ui/9patchBorder.png" id="29_vsfo5"]
 
 [sub_resource type="Animation" id="Animation_b1rb7"]
 length = 600.0
@@ -195,7 +194,8 @@ visible = false
 layout_mode = 2
 color = Color(1, 0, 0, 0.517647)
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="Control" parent="."]
+anchors_preset = 0
 script = ExtResource("5_kuu6p")
 
 [node name="Toggle Sound" type="TextureButton" parent="HUD"]
@@ -239,10 +239,10 @@ theme_override_constants/separation = 5
 alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="HUD"]
-offset_left = -1.0
-offset_top = 649.0
-offset_right = 204.0
-offset_bottom = 730.0
+offset_left = -2.0
+offset_top = 638.0
+offset_right = 203.0
+offset_bottom = 719.0
 texture_normal = ExtResource("8_d7wxd")
 texture_pressed = ExtResource("9_x3afa")
 stretch_mode = 0
@@ -259,10 +259,10 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
 text = "Play"
 
 [node name="TextureButton2" type="TextureButton" parent="HUD"]
-offset_left = -1.0
-offset_top = 727.0
-offset_right = 204.0
-offset_bottom = 808.0
+offset_left = -2.0
+offset_top = 716.0
+offset_right = 203.0
+offset_bottom = 797.0
 texture_normal = ExtResource("8_d7wxd")
 texture_pressed = ExtResource("9_x3afa")
 stretch_mode = 0
@@ -278,67 +278,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.403922)
 text = "End Turn"
 
-[node name="Discard" type="ColorRect" parent="HUD/TextureButton2"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 11.0
-offset_top = 1.0
-offset_right = 194.0
-offset_bottom = 262.0
-grow_vertical = 0
-size_flags_horizontal = 0
-color = Color(0, 0, 0, 0.231373)
-
-[node name="Discard Area" type="CanvasGroup" parent="HUD/TextureButton2/Discard"]
-position = Vector2(-9, -812)
-
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(188, 818)
-texture = ExtResource("16_o3gvq")
-
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(13, 818)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(100.375, 811)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(195, 941.366)
-rotation = 1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(6, 942)
-rotation = -1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(188, 1065)
-texture = ExtResource("16_o3gvq")
-flip_v = true
-
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(13, 1065)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-flip_v = true
-
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
-position = Vector2(100.375, 1072)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-flip_v = true
-
 [node name="PlayButton" type="Button" parent="HUD"]
 visible = false
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -358,6 +300,7 @@ flat = true
 
 [node name="End Turn Button" type="Button" parent="HUD"]
 visible = false
+layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -374,57 +317,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 text = "End Turn"
 flat = true
-
-[node name="Deck Area" type="CanvasGroup" parent="HUD"]
-position = Vector2(1720, 1)
-
-[node name="Card-back-blood-spatter" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(101, 942)
-scale = Vector2(0.277017, 0.285396)
-texture = ExtResource("4_u6rcd")
-
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(188, 818)
-texture = ExtResource("16_o3gvq")
-
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(13, 818)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(100.375, 811)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(195, 941.366)
-rotation = 1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(6, 942)
-rotation = -1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(188, 1065)
-texture = ExtResource("16_o3gvq")
-flip_v = true
-
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(13, 1065)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-flip_v = true
-
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(100.375, 1072)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-flip_v = true
 
 [node name="PlayerHealthLabel" type="Label" parent="HUD"]
 visible = false
@@ -465,6 +357,7 @@ texture = ExtResource("9_i3lvk")
 
 [node name="SelectedIndicator" type="ColorRect" parent="HUD"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -560,13 +453,14 @@ text = "VS. Opponent"
 horizontal_alignment = 2
 
 [node name="Sp_combo Background" type="PanelContainer" parent="HUD"]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -228.0
-offset_top = 34.0
-offset_right = 470.0
-offset_bottom = 89.0
+offset_left = 739.0
+offset_top = 38.0
+offset_right = 1437.0
+offset_bottom = 93.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -675,9 +569,11 @@ horizontal_alignment = 1
 
 [node name="CardGlossary" parent="HUD" instance=ExtResource("13_mwfol")]
 visible = false
+layout_mode = 1
 
 [node name="ComboGlossary" parent="HUD" instance=ExtResource("14_fhiga")]
 visible = false
+layout_mode = 1
 
 [node name="StatusIndicator" type="TextureRect" parent="HUD"]
 visible = false
@@ -796,6 +692,91 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0, 0.376471, 0.752941, 0)
 metadata/_edit_use_anchors_ = true
+
+[node name="Discard Area" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Discard" type="ColorRect" parent="Discard Area"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = -271.0
+offset_right = 192.0
+offset_bottom = -10.0
+grow_vertical = 0
+size_flags_horizontal = 0
+color = Color(0, 0, 0, 0.231373)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Discard Area/Discard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -8.0
+offset_right = -6.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.08, 1.06)
+texture = ExtResource("29_vsfo5")
+region_rect = Rect2(0, 0, 79, 79)
+patch_margin_left = 66
+patch_margin_top = 66
+patch_margin_right = 66
+patch_margin_bottom = 66
+
+[node name="Deck Area" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Card-back-blood-spatter" type="TextureRect" parent="Deck Area"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -258.0
+offset_right = -8.1001
+offset_bottom = -9.59998
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_u6rcd")
+expand_mode = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Deck Area/Card-back-blood-spatter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.00002
+offset_top = -7.00001
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.08, 1.06)
+texture = ExtResource("29_vsfo5")
+region_rect = Rect2(0, 0, 79, 79)
+patch_margin_left = 66
+patch_margin_top = 66
+patch_margin_right = 66
+patch_margin_bottom = 66
 
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]
