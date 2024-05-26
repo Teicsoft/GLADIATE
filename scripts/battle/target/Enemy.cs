@@ -13,6 +13,8 @@ public partial class Enemy : Node2D, ITarget {
     public event EventHandler EnemyDefenseLowerChangedCustomEvent;
     public event EventHandler EnemyDefenseUpperChangedCustomEvent;
 
+    private Vector2 _currentViewportSize;
+    
     public string Id { get; set; }
     public string Name { get; set; }
     public string Image { get; set; }
@@ -152,9 +154,20 @@ public partial class Enemy : Node2D, ITarget {
 
         GetNode<Sprite2D>("EnemySprite").Texture = (Texture2D)GD.Load(Image);
         GetNode<Button>("SelectButton").TooltipText = Lore;
+        
+        _currentViewportSize = GetViewport().GetVisibleRect().Size;
+        enemyscaling();
     }
 
-    public override void _Process(double delta) { }
+    public override void _Process(double delta)
+    {
+        Vector2 newViewPortSize = GetViewport().GetVisibleRect().Size;
+        if (newViewPortSize != _currentViewportSize)
+        {
+            enemyscaling();
+            _currentViewportSize = newViewPortSize;
+        }
+    }
 
     private void OnJigglePhysicsTimerTimeout() {
         Sprite2D sprite = GetNode<Sprite2D>("EnemySprite");
@@ -163,6 +176,7 @@ public partial class Enemy : Node2D, ITarget {
         if (GD.Randi() % 10 == 0) {
             if (sprite.FlipH) { sprite.FlipH = false; } else { sprite.FlipH = true; }
         }
+        
     }
 
     private void OnPress() { EmitSignal(SignalName.EnemySelected, this); }
@@ -253,5 +267,18 @@ public partial class Enemy : Node2D, ITarget {
         if (_bossHealthBar != null) {
             _bossHealthBar.GetNode<Label>("MarginContainer/Control/CardPlayed").Visible = false;
         }
+    }
+    private void enemyscaling()
+    {
+        Vector2 originalViewportSize = new Vector2(1920, 1080);
+        Vector2 currentViewportSize = GetViewport().GetVisibleRect().Size;
+
+        float YScale = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
+
+
+        Vector2 scaleFactor = new Vector2(
+            YScale, YScale
+        );
+        Scale = scaleFactor;
     }
 }
