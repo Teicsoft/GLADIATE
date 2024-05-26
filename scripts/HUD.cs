@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public partial class HUD : Control
+public partial class HUD : CanvasLayer
 {
-    private Control canvasLayerNode;
+    private CanvasLayer canvasLayerNode;
     private Vector2 originalViewportSize;
     
     // Called when the node enters the scene tree for the first time.
@@ -21,7 +21,7 @@ public partial class HUD : Control
         Vector2 scaleFactor = new Vector2(y, y);
 
         // Update CanvasLayer scale to match the viewport size
-        // canvasLayerNode.Scale = scaleFactor;
+        canvasLayerNode.Scale = scaleFactor;
 }
 
     }
