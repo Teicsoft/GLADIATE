@@ -441,6 +441,9 @@ public partial class Battle : Control {
         float YSCALE = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
         float XSCALE = (GetViewport().GetVisibleRect().Size.X / originalViewportSize.X);
 
+        Vector2 pathscale = new Vector2(XSCALE, YSCALE);
+        
+
         // float YScale = GetViewport().GetVisibleRect().Size.Y / originalViewportSize.Y;
         Vector2 scaleFactor = new Vector2(
             YSCALE, YSCALE
@@ -448,14 +451,14 @@ public partial class Battle : Control {
         Vector2 offsetFactor = originalViewportSize - currentViewportSize;
 
         Path2D hand = GetNode<Path2D>("Hand");
-        hand.Curve = adjustcurveX(XSCALE,hand.Curve,new Vector2(100,-100),new Vector2(-100,-100));
+        hand.Curve = adjustcurveX(pathscale,hand.Curve,new Vector2(100,-100),new Vector2(-100,-100));
         
         
         Path2D enemies = GetNode<Path2D>("Enemies");
-        enemies.Curve = adjustcurveX(XSCALE,enemies.Curve,new Vector2(100,-100),new Vector2(-100,-100));
+        enemies.Curve = adjustcurveX(pathscale,enemies.Curve,new Vector2(100,-100),new Vector2(-100,-100));
 
         Path2D comboStack = GetNode<Path2D>("ComboStack");
-        comboStack.Curve = adjustcurveX(XSCALE,comboStack.Curve,new Vector2(0,0),new Vector2(0,0));
+        comboStack.Curve = adjustcurveX(pathscale,comboStack.Curve,new Vector2(0,0),new Vector2(0,0));
 
 
         Label discardDisplay = GetNode<Label>("DiscardDisplay");
@@ -466,14 +469,14 @@ public partial class Battle : Control {
         bossNode.Position = new Vector2(0, 0);
     }
 
-    private Curve2D adjustcurveX(float xScale, Curve2D curve,Vector2 pointzeroout,Vector2 pointendin)
+    private Curve2D adjustcurveX(Vector2 scale, Curve2D curve,Vector2 pointzeroout,Vector2 pointendin)
     {
         Vector2[] points = curve.GetBakedPoints();
         Curve2D newCurve2D = new Curve2D();
 
-        points[0].X *= xScale;
+        points[0] *= scale;
         newCurve2D.AddPoint(points[0],new Vector2(0,0),pointzeroout);
-        points[points.Length-1].X *= xScale;
+        points[points.Length-1] *= scale;
         newCurve2D.AddPoint(points[points.Length-1],pointendin,new Vector2(0,0));
         return newCurve2D;
     }
