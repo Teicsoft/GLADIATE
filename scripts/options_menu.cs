@@ -96,6 +96,21 @@ public partial class options_menu : Control
     private void _on_back_button_pressed()
     {
         Hide();
-    }   
+    }  
+    private void _on_screensize_pressed()
+    {
+        if (DisplayServer.WindowGetMode().Equals(DisplayServer.WindowMode.Fullscreen))
+        {
+            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+        }
+        else
+        {
+            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen); 
+            
+        }
+    }
+ 
 }
+
+
 

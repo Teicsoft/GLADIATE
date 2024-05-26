@@ -75,6 +75,7 @@ public partial class Battle : Control {
             GetNode<ColorRect>("Background/Boss red overlay").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
+        GD.Print(DisplayServer.WindowGetMode());
     }
 
     public override void _Process(double delta)
