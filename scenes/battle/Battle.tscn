@@ -1,8 +1,9 @@
-[gd_scene load_steps=44 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=45 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
 [ext_resource type="PackedScene" uid="uid://4lar8gsflwru" path="res://scenes/battle/Card.tscn" id="3_citfa"]
+[ext_resource type="Texture2D" uid="uid://c0atmkc30een0" path="res://assets/images/AJ/backgroundoversize.png" id="4_5bmi2"]
 [ext_resource type="Texture2D" uid="uid://bsjcs0e8j8b5l" path="res://assets/images/AJ/background-night.png" id="4_p4d4m"]
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
@@ -165,6 +166,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 ratio = 1.7777
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("4_5bmi2")
 
 [node name="Background-night" type="TextureRect" parent="AspectRatioContainer"]
 layout_mode = 2
@@ -374,57 +379,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 text = "End Turn"
 flat = true
-
-[node name="Deck Area" type="CanvasGroup" parent="HUD"]
-position = Vector2(1720, 1)
-
-[node name="Card-back-blood-spatter" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(101, 942)
-scale = Vector2(0.277017, 0.285396)
-texture = ExtResource("4_u6rcd")
-
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(188, 818)
-texture = ExtResource("16_o3gvq")
-
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(13, 818)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(100.375, 811)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(195, 941.366)
-rotation = 1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(6, 942)
-rotation = -1.5708
-scale = Vector2(6.459, 1)
-texture = ExtResource("17_np1jk")
-
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(188, 1065)
-texture = ExtResource("16_o3gvq")
-flip_v = true
-
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(13, 1065)
-texture = ExtResource("16_o3gvq")
-flip_h = true
-flip_v = true
-
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/Deck Area"]
-position = Vector2(100.375, 1072)
-scale = Vector2(4.41216, 1)
-texture = ExtResource("17_np1jk")
-flip_v = true
 
 [node name="PlayerHealthLabel" type="Label" parent="HUD"]
 visible = false
@@ -796,6 +750,57 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color(0, 0.376471, 0.752941, 0)
 metadata/_edit_use_anchors_ = true
+
+[node name="Deck Area" type="CanvasGroup" parent="."]
+position = Vector2(1720, 1)
+
+[node name="Card-back-blood-spatter" type="Sprite2D" parent="Deck Area"]
+position = Vector2(101, 942)
+scale = Vector2(0.277017, 0.285396)
+texture = ExtResource("4_u6rcd")
+
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="Deck Area"]
+position = Vector2(188, 818)
+texture = ExtResource("16_o3gvq")
+
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="Deck Area"]
+position = Vector2(13, 818)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="Deck Area"]
+position = Vector2(100.375, 811)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="Deck Area"]
+position = Vector2(195, 941.366)
+rotation = 1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="Deck Area"]
+position = Vector2(6, 942)
+rotation = -1.5708
+scale = Vector2(6.459, 1)
+texture = ExtResource("17_np1jk")
+
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="Deck Area"]
+position = Vector2(188, 1065)
+texture = ExtResource("16_o3gvq")
+flip_v = true
+
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="Deck Area"]
+position = Vector2(13, 1065)
+texture = ExtResource("16_o3gvq")
+flip_h = true
+flip_v = true
+
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="Deck Area"]
+position = Vector2(100.375, 1072)
+scale = Vector2(4.41216, 1)
+texture = ExtResource("17_np1jk")
+flip_v = true
 
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]
