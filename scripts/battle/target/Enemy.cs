@@ -43,6 +43,8 @@ public partial class Enemy : Node2D, ITarget {
         }
     }
     public Path2D EnemyPath2D { get; set; }
+    
+    private ColorRect _selectedIndicator;
 
     private void UpdateBossHealthBar() {
         if (_bossHealthBar == null) return;
@@ -154,6 +156,8 @@ public partial class Enemy : Node2D, ITarget {
 
         GetNode<Sprite2D>("EnemySprite").Texture = (Texture2D)GD.Load(Image);
         GetNode<Button>("SelectButton").TooltipText = Lore;
+
+        _selectedIndicator = GetNode<ColorRect>("SelectedIndicator");
         
         _currentViewportSize = GetViewport().GetVisibleRect().Size;
         enemyscaling();
@@ -280,5 +284,15 @@ public partial class Enemy : Node2D, ITarget {
             YScale, YScale
         );
         Scale = scaleFactor;
+    }
+
+    public void selectedOn()
+    {
+        _selectedIndicator.Visible = true;
+    }
+    
+    public void selectedOff()
+    {
+        _selectedIndicator.Visible = false;
     }
 }

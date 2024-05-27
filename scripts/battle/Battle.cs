@@ -285,16 +285,23 @@ public partial class Battle : Control {
     }
 
     private void MoveSelectedIndicator(Enemy enemy) {
-        ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
-        selectedIndicator.Visible = true;
-        selectedIndicator.Position = _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
+        foreach (Enemy target in _gameState.Enemies)
+        {
+            target.selectedOff();
+        }
+        if (_gameState.GetSelectedEnemy() != null)
+        {
+            enemy.selectedOn();
+        }
     }
 
     private void MoveSelectedIndicator(object sender, EventArgs e) {
-        ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
-        selectedIndicator.Visible = true;
-
-        selectedIndicator.Position = _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
+        foreach (Enemy target in _gameState.Enemies)
+        {
+            target.selectedOff();
+        }
+        if (_gameState.GetSelectedEnemy() != null)
+            _gameState.GetSelectedEnemy().selectedOn();
     }
 
     private void OnPlayerHealthChanged() {

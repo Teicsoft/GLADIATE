@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=41 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -19,7 +19,6 @@
 [ext_resource type="Script" path="res://scenes/battle/Toggle Sound.gd" id="11_mow0b"]
 [ext_resource type="Texture2D" uid="uid://cb36nakc83n62" path="res://assets/ui/Sound_on.png" id="11_nrxls"]
 [ext_resource type="Texture2D" uid="uid://djssdn4r1g4f5" path="res://assets/ui/sound_off.png" id="12_8fj8e"]
-[ext_resource type="Texture2D" uid="uid://di6jj3qkji1wr" path="res://assets/sprites/Emperor_Thumbs/Emperor_Thumb_Down.png" id="12_a85jt"]
 [ext_resource type="Texture2D" uid="uid://bf1b4q7nrb1ka" path="res://assets/images/ModifierIcons/Grappled.png" id="13_25d22"]
 [ext_resource type="PackedScene" uid="uid://87kw3tjkavuh" path="res://scenes/glossary/card_glossary.tscn" id="13_mwfol"]
 [ext_resource type="PackedScene" uid="uid://vjrk3p65fmid" path="res://scenes/glossary/combo_glossary.tscn" id="14_fhiga"]
@@ -273,6 +272,7 @@ offset_bottom = 229.0
 grow_vertical = 2
 
 [node name="Play Button" type="TextureButton" parent="HUD/Node"]
+layout_mode = 0
 offset_top = -70.0
 offset_right = 205.0
 offset_bottom = 11.0
@@ -292,6 +292,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
 text = "Play"
 
 [node name="End Turn button" type="TextureButton" parent="HUD/Node"]
+layout_mode = 0
 offset_top = 11.0
 offset_right = 205.0
 offset_bottom = 92.0
@@ -406,40 +407,6 @@ vertical_alignment = 1
 [node name="HealthArmorBar" type="Sprite2D" parent="HUD"]
 position = Vector2(999, 100)
 texture = ExtResource("9_i3lvk")
-
-[node name="SelectedIndicator" type="ColorRect" parent="HUD"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1060.0
-offset_top = -12.0
-offset_right = -1020.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 0.785398
-scale = Vector2(0.242236, 0.242236)
-pivot_offset = Vector2(20, 20)
-color = Color(1, 0, 0, 0)
-metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="HUD/SelectedIndicator"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1153.47
-offset_top = -756.476
-offset_right = -1081.47
-offset_bottom = -684.476
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -0.785398
-scale = Vector2(4, 4)
-texture = ExtResource("12_a85jt")
 
 [node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
 visible = false
@@ -641,6 +608,7 @@ offset_bottom = 113.0
 texture = ExtResource("13_25d22")
 
 [node name="Enemies" type="Path2D" parent="."]
+position = Vector2(0, 112)
 curve = SubResource("Curve2D_e410o")
 
 [node name="EnemyLocation" type="PathFollow2D" parent="Enemies"]
