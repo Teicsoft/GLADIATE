@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=42 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://scripts/HUD.cs" id="5_kuu6p"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="7_bj4ys"]
 [ext_resource type="Texture2D" uid="uid://cijiyfitx1t8k" path="res://assets/images/AJ/foreground-nightpng.png" id="7_d652m"]
-[ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
 [ext_resource type="Texture2D" uid="uid://mddnb6u8ky2d" path="res://assets/images/AJ/foreground-day.png" id="8_23o5r"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="8_d7wxd"]
 [ext_resource type="Texture2D" uid="uid://cprl4r5lkhx0f" path="res://assets/ui/Health_Armor Bar.png" id="9_i3lvk"]
@@ -250,16 +249,6 @@ offset_top = 77.0
 offset_right = 1435.0
 offset_bottom = 117.0
 color = Color(0, 0, 0, 0.811765)
-
-[node name="Button Asset" type="Sprite2D" parent="HUD"]
-visible = false
-position = Vector2(103, 757)
-texture = ExtResource("8_2vyy3")
-
-[node name="Button Asset2" type="Sprite2D" parent="HUD"]
-visible = false
-position = Vector2(103, 657)
-texture = ExtResource("8_2vyy3")
 
 [node name="BossHealthBarsPanel" type="PanelContainer" parent="HUD"]
 visible = false
