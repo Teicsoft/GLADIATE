@@ -72,7 +72,7 @@ public partial class Battle : Control {
             _audioEngine.PlayMusic("Menu_music.wav");
             GD.Print("Boss Battle");
 
-            GetNode<ColorRect>("Background/Boss red overlay").Show();
+            GetNode<ColorRect>("AspectRatioContainer/Boss red overlay").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
         GD.Print(DisplayServer.WindowGetMode());
@@ -470,15 +470,15 @@ public partial class Battle : Control {
         bossNode.Position = new Vector2(0, 0);
     }
 
-    private Curve2D adjustcurveX(Vector2 scale, Curve2D curve,Vector2 pointzeroout,Vector2 pointendin)
+    private Curve2D adjustcurveX(Vector2 scale, Curve2D curve,Vector2 firstPointAngleOut,Vector2 lastPointAngleIn)
     {
         Vector2[] points = curve.GetBakedPoints();
         Curve2D newCurve2D = new Curve2D();
 
         points[0] *= scale;
-        newCurve2D.AddPoint(points[0],new Vector2(0,0),pointzeroout);
+        newCurve2D.AddPoint(points[0],new Vector2(0,0),firstPointAngleOut);
         points[points.Length-1] *= scale;
-        newCurve2D.AddPoint(points[points.Length-1],pointendin,new Vector2(0,0));
+        newCurve2D.AddPoint(points[points.Length-1],lastPointAngleIn,new Vector2(0,0));
         return newCurve2D;
     }
 }

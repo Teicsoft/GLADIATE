@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=43 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -15,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://dwbcqbf47gaw5" path="res://assets/ui/Button.png" id="8_2vyy3"]
 [ext_resource type="Texture2D" uid="uid://mddnb6u8ky2d" path="res://assets/images/AJ/foreground-day.png" id="8_23o5r"]
 [ext_resource type="Texture2D" uid="uid://bd2ts5rilcdyv" path="res://assets/ui/large_button.png" id="8_d7wxd"]
-[ext_resource type="FontFile" uid="uid://cb6jcjbshfiq" path="res://assets/fonts/new_jersey/Jersey10-Regular.ttf" id="9_6h2s6"]
 [ext_resource type="Texture2D" uid="uid://cprl4r5lkhx0f" path="res://assets/ui/Health_Armor Bar.png" id="9_i3lvk"]
 [ext_resource type="Texture2D" uid="uid://c3i31cb0fpl1w" path="res://assets/ui/large_button_pressed.png" id="9_x3afa"]
 [ext_resource type="Script" path="res://scenes/battle/Toggle Sound.gd" id="11_mow0b"]
@@ -81,10 +80,6 @@ _data = {
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k87rm"]
-
-[sub_resource type="Theme" id="Theme_gua0v"]
-default_font = ExtResource("9_6h2s6")
-default_font_size = 37
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_62pqw"]
 
@@ -158,46 +153,82 @@ libraries = {
 "": SubResource("AnimationLibrary_caw7b")
 }
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+[node name="AspectRatioContainer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-ratio = 1.7777
 
 [node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1720.0
+offset_top = -720.0
+offset_right = 1720.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_5bmi2")
 
 [node name="Background-night" type="TextureRect" parent="AspectRatioContainer"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_p4d4m")
-expand_mode = 2
-stretch_mode = 4
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Background-day" type="TextureRect" parent="AspectRatioContainer"]
 modulate = Color(1, 1, 1, 0.950833)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5_ecrvu")
-expand_mode = 2
-stretch_mode = 4
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Foreground-night" type="TextureRect" parent="AspectRatioContainer"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("7_d652m")
-expand_mode = 2
-stretch_mode = 4
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Foreground-day" type="TextureRect" parent="AspectRatioContainer"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("8_23o5r")
-expand_mode = 2
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Boss red overlay" type="ColorRect" parent="AspectRatioContainer"]
 visible = false
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(1, 0, 0, 0.517647)
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -243,16 +274,22 @@ layout_mode = 2
 theme_override_constants/separation = 5
 alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="HUD"]
-offset_left = -1.0
-offset_top = 649.0
-offset_right = 204.0
-offset_bottom = 730.0
+[node name="Node" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+
+[node name="Play Button" type="TextureButton" parent="HUD/Node"]
+offset_top = -70.0
+offset_right = 205.0
+offset_bottom = 11.0
 texture_normal = ExtResource("8_d7wxd")
 texture_pressed = ExtResource("9_x3afa")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="HUD/TextureButton"]
+[node name="Label" type="Label" parent="HUD/Node/Play Button"]
 layout_mode = 0
 offset_left = 75.0
 offset_top = 11.0
@@ -263,16 +300,15 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.32549)
 text = "Play"
 
-[node name="TextureButton2" type="TextureButton" parent="HUD"]
-offset_left = -1.0
-offset_top = 727.0
-offset_right = 204.0
-offset_bottom = 808.0
+[node name="End Turn button" type="TextureButton" parent="HUD/Node"]
+offset_top = 11.0
+offset_right = 205.0
+offset_bottom = 92.0
 texture_normal = ExtResource("8_d7wxd")
 texture_pressed = ExtResource("9_x3afa")
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="HUD/TextureButton2"]
+[node name="Label" type="Label" parent="HUD/Node/End Turn button"]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 11.0
@@ -283,7 +319,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.403922)
 text = "End Turn"
 
-[node name="Discard" type="ColorRect" parent="HUD/TextureButton2"]
+[node name="Discard" type="ColorRect" parent="HUD/Node/End Turn button"]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -296,89 +333,51 @@ grow_vertical = 0
 size_flags_horizontal = 0
 color = Color(0, 0, 0, 0.231373)
 
-[node name="Discard Area" type="CanvasGroup" parent="HUD/TextureButton2/Discard"]
+[node name="Discard Area" type="CanvasGroup" parent="HUD/Node/End Turn button/Discard"]
 position = Vector2(-9, -812)
 
-[node name="ThiccBorderTopCorner" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopCorner" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(188, 818)
 texture = ExtResource("16_o3gvq")
 
-[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopCorner2" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(13, 818)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 
-[node name="ThiccBorderTopStraight" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopStraight" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(100.375, 811)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopStraight3" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(195, 941.366)
 rotation = 1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopStraight4" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(6, 942)
 rotation = -1.5708
 scale = Vector2(6.459, 1)
 texture = ExtResource("17_np1jk")
 
-[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopCorner3" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(188, 1065)
 texture = ExtResource("16_o3gvq")
 flip_v = true
 
-[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopCorner4" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(13, 1065)
 texture = ExtResource("16_o3gvq")
 flip_h = true
 flip_v = true
 
-[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/TextureButton2/Discard/Discard Area"]
+[node name="ThiccBorderTopStraight2" type="Sprite2D" parent="HUD/Node/End Turn button/Discard/Discard Area"]
 position = Vector2(100.375, 1072)
 scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 flip_v = true
-
-[node name="PlayButton" type="Button" parent="HUD"]
-visible = false
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -957.0
-offset_top = -448.0
-offset_right = -762.0
-offset_bottom = -365.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = SubResource("Theme_gua0v")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
-text = "Play"
-flat = true
-
-[node name="End Turn Button" type="Button" parent="HUD"]
-visible = false
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -1915.0
-offset_top = 173.0
-offset_right = -1720.0
-offset_bottom = 256.0
-grow_horizontal = 0
-grow_vertical = 2
-theme = ExtResource("7_bj4ys")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
-text = "End Turn"
-flat = true
 
 [node name="PlayerHealthLabel" type="Label" parent="HUD"]
 visible = false
@@ -752,6 +751,7 @@ color = Color(0, 0.376471, 0.752941, 0)
 metadata/_edit_use_anchors_ = true
 
 [node name="Deck Area" type="CanvasGroup" parent="."]
+visible = false
 position = Vector2(1720, 1)
 
 [node name="Card-back-blood-spatter" type="Sprite2D" parent="Deck Area"]
@@ -803,9 +803,8 @@ texture = ExtResource("17_np1jk")
 flip_v = true
 
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
-[connection signal="pressed" from="HUD/TextureButton" to="." method="OnPlayButtonPressed"]
-[connection signal="pressed" from="HUD/TextureButton2" to="." method="EndTurn"]
-[connection signal="pressed" from="HUD/End Turn Button" to="." method="EndTurn"]
+[connection signal="pressed" from="HUD/Node/Play Button" to="." method="OnPlayButtonPressed"]
+[connection signal="pressed" from="HUD/Node/End Turn button" to="." method="EndTurn"]
 [connection signal="timeout" from="HUD/ComboDisplay/ComboDisplayTimer" to="." method="OnComboDisplayTimeout"]
 [connection signal="pressed" from="HUD/VBoxContainer/CardGlossaryButton" to="HUD/CardGlossary" method="OnCardGlossaryPressed"]
 [connection signal="pressed" from="HUD/VBoxContainer/ComboGlossaryButton" to="HUD/ComboGlossary" method="OnComboGlossaryButtonPressed"]
