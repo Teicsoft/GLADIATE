@@ -268,6 +268,8 @@ layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
+offset_top = 229.0
+offset_bottom = 229.0
 grow_vertical = 2
 
 [node name="Play Button" type="TextureButton" parent="HUD/Node"]

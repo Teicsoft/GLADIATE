@@ -45,10 +45,7 @@ public partial class Battle : Control {
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
-
-        _currentViewportSize = GetViewport().GetVisibleRect().Size;
-        UIScaling();
-
+        
         _animation = GetNode<AnimationPlayer>("AnimationPlayer");
         _animation.Play("RESET");
 
@@ -56,6 +53,10 @@ public partial class Battle : Control {
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
+        
+        _currentViewportSize = GetViewport().GetVisibleRect().Size;
+        UIScaling();
+        
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
 
         InitialiseGameState(playerCardIds, enemies);
@@ -87,7 +88,7 @@ public partial class Battle : Control {
             _currentViewportSize = newViewPortSize;
         }
 
-        //this line is needed to prevent a lock situation where bote glossaries and escape menu are opended.
+        //this line is needed to prevent a lock situation where both glossaries and escape menu are opened.
         // when the pause menu is closed, the pause state is removed, so glossary stop processing and it is impossible to exit.
         if (_cardGlossary.Visible || _comboGlossary.Visible) { GetTree().Paused = true; }
 
@@ -98,15 +99,15 @@ public partial class Battle : Control {
                 if (enemyPathFollow2D.ProgressRatio <= 0.7f) {
                     enemyPathFollow2D.ProgressRatio += 0.5f * (float)delta;
 
-                    enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                    enemy.Position = enemyPathFollow2D.Position + _currentViewportSize/2;
                 } else if (enemyPathFollow2D.ProgressRatio > 0.7f && enemyPathFollow2D.ProgressRatio <= 1.0f) {
                     if (GD.Randi() % 100 == 0) {
                         enemyPathFollow2D.ProgressRatio += (float)GD.RandRange(-0.3f, 0.3f) * (float)delta * 5;
-                        enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                        enemy.Position = enemyPathFollow2D.Position + _currentViewportSize/2;
                     }
                 } else {
                     enemyPathFollow2D.ProgressRatio = 1.0f;
-                    enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                    enemy.Position = enemyPathFollow2D.Position + _currentViewportSize/2;
                 }
             }
         }
@@ -466,8 +467,15 @@ public partial class Battle : Control {
         discardDisplay.Scale = scaleFactor;
 
         Node2D bossNode = GetNode<Node2D>("BossNode");
-        bossNode.Scale = scaleFactor;
-        bossNode.Position = new Vector2(0, 0);
+
+        if (Id == SceneLoader.BossBattleId)
+        {
+            for (int index = 0; index < 6; index++)
+            {
+                Path2D BossPath2D = GetNode<Path2D>("BossNode/BossBattle" + index);
+                BossPath2D.Curve = adjustcurveX(pathscale,BossPath2D.Curve,new Vector2(0,0),new Vector2(0,0));
+            }
+        }
     }
 
     private Curve2D adjustcurveX(Vector2 scale, Curve2D curve,Vector2 firstPointAngleOut,Vector2 lastPointAngleIn)
