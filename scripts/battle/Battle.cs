@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GLADIATE.scenes.glossary;
 using GLADIATE.scripts.audio;
 using GLADIATE.scripts.autoloads;
 using GLADIATE.scripts.battle.card;
@@ -62,10 +63,9 @@ public partial class Battle : Control {
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
 
-        _comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
+        _comboGlossary = GetNode<ComboGlossary>("Glossary Canvas/ComboGlossary");
         _comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
-
-        _cardGlossary = GetNode<Control>("HUD/CardGlossary");
+        _cardGlossary = GetNode<CardGlossary>("Glossary Canvas/CardGlossary");
 
         GetNode<Label>("HUD/VsLabel").Text = BattleName;
 
@@ -319,14 +319,10 @@ public partial class Battle : Control {
     }
 
     private void OnPlayerDefenseUpperChanged() {
-        GetNode<ColorRect>("HUD/PlayerUpperBlockRect").Color =
-            new Color(0, 0, _gameState.Player.DefenseUpper > 0 ? 1 : 0);
         GetNode<Label>("HUD/PlayerUpperBlockDisplay").Text = _gameState.Player.DefenseUpper.ToString();
     }
 
     private void OnPlayerDefenseLowerChanged() {
-        GetNode<ColorRect>("HUD/PlayerLowerBlockRect").Color =
-            new Color(0, 0, _gameState.Player.DefenseLower > 0 ? 1 : 0);
         GetNode<Label>("HUD/PlayerLowerBlockDisplay").Text = _gameState.Player.DefenseLower.ToString();
     }
 

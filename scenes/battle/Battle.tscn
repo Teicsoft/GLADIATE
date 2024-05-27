@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://7q8qanamfdls"]
+[gd_scene load_steps=40 format=3 uid="uid://7q8qanamfdls"]
 
 [ext_resource type="Script" path="res://scripts/battle/Battle.cs" id="1_bmdek"]
 [ext_resource type="PackedScene" uid="uid://rocmwsrfn6p7" path="res://scenes/battle/Enemy.tscn" id="3_25d28"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bsjcs0e8j8b5l" path="res://assets/images/AJ/background-night.png" id="4_p4d4m"]
 [ext_resource type="Script" path="res://scripts/battle/Hand.cs" id="4_swwjy"]
 [ext_resource type="Texture2D" uid="uid://qsq8d58qqdlw" path="res://assets/images/Cards/card-back-blood-spatter.png" id="4_u6rcd"]
-[ext_resource type="Theme" uid="uid://bi7ohn58wto5o" path="res://scripts/customresource/roman_font.tres" id="4_v5dtn"]
 [ext_resource type="Texture2D" uid="uid://g28jv68in5o1" path="res://assets/images/AJ/background-day.png" id="5_ecrvu"]
 [ext_resource type="Script" path="res://scripts/HUD.cs" id="5_kuu6p"]
 [ext_resource type="Theme" uid="uid://hajaa20bfn8q" path="res://styles/Bigtext.tres" id="7_bj4ys"]
@@ -267,8 +266,8 @@ layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = 229.0
-offset_bottom = 229.0
+offset_top = 161.0
+offset_bottom = 161.0
 grow_vertical = 2
 
 [node name="Play Button" type="TextureButton" parent="HUD/Node"]
@@ -371,17 +370,6 @@ scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 flip_v = true
 
-[node name="PlayerHealthLabel" type="Label" parent="HUD"]
-visible = false
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 101.0
-offset_bottom = 51.0
-theme = ExtResource("4_v5dtn")
-text = "Player"
-horizontal_alignment = 2
-vertical_alignment = 1
-
 [node name="PlayerHealthProgressBar" type="ProgressBar" parent="HUD"]
 offset_left = 709.0
 offset_top = 76.0
@@ -408,14 +396,6 @@ vertical_alignment = 1
 position = Vector2(999, 100)
 texture = ExtResource("9_i3lvk")
 
-[node name="PlayerUpperBlockRect" type="ColorRect" parent="HUD"]
-visible = false
-offset_left = 301.0
-offset_top = -51.0
-offset_right = 351.0
-offset_bottom = -31.0
-color = Color(0, 0, 1, 1)
-
 [node name="PlayerUpperBlockDisplay" type="Label" parent="HUD"]
 offset_left = 585.0
 offset_top = 53.0
@@ -425,14 +405,6 @@ theme = ExtResource("7_bj4ys")
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 2
-
-[node name="PlayerLowerBlockRect" type="ColorRect" parent="HUD"]
-visible = false
-offset_left = 301.0
-offset_top = -30.0
-offset_right = 351.0
-offset_bottom = -10.0
-color = Color(0, 0, 1, 1)
 
 [node name="PlayerLowerBlockDisplay" type="Label" parent="HUD"]
 offset_left = 586.0
@@ -583,12 +555,6 @@ theme_override_colors/font_shadow_color = Color(0.780392, 0.862745, 0.815686, 1)
 theme_override_font_sizes/font_size = 38
 text = "Combo Glossary"
 horizontal_alignment = 1
-
-[node name="CardGlossary" parent="HUD" instance=ExtResource("13_mwfol")]
-visible = false
-
-[node name="ComboGlossary" parent="HUD" instance=ExtResource("14_fhiga")]
-visible = false
 
 [node name="StatusIndicator" type="TextureRect" parent="HUD"]
 visible = false
@@ -761,9 +727,17 @@ scale = Vector2(4.41216, 1)
 texture = ExtResource("17_np1jk")
 flip_v = true
 
+[node name="Glossary Canvas" type="CanvasLayer" parent="."]
+
+[node name="CardGlossary" parent="Glossary Canvas" instance=ExtResource("13_mwfol")]
+visible = false
+
+[node name="ComboGlossary" parent="Glossary Canvas" instance=ExtResource("14_fhiga")]
+visible = false
+
 [connection signal="pressed" from="HUD/Toggle Sound" to="HUD/Toggle Sound" method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="HUD/Node/Play Button" to="." method="OnPlayButtonPressed"]
 [connection signal="pressed" from="HUD/Node/End Turn button" to="." method="EndTurn"]
 [connection signal="timeout" from="HUD/ComboDisplay/ComboDisplayTimer" to="." method="OnComboDisplayTimeout"]
-[connection signal="pressed" from="HUD/VBoxContainer/CardGlossaryButton" to="HUD/CardGlossary" method="OnCardGlossaryPressed"]
-[connection signal="pressed" from="HUD/VBoxContainer/ComboGlossaryButton" to="HUD/ComboGlossary" method="OnComboGlossaryButtonPressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/CardGlossaryButton" to="Glossary Canvas/CardGlossary" method="OnCardGlossaryPressed"]
+[connection signal="pressed" from="HUD/VBoxContainer/ComboGlossaryButton" to="Glossary Canvas/ComboGlossary" method="OnComboGlossaryButtonPressed"]
