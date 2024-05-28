@@ -102,6 +102,7 @@ public partial class options_menu : Control
         if (DisplayServer.WindowGetMode().Equals(DisplayServer.WindowMode.Fullscreen))
         {
             DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
+            DisplayServer.WindowSetSize(new Vector2I(1920, 1080));
         }
         else
         {

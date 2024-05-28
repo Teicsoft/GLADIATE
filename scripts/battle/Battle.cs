@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GLADIATE.scenes.glossary;
 using GLADIATE.scripts.audio;
 using GLADIATE.scripts.autoloads;
 using GLADIATE.scripts.battle.card;
@@ -45,10 +46,7 @@ public partial class Battle : Control {
         _allEnemies = EnemyXmlParser.ParseAllEnemies();
         _allDecks = DeckXmlParser.ParseAllDecks();
         _allDecks.TryGetValue(_sceneLoader.DeckSelected, out List<string> playerCardIds);
-
-        _currentViewportSize = GetViewport().GetVisibleRect().Size;
-        UIScaling();
-
+        
         _animation = GetNode<AnimationPlayer>("AnimationPlayer");
         _animation.Play("RESET");
 
@@ -56,15 +54,18 @@ public partial class Battle : Control {
         Id = battleData["battle_id"];
         BattleName = battleData["battle_name"];
         Music = battleData["music"];
+        
+        _currentViewportSize = GetViewport().GetVisibleRect().Size;
+        UIScaling();
+        
         List<Enemy> enemies = CreateEnemies((List<string>)battleData["enemies"]);
 
         InitialiseGameState(playerCardIds, enemies);
         InitialiseHud();
 
-        _comboGlossary = GetNode<ComboGlossary>("HUD/ComboGlossary");
+        _comboGlossary = GetNode<ComboGlossary>("Glossary Canvas/ComboGlossary");
         _comboGlossary.Initialize(_gameState.Hand.Deck, _gameState.AllCombos);
-
-        _cardGlossary = GetNode<Control>("HUD/CardGlossary");
+        _cardGlossary = GetNode<CardGlossary>("Glossary Canvas/CardGlossary");
 
         GetNode<Label>("HUD/VsLabel").Text = BattleName;
 
@@ -72,7 +73,7 @@ public partial class Battle : Control {
             _audioEngine.PlayMusic("Menu_music.wav");
             GD.Print("Boss Battle");
 
-            GetNode<ColorRect>("Background/Boss red overlay").Show();
+            GetNode<ColorRect>("AspectRatioContainer/Boss red overlay").Show();
         }
         GD.Print(" ==== ==== START GAME ==== ====");
         GD.Print(DisplayServer.WindowGetMode());
@@ -87,7 +88,7 @@ public partial class Battle : Control {
             _currentViewportSize = newViewPortSize;
         }
 
-        //this line is needed to prevent a lock situation where bote glossaries and escape menu are opended.
+        //this line is needed to prevent a lock situation where both glossaries and escape menu are opened.
         // when the pause menu is closed, the pause state is removed, so glossary stop processing and it is impossible to exit.
         if (_cardGlossary.Visible || _comboGlossary.Visible) { GetTree().Paused = true; }
 
@@ -98,15 +99,15 @@ public partial class Battle : Control {
                 if (enemyPathFollow2D.ProgressRatio <= 0.7f) {
                     enemyPathFollow2D.ProgressRatio += 0.5f * (float)delta;
 
-                    enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                    enemy.Position = enemyPathFollow2D.Position + _currentViewportSize/2;
                 } else if (enemyPathFollow2D.ProgressRatio > 0.7f && enemyPathFollow2D.ProgressRatio <= 1.0f) {
                     if (GD.Randi() % 100 == 0) {
                         enemyPathFollow2D.ProgressRatio += (float)GD.RandRange(-0.3f, 0.3f) * (float)delta * 5;
-                        enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                        enemy.Position = enemyPathFollow2D.Position + _currentViewportSize/2;
                     }
                 } else {
                     enemyPathFollow2D.ProgressRatio = 1.0f;
-                    enemy.Position = enemyPathFollow2D.Position + new Vector2(960, 540);
+                    enemy.Position = enemyPathFollow2D.Position + _currentViewportSize/2;
                 }
             }
         }
@@ -284,16 +285,23 @@ public partial class Battle : Control {
     }
 
     private void MoveSelectedIndicator(Enemy enemy) {
-        ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
-        selectedIndicator.Visible = true;
-        selectedIndicator.Position = _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
+        foreach (Enemy target in _gameState.Enemies)
+        {
+            target.selectedOff();
+        }
+        if (_gameState.GetSelectedEnemy() != null)
+        {
+            enemy.selectedOn();
+        }
     }
 
     private void MoveSelectedIndicator(object sender, EventArgs e) {
-        ColorRect selectedIndicator = GetNode<ColorRect>("HUD/SelectedIndicator");
-        selectedIndicator.Visible = true;
-
-        selectedIndicator.Position = _gameState.GetSelectedEnemy()?.Position ?? new Vector2(-100, -100);
+        foreach (Enemy target in _gameState.Enemies)
+        {
+            target.selectedOff();
+        }
+        if (_gameState.GetSelectedEnemy() != null)
+            _gameState.GetSelectedEnemy().selectedOn();
     }
 
     private void OnPlayerHealthChanged() {
@@ -311,14 +319,10 @@ public partial class Battle : Control {
     }
 
     private void OnPlayerDefenseUpperChanged() {
-        GetNode<ColorRect>("HUD/PlayerUpperBlockRect").Color =
-            new Color(0, 0, _gameState.Player.DefenseUpper > 0 ? 1 : 0);
         GetNode<Label>("HUD/PlayerUpperBlockDisplay").Text = _gameState.Player.DefenseUpper.ToString();
     }
 
     private void OnPlayerDefenseLowerChanged() {
-        GetNode<ColorRect>("HUD/PlayerLowerBlockRect").Color =
-            new Color(0, 0, _gameState.Player.DefenseLower > 0 ? 1 : 0);
         GetNode<Label>("HUD/PlayerLowerBlockDisplay").Text = _gameState.Player.DefenseLower.ToString();
     }
 
@@ -466,19 +470,26 @@ public partial class Battle : Control {
         discardDisplay.Scale = scaleFactor;
 
         Node2D bossNode = GetNode<Node2D>("BossNode");
-        bossNode.Scale = scaleFactor;
-        bossNode.Position = new Vector2(0, 0);
+
+        if (Id == SceneLoader.BossBattleId)
+        {
+            for (int index = 0; index < 6; index++)
+            {
+                Path2D BossPath2D = GetNode<Path2D>("BossNode/BossBattle" + index);
+                BossPath2D.Curve = adjustcurveX(pathscale,BossPath2D.Curve,new Vector2(0,0),new Vector2(0,0));
+            }
+        }
     }
 
-    private Curve2D adjustcurveX(Vector2 scale, Curve2D curve,Vector2 pointzeroout,Vector2 pointendin)
+    private Curve2D adjustcurveX(Vector2 scale, Curve2D curve,Vector2 firstPointAngleOut,Vector2 lastPointAngleIn)
     {
         Vector2[] points = curve.GetBakedPoints();
         Curve2D newCurve2D = new Curve2D();
 
         points[0] *= scale;
-        newCurve2D.AddPoint(points[0],new Vector2(0,0),pointzeroout);
+        newCurve2D.AddPoint(points[0],new Vector2(0,0),firstPointAngleOut);
         points[points.Length-1] *= scale;
-        newCurve2D.AddPoint(points[points.Length-1],pointendin,new Vector2(0,0));
+        newCurve2D.AddPoint(points[points.Length-1],lastPointAngleIn,new Vector2(0,0));
         return newCurve2D;
     }
 }
